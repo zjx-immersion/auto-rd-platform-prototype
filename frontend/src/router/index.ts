@@ -1,0 +1,440 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
+import Shell from '@/components/Layout/Shell.vue'
+
+// 路由配置
+const routes: RouteRecordRaw[] = [
+  {
+    path: '/',
+    redirect: '/workspace/my'
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/Login.vue'),
+    meta: {
+      title: '登录',
+      hideInMenu: true
+    }
+  },
+  {
+    path: '/',
+    component: Shell,
+    children: [
+      // ===== 流程驱动路由 =====
+      {
+        path: 'process',
+        children: [
+          {
+            path: 'my',
+            name: 'MyProcess',
+            component: () => import('@/views/Process/MyProcess.vue'),
+            meta: {
+              title: '我的流程',
+              breadcrumb: ['流程驱动', '我的流程']
+            }
+          },
+          {
+            path: 'p1-strategic',
+            name: 'P1Strategic',
+            component: () => import('@/views/Process/P1Strategic/index.vue'),
+            meta: {
+              title: 'P1: 战略规划流程',
+              breadcrumb: ['流程驱动', 'P1: 战略规划流程']
+            }
+          },
+          {
+            path: 'p2-feature',
+            name: 'P2Feature',
+            component: () => import('@/views/Process/P2Feature/index.vue'),
+            meta: {
+              title: 'P2: 特性设计流程',
+              breadcrumb: ['流程驱动', 'P2: 特性设计流程']
+            }
+          },
+          {
+            path: 'p3-solution',
+            name: 'P3Solution',
+            component: () => import('@/views/Process/P3Solution/index.vue'),
+            meta: {
+              title: 'P3: 方案设计流程',
+              breadcrumb: ['流程驱动', 'P3: 方案设计流程']
+            }
+          },
+          {
+            path: 'p4-iteration',
+            name: 'P4Iteration',
+            component: () => import('@/views/Process/P4Iteration/index.vue'),
+            meta: {
+              title: 'P4: 团队迭代流程',
+              breadcrumb: ['流程驱动', 'P4: 团队迭代流程']
+            }
+          },
+          {
+            path: 'p5-testing',
+            name: 'P5Testing',
+            component: () => import('@/views/Process/P5Testing/index.vue'),
+            meta: {
+              title: 'P5: 测试验证流程',
+              breadcrumb: ['流程驱动', 'P5: 测试验证流程']
+            }
+          },
+          {
+            path: 'p6-release',
+            name: 'P6Release',
+            component: () => import('@/views/Process/P6Release/index.vue'),
+            meta: {
+              title: 'P6: 发布交付流程',
+              breadcrumb: ['流程驱动', 'P6: 发布交付流程']
+            }
+          }
+        ]
+      },
+      
+      // ===== 固有功能路由 =====
+      {
+        path: 'function',
+        children: [
+          // C0: 领域项目管理
+          {
+            path: 'c0',
+            children: [
+              {
+                path: 'project/list',
+                name: 'ProjectList',
+                component: () => import('@/views/C0-Project/ProjectList.vue'),
+                meta: { title: '项目列表', breadcrumb: ['固有功能', 'C0: 领域项目管理', '项目列表'] }
+              },
+              {
+                path: 'project/detail/:id',
+                name: 'ProjectDetail',
+                component: () => import('@/views/C0-Project/ProjectDetail.vue'),
+                meta: { title: '项目详情', breadcrumb: ['固有功能', 'C0: 领域项目管理', '项目详情'] }
+              },
+              {
+                path: 'project/create',
+                name: 'ProjectCreate',
+                component: () => import('@/views/C0-Project/ProjectCreate.vue'),
+                meta: { title: '创建项目', breadcrumb: ['固有功能', 'C0: 领域项目管理', '创建项目'] }
+              },
+              {
+                path: 'version/list',
+                name: 'VersionList',
+                component: () => import('@/views/C0-Project/VersionList.vue'),
+                meta: { title: '版本管理', breadcrumb: ['固有功能', 'C0: 领域项目管理', '版本管理'] }
+              },
+              {
+                path: 'pi/list',
+                name: 'PIList',
+                component: () => import('@/views/C0-Project/PIList.vue'),
+                meta: { title: 'PI规划', breadcrumb: ['固有功能', 'C0: 领域项目管理', 'PI规划'] }
+              }
+            ]
+          },
+          
+          // C1: 需求管理
+          {
+            path: 'c1',
+            children: [
+              // Epic管理
+              {
+                path: 'epic/list',
+                name: 'EpicList',
+                component: () => import('@/views/C1-Requirements/Epic/EpicList.vue'),
+                meta: { title: 'Epic列表', breadcrumb: ['固有功能', 'C1: 需求管理', 'Epic列表'] }
+              },
+              {
+                path: 'epic/detail/:id',
+                name: 'EpicDetail',
+                component: () => import('@/views/C1-Requirements/Epic/EpicDetail.vue'),
+                meta: { title: 'Epic详情', breadcrumb: ['固有功能', 'C1: 需求管理', 'Epic详情'] }
+              },
+              {
+                path: 'epic/create',
+                name: 'EpicCreate',
+                component: () => import('@/views/C1-Requirements/Epic/EpicCreate.vue'),
+                meta: { title: '创建Epic', breadcrumb: ['固有功能', 'C1: 需求管理', '创建Epic'] }
+              },
+              // Feature管理
+              {
+                path: 'feature/list',
+                name: 'FeatureList',
+                component: () => import('@/views/C1-Requirements/Feature/FeatureList.vue'),
+                meta: { title: 'Feature列表', breadcrumb: ['固有功能', 'C1: 需求管理', 'Feature列表'] }
+              },
+              {
+                path: 'feature/detail/:id',
+                name: 'FeatureDetail',
+                component: () => import('@/views/C1-Requirements/Feature/FeatureDetail.vue'),
+                meta: { title: 'Feature详情', breadcrumb: ['固有功能', 'C1: 需求管理', 'Feature详情'] }
+              },
+              {
+                path: 'feature/create',
+                name: 'FeatureCreate',
+                component: () => import('@/views/C1-Requirements/Feature/FeatureCreate.vue'),
+                meta: { title: '创建Feature', breadcrumb: ['固有功能', 'C1: 需求管理', '创建Feature'] }
+              },
+              // SSTS管理
+              {
+                path: 'ssts/list',
+                name: 'SSTSList',
+                component: () => import('@/views/C1-Requirements/SSTS/SSTSList.vue'),
+                meta: { title: 'SSTS列表', breadcrumb: ['固有功能', 'C1: 需求管理', 'SSTS列表'] }
+              },
+              {
+                path: 'ssts/detail/:id',
+                name: 'SSTSDetail',
+                component: () => import('@/views/C1-Requirements/SSTS/SSTSDetail.vue'),
+                meta: { title: 'SSTS详情', breadcrumb: ['固有功能', 'C1: 需求管理', 'SSTS详情'] }
+              },
+              // MR管理
+              {
+                path: 'mr/list',
+                name: 'MRList',
+                component: () => import('@/views/C1-Requirements/MR/MRList.vue'),
+                meta: { title: 'MR列表', breadcrumb: ['固有功能', 'C1: 需求管理', 'MR列表'] }
+              }
+            ]
+          },
+          
+          // C2: 资产管理
+          {
+            path: 'c2',
+            children: [
+              {
+                path: 'asset/search',
+                name: 'AssetSearch',
+                component: () => import('@/views/C2-Assets/AssetSearch.vue'),
+                meta: { title: '资产搜索', breadcrumb: ['固有功能', 'C2: 资产管理', '资产搜索'] }
+              },
+              {
+                path: 'asset/list',
+                name: 'AssetList',
+                component: () => import('@/views/C2-Assets/AssetList.vue'),
+                meta: { title: '资产库', breadcrumb: ['固有功能', 'C2: 资产管理', '资产库'] }
+              },
+              {
+                path: 'asset/recommend',
+                name: 'AssetRecommend',
+                component: () => import('@/views/C2-Assets/AssetRecommend.vue'),
+                meta: { title: '资产推荐', breadcrumb: ['固有功能', 'C2: 资产管理', '资产推荐'] }
+              }
+            ]
+          },
+          // C3: 规划协调
+          {
+            path: 'c3',
+            children: [
+              {
+                path: 'sprint/list',
+                name: 'SprintList',
+                component: () => import('@/views/C3-Planning/SprintList.vue'),
+                meta: { title: 'Sprint管理', breadcrumb: ['固有功能', 'C3: 规划协调', 'Sprint管理'] }
+              },
+              {
+                path: 'pi/planning',
+                name: 'PIPlanning',
+                component: () => import('@/views/C3-Planning/PIPlanning.vue'),
+                meta: { title: 'PI Planning', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI Planning'] }
+              },
+              {
+                path: 'dependency',
+                name: 'DependencyManagement',
+                component: () => import('@/views/C3-Planning/DependencyManagement.vue'),
+                meta: { title: '依赖管理', breadcrumb: ['固有功能', 'C3: 规划协调', '依赖管理'] }
+              }
+            ]
+          },
+          // C4: 迭代执行
+          {
+            path: 'c4',
+            children: [
+              {
+                path: 'sprint/board',
+                name: 'SprintBoard',
+                component: () => import('@/views/C4-Iteration/SprintBoard.vue'),
+                meta: { title: 'Sprint看板', breadcrumb: ['固有功能', 'C4: 迭代执行', 'Sprint看板'] }
+              },
+              {
+                path: 'task/list',
+                name: 'TaskList',
+                component: () => import('@/views/C4-Iteration/TaskList.vue'),
+                meta: { title: '任务列表', breadcrumb: ['固有功能', 'C4: 迭代执行', '任务列表'] }
+              },
+              {
+                path: 'standup',
+                name: 'StandupMeeting',
+                component: () => import('@/views/C4-Iteration/StandupMeeting.vue'),
+                meta: { title: '每日站会', breadcrumb: ['固有功能', 'C4: 迭代执行', '每日站会'] }
+              },
+              {
+                path: 'burndown',
+                name: 'BurndownChart',
+                component: () => import('@/views/C4-Iteration/BurndownChart.vue'),
+                meta: { title: '燃尽图', breadcrumb: ['固有功能', 'C4: 迭代执行', '燃尽图'] }
+              }
+            ]
+          },
+          // C5: 测试验收
+          {
+            path: 'c5',
+            children: [
+              {
+                path: 'testplan/list',
+                name: 'TestPlanList',
+                component: () => import('@/views/C5-Testing/TestPlanList.vue'),
+                meta: { title: '测试计划', breadcrumb: ['固有功能', 'C5: 测试验收', '测试计划'] }
+              },
+              {
+                path: 'testcase/list',
+                name: 'TestCaseList',
+                component: () => import('@/views/C5-Testing/TestCaseList.vue'),
+                meta: { title: '测试用例', breadcrumb: ['固有功能', 'C5: 测试验收', '测试用例'] }
+              },
+              {
+                path: 'defect/list',
+                name: 'DefectList',
+                component: () => import('@/views/C5-Testing/DefectList.vue'),
+                meta: { title: '缺陷管理', breadcrumb: ['固有功能', 'C5: 测试验收', '缺陷管理'] }
+              },
+              {
+                path: 'report',
+                name: 'TestReport',
+                component: () => import('@/views/C5-Testing/TestReport.vue'),
+                meta: { title: '测试报告', breadcrumb: ['固有功能', 'C5: 测试验收', '测试报告'] }
+              }
+            ]
+          },
+          // C6: DevOps交付
+          {
+            path: 'c6',
+            children: [
+              {
+                path: 'build/list',
+                name: 'BuildList',
+                component: () => import('@/views/C6-DevOps/BuildList.vue'),
+                meta: { title: '构建管理', breadcrumb: ['固有功能', 'C6: DevOps交付', '构建管理'] }
+              },
+              {
+                path: 'deploy/list',
+                name: 'DeployList',
+                component: () => import('@/views/C6-DevOps/DeployList.vue'),
+                meta: { title: '部署管理', breadcrumb: ['固有功能', 'C6: DevOps交付', '部署管理'] }
+              },
+              {
+                path: 'pipeline',
+                name: 'PipelineList',
+                component: () => import('@/views/C6-DevOps/PipelineList.vue'),
+                meta: { title: '流水线', breadcrumb: ['固有功能', 'C6: DevOps交付', '流水线'] }
+              },
+              {
+                path: 'environment',
+                name: 'EnvironmentManagement',
+                component: () => import('@/views/C6-DevOps/EnvironmentManagement.vue'),
+                meta: { title: '环境管理', breadcrumb: ['固有功能', 'C6: DevOps交付', '环境管理'] }
+              }
+            ]
+          },
+          // C7: 分析与治理
+          {
+            path: 'c7',
+            children: [
+              {
+                path: 'metrics/requirement',
+                name: 'RequirementMetrics',
+                component: () => import('@/views/C7-Analytics/RequirementMetrics.vue'),
+                meta: { title: '需求度量', breadcrumb: ['固有功能', 'C7: 分析与治理', '需求度量'] }
+              },
+              {
+                path: 'metrics/quality',
+                name: 'QualityMetrics',
+                component: () => import('@/views/C7-Analytics/QualityMetrics.vue'),
+                meta: { title: '质量度量', breadcrumb: ['固有功能', 'C7: 分析与治理', '质量度量'] }
+              },
+              {
+                path: 'metrics/delivery',
+                name: 'DeliveryMetrics',
+                component: () => import('@/views/C7-Analytics/DeliveryMetrics.vue'),
+                meta: { title: '交付度量', breadcrumb: ['固有功能', 'C7: 分析与治理', '交付度量'] }
+              },
+              {
+                path: 'metrics/team',
+                name: 'TeamEfficiency',
+                component: () => import('@/views/C7-Analytics/TeamEfficiency.vue'),
+                meta: { title: '团队效能', breadcrumb: ['固有功能', 'C7: 分析与治理', '团队效能'] }
+              }
+            ]
+          }
+        ]
+      },
+      
+      // ===== 工作台路由 =====
+      {
+        path: 'workspace',
+        children: [
+          {
+            path: 'my',
+            name: 'MyWorkspace',
+            component: () => import('@/views/Workspace/MyWorkspace.vue'),
+            meta: {
+              title: '我的工作台',
+              breadcrumb: ['工作台', '我的工作台']
+            }
+          },
+          {
+            path: 'team',
+            name: 'TeamWorkspace',
+            component: () => import('@/views/Workspace/TeamWorkspace.vue'),
+            meta: {
+              title: '团队工作台',
+              breadcrumb: ['工作台', '团队工作台']
+            }
+          },
+          {
+            path: 'project',
+            name: 'ProjectWorkspace',
+            component: () => import('@/views/Workspace/ProjectWorkspace.vue'),
+            meta: {
+              title: '项目工作台',
+              breadcrumb: ['工作台', '项目工作台']
+            }
+          },
+          {
+            path: 'management',
+            name: 'ManagementWorkspace',
+            component: () => import('@/views/Workspace/ManagementWorkspace.vue'),
+            meta: {
+              title: '管理工作台',
+              breadcrumb: ['工作台', '管理工作台']
+            }
+          }
+        ]
+      }
+    ]
+  },
+  
+  // 404 页面
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('@/views/NotFound.vue')
+  }
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
+
+// 路由守卫
+router.beforeEach((to, from, next) => {
+  // 设置页面标题
+  document.title = to.meta.title 
+    ? `${to.meta.title} - 整车软件研发平台` 
+    : '整车软件研发平台'
+  
+  // TODO: 权限检查
+  next()
+})
+
+export default router

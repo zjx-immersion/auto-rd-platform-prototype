@@ -1,0 +1,253 @@
+{
+  "ssts": [
+    {
+      "id": "ADAS-S001",
+      "title": "车道线检测系统需求",
+      "content": "系统应能够检测车道线，检测准确率≥95%，检测距离≥50m，支持直线、曲线、虚线、实线等多种车道线类型。系统应能够在不同光照条件、天气条件下稳定工作。",
+      "featureId": "ADAS-F001",
+      "feature": {
+        "id": "ADAS-F001",
+        "title": "车道保持辅助（LKA）"
+      },
+      "epicId": "ADAS-E001",
+      "type": "SYSTEM",
+      "category": "FUNCTIONAL",
+      "owner": {
+        "id": "U004",
+        "name": "赵敏",
+        "role": "SE"
+      },
+      "priority": "P0",
+      "status": "APPROVED",
+      "verificationMethods": ["SIMULATION", "VEHICLE_TEST"],
+      "acceptanceCriteria": [
+        "检测准确率≥95%",
+        "检测距离≥50m",
+        "支持直线、曲线、虚线、实线",
+        "适应不同光照和天气条件"
+      ],
+      "tags": ["车道线检测", "视觉感知", "系统需求"],
+      "mrCount": 1,
+      "createdAt": "2024-04-01T08:00:00Z",
+      "updatedAt": "2024-04-15T10:30:00Z",
+      "reviewedAt": "2024-04-10T14:00:00Z",
+      "reviewedBy": {
+        "id": "U001",
+        "name": "张伟"
+      }
+    },
+    {
+      "id": "ADAS-S002",
+      "title": "车道保持控制技术需求",
+      "content": "系统应能够控制车辆保持在车道中央，横向偏差≤0.2m。采用PID控制算法，控制周期≤20ms。系统应能够平滑控制转向，避免突然转向导致的驾驶员不适。",
+      "featureId": "ADAS-F001",
+      "feature": {
+        "id": "ADAS-F001",
+        "title": "车道保持辅助（LKA）"
+      },
+      "epicId": "ADAS-E001",
+      "type": "TECHNICAL",
+      "category": "PERFORMANCE",
+      "owner": {
+        "id": "U004",
+        "name": "赵敏",
+        "role": "SE"
+      },
+      "priority": "P0",
+      "status": "APPROVED",
+      "verificationMethods": ["BENCH_TEST", "VEHICLE_TEST"],
+      "acceptanceCriteria": [
+        "横向偏差≤0.2m",
+        "控制周期≤20ms",
+        "转向平滑度≥90%"
+      ],
+      "tags": ["控制算法", "PID", "技术需求"],
+      "mrCount": 1,
+      "createdAt": "2024-04-01T08:00:00Z",
+      "updatedAt": "2024-04-15T10:30:00Z",
+      "reviewedAt": "2024-04-10T14:00:00Z"
+    },
+    {
+      "id": "ADAS-S003",
+      "title": "LKA安全需求",
+      "content": "LKA功能应满足ASIL-D安全等级要求，包括：\n1. 故障检测与诊断：系统应能够检测传感器故障、执行器故障、软件故障，故障检测覆盖率≥99%\n2. 安全状态转换：系统应能够在检测到故障后100ms内转换到安全状态\n3. 驾驶员接管机制：系统应能够检测驾驶员接管意图，响应时间≤500ms\n4. 故障降级策略：系统应能够在部分功能失效时降级运行，降级成功率≥99.9%",
+      "featureId": "ADAS-F001",
+      "feature": {
+        "id": "ADAS-F001",
+        "title": "车道保持辅助（LKA）"
+      },
+      "epicId": "ADAS-E001",
+      "type": "SAFETY",
+      "category": "SAFETY",
+      "asilLevel": "ASIL_D",
+      "owner": {
+        "id": "U004",
+        "name": "赵敏",
+        "role": "SE"
+      },
+      "priority": "P0",
+      "status": "APPROVED",
+      "verificationMethods": ["SIMULATION", "BENCH_TEST", "VEHICLE_TEST", "FORMAL_VERIFICATION"],
+      "relatedStandards": ["ISO 26262", "GB/T 34590-2017"],
+      "acceptanceCriteria": [
+        "故障检测覆盖率≥99%",
+        "安全状态转换时间≤100ms",
+        "驾驶员接管响应时间≤500ms",
+        "故障降级成功率≥99.9%"
+      ],
+      "tags": ["安全", "ASIL-D", "故障诊断"],
+      "mrCount": 0,
+      "createdAt": "2024-04-01T08:00:00Z",
+      "updatedAt": "2024-04-15T10:30:00Z",
+      "reviewedAt": "2024-04-12T14:00:00Z"
+    },
+    {
+      "id": "ADAS-S004",
+      "title": "目标检测系统需求",
+      "content": "系统应能够检测前方车辆、行人、自行车等目标，检测准确率≥98%，检测距离≥150m。系统应能够输出目标的位置、速度、加速度等信息。",
+      "featureId": "ADAS-F002",
+      "feature": {
+        "id": "ADAS-F002",
+        "title": "自适应巡航控制（ACC）"
+      },
+      "epicId": "ADAS-E001",
+      "type": "SYSTEM",
+      "category": "FUNCTIONAL",
+      "owner": {
+        "id": "U004",
+        "name": "赵敏",
+        "role": "SE"
+      },
+      "priority": "P0",
+      "status": "APPROVED",
+      "verificationMethods": ["SIMULATION", "VEHICLE_TEST"],
+      "acceptanceCriteria": [
+        "检测准确率≥98%",
+        "检测距离≥150m",
+        "输出目标位置、速度、加速度"
+      ],
+      "tags": ["目标检测", "视觉感知", "雷达"],
+      "mrCount": 1,
+      "createdAt": "2024-04-01T08:00:00Z",
+      "updatedAt": "2024-04-15T10:30:00Z"
+    },
+    {
+      "id": "ADAS-S005",
+      "title": "车距控制技术需求",
+      "content": "系统应能够控制与前车的距离，车距控制精度≤0.5m。系统应支持多档车距设置（近、中、远），车距调整平滑度≥95%。",
+      "featureId": "ADAS-F002",
+      "feature": {
+        "id": "ADAS-F002",
+        "title": "自适应巡航控制（ACC）"
+      },
+      "epicId": "ADAS-E001",
+      "type": "TECHNICAL",
+      "category": "PERFORMANCE",
+      "owner": {
+        "id": "U004",
+        "name": "赵敏",
+        "role": "SE"
+      },
+      "priority": "P0",
+      "status": "APPROVED",
+      "verificationMethods": ["BENCH_TEST", "VEHICLE_TEST"],
+      "acceptanceCriteria": [
+        "车距控制精度≤0.5m",
+        "支持近、中、远三档车距",
+        "车距调整平滑度≥95%"
+      ],
+      "tags": ["车距控制", "ACC", "控制算法"],
+      "mrCount": 1,
+      "createdAt": "2024-04-01T08:00:00Z",
+      "updatedAt": "2024-04-15T10:30:00Z"
+    },
+    {
+      "id": "ADAS-S006",
+      "title": "速度控制技术需求",
+      "content": "系统应能够控制车辆速度，速度控制精度≤1km/h。系统应支持0-150km/h的速度范围，加速度控制平滑度≥95%。",
+      "featureId": "ADAS-F002",
+      "feature": {
+        "id": "ADAS-F002",
+        "title": "自适应巡航控制（ACC）"
+      },
+      "epicId": "ADAS-E001",
+      "type": "TECHNICAL",
+      "category": "PERFORMANCE",
+      "owner": {
+        "id": "U004",
+        "name": "赵敏",
+        "role": "SE"
+      },
+      "priority": "P0",
+      "status": "APPROVED",
+      "verificationMethods": ["BENCH_TEST", "VEHICLE_TEST"],
+      "acceptanceCriteria": [
+        "速度控制精度≤1km/h",
+        "支持0-150km/h速度范围",
+        "加速度控制平滑度≥95%"
+      ],
+      "tags": ["速度控制", "ACC", "控制算法"],
+      "mrCount": 1,
+      "createdAt": "2024-04-01T08:00:00Z",
+      "updatedAt": "2024-04-15T10:30:00Z"
+    },
+    {
+      "id": "ADAS-S007",
+      "title": "ACC安全需求",
+      "content": "ACC功能应满足ASIL-D安全等级要求，包括故障检测、安全状态转换、驾驶员接管机制、故障降级策略。",
+      "featureId": "ADAS-F002",
+      "feature": {
+        "id": "ADAS-F002",
+        "title": "自适应巡航控制（ACC）"
+      },
+      "epicId": "ADAS-E001",
+      "type": "SAFETY",
+      "category": "SAFETY",
+      "asilLevel": "ASIL_D",
+      "owner": {
+        "id": "U004",
+        "name": "赵敏",
+        "role": "SE"
+      },
+      "priority": "P0",
+      "status": "APPROVED",
+      "verificationMethods": ["SIMULATION", "BENCH_TEST", "VEHICLE_TEST", "FORMAL_VERIFICATION"],
+      "relatedStandards": ["ISO 26262", "GB/T 34590-2017"],
+      "acceptanceCriteria": [
+        "故障检测覆盖率≥99%",
+        "安全状态转换时间≤100ms",
+        "驾驶员接管响应时间≤500ms"
+      ],
+      "tags": ["安全", "ASIL-D", "ACC"],
+      "mrCount": 0,
+      "createdAt": "2024-04-01T08:00:00Z",
+      "updatedAt": "2024-04-15T10:30:00Z"
+    }
+  ],
+  "statistics": {
+    "total": 7,
+    "byType": {
+      "SYSTEM": 2,
+      "TECHNICAL": 4,
+      "SAFETY": 2
+    },
+    "byCategory": {
+      "FUNCTIONAL": 2,
+      "PERFORMANCE": 4,
+      "SAFETY": 2
+    },
+    "byStatus": {
+      "DRAFT": 0,
+      "IN_REVIEW": 0,
+      "APPROVED": 7,
+      "REJECTED": 0
+    },
+    "byASIL": {
+      "ASIL_D": 2,
+      "ASIL_C": 0,
+      "ASIL_B": 0,
+      "QM": 5
+    }
+  }
+}
+

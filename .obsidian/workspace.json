@@ -1,0 +1,224 @@
+{
+  "main": {
+    "id": "206aaff5622a4b48",
+    "type": "split",
+    "children": [
+      {
+        "id": "67d79a8556073a6a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "279b719d95574c1c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Domain-model-design设计参考/NAVIGATION_COMPLETE_OUTLINE.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "NAVIGATION_COMPLETE_OUTLINE"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "2ec8f1c6c86302b5",
+    "type": "split",
+    "children": [
+      {
+        "id": "8c8bafd5012c12d0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b1669e0430d5315c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": true
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "55ebc4cc0a321c22",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "5145e6b9b17bbc40",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "4335569bf619cc5c",
+    "type": "split",
+    "children": [
+      {
+        "id": "cc1e59dfe19e2169",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "06a8f556237814d6",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "反向链接"
+            }
+          },
+          {
+            "id": "50f7e9ddf07dc131",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "prototype-framework/navigation-design/01-导航系统总体设计.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "01-导航系统总体设计 的出链列表"
+            }
+          },
+          {
+            "id": "60a2eff89b8caab4",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "de4c9bbb0162d0e3",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "1fd8a21db4fad093",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "prototype-framework/navigation-design/01-导航系统总体设计.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "01-导航系统总体设计 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "279b719d95574c1c",
+  "lastOpenFiles": [
+    "prototype-framework/navigation-design/01-导航系统总体设计.md",
+    "Domain-model-design设计参考/NAVIGATION_COMPLETE_OUTLINE.md",
+    "平台设计主线/AUTO_RD_PLATFORM_DESIGN_MERMAID.md",
+    "collaboration-flow/00-角色协作流程总览.md",
+    "page-design/C7-度量分析/05-团队效能/C7-F08-自定义报表.md",
+    "page-design/C7-度量分析/05-团队效能/C7-F07-团队效能看板.md",
+    "page-design/C7-度量分析/04-交付度量/C7-F06-交付效能看板.md",
+    "page-design/C7-度量分析/03-质量度量/C7-F05-缺陷分析.md",
+    "page-design/C7-度量分析/03-质量度量/C7-F04-质量度量看板.md",
+    "page-design/C7-度量分析/02-开发效能/C7-F03-代码质量分析.md",
+    "page-design/C7-度量分析/02-开发效能/C7-F02-开发效能看板.md",
+    "page-design/C7-度量分析/01-需求度量/C7-F01-需求度量看板.md",
+    "page-design/C7-度量分析/00-C7功能总览.md",
+    "page-design/C7-度量分析/05-团队效能",
+    "page-design/C7-度量分析/04-交付度量",
+    "page-design/C7-度量分析/03-质量度量",
+    "page-design/C7-度量分析/02-开发效能",
+    "page-design/C7-度量分析/01-需求度量",
+    "page-design/C6-发布管理/03-环境管理/C6-F07-环境管理.md",
+    "page-design/C6-发布管理/02-发布执行/C6-F06-发布报告.md",
+    "page-design/C6-发布管理/02-发布执行/C6-F05-回滚管理.md",
+    "page-design/C6-发布管理/02-发布执行/C6-F04-部署管理.md",
+    "page-design/C6-发布管理/02-发布执行/C6-F03-发布流程编排.md",
+    "page-design/C6-发布管理/01-发布计划/C6-F02-发布检查清单.md",
+    "page-design/C6-发布管理/01-发布计划/C6-F01-版本发布计划.md",
+    "page-design/C6-发布管理/00-C6功能总览.md",
+    "page-design/C5-质量保证/01-测试管理/C5-F08-自动化测试.md",
+    "page-design/C5-质量保证/03-质量检查/C5-F07-质量门禁.md",
+    "page-design/C5-质量保证/03-质量检查/C5-F06-测试报告.md",
+    "page-design/C5-质量保证/03-质量检查/C5-F05-代码质量检查.md",
+    "page-design/C5-质量保证/02-缺陷管理/C5-F04-缺陷管理.md",
+    "page-design/C7-度量分析/03-交付度量",
+    "page-design/C7-度量分析/02-质量度量",
+    "page-design/C7-度量分析/01-效能度量",
+    "page-design/C7-度量分析",
+    "page-design/C6-发布管理/03-环境管理"
+  ]
+}

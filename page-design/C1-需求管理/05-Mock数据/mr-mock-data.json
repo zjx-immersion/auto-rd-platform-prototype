@@ -1,0 +1,342 @@
+{
+  "mrs": [
+    {
+      "id": "ADAS-MR-A1",
+      "title": "车道线检测模块",
+      "description": "基于深度学习的车道线检测算法模块，复用ASSET-ADAS-001车道线检测模块V2.1.0，实现高精度车道线检测功能。",
+      "sstsId": "ADAS-S001",
+      "ssts": {
+        "id": "ADAS-S001",
+        "title": "车道线检测系统需求",
+        "type": "SYSTEM"
+      },
+      "featureId": "ADAS-F001",
+      "feature": {
+        "id": "ADAS-F001",
+        "title": "车道保持辅助（LKA）"
+      },
+      "epicId": "ADAS-E001",
+      "owner": {
+        "id": "U006",
+        "name": "周芳",
+        "role": "SO",
+        "avatar": "https://avatar.example.com/zhoufang.jpg",
+        "email": "zhou.fang@voyah.com"
+      },
+      "moduleName": "LaneDetection",
+      "moduleType": "APPLICATION",
+      "complexity": "HIGH",
+      "priority": "P0",
+      "status": "APPROVED",
+      "technicalSpec": "采用CNN网络进行车道线检测，输入图像分辨率1920x1080，输出车道线坐标点集。支持直线、曲线、虚线、实线等多种车道线类型。",
+      "interfaces": [
+        {
+          "name": "detect",
+          "type": "METHOD",
+          "input": {
+            "image": "Image (1920x1080, RGB)",
+            "config": "DetectionConfig"
+          },
+          "output": {
+            "lanePoints": "Array<Point2D>",
+            "confidence": "float"
+          },
+          "description": "检测图像中的车道线"
+        },
+        {
+          "name": "initialize",
+          "type": "METHOD",
+          "input": {
+            "modelPath": "string",
+            "config": "InitConfig"
+          },
+          "output": {
+            "success": "boolean"
+          },
+          "description": "初始化检测模块"
+        }
+      ],
+      "reuseStrategy": "FULL_REUSE",
+      "relatedAssets": [
+        {
+          "assetId": "ASSET-ADAS-001",
+          "assetName": "车道线检测模块",
+          "version": "2.1.0",
+          "qualityLevel": "PRODUCTION",
+          "matchScore": 0.95,
+          "reuseType": "FULL_REUSE",
+          "reuseReason": "功能完全匹配，性能指标满足需求"
+        }
+      ],
+      "effortEstimation": {
+        "originalEffort": 20,
+        "actualEffort": 5,
+        "savingRatio": 0.75,
+        "breakdown": {
+          "integration": 3,
+          "testing": 2,
+          "customization": 0,
+          "documentation": 0
+        },
+        "confidence": 0.9
+      },
+      "dependencies": [],
+      "qualityRequirements": [
+        "单元测试覆盖率≥80%",
+        "代码审查",
+        "静态代码分析",
+        "集成测试"
+      ],
+      "tags": ["车道线检测", "深度学习", "视觉感知", "CNN"],
+      "createdAt": "2024-04-20T08:00:00Z",
+      "updatedAt": "2024-05-10T10:30:00Z",
+      "reviewedAt": "2024-05-05T14:00:00Z",
+      "reviewedBy": {
+        "id": "U001",
+        "name": "张伟"
+      }
+    },
+    {
+      "id": "ADAS-MR-A2",
+      "title": "车道保持控制器",
+      "description": "基于PID算法的车道保持控制器，复用ASSET-ADAS-005车道保持控制器V1.3.0，实现平滑的车道保持控制。",
+      "sstsId": "ADAS-S002",
+      "ssts": {
+        "id": "ADAS-S002",
+        "title": "车道保持控制技术需求",
+        "type": "TECHNICAL"
+      },
+      "featureId": "ADAS-F001",
+      "feature": {
+        "id": "ADAS-F001",
+        "title": "车道保持辅助（LKA）"
+      },
+      "epicId": "ADAS-E001",
+      "owner": {
+        "id": "U006",
+        "name": "周芳",
+        "role": "SO"
+      },
+      "moduleName": "LaneKeepingController",
+      "moduleType": "APPLICATION",
+      "complexity": "MEDIUM",
+      "priority": "P0",
+      "status": "APPROVED",
+      "technicalSpec": "采用PID控制算法，控制周期20ms，输入车道线偏差，输出转向角度。支持参数在线调整。",
+      "interfaces": [
+        {
+          "name": "control",
+          "type": "METHOD",
+          "input": {
+            "lateralDeviation": "float",
+            "heading": "float",
+            "velocity": "float"
+          },
+          "output": {
+            "steeringAngle": "float"
+          },
+          "description": "计算转向控制量"
+        }
+      ],
+      "reuseStrategy": "FULL_REUSE",
+      "relatedAssets": [
+        {
+          "assetId": "ASSET-ADAS-005",
+          "assetName": "车道保持控制器",
+          "version": "1.3.0",
+          "qualityLevel": "PRODUCTION",
+          "matchScore": 0.88,
+          "reuseType": "FULL_REUSE"
+        }
+      ],
+      "effortEstimation": {
+        "originalEffort": 15,
+        "actualEffort": 4,
+        "savingRatio": 0.73,
+        "breakdown": {
+          "integration": 2,
+          "testing": 2,
+          "customization": 0
+        },
+        "confidence": 0.85
+      },
+      "dependencies": ["ADAS-MR-A1"],
+      "qualityRequirements": [
+        "单元测试覆盖率≥80%",
+        "代码审查",
+        "台架测试"
+      ],
+      "tags": ["控制算法", "PID", "车道保持"],
+      "createdAt": "2024-04-20T08:00:00Z",
+      "updatedAt": "2024-05-10T10:30:00Z"
+    },
+    {
+      "id": "ADAS-MR-B1",
+      "title": "目标检测模块",
+      "description": "基于多传感器融合的目标检测模块，复用ASSET-ADAS-002目标检测模块V3.0.0，实现高精度目标检测。",
+      "sstsId": "ADAS-S004",
+      "ssts": {
+        "id": "ADAS-S004",
+        "title": "目标检测系统需求",
+        "type": "SYSTEM"
+      },
+      "featureId": "ADAS-F002",
+      "feature": {
+        "id": "ADAS-F002",
+        "title": "自适应巡航控制（ACC）"
+      },
+      "epicId": "ADAS-E001",
+      "owner": {
+        "id": "U006",
+        "name": "周芳",
+        "role": "SO"
+      },
+      "moduleName": "ObjectDetection",
+      "moduleType": "APPLICATION",
+      "complexity": "HIGH",
+      "priority": "P0",
+      "status": "APPROVED",
+      "technicalSpec": "融合摄像头和毫米波雷达数据，采用深度学习算法进行目标检测和跟踪。支持车辆、行人、自行车等多种目标类型。",
+      "interfaces": [
+        {
+          "name": "detect",
+          "type": "METHOD",
+          "input": {
+            "cameraData": "Image",
+            "radarData": "RadarPoints"
+          },
+          "output": {
+            "objects": "Array<DetectedObject>"
+          },
+          "description": "检测和跟踪目标"
+        }
+      ],
+      "reuseStrategy": "FULL_REUSE",
+      "relatedAssets": [
+        {
+          "assetId": "ASSET-ADAS-002",
+          "assetName": "目标检测模块",
+          "version": "3.0.0",
+          "qualityLevel": "PRODUCTION",
+          "matchScore": 0.92,
+          "reuseType": "FULL_REUSE"
+        }
+      ],
+      "effortEstimation": {
+        "originalEffort": 25,
+        "actualEffort": 6,
+        "savingRatio": 0.76,
+        "breakdown": {
+          "integration": 4,
+          "testing": 2,
+          "customization": 0
+        },
+        "confidence": 0.88
+      },
+      "dependencies": [],
+      "qualityRequirements": [
+        "单元测试覆盖率≥80%",
+        "代码审查",
+        "静态代码分析",
+        "集成测试",
+        "实车测试"
+      ],
+      "tags": ["目标检测", "传感器融合", "深度学习"],
+      "createdAt": "2024-04-20T08:00:00Z",
+      "updatedAt": "2024-05-10T10:30:00Z"
+    },
+    {
+      "id": "ADAS-MR-B2",
+      "title": "车距控制器",
+      "description": "基于MPC算法的车距控制器，新开发模块，实现精确的车距控制。",
+      "sstsId": "ADAS-S005",
+      "ssts": {
+        "id": "ADAS-S005",
+        "title": "车距控制技术需求",
+        "type": "TECHNICAL"
+      },
+      "featureId": "ADAS-F002",
+      "feature": {
+        "id": "ADAS-F002",
+        "title": "自适应巡航控制（ACC）"
+      },
+      "epicId": "ADAS-E001",
+      "owner": {
+        "id": "U006",
+        "name": "周芳",
+        "role": "SO"
+      },
+      "moduleName": "DistanceController",
+      "moduleType": "APPLICATION",
+      "complexity": "HIGH",
+      "priority": "P0",
+      "status": "IN_DEVELOPMENT",
+      "technicalSpec": "采用模型预测控制（MPC）算法，预测时域3秒，控制周期50ms。支持多档车距设置。",
+      "interfaces": [
+        {
+          "name": "control",
+          "type": "METHOD",
+          "input": {
+            "currentDistance": "float",
+            "targetDistance": "float",
+            "relativeVelocity": "float"
+          },
+          "output": {
+            "acceleration": "float"
+          },
+          "description": "计算加速度控制量"
+        }
+      ],
+      "reuseStrategy": "NEW_DEVELOPMENT",
+      "relatedAssets": [],
+      "effortEstimation": {
+        "originalEffort": 18,
+        "actualEffort": 18,
+        "savingRatio": 0,
+        "breakdown": {
+          "design": 4,
+          "development": 10,
+          "testing": 4
+        },
+        "confidence": 0.75
+      },
+      "dependencies": ["ADAS-MR-B1"],
+      "qualityRequirements": [
+        "单元测试覆盖率≥80%",
+        "代码审查",
+        "台架测试",
+        "实车测试"
+      ],
+      "tags": ["车距控制", "MPC", "新开发"],
+      "createdAt": "2024-04-20T08:00:00Z",
+      "updatedAt": "2024-05-10T10:30:00Z"
+    }
+  ],
+  "statistics": {
+    "total": 4,
+    "byReuseStrategy": {
+      "FULL_REUSE": 3,
+      "PARTIAL_REUSE": 0,
+      "NEW_DEVELOPMENT": 1
+    },
+    "byStatus": {
+      "DRAFT": 0,
+      "IN_REVIEW": 0,
+      "APPROVED": 3,
+      "IN_DEVELOPMENT": 1
+    },
+    "byComplexity": {
+      "LOW": 0,
+      "MEDIUM": 1,
+      "HIGH": 3,
+      "VERY_HIGH": 0
+    },
+    "effortSummary": {
+      "totalOriginalEffort": 78,
+      "totalActualEffort": 33,
+      "totalSaving": 45,
+      "averageSavingRatio": 0.58
+    }
+  }
+}
+

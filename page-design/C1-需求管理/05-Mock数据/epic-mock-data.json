@@ -1,0 +1,289 @@
+{
+  "epics": [
+    {
+      "id": "ADAS-E001",
+      "title": "L2+级自动驾驶功能",
+      "description": "实现高速公路和城市道路的L2+级自动驾驶辅助功能，包括车道保持、自适应巡航、自动变道等",
+      "product": {
+        "id": "ADAS-001",
+        "name": "岚图智能驾驶系统",
+        "type": "ADAS"
+      },
+      "owner": {
+        "id": "U001",
+        "name": "张伟",
+        "role": "PO",
+        "avatar": "https://avatar.example.com/zhangwei.jpg",
+        "email": "zhang.wei@voyah.com"
+      },
+      "businessValue": "CRITICAL",
+      "priority": "P0",
+      "moscowCategory": "MUST",
+      "status": "IN_PROGRESS",
+      "progress": 65,
+      "features": [
+        {
+          "id": "ADAS-F001",
+          "title": "车道保持辅助（LKA）",
+          "status": "DEVELOPMENT",
+          "progress": 70
+        },
+        {
+          "id": "ADAS-F002",
+          "title": "自适应巡航控制（ACC）",
+          "status": "DEVELOPMENT",
+          "progress": 80
+        },
+        {
+          "id": "ADAS-F003",
+          "title": "自动紧急制动（AEB）",
+          "status": "TESTING",
+          "progress": 90
+        },
+        {
+          "id": "ADAS-F004",
+          "title": "交通标志识别（TSR）",
+          "status": "DEVELOPMENT",
+          "progress": 60
+        },
+        {
+          "id": "ADAS-F005",
+          "title": "盲点监测（BSD）",
+          "status": "ANALYSIS",
+          "progress": 30
+        }
+      ],
+      "acceptanceCriteria": [
+        "在高速公路场景下，车道保持成功率≥95%",
+        "ACC跟车距离控制精度≤0.5m",
+        "AEB响应时间≤200ms",
+        "TSR识别准确率≥98%",
+        "BSD检测范围≥3m"
+      ],
+      "targetVersion": {
+        "id": "V2.0",
+        "name": "V2.0",
+        "releaseDate": "2025-06-30"
+      },
+      "actualVersion": null,
+      "estimatedStoryPoints": 500,
+      "actualStoryPoints": 325,
+      "tags": ["自动驾驶", "L2+", "安全", "ASIL-D"],
+      "createdAt": "2024-03-01T08:00:00Z",
+      "updatedAt": "2025-01-14T10:30:00Z",
+      "createdBy": {
+        "id": "U001",
+        "name": "张伟"
+      },
+      "updatedBy": {
+        "id": "U001",
+        "name": "张伟"
+      }
+    },
+    {
+      "id": "ADAS-E002",
+      "title": "自动泊车系统",
+      "description": "实现自动泊车功能，支持垂直泊车、平行泊车、斜向泊车等多种场景",
+      "product": {
+        "id": "ADAS-001",
+        "name": "岚图智能驾驶系统",
+        "type": "ADAS"
+      },
+      "owner": {
+        "id": "U001",
+        "name": "张伟",
+        "role": "PO"
+      },
+      "businessValue": "HIGH",
+      "priority": "P0",
+      "moscowCategory": "MUST",
+      "status": "IN_PROGRESS",
+      "progress": 55,
+      "features": [
+        {
+          "id": "ADAS-F006",
+          "title": "车位识别",
+          "status": "DEVELOPMENT",
+          "progress": 75
+        },
+        {
+          "id": "ADAS-F007",
+          "title": "路径规划",
+          "status": "DEVELOPMENT",
+          "progress": 60
+        },
+        {
+          "id": "ADAS-F008",
+          "title": "泊车控制",
+          "status": "ANALYSIS",
+          "progress": 30
+        }
+      ],
+      "acceptanceCriteria": [
+        "车位识别准确率≥95%",
+        "泊车成功率≥90%",
+        "泊车时间≤60秒"
+      ],
+      "targetVersion": {
+        "id": "V2.0",
+        "name": "V2.0"
+      },
+      "estimatedStoryPoints": 300,
+      "actualStoryPoints": 165,
+      "tags": ["自动泊车", "APA"],
+      "createdAt": "2024-04-15T08:00:00Z",
+      "updatedAt": "2025-01-14T10:30:00Z"
+    },
+    {
+      "id": "CABIN-E001",
+      "title": "智能语音助手",
+      "description": "新一代智能语音助手，支持多模态交互和场景化服务",
+      "product": {
+        "id": "CABIN-001",
+        "name": "岚图智能座舱系统",
+        "type": "CABIN"
+      },
+      "owner": {
+        "id": "U002",
+        "name": "李娜",
+        "role": "PO",
+        "avatar": "https://avatar.example.com/lina.jpg",
+        "email": "li.na@voyah.com"
+      },
+      "businessValue": "CRITICAL",
+      "priority": "P0",
+      "moscowCategory": "MUST",
+      "status": "IN_PROGRESS",
+      "progress": 78,
+      "features": [
+        {
+          "id": "CABIN-F001",
+          "title": "语音唤醒",
+          "status": "DONE",
+          "progress": 100
+        },
+        {
+          "id": "CABIN-F002",
+          "title": "语音识别",
+          "status": "TESTING",
+          "progress": 95
+        },
+        {
+          "id": "CABIN-F003",
+          "title": "自然语言理解",
+          "status": "DEVELOPMENT",
+          "progress": 70
+        },
+        {
+          "id": "CABIN-F004",
+          "title": "多轮对话",
+          "status": "DEVELOPMENT",
+          "progress": 60
+        },
+        {
+          "id": "CABIN-F005",
+          "title": "场景化服务",
+          "status": "ANALYSIS",
+          "progress": 40
+        }
+      ],
+      "acceptanceCriteria": [
+        "唤醒词识别准确率≥95%",
+        "语音识别准确率≥95%",
+        "NLU理解准确率≥90%",
+        "多轮对话成功率≥85%"
+      ],
+      "targetVersion": {
+        "id": "V2.0",
+        "name": "V2.0"
+      },
+      "estimatedStoryPoints": 400,
+      "actualStoryPoints": 312,
+      "tags": ["语音", "AI", "NLP"],
+      "createdAt": "2024-05-01T08:00:00Z",
+      "updatedAt": "2025-01-14T10:30:00Z"
+    },
+    {
+      "id": "EE-E001",
+      "title": "域控制器架构",
+      "description": "新一代域控制器架构，支持SOA和OTA",
+      "product": {
+        "id": "EE-001",
+        "name": "岚图电子电器架构",
+        "type": "EE"
+      },
+      "owner": {
+        "id": "U003",
+        "name": "王强",
+        "role": "PO",
+        "avatar": "https://avatar.example.com/wangqiang.jpg",
+        "email": "wang.qiang@voyah.com"
+      },
+      "businessValue": "CRITICAL",
+      "priority": "P0",
+      "moscowCategory": "MUST",
+      "status": "IN_PROGRESS",
+      "progress": 45,
+      "features": [
+        {
+          "id": "EE-F001",
+          "title": "中央计算平台",
+          "status": "DEVELOPMENT",
+          "progress": 50
+        },
+        {
+          "id": "EE-F002",
+          "title": "区域控制器",
+          "status": "DEVELOPMENT",
+          "progress": 60
+        },
+        {
+          "id": "EE-F003",
+          "title": "以太网骨干网",
+          "status": "ANALYSIS",
+          "progress": 30
+        },
+        {
+          "id": "EE-F004",
+          "title": "CAN/LIN网络",
+          "status": "ANALYSIS",
+          "progress": 25
+        }
+      ],
+      "acceptanceCriteria": [
+        "域控制器算力≥200TOPS",
+        "以太网带宽≥1Gbps",
+        "通信延迟≤10ms",
+        "支持OTA升级"
+      ],
+      "targetVersion": {
+        "id": "V2.0",
+        "name": "V2.0"
+      },
+      "estimatedStoryPoints": 600,
+      "actualStoryPoints": 270,
+      "tags": ["域控制器", "SOA", "OTA"],
+      "createdAt": "2024-02-01T08:00:00Z",
+      "updatedAt": "2025-01-14T10:30:00Z"
+    }
+  ],
+  "statistics": {
+    "total": 4,
+    "byStatus": {
+      "IN_PROGRESS": 4,
+      "DONE": 0,
+      "PLANNING": 0
+    },
+    "byPriority": {
+      "P0": 4,
+      "P1": 0,
+      "P2": 0
+    },
+    "byProduct": {
+      "ADAS": 2,
+      "CABIN": 1,
+      "EE": 1
+    }
+  }
+}
+

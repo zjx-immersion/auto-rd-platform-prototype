@@ -1,0 +1,229 @@
+{
+  "features": [
+    {
+      "id": "ADAS-F001",
+      "title": "车道保持辅助（LKA）",
+      "description": "实现车道线检测和车道保持控制功能，包括：\n1. 车道线检测算法\n2. 车道保持控制策略\n3. 驾驶员接管检测",
+      "epicId": "ADAS-E001",
+      "epic": {
+        "id": "ADAS-E001",
+        "title": "L2+级自动驾驶功能"
+      },
+      "owner": {
+        "id": "U004",
+        "name": "赵敏",
+        "role": "SE",
+        "avatar": "https://avatar.example.com/zhaomin.jpg",
+        "email": "zhao.min@voyah.com"
+      },
+      "technicalComplexity": "HIGH",
+      "priority": "P0",
+      "status": "DEVELOPMENT",
+      "progress": 70,
+      "estimatedStoryPoints": 100,
+      "actualStoryPoints": 70,
+      "dependencies": [],
+      "dependents": ["ADAS-F003"],
+      "relatedAssets": [
+        {
+          "assetId": "ASSET-ADAS-001",
+          "assetName": "车道线检测模块",
+          "version": "2.1.0",
+          "matchScore": 0.95,
+          "reuseType": "FULL_REUSE"
+        }
+      ],
+      "acceptanceCriteria": [
+        "车道线检测准确率≥95%",
+        "车道保持横向偏差≤0.2m",
+        "驾驶员接管响应时间≤500ms"
+      ],
+      "tags": ["LKA", "车道保持", "ASIL-D"],
+      "sstsCount": 3,
+      "mrCount": 2,
+      "targetVersion": "V2.0",
+      "createdAt": "2024-03-15T08:00:00Z",
+      "updatedAt": "2025-01-14T10:30:00Z",
+      "createdBy": {
+        "id": "U004",
+        "name": "赵敏"
+      }
+    },
+    {
+      "id": "ADAS-F002",
+      "title": "自适应巡航控制（ACC）",
+      "description": "实现目标检测和速度控制功能，包括：\n1. 前方车辆检测\n2. 车距控制算法\n3. 速度控制策略",
+      "epicId": "ADAS-E001",
+      "epic": {
+        "id": "ADAS-E001",
+        "title": "L2+级自动驾驶功能"
+      },
+      "owner": {
+        "id": "U004",
+        "name": "赵敏",
+        "role": "SE"
+      },
+      "technicalComplexity": "HIGH",
+      "priority": "P0",
+      "status": "DEVELOPMENT",
+      "progress": 80,
+      "estimatedStoryPoints": 120,
+      "actualStoryPoints": 96,
+      "dependencies": ["ADAS-F004"],
+      "dependents": ["ADAS-F003"],
+      "relatedAssets": [
+        {
+          "assetId": "ASSET-ADAS-002",
+          "assetName": "目标检测模块",
+          "version": "3.0.0",
+          "matchScore": 0.92,
+          "reuseType": "FULL_REUSE"
+        }
+      ],
+      "acceptanceCriteria": [
+        "目标检测准确率≥98%",
+        "车距控制精度≤0.5m",
+        "速度控制响应时间≤100ms"
+      ],
+      "tags": ["ACC", "自适应巡航", "ASIL-D"],
+      "sstsCount": 4,
+      "mrCount": 3,
+      "targetVersion": "V2.0",
+      "createdAt": "2024-03-15T08:00:00Z",
+      "updatedAt": "2025-01-14T10:30:00Z"
+    },
+    {
+      "id": "ADAS-F003",
+      "title": "自动紧急制动（AEB）",
+      "description": "实现碰撞检测和紧急制动功能，包括：\n1. 碰撞风险评估\n2. 紧急制动控制\n3. 驾驶员警告",
+      "epicId": "ADAS-E001",
+      "epic": {
+        "id": "ADAS-E001",
+        "title": "L2+级自动驾驶功能"
+      },
+      "owner": {
+        "id": "U004",
+        "name": "赵敏",
+        "role": "SE"
+      },
+      "technicalComplexity": "VERY_HIGH",
+      "priority": "P0",
+      "status": "TESTING",
+      "progress": 90,
+      "estimatedStoryPoints": 150,
+      "actualStoryPoints": 135,
+      "dependencies": ["ADAS-F001", "ADAS-F002"],
+      "dependents": [],
+      "relatedAssets": [],
+      "acceptanceCriteria": [
+        "碰撞检测准确率≥99%",
+        "制动响应时间≤200ms",
+        "误触发率≤0.1%"
+      ],
+      "tags": ["AEB", "紧急制动", "ASIL-D"],
+      "sstsCount": 5,
+      "mrCount": 4,
+      "targetVersion": "V2.0",
+      "createdAt": "2024-03-15T08:00:00Z",
+      "updatedAt": "2025-01-14T10:30:00Z"
+    },
+    {
+      "id": "ADAS-F004",
+      "title": "交通标志识别（TSR）",
+      "description": "实现交通标志检测和识别功能，包括：\n1. 交通标志检测\n2. 标志类型识别\n3. 速度限制提取",
+      "epicId": "ADAS-E001",
+      "epic": {
+        "id": "ADAS-E001",
+        "title": "L2+级自动驾驶功能"
+      },
+      "owner": {
+        "id": "U004",
+        "name": "赵敏",
+        "role": "SE"
+      },
+      "technicalComplexity": "MEDIUM",
+      "priority": "P0",
+      "status": "DEVELOPMENT",
+      "progress": 60,
+      "estimatedStoryPoints": 80,
+      "actualStoryPoints": 48,
+      "dependencies": [],
+      "dependents": ["ADAS-F002"],
+      "relatedAssets": [
+        {
+          "assetId": "ASSET-ADAS-003",
+          "assetName": "交通标志识别模块",
+          "version": "1.8.0",
+          "matchScore": 0.90,
+          "reuseType": "PARTIAL_REUSE"
+        }
+      ],
+      "acceptanceCriteria": [
+        "标志检测准确率≥98%",
+        "识别准确率≥95%",
+        "识别距离≥100m"
+      ],
+      "tags": ["TSR", "交通标志", "视觉识别"],
+      "sstsCount": 3,
+      "mrCount": 2,
+      "targetVersion": "V2.0",
+      "createdAt": "2024-03-15T08:00:00Z",
+      "updatedAt": "2025-01-14T10:30:00Z"
+    },
+    {
+      "id": "ADAS-F005",
+      "title": "盲点监测（BSD）",
+      "description": "实现盲点区域监测和预警功能，包括：\n1. 盲点区域检测\n2. 车辆识别\n3. 驾驶员预警",
+      "epicId": "ADAS-E001",
+      "epic": {
+        "id": "ADAS-E001",
+        "title": "L2+级自动驾驶功能"
+      },
+      "owner": {
+        "id": "U004",
+        "name": "赵敏",
+        "role": "SE"
+      },
+      "technicalComplexity": "MEDIUM",
+      "priority": "P1",
+      "status": "ANALYSIS",
+      "progress": 30,
+      "estimatedStoryPoints": 50,
+      "actualStoryPoints": 15,
+      "dependencies": [],
+      "dependents": [],
+      "relatedAssets": [],
+      "acceptanceCriteria": [
+        "检测范围≥3m",
+        "检测准确率≥95%",
+        "预警响应时间≤200ms"
+      ],
+      "tags": ["BSD", "盲点监测", "安全"],
+      "sstsCount": 2,
+      "mrCount": 1,
+      "targetVersion": "V2.0",
+      "createdAt": "2024-03-15T08:00:00Z",
+      "updatedAt": "2025-01-14T10:30:00Z"
+    }
+  ],
+  "statistics": {
+    "total": 5,
+    "byStatus": {
+      "ANALYSIS": 1,
+      "DEVELOPMENT": 3,
+      "TESTING": 1,
+      "DONE": 0
+    },
+    "byComplexity": {
+      "MEDIUM": 2,
+      "HIGH": 2,
+      "VERY_HIGH": 1
+    },
+    "totalStoryPoints": {
+      "estimated": 500,
+      "actual": 364
+    },
+    "averageProgress": 66
+  }
+}
+
