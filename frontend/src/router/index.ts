@@ -97,37 +97,37 @@ const routes: RouteRecordRaw[] = [
         children: [
           // C0: 领域项目管理
           {
-            path: 'c0',
+            path: 'c0-project',
             children: [
               {
-                path: 'project/list',
+                path: 'list',
                 name: 'ProjectList',
                 component: () => import('@/views/C0-Project/ProjectList.vue'),
                 meta: { title: '项目列表', breadcrumb: ['固有功能', 'C0: 领域项目管理', '项目列表'] }
               },
               {
-                path: 'project/detail/:id',
+                path: 'detail/:id',
                 name: 'ProjectDetail',
                 component: () => import('@/views/C0-Project/ProjectDetail.vue'),
                 meta: { title: '项目详情', breadcrumb: ['固有功能', 'C0: 领域项目管理', '项目详情'] }
               },
               {
-                path: 'project/create',
+                path: 'create',
                 name: 'ProjectCreate',
                 component: () => import('@/views/C0-Project/ProjectCreate.vue'),
                 meta: { title: '创建项目', breadcrumb: ['固有功能', 'C0: 领域项目管理', '创建项目'] }
               },
               {
                 path: 'version/list',
-                name: 'VersionList',
-                component: () => import('@/views/C0-Project/VersionList.vue'),
+                name: 'VersionManagement',
+                component: () => import('@/views/C0-Project/VersionManagement.vue'),
                 meta: { title: '版本管理', breadcrumb: ['固有功能', 'C0: 领域项目管理', '版本管理'] }
               },
               {
-                path: 'pi/list',
-                name: 'PIList',
-                component: () => import('@/views/C0-Project/PIList.vue'),
-                meta: { title: 'PI规划', breadcrumb: ['固有功能', 'C0: 领域项目管理', 'PI规划'] }
+                path: 'pi/create',
+                name: 'PICreate',
+                component: () => import('@/views/C0-Project/PICreate.vue'),
+                meta: { title: '创建PI', breadcrumb: ['固有功能', 'C0: 领域项目管理', '创建PI'] }
               }
             ]
           },
@@ -162,6 +162,12 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('@/views/C1-Requirement/FeatureDetail.vue'),
                 meta: { title: 'Feature详情', breadcrumb: ['固有功能', 'C1: 需求管理', 'Feature详情'] }
               },
+              {
+                path: 'feature/:id/decompose',
+                name: 'FeatureDecompose',
+                component: () => import('@/views/C1-Requirement/FeatureDecompose.vue'),
+                meta: { title: 'Feature拆解', breadcrumb: ['固有功能', 'C1: 需求管理', 'Feature拆解'] }
+              },
               // SSTS管理
               {
                 path: 'ssts/list',
@@ -169,12 +175,43 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('@/views/C1-Requirement/SSTSList.vue'),
                 meta: { title: 'SSTS列表', breadcrumb: ['固有功能', 'C1: 需求管理', 'SSTS列表'] }
               },
+              {
+                path: 'ssts/:id',
+                name: 'SSTSDetail',
+                component: () => import('@/views/C1-Requirement/SSTSDetail.vue'),
+                meta: { title: 'SSTS详情', breadcrumb: ['固有功能', 'C1: 需求管理', 'SSTS详情'] }
+              },
+              {
+                path: 'ssts/:id/decompose',
+                name: 'SSTSDecompose',
+                component: () => import('@/views/C1-Requirement/SSTSDecompose.vue'),
+                meta: { title: 'SSTS拆解', breadcrumb: ['固有功能', 'C1: 需求管理', 'SSTS拆解'] }
+              },
               // MR管理
               {
                 path: 'mr/list',
                 name: 'MRList',
                 component: () => import('@/views/C1-Requirement/MRList.vue'),
                 meta: { title: 'MR列表', breadcrumb: ['固有功能', 'C1: 需求管理', 'MR列表'] }
+              },
+              {
+                path: 'mr/:id',
+                name: 'MRDetail',
+                component: () => import('@/views/C1-Requirement/MRDetail.vue'),
+                meta: { title: 'MR详情', breadcrumb: ['固有功能', 'C1: 需求管理', 'MR详情'] }
+              },
+              {
+                path: 'mr/:id/assign',
+                name: 'MRAllocation',
+                component: () => import('@/views/C1-Requirement/MRAllocation.vue'),
+                meta: { title: 'MR分配', breadcrumb: ['固有功能', 'C1: 需求管理', 'MR分配'] }
+              },
+              // 需求池
+              {
+                path: 'pool',
+                name: 'RequirementPool',
+                component: () => import('@/views/C1-Requirement/RequirementPool.vue'),
+                meta: { title: '需求池', breadcrumb: ['固有功能', 'C1: 需求管理', '需求池'] }
               }
             ]
           },
