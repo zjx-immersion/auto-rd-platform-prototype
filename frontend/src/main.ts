@@ -9,6 +9,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import App from './App.vue'
 import router from './router'
 import '@/assets/styles/global.scss'
+import { initializeMockData } from '@/utils/mockDataInitializer'
 
 const app = createApp(App)
 
@@ -17,7 +18,9 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
-app.use(createPinia())
+const pinia = createPinia()
+
+app.use(pinia)
 app.use(router)
 app.use(ElementPlus, {
   locale: zhCn,
@@ -25,3 +28,8 @@ app.use(ElementPlus, {
 })
 
 app.mount('#app')
+
+// 初始化Mock数据（在应用挂载后）
+initializeMockData().then(() => {
+  console.log('✅ 应用和Mock数据初始化完成')
+})

@@ -134,64 +134,46 @@ const routes: RouteRecordRaw[] = [
           
           // C1: 需求管理
           {
-            path: 'c1',
+            path: 'c1-requirement',
             children: [
               // Epic管理
               {
-                path: 'epic/list',
+                path: 'epic',
                 name: 'EpicList',
-                component: () => import('@/views/C1-Requirements/Epic/EpicList.vue'),
+                component: () => import('@/views/C1-Requirement/EpicList.vue'),
                 meta: { title: 'Epic列表', breadcrumb: ['固有功能', 'C1: 需求管理', 'Epic列表'] }
               },
               {
-                path: 'epic/detail/:id',
+                path: 'epic/:id',
                 name: 'EpicDetail',
-                component: () => import('@/views/C1-Requirements/Epic/EpicDetail.vue'),
+                component: () => import('@/views/C1-Requirement/EpicDetail.vue'),
                 meta: { title: 'Epic详情', breadcrumb: ['固有功能', 'C1: 需求管理', 'Epic详情'] }
-              },
-              {
-                path: 'epic/create',
-                name: 'EpicCreate',
-                component: () => import('@/views/C1-Requirements/Epic/EpicCreate.vue'),
-                meta: { title: '创建Epic', breadcrumb: ['固有功能', 'C1: 需求管理', '创建Epic'] }
               },
               // Feature管理
               {
-                path: 'feature/list',
+                path: 'feature',
                 name: 'FeatureList',
-                component: () => import('@/views/C1-Requirements/Feature/FeatureList.vue'),
+                component: () => import('@/views/C1-Requirement/FeatureList.vue'),
                 meta: { title: 'Feature列表', breadcrumb: ['固有功能', 'C1: 需求管理', 'Feature列表'] }
               },
               {
-                path: 'feature/detail/:id',
+                path: 'feature/:id',
                 name: 'FeatureDetail',
-                component: () => import('@/views/C1-Requirements/Feature/FeatureDetail.vue'),
+                component: () => import('@/views/C1-Requirement/FeatureDetail.vue'),
                 meta: { title: 'Feature详情', breadcrumb: ['固有功能', 'C1: 需求管理', 'Feature详情'] }
-              },
-              {
-                path: 'feature/create',
-                name: 'FeatureCreate',
-                component: () => import('@/views/C1-Requirements/Feature/FeatureCreate.vue'),
-                meta: { title: '创建Feature', breadcrumb: ['固有功能', 'C1: 需求管理', '创建Feature'] }
               },
               // SSTS管理
               {
                 path: 'ssts/list',
                 name: 'SSTSList',
-                component: () => import('@/views/C1-Requirements/SSTS/SSTSList.vue'),
+                component: () => import('@/views/C1-Requirement/SSTSList.vue'),
                 meta: { title: 'SSTS列表', breadcrumb: ['固有功能', 'C1: 需求管理', 'SSTS列表'] }
-              },
-              {
-                path: 'ssts/detail/:id',
-                name: 'SSTSDetail',
-                component: () => import('@/views/C1-Requirements/SSTS/SSTSDetail.vue'),
-                meta: { title: 'SSTS详情', breadcrumb: ['固有功能', 'C1: 需求管理', 'SSTS详情'] }
               },
               // MR管理
               {
                 path: 'mr/list',
                 name: 'MRList',
-                component: () => import('@/views/C1-Requirements/MR/MRList.vue'),
+                component: () => import('@/views/C1-Requirement/MRList.vue'),
                 meta: { title: 'MR列表', breadcrumb: ['固有功能', 'C1: 需求管理', 'MR列表'] }
               }
             ]
@@ -232,10 +214,22 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'Sprint管理', breadcrumb: ['固有功能', 'C3: 规划协调', 'Sprint管理'] }
               },
               {
+                path: 'pi-planning-board',
+                name: 'PIPlanningBoard',
+                component: () => import('@/views/C3-Planning/PIPlanningBoard.vue'),
+                meta: { title: 'PI Planning看板', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI Planning看板'] }
+              },
+              {
                 path: 'pi/planning',
                 name: 'PIPlanning',
                 component: () => import('@/views/C3-Planning/PIPlanning.vue'),
                 meta: { title: 'PI Planning', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI Planning'] }
+              },
+              {
+                path: 'dependency-matrix',
+                name: 'DependencyMatrix',
+                component: () => import('@/views/C3-Planning/DependencyMatrix.vue'),
+                meta: { title: '依赖矩阵', breadcrumb: ['固有功能', 'C3: 规划协调', '依赖矩阵'] }
               },
               {
                 path: 'dependency',
