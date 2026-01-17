@@ -44,43 +44,6 @@
 
       <!-- 数据表格 - 无卡片包裹，最大化空间 -->
       <div class="table-wrapper">
-        <el-form :inline="true" :model="filterForm" class="filter-form">
-          <el-form-item label="项目状态">
-            <el-select v-model="filterForm.status" placeholder="全部" clearable style="width: 150px">
-              <el-option label="规划中" value="planning" />
-              <el-option label="进行中" value="in-progress" />
-              <el-option label="已完成" value="completed" />
-              <el-option label="已暂停" value="paused" />
-            </el-select>
-          </el-form-item>
-          <el-form-item label="领域">
-            <el-select v-model="filterForm.domain" placeholder="全部" clearable style="width: 150px">
-              <el-option label="智能驾驶" value="智能驾驶" />
-              <el-option label="智能座舱" value="智能座舱" />
-              <el-option label="电子电器" value="电子电器" />
-              <el-option label="底盘域" value="底盘域" />
-              <el-option label="新能源" value="新能源" />
-            </el-select>
-          </el-form-item>
-          <el-form-item label="负责人">
-            <el-select v-model="filterForm.owner" placeholder="全部" clearable style="width: 150px">
-              <el-option v-for="user in allUsers" :key="user.id" :label="user.name" :value="user.id" />
-            </el-select>
-          </el-form-item>
-          <el-form-item label="关键词">
-            <el-input v-model="filterForm.keyword" placeholder="搜索项目名称、编码" clearable style="width: 200px">
-              <template #prefix>
-                <el-icon><Search /></el-icon>
-              </template>
-            </el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" :icon="Search" @click="handleFilter">查询</el-button>
-            <el-button :icon="RefreshLeft" @click="handleReset">重置</el-button>
-          </el-form-item>
-        </el-form>
-      </el-card>
-
         <el-table
           v-loading="loading"
           :data="filteredProjects"
@@ -468,6 +431,19 @@ const handleSubmit = async () => {
   })
 }
 
+// 计算表格高度
+const calculateTableHeight = () => {
+  nextTick(() => {
+    // 工具栏56px + 分页栏56px + 容器padding 32px + 间距24px = 168px
+    const windowHeight = window.innerHeight
+    const headerHeight = 64 // 顶部导航
+    const toolbarHeight = 56 // 紧凑工具栏
+    const paginationHeight = 56 // 分页栏
+    const padding = 56 // 容器padding和间距
+    tableHeight.value = windowHeight - headerHeight - toolbarHeight - paginationHeight - padding
+  })
+}
+
 // 生命周期
 onMounted(async () => {
   loading.value = true
@@ -476,6 +452,13 @@ onMounted(async () => {
   } finally {
     loading.value = false
   }
+  
+  calculateTableHeight()
+  window.addEventListener('resize', calculateTableHeight)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', calculateTableHeight)
 })
 </script>
 
@@ -483,53 +466,73 @@ onMounted(async () => {
 @import '@/assets/styles/variables.scss';
 
 .project-list-container {
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  padding: 16px;
+  background: #f5f5f5;
 }
 
-.page-header {
+// 紧凑型工具栏
+.compact-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: #fff;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 
-  .header-left {
-    h2 {
-      margin: 0 0 8px 0;
-      font-size: 24px;
+  .toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+
+    .page-title {
+      margin: 0;
+      font-size: 16px;
       font-weight: 600;
       color: $text-color-primary;
+      white-space: nowrap;
     }
 
-    .description {
-      margin: 0;
-      font-size: 14px;
-      color: $text-color-secondary;
+    .el-divider {
+      height: 24px;
+      margin: 0 4px;
     }
   }
 
-  .header-right {
+  .toolbar-right {
     display: flex;
-    gap: 12px;
+    gap: 8px;
   }
 }
 
-.filter-card {
-  margin-bottom: 16px;
+// 表格容器
+.table-wrapper {
+  flex: 1;
+  background: #fff;
+  border-radius: 4px;
+  padding: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
   
-  .filter-form {
-    margin-bottom: 0;
-  }
-}
-
-.table-card {
   .progress-wrapper {
     padding: 0 16px;
   }
 }
 
-.pagination-wrapper {
+// 分页栏
+.pagination-bar {
   display: flex;
   justify-content: flex-end;
-  margin-top: 16px;
+  align-items: center;
+  padding: 12px 16px;
+  background: #fff;
+  border-radius: 4px;
+  margin-top: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 </style>
