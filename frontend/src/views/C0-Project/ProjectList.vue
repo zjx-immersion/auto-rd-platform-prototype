@@ -1,23 +1,49 @@
 <template>
   <div class="project-list-container">
     <PageContainer>
-      <!-- 页面头部 -->
-      <div class="page-header">
-        <div class="header-left">
-          <h2>项目管理</h2>
-          <p class="description">管理领域项目、版本和PI规划</p>
+      <!-- 紧凑型工具栏：标题+操作+筛选一体化 -->
+      <div class="compact-toolbar">
+        <div class="toolbar-left">
+          <h2 class="page-title">项目管理</h2>
+          <el-divider direction="vertical" />
+          <el-input 
+            v-model="filterForm.keyword" 
+            placeholder="搜索项目名称、编码" 
+            clearable 
+            style="width: 220px"
+            @change="handleFilter"
+          >
+            <template #prefix>
+              <el-icon><Search /></el-icon>
+            </template>
+          </el-input>
+          <el-select v-model="filterForm.status" placeholder="状态" clearable style="width: 120px" @change="handleFilter">
+            <el-option label="规划中" value="planning" />
+            <el-option label="进行中" value="in-progress" />
+            <el-option label="已完成" value="completed" />
+            <el-option label="已暂停" value="paused" />
+          </el-select>
+          <el-select v-model="filterForm.domain" placeholder="领域" clearable style="width: 120px" @change="handleFilter">
+            <el-option label="智能驾驶" value="智能驾驶" />
+            <el-option label="智能座舱" value="智能座舱" />
+            <el-option label="电子电器" value="电子电器" />
+            <el-option label="底盘域" value="底盘域" />
+            <el-option label="新能源" value="新能源" />
+          </el-select>
+          <el-select v-model="filterForm.owner" placeholder="负责人" clearable style="width: 120px" @change="handleFilter">
+            <el-option v-for="user in allUsers" :key="user.id" :label="user.name" :value="user.id" />
+          </el-select>
+          <el-button :icon="RefreshLeft" @click="handleReset" circle title="重置筛选" />
         </div>
-        <div class="header-right">
-          <el-button type="primary" :icon="Plus" @click="handleCreate">
-            新建项目
-          </el-button>
+        <div class="toolbar-right">
+          <el-button type="primary" :icon="Plus" @click="handleCreate">新建项目</el-button>
           <el-button :icon="Upload">导入</el-button>
           <el-button :icon="Download">导出</el-button>
         </div>
       </div>
 
-      <!-- 筛选区 -->
-      <el-card class="filter-card" shadow="never">
+      <!-- 数据表格 - 无卡片包裹，最大化空间 -->
+      <div class="table-wrapper">
         <el-form :inline="true" :model="filterForm" class="filter-form">
           <el-form-item label="项目状态">
             <el-select v-model="filterForm.status" placeholder="全部" clearable style="width: 150px">
@@ -55,12 +81,12 @@
         </el-form>
       </el-card>
 
-      <!-- 项目列表 -->
-      <el-card class="table-card" shadow="never">
         <el-table
           v-loading="loading"
           :data="filteredProjects"
           stripe
+          border
+          :height="tableHeight"
           style="width: 100%"
           @row-click="handleRowClick"
         >
@@ -112,20 +138,21 @@
             </template>
           </el-table-column>
         </el-table>
+      </div>
 
-        <!-- 分页 -->
-        <div class="pagination-wrapper">
-          <el-pagination
-            v-model:current-page="pagination.currentPage"
-            v-model:page-size="pagination.pageSize"
-            :page-sizes="[10, 20, 50, 100]"
-            :total="filteredProjects.length"
-            layout="total, sizes, prev, pager, next, jumper"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-          />
-        </div>
-      </el-card>
+      <!-- 底部分页栏 -->
+      <div class="pagination-bar">
+        <el-pagination
+          v-model:current-page="pagination.currentPage"
+          v-model:page-size="pagination.pageSize"
+          :page-sizes="[20, 50, 100]"
+          :total="filteredProjects.length"
+          background
+          layout="total, sizes, prev, pager, next, jumper"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </div>
     </PageContainer>
 
     <!-- 创建/编辑项目对话框 -->
@@ -208,7 +235,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Upload, Download, Search, RefreshLeft } from '@element-plus/icons-vue'
@@ -217,6 +244,9 @@ import { useProjectStore } from '@/stores/modules/project'
 import { useUserStore } from '@/stores/modules/user'
 import type { Project } from '@/types'
 import PageContainer from '@/components/Common/PageContainer.vue'
+
+// 表格高度自适应
+const tableHeight = ref<number>(600)
 
 const router = useRouter()
 const projectStore = useProjectStore()
