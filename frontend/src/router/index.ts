@@ -293,10 +293,22 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'Sprint看板', breadcrumb: ['固有功能', 'C4: 迭代执行', 'Sprint看板'] }
               },
               {
+                path: 'sprint/review/:id',
+                name: 'SprintReview',
+                component: () => import('@/views/C4-Iteration/SprintReview.vue'),
+                meta: { title: 'Sprint回顾', breadcrumb: ['固有功能', 'C4: 迭代执行', 'Sprint回顾'] }
+              },
+              {
                 path: 'task/list',
                 name: 'TaskList',
                 component: () => import('@/views/C4-Iteration/TaskList.vue'),
                 meta: { title: '任务列表', breadcrumb: ['固有功能', 'C4: 迭代执行', '任务列表'] }
+              },
+              {
+                path: 'task/:id',
+                name: 'TaskDetail',
+                component: () => import('@/views/C4-Iteration/TaskDetail.vue'),
+                meta: { title: '任务详情', breadcrumb: ['固有功能', 'C4: 迭代执行', '任务详情'] }
               },
               {
                 path: 'task/board',

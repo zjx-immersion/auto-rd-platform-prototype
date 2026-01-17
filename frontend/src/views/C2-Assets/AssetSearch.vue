@@ -1,376 +1,256 @@
 <template>
   <PageContainer>
-    <template #header>
-      <PageHeader
-        title="资产搜索"
-        description="智能搜索可复用的产品资产"
-      />
-    </template>
+    <PageHeader title="资产搜索" description="AI驱动的智能资产搜索与推荐" />
 
-    <el-card class="search-card">
-      <el-form :model="searchForm" label-width="80px">
-        <el-row :gutter="20">
-          <el-col :span="8">
-            <el-form-item label="关键词">
-              <el-input 
-                v-model="searchForm.keyword" 
-                placeholder="输入资产名称、标签或描述"
-                clearable
-              >
-                <template #prefix>
-                  <el-icon><Search /></el-icon>
-                </template>
-              </el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="资产类型">
-              <el-select v-model="searchForm.type" placeholder="请选择" clearable>
-                <el-option label="产品资产" value="product" />
-                <el-option label="特性资产" value="feature" />
-                <el-option label="模块资产" value="module" />
-                <el-option label="组件资产" value="component" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="领域">
-              <el-select v-model="searchForm.domain" placeholder="请选择" clearable>
-                <el-option label="智能驾驶" value="intelligent-driving" />
-                <el-option label="智能座舱" value="smart-cockpit" />
-                <el-option label="车身控制" value="body-control" />
-                <el-option label="动力系统" value="powertrain" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="4">
-            <el-button type="primary" @click="handleSearch" style="width: 100%">
-              <el-icon><Search /></el-icon>
-              搜索
-            </el-button>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="8">
-            <el-form-item label="标签">
-              <el-select v-model="searchForm.tags" placeholder="选择标签" multiple clearable>
-                <el-option label="高复用" value="high-reuse" />
-                <el-option label="已验证" value="verified" />
-                <el-option label="推荐" value="recommended" />
-                <el-option label="新功能" value="new" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="成熟度">
-              <el-select v-model="searchForm.maturity" placeholder="请选择" clearable>
-                <el-option label="稳定" value="stable" />
-                <el-option label="成熟" value="mature" />
-                <el-option label="试验" value="experimental" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="4">
-            <el-button @click="handleReset" style="width: 100%">重置</el-button>
-          </el-col>
-        </el-row>
+    <!-- 搜索区 -->
+    <el-card style="margin-bottom: 16px;">
+      <el-input
+        v-model="searchQuery"
+        placeholder="输入关键词、技术栈或功能描述搜索资产..."
+        size="large"
+        clearable
+        @keyup.enter="handleSearch"
+      >
+        <template #prefix>
+          <el-icon><Search /></el-icon>
+        </template>
+        <template #append>
+          <el-button type="primary" @click="handleSearch">
+            <el-icon><Search /></el-icon>
+            搜索
+          </el-button>
+        </template>
+      </el-input>
+
+      <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <span style="color: #909399;">热门搜索：</span>
+        <el-tag v-for="tag in hotTags" :key="tag" @click="searchQuery = tag; handleSearch()" style="cursor: pointer;">
+          {{ tag }}
+        </el-tag>
+      </div>
+    </el-card>
+
+    <!-- 筛选条件 -->
+    <el-card style="margin-bottom: 16px;">
+      <el-form :inline="true">
+        <el-form-item label="产品线">
+          <el-select v-model="filters.productLineId" placeholder="全部" clearable style="width: 200px;">
+            <el-option v-for="pl in productLines" :key="pl.id" :label="pl.name" :value="pl.id" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="产品">
+          <el-select v-model="filters.productId" placeholder="全部" clearable style="width: 200px;">
+            <el-option v-for="p in filteredProducts" :key="p.id" :label="p.name" :value="p.id" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="资产类型">
+          <el-select v-model="filters.type" placeholder="全部" clearable>
+            <el-option label="算法模型" value="算法模型" />
+            <el-option label="软件模块" value="软件模块" />
+            <el-option label="硬件设计" value="硬件设计" />
+            <el-option label="测试用例" value="测试用例" />
+            <el-option label="文档模板" value="文档模板" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="成熟度">
+          <el-select v-model="filters.maturity" placeholder="全部" clearable>
+            <el-option label="已发布" value="已发布" />
+            <el-option label="测试中" value="测试中" />
+            <el-option label="开发中" value="开发中" />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="handleReset">重置</el-button>
+        </el-form-item>
       </el-form>
     </el-card>
 
-    <el-card v-loading="loading" style="margin-top: 20px">
-      <div class="search-result-header">
-        <span class="result-count">找到 {{ pagination.total }} 个资产</span>
-        <el-radio-group v-model="viewMode" size="small">
-          <el-radio-button value="list">列表</el-radio-button>
-          <el-radio-button value="card">卡片</el-radio-button>
-        </el-radio-group>
-      </div>
+    <!-- 搜索结果 -->
+    <el-card>
+      <template #header>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span>搜索结果 ({{ searchResults.length }})</span>
+          <el-radio-group v-model="viewMode" size="small">
+            <el-radio-button label="list">列表</el-radio-button>
+            <el-radio-button label="card">卡片</el-radio-button>
+          </el-radio-group>
+        </div>
+      </template>
+
+      <el-empty v-if="searchResults.length === 0" description="暂无搜索结果" />
 
       <!-- 列表视图 -->
-      <el-table v-if="viewMode === 'list'" :data="tableData" style="margin-top: 20px">
-        <el-table-column prop="name" label="资产名称" width="250">
+      <el-table v-if="viewMode === 'list'" :data="searchResults" v-loading="loading">
+        <el-table-column prop="code" label="资产编号" width="150" />
+        <el-table-column prop="name" label="资产名称" min-width="200" />
+        <el-table-column label="产品" width="150">
           <template #default="{ row }">
-            <div class="asset-name">
-              <el-icon class="asset-icon"><Box /></el-icon>
-              <el-link type="primary" @click="handleView(row)">{{ row.name }}</el-link>
-            </div>
+            {{ getProductName(row.productId) }}
           </template>
         </el-table-column>
-        <el-table-column prop="type" label="类型" width="120">
+        <el-table-column prop="type" label="类型" width="120" />
+        <el-table-column label="成熟度" width="100">
           <template #default="{ row }">
-            <el-tag size="small">{{ row.type }}</el-tag>
+            <el-tag :type="getMaturityType(row.maturity)">{{ row.maturity }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="domain" label="领域" width="150" />
-        <el-table-column prop="reuseCount" label="复用次数" width="100" align="center" />
-        <el-table-column prop="maturity" label="成熟度" width="100">
+        <el-table-column label="匹配度" width="100" sortable>
           <template #default="{ row }">
-            <el-rate v-model="row.maturity" disabled />
+            <el-progress :percentage="row.matchScore || 0" :stroke-width="8" />
           </template>
         </el-table-column>
-        <el-table-column prop="tags" label="标签" width="200">
+        <el-table-column label="操作" width="200" fixed="right">
           <template #default="{ row }">
-            <el-tag v-for="tag in row.tags" :key="tag" size="small" style="margin-right: 5px">
-              {{ tag }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="description" label="描述" min-width="200" />
-        <el-table-column label="操作" width="150" fixed="right">
-          <template #default="{ row }">
-            <el-button link type="primary" @click="handleView(row)">
-              查看
-            </el-button>
-            <el-button link type="success" @click="handleUse(row)">
-              使用
-            </el-button>
+            <el-button link @click="handleView(row.id)">查看</el-button>
+            <el-button link type="primary" @click="handleUse(row.id)">使用</el-button>
+            <el-button link>对比</el-button>
           </template>
         </el-table-column>
       </el-table>
 
       <!-- 卡片视图 -->
-      <div v-else class="card-view">
-        <el-row :gutter="20">
-          <el-col :span="8" v-for="item in tableData" :key="item.id">
-            <el-card class="asset-card" shadow="hover">
-              <div class="card-header">
-                <el-icon class="card-icon"><Box /></el-icon>
-                <span class="card-title">{{ item.name }}</span>
+      <el-row v-else :gutter="16">
+        <el-col v-for="asset in searchResults" :key="asset.id" :span="8" style="margin-bottom: 16px;">
+          <el-card shadow="hover" :body-style="{ padding: '16px' }">
+            <div style="margin-bottom: 12px;">
+              <h3 style="margin: 0 0 8px 0;">{{ asset.name }}</h3>
+              <el-tag size="small">{{ asset.type }}</el-tag>
+              <el-tag size="small" style="margin-left: 8px;" :type="getMaturityType(asset.maturity)">
+                {{ asset.maturity }}
+              </el-tag>
+            </div>
+            <div style="color: #606266; font-size: 14px; margin-bottom: 12px;">
+              {{ asset.description }}
+            </div>
+            <div style="margin-bottom: 12px;">
+              <el-tag v-for="tag in asset.tags" :key="tag" size="small" style="margin-right: 4px;">
+                {{ tag }}
+              </el-tag>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px; color: #909399;">匹配度: {{ asset.matchScore || 0 }}%</span>
+              <div>
+                <el-button size="small" @click="handleView(asset.id)">查看</el-button>
+                <el-button size="small" type="primary" @click="handleUse(asset.id)">使用</el-button>
               </div>
-              <div class="card-meta">
-                <el-tag size="small">{{ item.type }}</el-tag>
-                <span class="reuse-count">复用 {{ item.reuseCount }} 次</span>
-              </div>
-              <div class="card-description">{{ item.description }}</div>
-              <div class="card-tags">
-                <el-tag v-for="tag in item.tags" :key="tag" size="small">{{ tag }}</el-tag>
-              </div>
-              <div class="card-actions">
-                <el-button size="small" @click="handleView(item)">查看详情</el-button>
-                <el-button size="small" type="success" @click="handleUse(item)">立即使用</el-button>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-      </div>
-
-      <div class="pagination-container">
-        <el-pagination
-          v-model:current-page="pagination.page"
-          v-model:page-size="pagination.pageSize"
-          :total="pagination.total"
-          :page-sizes="[10, 20, 50, 100]"
-          layout="total, sizes, prev, pager, next, jumper"
-          @size-change="handleSearch"
-          @current-change="handleSearch"
-        />
-      </div>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
     </el-card>
   </PageContainer>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { Search, Box } from '@element-plus/icons-vue'
+import { Search } from '@element-plus/icons-vue'
+import { useAssetStore } from '@/stores/modules/asset'
 import { ElMessage } from 'element-plus'
 
 const router = useRouter()
+const assetStore = useAssetStore()
+
 const loading = ref(false)
+const searchQuery = ref('')
 const viewMode = ref('list')
 
-const searchForm = ref({
-  keyword: '',
+const filters = ref({
+  productLineId: '',
+  productId: '',
   type: '',
-  domain: '',
-  tags: [],
   maturity: ''
 })
 
-interface Asset {
-  id: string
-  name: string
-  type: string
-  domain: string
-  reuseCount: number
-  maturity: number
-  tags: string[]
-  description: string
-}
+const hotTags = ['感知算法', '决策模块', 'HMI组件', '测试框架', 'CAN通信']
 
-const tableData = ref<Asset[]>([])
-
-const pagination = ref({
-  page: 1,
-  pageSize: 20,
-  total: 0
+const productLines = computed(() => assetStore.productLines)
+const filteredProducts = computed(() => {
+  if (!filters.value.productLineId) return assetStore.products
+  return assetStore.productsByProductLine(filters.value.productLineId)
 })
 
-async function handleSearch() {
+const searchResults = computed(() => {
+  let results = assetStore.assets
+
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase()
+    results = results.filter(a =>
+      a.name.toLowerCase().includes(query) ||
+      a.code.toLowerCase().includes(query) ||
+      a.description?.toLowerCase().includes(query)
+    )
+  }
+
+  if (filters.value.productId) {
+    results = results.filter(a => a.productId === filters.value.productId)
+  }
+
+  if (filters.value.type) {
+    results = results.filter(a => a.type === filters.value.type)
+  }
+
+  if (filters.value.maturity) {
+    results = results.filter(a => a.maturity === filters.value.maturity)
+  }
+
+  // 添加模拟的匹配度
+  return results.map(a => ({
+    ...a,
+    matchScore: Math.floor(Math.random() * 30) + 70
+  }))
+})
+
+const handleSearch = () => {
+  loading.value = true
+  setTimeout(() => {
+    loading.value = false
+    ElMessage.success(`找到 ${searchResults.value.length} 个资产`)
+  }, 500)
+}
+
+const handleReset = () => {
+  searchQuery.value = ''
+  filters.value = {
+    productLineId: '',
+    productId: '',
+    type: '',
+    maturity: ''
+  }
+}
+
+const handleView = (id: string) => {
+  router.push(`/function/c2/asset/${id}`)
+}
+
+const handleUse = (id: string) => {
+  ElMessage.success('资产已添加到复用清单')
+}
+
+const getProductName = (productId: string) => {
+  const product = assetStore.products.find(p => p.id === productId)
+  return product?.name || productId
+}
+
+const getMaturityType = (maturity: string) => {
+  const map: Record<string, any> = {
+    '已发布': 'success',
+    '测试中': 'warning',
+    '开发中': 'info'
+  }
+  return map[maturity] || 'info'
+}
+
+onMounted(async () => {
   loading.value = true
   try {
-    await new Promise(resolve => setTimeout(resolve, 500))
-    tableData.value = [
-      {
-        id: 'asset1',
-        name: '自适应巡航控制(ACC)',
-        type: '特性资产',
-        domain: '智能驾驶',
-        reuseCount: 12,
-        maturity: 5,
-        tags: ['高复用', '已验证', '推荐'],
-        description: '完整的ACC功能实现，包含多场景适配'
-      },
-      {
-        id: 'asset2',
-        name: '车道保持辅助(LKA)',
-        type: '特性资产',
-        domain: '智能驾驶',
-        reuseCount: 10,
-        maturity: 5,
-        tags: ['高复用', '已验证'],
-        description: 'LKA功能模块，支持多种车型'
-      },
-      {
-        id: 'asset3',
-        name: '语音助手基础库',
-        type: '模块资产',
-        domain: '智能座舱',
-        reuseCount: 8,
-        maturity: 4,
-        tags: ['推荐', '已验证'],
-        description: '通用语音助手基础功能库'
-      },
-      {
-        id: 'asset4',
-        name: '手势识别组件',
-        type: '组件资产',
-        domain: '智能座舱',
-        reuseCount: 5,
-        maturity: 3,
-        tags: ['新功能'],
-        description: '多种手势识别算法组件'
-      }
-    ]
-    pagination.value.total = 4
-  } catch (error) {
-    ElMessage.error('搜索失败')
+    await Promise.all([
+      assetStore.fetchProductLines(),
+      assetStore.fetchProducts(),
+      assetStore.fetchAssets()
+    ])
   } finally {
     loading.value = false
   }
-}
-
-function handleReset() {
-  searchForm.value = {
-    keyword: '',
-    type: '',
-    domain: '',
-    tags: [],
-    maturity: ''
-  }
-  handleSearch()
-}
-
-function handleView(row: Asset) {
-  router.push(`/function/c2/asset/detail/${row.id}`)
-}
-
-function handleUse(row: Asset) {
-  ElMessage.success(`已添加资产: ${row.name}`)
-}
-
-onMounted(() => {
-  handleSearch()
 })
 </script>
-
-<style scoped lang="scss">
-.search-card {
-  margin-bottom: 20px;
-}
-
-.search-result-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
-  .result-count {
-    font-weight: 500;
-    color: #606266;
-  }
-}
-
-.asset-name {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  
-  .asset-icon {
-    color: #409EFF;
-  }
-}
-
-.card-view {
-  margin-top: 20px;
-}
-
-.asset-card {
-  margin-bottom: 20px;
-  
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-    
-    .card-icon {
-      font-size: 20px;
-      color: #409EFF;
-    }
-    
-    .card-title {
-      font-size: 16px;
-      font-weight: 500;
-    }
-  }
-  
-  .card-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-    
-    .reuse-count {
-      font-size: 12px;
-      color: #909399;
-    }
-  }
-  
-  .card-description {
-    font-size: 13px;
-    color: #606266;
-    margin-bottom: 12px;
-    line-height: 1.5;
-    min-height: 40px;
-  }
-  
-  .card-tags {
-    display: flex;
-    gap: 5px;
-    margin-bottom: 12px;
-    min-height: 24px;
-  }
-  
-  .card-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-  }
-}
-
-.pagination-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-}
-</style>
