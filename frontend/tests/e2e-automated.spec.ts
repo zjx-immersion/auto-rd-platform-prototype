@@ -36,7 +36,7 @@ test.afterAll(async () => {
 test.describe('Phase 1: 基础验证', () => {
   test('1.1 打开首页并验证加载', async () => {
     await page.goto(BASE_URL)
-    await expect(page).toHaveTitle(/岚图/)
+    await expect(page).toHaveTitle(/整车软件研发平台|我的工作台/)
     await page.screenshot({ path: 'test-results/step-1.1-homepage.png', fullPage: true })
     console.log('✅ 首页加载成功')
   })
