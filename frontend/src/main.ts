@@ -9,7 +9,8 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import App from './App.vue'
 import router from './router'
 import '@/assets/styles/global.scss'
-import { initializeMockData } from '@/utils/mockDataInitializer'
+// import { initializeMockData } from '@/utils/mockDataInitializer' // 旧的Mock数据初始化
+import { initializeJSONDatasets } from '@/mock-data' // 新的JSON数据集初始化
 
 const app = createApp(App)
 
@@ -29,7 +30,7 @@ app.use(ElementPlus, {
 
 app.mount('#app')
 
-// 初始化Mock数据（在应用挂载后）
-initializeMockData().then(() => {
-  console.log('✅ 应用和Mock数据初始化完成')
+// 初始化JSON数据集（在应用挂载后）
+initializeJSONDatasets().then(() => {
+  console.log('✅ 应用和JSON数据集初始化完成')
 })
