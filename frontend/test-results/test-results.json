@@ -1,0 +1,2305 @@
+{
+  "config": {
+    "configFile": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/playwright.config.ts",
+    "rootDir": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "test-results/html-report"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "e2e-automated.spec.ts",
+      "file": "e2e-automated.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Phase 1: 基础验证",
+          "file": "e2e-automated.spec.ts",
+          "line": 36,
+          "column": 6,
+          "specs": [
+            {
+              "title": "1.1 打开首页并验证加载",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2938,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "浏览器日志: 🚀 开始加载JSON数据集...\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: users (10条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: projects (3条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: versions (6条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: pis (4条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: epics (6条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: features (10条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: ssts (15条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 10 个用户\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 3 个项目\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 6 个版本\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 4 个PI\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 6 个Epic\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 10 个Feature\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 15 个SSTS\n"
+                        },
+                        {
+                          "text": "浏览器日志: 🔗 正在建立数据关联...\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 数据关联建立完成\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✅ JSON数据集加载完成\n"
+                        },
+                        {
+                          "text": "浏览器日志: \n📊 数据集统计:\n"
+                        },
+                        {
+                          "text": "浏览器日志: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        },
+                        {
+                          "text": "浏览器日志:   users        : 10 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   projects     : 3 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   versions     : 6 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   pis          : 4 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   epics        : 6 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   features     : 10 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   ssts         : 15 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        },
+                        {
+                          "text": "浏览器日志:   总计: 7 个数据集\n\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✅ 应用和JSON数据集初始化完成\n"
+                        },
+                        {
+                          "text": "✅ 首页加载成功\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:45:45.252Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-63229e7b370d6abbfc18",
+              "file": "e2e-automated.spec.ts",
+              "line": 37,
+              "column": 3
+            },
+            {
+              "title": "1.2 验证数据初始化",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2029,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "✅ 数据初始化完成\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:45:53.398Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-c5ab50e1edb21ab5b85b",
+              "file": "e2e-automated.spec.ts",
+              "line": 44,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Phase 2: C0 项目管理验证",
+          "file": "e2e-automated.spec.ts",
+          "line": 60,
+          "column": 6,
+          "specs": [
+            {
+              "title": "2.1 导航到项目列表",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 10477,
+                      "error": {
+                        "message": "TimeoutError: page.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=功能域')\u001b[22m\n",
+                        "stack": "TimeoutError: page.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=功能域')\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-automated.spec.ts:63:16",
+                        "location": {
+                          "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-automated.spec.ts",
+                          "column": 16,
+                          "line": 63
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 61 |\u001b[39m   test(\u001b[32m'2.1 导航到项目列表'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m 62 |\u001b[39m     \u001b[90m// 点击功能域菜单\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 63 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mclick(\u001b[32m'text=功能域'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 64 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m500\u001b[39m)\n \u001b[90m 65 |\u001b[39m     \n \u001b[90m 66 |\u001b[39m     \u001b[90m// 点击C0领域项目管理\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-automated.spec.ts",
+                            "column": 16,
+                            "line": 63
+                          },
+                          "message": "TimeoutError: page.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=功能域')\u001b[22m\n\n\n\u001b[0m \u001b[90m 61 |\u001b[39m   test(\u001b[32m'2.1 导航到项目列表'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m 62 |\u001b[39m     \u001b[90m// 点击功能域菜单\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 63 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mclick(\u001b[32m'text=功能域'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 64 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m500\u001b[39m)\n \u001b[90m 65 |\u001b[39m     \n \u001b[90m 66 |\u001b[39m     \u001b[90m// 点击C0领域项目管理\u001b[39m\u001b[0m\n\u001b[2m    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-automated.spec.ts:63:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:45:55.450Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/e2e-automated-Phase-2-C0-项目管理验证-2-1-导航到项目列表-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/e2e-automated-Phase-2-C0-项目管理验证-2-1-导航到项目列表-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/e2e-automated-Phase-2-C0-项目管理验证-2-1-导航到项目列表-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-automated.spec.ts",
+                        "column": 16,
+                        "line": 63
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-bbe44a01b6e70f703f77",
+              "file": "e2e-automated.spec.ts",
+              "line": 61,
+              "column": 3
+            },
+            {
+              "title": "2.2 验证项目列表数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.789Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-4d431281b38a8443ac8e",
+              "file": "e2e-automated.spec.ts",
+              "line": 80,
+              "column": 3
+            },
+            {
+              "title": "2.3 点击项目详情",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.789Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-f6212484ef38a2085743",
+              "file": "e2e-automated.spec.ts",
+              "line": 96,
+              "column": 3
+            },
+            {
+              "title": "2.4 验证项目详情数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.790Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-4bec57d4db2a4a0ff2e1",
+              "file": "e2e-automated.spec.ts",
+              "line": 107,
+              "column": 3
+            },
+            {
+              "title": "2.5 验证版本和PI统计",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.790Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-cdf9a86e4b1bce101bdd",
+              "file": "e2e-automated.spec.ts",
+              "line": 118,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Phase 3: C1 需求管理验证",
+          "file": "e2e-automated.spec.ts",
+          "line": 136,
+          "column": 6,
+          "specs": [
+            {
+              "title": "3.1 导航到Epic列表",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.790Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-6da6ea7dbd3ca813accc",
+              "file": "e2e-automated.spec.ts",
+              "line": 137,
+              "column": 3
+            },
+            {
+              "title": "3.2 验证Epic列表数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.790Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-8df10c0a0ac33827d273",
+              "file": "e2e-automated.spec.ts",
+              "line": 152,
+              "column": 3
+            },
+            {
+              "title": "3.3 点击Epic详情",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.790Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-e92d9ad4a6fb78f97d1b",
+              "file": "e2e-automated.spec.ts",
+              "line": 164,
+              "column": 3
+            },
+            {
+              "title": "3.4 导航到Feature列表",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.790Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-8a8f3554c4afa64cde5e",
+              "file": "e2e-automated.spec.ts",
+              "line": 175,
+              "column": 3
+            },
+            {
+              "title": "3.5 验证Feature列表数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.791Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-2428edc223fe11a4a680",
+              "file": "e2e-automated.spec.ts",
+              "line": 190,
+              "column": 3
+            },
+            {
+              "title": "3.6 点击Feature详情",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.792Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-5c6fd6de8eb9b0ca7404",
+              "file": "e2e-automated.spec.ts",
+              "line": 202,
+              "column": 3
+            },
+            {
+              "title": "3.7 导航到SSTS列表",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.793Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-8666391add679248a475",
+              "file": "e2e-automated.spec.ts",
+              "line": 213,
+              "column": 3
+            },
+            {
+              "title": "3.8 验证SSTS列表数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.793Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-7620459e5cb2f99335d5",
+              "file": "e2e-automated.spec.ts",
+              "line": 228,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Phase 4: 搜索和筛选功能",
+          "file": "e2e-automated.spec.ts",
+          "line": 244,
+          "column": 6,
+          "specs": [
+            {
+              "title": "4.1 返回Feature列表测试搜索",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.793Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-1e1ab1aea4c76d3c9054",
+              "file": "e2e-automated.spec.ts",
+              "line": 245,
+              "column": 3
+            },
+            {
+              "title": "4.2 测试搜索功能",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.795Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-a686173c8745928a5d26",
+              "file": "e2e-automated.spec.ts",
+              "line": 256,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Phase 5: C3 规划协调",
+          "file": "e2e-automated.spec.ts",
+          "line": 283,
+          "column": 6,
+          "specs": [
+            {
+              "title": "5.1 导航到PI Planning Board",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.795Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-452dd1aebd94f334eea8",
+              "file": "e2e-automated.spec.ts",
+              "line": 284,
+              "column": 3
+            },
+            {
+              "title": "5.2 验证PI Planning数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.797Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-4007c430c572d9d3972b",
+              "file": "e2e-automated.spec.ts",
+              "line": 299,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "测试总结",
+          "file": "e2e-automated.spec.ts",
+          "line": 315,
+          "column": 6,
+          "specs": [
+            {
+              "title": "生成测试报告",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:06.798Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "9f2f74e0999a38bf4492-b4faa47841c2bb7642f1",
+              "file": "e2e-automated.spec.ts",
+              "line": 316,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "e2e-browser.spec.ts",
+      "file": "e2e-browser.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Phase 1: 基础验证",
+          "file": "e2e-browser.spec.ts",
+          "line": 39,
+          "column": 6,
+          "specs": [
+            {
+              "title": "1.1 打开首页并等待数据加载",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4270,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        },
+                        {
+                          "text": "开始测试: Phase 1 - 基础验证\n"
+                        },
+                        {
+                          "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+                        },
+                        {
+                          "text": "浏览器: 📦 已加载数据集: users (10条记录)\n"
+                        },
+                        {
+                          "text": "浏览器: 📦 已加载数据集: projects (3条记录)\n"
+                        },
+                        {
+                          "text": "浏览器: 📦 已加载数据集: versions (6条记录)\n"
+                        },
+                        {
+                          "text": "浏览器: 📦 已加载数据集: pis (4条记录)\n"
+                        },
+                        {
+                          "text": "浏览器: 📦 已加载数据集: epics (6条记录)\n"
+                        },
+                        {
+                          "text": "浏览器: 📦 已加载数据集: features (10条记录)\n"
+                        },
+                        {
+                          "text": "浏览器: 📦 已加载数据集: ssts (15条记录)\n"
+                        },
+                        {
+                          "text": "浏览器: ✓ 加载了 10 个用户\n"
+                        },
+                        {
+                          "text": "浏览器: ✓ 加载了 3 个项目\n"
+                        },
+                        {
+                          "text": "浏览器: ✓ 加载了 6 个版本\n"
+                        },
+                        {
+                          "text": "浏览器: ✓ 加载了 4 个PI\n"
+                        },
+                        {
+                          "text": "浏览器: ✓ 加载了 6 个Epic\n"
+                        },
+                        {
+                          "text": "浏览器: ✓ 加载了 10 个Feature\n"
+                        },
+                        {
+                          "text": "浏览器: ✓ 加载了 15 个SSTS\n"
+                        },
+                        {
+                          "text": "浏览器: ✓ 数据关联建立完成\n"
+                        },
+                        {
+                          "text": "浏览器: ✅ JSON数据集加载完成\n"
+                        },
+                        {
+                          "text": "浏览器: ✅ 应用和JSON数据集初始化完成\n"
+                        },
+                        {
+                          "text": "✅ 页面标题验证通过\n"
+                        },
+                        {
+                          "text": "✅ 侧边栏菜单加载成功\n"
+                        },
+                        {
+                          "text": "✅ 首页截图已保存\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:07.307Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3f15ea4b3ae481a3789d-3124de8650017d00e0e7",
+              "file": "e2e-browser.spec.ts",
+              "line": 40,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Phase 2: 项目管理验证",
+          "file": "e2e-browser.spec.ts",
+          "line": 71,
+          "column": 6,
+          "specs": [
+            {
+              "title": "2.1 通过侧边栏导航到项目列表",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2746,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        },
+                        {
+                          "text": "开始测试: Phase 2 - 项目管理\n"
+                        },
+                        {
+                          "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+                        },
+                        {
+                          "text": "✅ 点击了 C0: 领域项目管理\n"
+                        },
+                        {
+                          "text": "✅ 点击了项目列表菜单\n"
+                        },
+                        {
+                          "text": "✅ 导航截图已保存\n\n"
+                        }
+                      ],
+                      "stderr": [
+                        {
+                          "text": "页面错误: versionStore.getVersionsByProject.value is not a function\n"
+                        },
+                        {
+                          "text": "页面错误: versionStore.getVersionsByProject.value is not a function\n"
+                        },
+                        {
+                          "text": "页面错误: versionStore.getVersionsByProject.value is not a function\n"
+                        },
+                        {
+                          "text": "页面错误: versionStore.getVersionsByProject.value is not a function\n"
+                        },
+                        {
+                          "text": "页面错误: versionStore.getVersionsByProject.value is not a function\n"
+                        }
+                      ],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:12.519Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3f15ea4b3ae481a3789d-bf773b1439bd0d7784a8",
+              "file": "e2e-browser.spec.ts",
+              "line": 72,
+              "column": 3
+            },
+            {
+              "title": "2.2 验证项目列表数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2135,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "✅ 找到表格，显示 3 行数据\n"
+                        },
+                        {
+                          "text": "✅ 项目列表截图已保存\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:15.280Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3f15ea4b3ae481a3789d-8fa488d6d7fc955bf8c8",
+              "file": "e2e-browser.spec.ts",
+              "line": 99,
+              "column": 3
+            },
+            {
+              "title": "2.3 尝试点击第一个项目",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 23,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "⚠️  未找到项目链接，跳过点击测试\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:17.430Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3f15ea4b3ae481a3789d-4a7f96bc71a9b008bb89",
+              "file": "e2e-browser.spec.ts",
+              "line": 129,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Phase 3: Epic管理验证",
+          "file": "e2e-browser.spec.ts",
+          "line": 154,
+          "column": 6,
+          "specs": [
+            {
+              "title": "3.1 导航到Epic列表",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5651,
+                      "error": {
+                        "message": "TimeoutError: locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=/Epic管理|Epic列表/').first() to be visible\u001b[22m\n\u001b[2m    15 × locator resolved to hidden <div class=\"el-sub-menu__title\">…</div>\u001b[22m\n",
+                        "stack": "TimeoutError: locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=/Epic管理|Epic列表/').first() to be visible\u001b[22m\n\u001b[2m    15 × locator resolved to hidden <div class=\"el-sub-menu__title\">…</div>\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-browser.spec.ts:169:20",
+                        "location": {
+                          "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-browser.spec.ts",
+                          "column": 20,
+                          "line": 169
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 167 |\u001b[39m     \u001b[90m// 查找并点击\"Epic管理\"\u001b[39m\n \u001b[90m 168 |\u001b[39m     \u001b[36mconst\u001b[39m epicMenu \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'text=/Epic管理|Epic列表/'\u001b[39m)\u001b[33m.\u001b[39mfirst()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 169 |\u001b[39m     \u001b[36mawait\u001b[39m epicMenu\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m5000\u001b[39m })\n \u001b[90m     |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 170 |\u001b[39m     \u001b[36mawait\u001b[39m epicMenu\u001b[33m.\u001b[39mclick()\n \u001b[90m 171 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\n \u001b[90m 172 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m'✅ 点击了 Epic管理菜单'\u001b[39m)\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-browser.spec.ts",
+                            "column": 20,
+                            "line": 169
+                          },
+                          "message": "TimeoutError: locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=/Epic管理|Epic列表/').first() to be visible\u001b[22m\n\u001b[2m    15 × locator resolved to hidden <div class=\"el-sub-menu__title\">…</div>\u001b[22m\n\n\n\u001b[0m \u001b[90m 167 |\u001b[39m     \u001b[90m// 查找并点击\"Epic管理\"\u001b[39m\n \u001b[90m 168 |\u001b[39m     \u001b[36mconst\u001b[39m epicMenu \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'text=/Epic管理|Epic列表/'\u001b[39m)\u001b[33m.\u001b[39mfirst()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 169 |\u001b[39m     \u001b[36mawait\u001b[39m epicMenu\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m'visible'\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m5000\u001b[39m })\n \u001b[90m     |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 170 |\u001b[39m     \u001b[36mawait\u001b[39m epicMenu\u001b[33m.\u001b[39mclick()\n \u001b[90m 171 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\n \u001b[90m 172 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m'✅ 点击了 Epic管理菜单'\u001b[39m)\u001b[0m\n\u001b[2m    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-browser.spec.ts:169:20\u001b[22m"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        },
+                        {
+                          "text": "开始测试: Phase 3 - Epic管理\n"
+                        },
+                        {
+                          "text": "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+                        },
+                        {
+                          "text": "✅ 点击了 C1: 需求管理\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:17.472Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/e2e-browser-Phase-3-Epic管理验证-3-1-导航到Epic列表-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/e2e-browser-Phase-3-Epic管理验证-3-1-导航到Epic列表-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/e2e-browser-Phase-3-Epic管理验证-3-1-导航到Epic列表-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-browser.spec.ts",
+                        "column": 20,
+                        "line": 169
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3f15ea4b3ae481a3789d-9c9e0441ad74e86031ce",
+              "file": "e2e-browser.spec.ts",
+              "line": 155,
+              "column": 3
+            },
+            {
+              "title": "3.2 验证Epic列表数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:23.445Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3f15ea4b3ae481a3789d-f20278957c6266fa8fc7",
+              "file": "e2e-browser.spec.ts",
+              "line": 182,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Phase 4: Feature管理验证",
+          "file": "e2e-browser.spec.ts",
+          "line": 209,
+          "column": 6,
+          "specs": [
+            {
+              "title": "4.1 导航到Feature列表",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:23.445Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3f15ea4b3ae481a3789d-6ba92e4eeb69c7239f5d",
+              "file": "e2e-browser.spec.ts",
+              "line": 210,
+              "column": 3
+            },
+            {
+              "title": "4.2 验证Feature列表数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:23.446Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3f15ea4b3ae481a3789d-952aa919b74dad77059a",
+              "file": "e2e-browser.spec.ts",
+              "line": 230,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Phase 5: SSTS管理验证",
+          "file": "e2e-browser.spec.ts",
+          "line": 257,
+          "column": 6,
+          "specs": [
+            {
+              "title": "5.1 导航到SSTS列表",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:23.446Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3f15ea4b3ae481a3789d-782198f297340cda6775",
+              "file": "e2e-browser.spec.ts",
+              "line": 258,
+              "column": 3
+            },
+            {
+              "title": "5.2 验证SSTS列表数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:23.446Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3f15ea4b3ae481a3789d-5cf884a9ee08365fdfef",
+              "file": "e2e-browser.spec.ts",
+              "line": 278,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "测试总结",
+          "file": "e2e-browser.spec.ts",
+          "line": 305,
+          "column": 6,
+          "specs": [
+            {
+              "title": "生成测试报告",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:23.446Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3f15ea4b3ae481a3789d-597cee6e6292c3093390",
+              "file": "e2e-browser.spec.ts",
+              "line": 306,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "e2e-simplified.spec.ts",
+      "file": "e2e-simplified.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Phase 1: 基础验证",
+          "file": "e2e-simplified.spec.ts",
+          "line": 32,
+          "column": 6,
+          "specs": [
+            {
+              "title": "1.1 打开首页并验证数据加载",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3645,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "浏览器日志: 🚀 开始加载JSON数据集...\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: users (10条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: projects (3条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: versions (6条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: pis (4条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: epics (6条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: features (10条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: ssts (15条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 10 个用户\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 3 个项目\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 6 个版本\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 4 个PI\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 6 个Epic\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 10 个Feature\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 15 个SSTS\n"
+                        },
+                        {
+                          "text": "浏览器日志: 🔗 正在建立数据关联...\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 数据关联建立完成\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✅ JSON数据集加载完成\n"
+                        },
+                        {
+                          "text": "浏览器日志: \n📊 数据集统计:\n"
+                        },
+                        {
+                          "text": "浏览器日志: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        },
+                        {
+                          "text": "浏览器日志:   users        : 10 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   projects     : 3 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   versions     : 6 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   pis          : 4 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   epics        : 6 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   features     : 10 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   ssts         : 15 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        },
+                        {
+                          "text": "浏览器日志:   总计: 7 个数据集\n\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✅ 应用和JSON数据集初始化完成\n"
+                        },
+                        {
+                          "text": "✅ 首页加载成功，数据初始化完成\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:24.067Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-6e8dbf804e6d25576d71",
+              "file": "e2e-simplified.spec.ts",
+              "line": 33,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Phase 2: C0 项目管理",
+          "file": "e2e-simplified.spec.ts",
+          "line": 48,
+          "column": 6,
+          "specs": [
+            {
+              "title": "2.1 直接访问项目列表",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2418,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "浏览器日志: 🚀 开始加载JSON数据集...\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: users (10条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: projects (3条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: versions (6条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: pis (4条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: epics (6条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: features (10条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: 📦 已加载数据集: ssts (15条记录)\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 10 个用户\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 3 个项目\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 6 个版本\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 4 个PI\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 6 个Epic\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 10 个Feature\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 加载了 15 个SSTS\n"
+                        },
+                        {
+                          "text": "浏览器日志: 🔗 正在建立数据关联...\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✓ 数据关联建立完成\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✅ JSON数据集加载完成\n"
+                        },
+                        {
+                          "text": "浏览器日志: \n📊 数据集统计:\n"
+                        },
+                        {
+                          "text": "浏览器日志: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        },
+                        {
+                          "text": "浏览器日志:   users        : 10 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   projects     : 3 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   versions     : 6 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   pis          : 4 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   epics        : 6 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   features     : 10 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志:   ssts         : 15 条记录\n"
+                        },
+                        {
+                          "text": "浏览器日志: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        },
+                        {
+                          "text": "浏览器日志:   总计: 7 个数据集\n\n"
+                        },
+                        {
+                          "text": "浏览器日志: ✅ 应用和JSON数据集初始化完成\n"
+                        },
+                        {
+                          "text": "✅ 项目列表页面加载\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:28.600Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-31f100b4e5bdbda1a955",
+              "file": "e2e-simplified.spec.ts",
+              "line": 49,
+              "column": 3
+            },
+            {
+              "title": "2.2 验证项目列表数据",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5110,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-table') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-table') to be visible\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-simplified.spec.ts:59:16",
+                        "location": {
+                          "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-simplified.spec.ts",
+                          "column": 16,
+                          "line": 59
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 57 |\u001b[39m   test(\u001b[32m'2.2 验证项目列表数据'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m 58 |\u001b[39m     \u001b[90m// 等待表格加载\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 59 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'.el-table'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m5000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 60 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m1000\u001b[39m)\n \u001b[90m 61 |\u001b[39m     \n \u001b[90m 62 |\u001b[39m     \u001b[90m// 检查是否有表格行\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-simplified.spec.ts",
+                            "column": 16,
+                            "line": 59
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.el-table') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 57 |\u001b[39m   test(\u001b[32m'2.2 验证项目列表数据'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m 58 |\u001b[39m     \u001b[90m// 等待表格加载\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 59 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'.el-table'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m5000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 60 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m1000\u001b[39m)\n \u001b[90m 61 |\u001b[39m     \n \u001b[90m 62 |\u001b[39m     \u001b[90m// 检查是否有表格行\u001b[39m\u001b[0m\n\u001b[2m    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-simplified.spec.ts:59:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:31.032Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/e2e-simplified-Phase-2-C0-项目管理-2-2-验证项目列表数据-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/e2e-simplified-Phase-2-C0-项目管理-2-2-验证项目列表数据-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/e2e-simplified-Phase-2-C0-项目管理-2-2-验证项目列表数据-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/e2e-simplified.spec.ts",
+                        "column": 16,
+                        "line": 59
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-c603c8ac42a22fb3406e",
+              "file": "e2e-simplified.spec.ts",
+              "line": 57,
+              "column": 3
+            },
+            {
+              "title": "2.3 点击项目详情",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:36.596Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-db85b235e8e99d94d0cd",
+              "file": "e2e-simplified.spec.ts",
+              "line": 71,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Phase 3: C1 需求管理",
+          "file": "e2e-simplified.spec.ts",
+          "line": 96,
+          "column": 6,
+          "specs": [
+            {
+              "title": "3.1 直接访问Epic列表",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:36.596Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-81dbc896c2440c400756",
+              "file": "e2e-simplified.spec.ts",
+              "line": 97,
+              "column": 3
+            },
+            {
+              "title": "3.2 验证Epic列表数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:36.596Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-0ba572da6b5eb925edb0",
+              "file": "e2e-simplified.spec.ts",
+              "line": 105,
+              "column": 3
+            },
+            {
+              "title": "3.3 直接访问Feature列表",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:36.597Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-702608a5388cec336d9a",
+              "file": "e2e-simplified.spec.ts",
+              "line": 117,
+              "column": 3
+            },
+            {
+              "title": "3.4 验证Feature列表数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:36.597Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-dbd7b8ef1950663ab806",
+              "file": "e2e-simplified.spec.ts",
+              "line": 125,
+              "column": 3
+            },
+            {
+              "title": "3.5 点击Feature详情",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:36.597Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-8a07d990eb257d818010",
+              "file": "e2e-simplified.spec.ts",
+              "line": 137,
+              "column": 3
+            },
+            {
+              "title": "3.6 直接访问SSTS列表",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:36.598Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-966dc921b1e230bb6c23",
+              "file": "e2e-simplified.spec.ts",
+              "line": 155,
+              "column": 3
+            },
+            {
+              "title": "3.7 验证SSTS列表数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:36.598Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-e787ddc84761e70cb08f",
+              "file": "e2e-simplified.spec.ts",
+              "line": 163,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Phase 4: C3 规划协调",
+          "file": "e2e-simplified.spec.ts",
+          "line": 179,
+          "column": 6,
+          "specs": [
+            {
+              "title": "4.1 直接访问PI Planning",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:36.598Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-ac1bf1414ea9b87ba039",
+              "file": "e2e-simplified.spec.ts",
+              "line": 180,
+              "column": 3
+            },
+            {
+              "title": "4.2 验证PI Planning数据",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:36.598Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-5e7379e4e45f39e4c916",
+              "file": "e2e-simplified.spec.ts",
+              "line": 188,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "测试总结",
+          "file": "e2e-simplified.spec.ts",
+          "line": 203,
+          "column": 6,
+          "specs": [
+            {
+              "title": "生成最终报告",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-17T13:46:36.598Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ec8f00625801a547e09b-87e508704e91e4a7df6d",
+              "file": "e2e-simplified.spec.ts",
+              "line": 204,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-01-17T13:45:44.820Z",
+    "duration": 51806.471,
+    "expected": 8,
+    "skipped": 34,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

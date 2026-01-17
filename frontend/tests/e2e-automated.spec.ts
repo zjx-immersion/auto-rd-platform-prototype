@@ -59,12 +59,16 @@ test.describe('Phase 1: 基础验证', () => {
  */
 test.describe('Phase 2: C0 项目管理验证', () => {
   test('2.1 导航到项目列表', async () => {
-    // 点击功能域菜单
-    await page.click('text=功能域')
+    // 点击固有功能菜单（顶部导航）
+    const functionNav = page.locator('text=/固有功能/').first()
+    await functionNav.waitFor({ state: 'visible', timeout: 5000 })
+    await functionNav.click()
     await page.waitForTimeout(500)
     
-    // 点击C0领域项目管理
-    await page.click('text=C0 领域项目管理')
+    // 点击C0领域项目管理（侧边栏）
+    const c0Menu = page.locator('text=/C0.*领域项目管理/').first()
+    await c0Menu.waitFor({ state: 'visible', timeout: 5000 })
+    await c0Menu.click()
     await page.waitForTimeout(500)
     
     // 点击项目列表

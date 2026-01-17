@@ -22,7 +22,7 @@ export default defineConfig({
   
   // 报告设置
   reporter: [
-    ['html', { outputFolder: 'test-results/html-report' }],
+    ['html', { outputFolder: 'playwright-report' }],
     ['list'],
     ['json', { outputFile: 'test-results/test-results.json' }]
   ],

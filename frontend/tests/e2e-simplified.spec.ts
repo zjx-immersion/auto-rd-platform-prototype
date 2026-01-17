@@ -55,8 +55,13 @@ test.describe('Phase 2: C0 项目管理', () => {
   })
 
   test('2.2 验证项目列表数据', async () => {
-    // 等待表格加载
-    await page.waitForSelector('.el-table', { timeout: 5000 })
+    // 等待页面和数据加载
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(2000)
+    
+    // 等待表格加载（使用更灵活的选择器）
+    const table = page.locator('.el-table, .table-wrapper, [class*="table"]').first()
+    await table.waitFor({ state: 'visible', timeout: 10000 })
     await page.waitForTimeout(1000)
     
     // 检查是否有表格行

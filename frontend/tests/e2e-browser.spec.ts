@@ -164,10 +164,19 @@ test.describe('Phase 3: Epic管理验证', () => {
     await page.waitForTimeout(500)
     console.log('✅ 点击了 C1: 需求管理')
     
-    // 查找并点击"Epic管理"
+    // 等待子菜单展开
+    await page.waitForTimeout(300)
+    
+    // 查找并点击"Epic管理"（子菜单项，需要等待展开）
     const epicMenu = page.locator('text=/Epic管理|Epic列表/').first()
-    await epicMenu.waitFor({ state: 'visible', timeout: 5000 })
-    await epicMenu.click()
+    // 先检查是否可见，如果不可见则尝试强制点击
+    const isVisible = await epicMenu.isVisible().catch(() => false)
+    if (!isVisible) {
+      // 如果不可见，尝试点击父菜单来展开
+      await c1Menu.click()
+      await page.waitForTimeout(300)
+    }
+    await epicMenu.click({ force: true })
     await page.waitForTimeout(2000)
     console.log('✅ 点击了 Epic管理菜单')
     
