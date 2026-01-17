@@ -1,0 +1,208 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6] [cursor=pointer]:
+        - img [ref=e8]
+        - generic [ref=e10]: 整车软件研发平台
+      - button [ref=e11] [cursor=pointer]:
+        - img [ref=e13]
+      - radiogroup "segmented" [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18] [cursor=pointer]:
+            - radio "流程驱动"
+            - generic [ref=e19]: 流程驱动
+          - generic [ref=e20] [cursor=pointer]:
+            - radio "固有功能" [checked]
+            - generic [ref=e21]: 固有功能
+          - generic [ref=e22] [cursor=pointer]:
+            - radio "工作台"
+            - generic [ref=e23]: 工作台
+    - generic [ref=e27]:
+      - img [ref=e30]
+      - textbox "搜索功能、需求、任务... (Ctrl+K)" [ref=e32]
+      - generic [ref=e34]: Ctrl+K
+    - generic [ref=e35]:
+      - button "创建" [ref=e37] [cursor=pointer]:
+        - img [ref=e39]
+        - generic [ref=e41]: 创建
+      - generic [ref=e42]:
+        - button [ref=e43] [cursor=pointer]:
+          - img [ref=e45]
+        - superscript [ref=e49]: "5"
+      - button [ref=e50] [cursor=pointer]:
+        - img [ref=e52]
+      - button "U" [ref=e55] [cursor=pointer]:
+        - generic [ref=e56]: U
+  - generic [ref=e57]:
+    - menubar [ref=e61]:
+      - menuitem "我的收藏" [ref=e62]:
+        - generic [ref=e63] [cursor=pointer]:
+          - img [ref=e65]
+          - generic [ref=e67]: 我的收藏
+          - img [ref=e69]
+      - menuitem "最近使用" [ref=e71]:
+        - generic [ref=e72] [cursor=pointer]:
+          - img [ref=e74]
+          - generic [ref=e78]: 最近使用
+          - img [ref=e80]
+      - separator [ref=e82]
+      - 'menuitem "C0: 领域项目管理" [expanded] [ref=e83]':
+        - generic [ref=e84] [cursor=pointer]:
+          - img [ref=e86]
+          - generic [ref=e88]: "C0: 领域项目管理"
+          - img [ref=e90]
+        - menu [ref=e92]:
+          - menuitem "项目列表" [ref=e93] [cursor=pointer]
+          - menuitem "版本管理" [ref=e94] [cursor=pointer]
+          - menuitem "Feature分配" [ref=e95] [cursor=pointer]
+      - 'menuitem "C1: 需求管理" [ref=e96]':
+        - generic [ref=e97] [cursor=pointer]:
+          - img [ref=e99]
+          - generic [ref=e101]: "C1: 需求管理"
+          - img [ref=e103]
+      - 'menuitem "C2: 资产管理" [ref=e105]':
+        - generic [ref=e106] [cursor=pointer]:
+          - img [ref=e108]
+          - generic [ref=e112]: "C2: 资产管理"
+          - img [ref=e114]
+      - 'menuitem "C3: 规划协调" [ref=e116]':
+        - generic [ref=e117] [cursor=pointer]:
+          - img [ref=e119]
+          - generic [ref=e121]: "C3: 规划协调"
+          - img [ref=e123]
+      - 'menuitem "C4: 迭代执行" [expanded] [ref=e125]':
+        - generic [ref=e126] [cursor=pointer]:
+          - img [ref=e128]
+          - generic [ref=e130]: "C4: 迭代执行"
+          - img [ref=e132]
+        - menu [ref=e134]:
+          - menuitem "Sprint列表" [ref=e135] [cursor=pointer]
+          - menuitem "任务列表" [ref=e136] [cursor=pointer]
+      - 'menuitem "C5: 测试管理" [ref=e137]':
+        - generic [ref=e138] [cursor=pointer]:
+          - img [ref=e140]
+          - generic [ref=e143]: "C5: 测试管理"
+          - img [ref=e145]
+      - 'menuitem "C6: DevOps" [ref=e147]':
+        - generic [ref=e148] [cursor=pointer]:
+          - img [ref=e150]
+          - generic [ref=e152]: "C6: DevOps"
+          - img [ref=e154]
+      - 'menuitem "C7: 分析治理" [ref=e156]':
+        - generic [ref=e157] [cursor=pointer]:
+          - img [ref=e159]
+          - generic [ref=e161]: "C7: 分析治理"
+          - img [ref=e163]
+    - main [ref=e165]:
+      - navigation "面包屑" [ref=e167]:
+        - generic [ref=e168]:
+          - link "首页" [ref=e169]:
+            - img [ref=e171]
+            - text: 首页
+          - text: /
+        - generic [ref=e173]:
+          - link "固有功能" [ref=e174]
+          - text: /
+        - generic [ref=e175]:
+          - 'link "C0: 领域项目管理" [ref=e176]'
+          - text: /
+        - link "项目列表" [ref=e178]
+      - generic [ref=e181]:
+        - generic [ref=e182]:
+          - generic [ref=e183]:
+            - heading "项目管理" [level=2] [ref=e184]
+            - separator [ref=e185]
+            - generic [ref=e187]:
+              - img [ref=e190]
+              - textbox "搜索项目名称、编码" [ref=e192]
+            - generic [ref=e194] [cursor=pointer]:
+              - generic:
+                - combobox [ref=e196]
+                - generic [ref=e197]: 状态
+              - img [ref=e200]
+            - generic [ref=e203] [cursor=pointer]:
+              - generic:
+                - combobox [ref=e205]
+                - generic [ref=e206]: 领域
+              - img [ref=e209]
+            - generic [ref=e212] [cursor=pointer]:
+              - generic:
+                - combobox [ref=e214]
+                - generic [ref=e215]: 负责人
+              - img [ref=e218]
+            - button "重置筛选" [ref=e220] [cursor=pointer]:
+              - img [ref=e222]
+          - generic [ref=e224]:
+            - button "新建项目" [ref=e225] [cursor=pointer]:
+              - img [ref=e227]
+              - generic [ref=e229]: 新建项目
+            - button "导入" [ref=e230] [cursor=pointer]:
+              - img [ref=e232]
+              - generic [ref=e234]: 导入
+            - button "导出" [ref=e235] [cursor=pointer]:
+              - img [ref=e237]
+              - generic [ref=e239]: 导出
+        - generic [ref=e242]:
+          - table [ref=e244]:
+            - rowgroup [ref=e257]:
+              - row "项目编码 项目名称 领域 状态 负责人 版本数 PI数 开始日期 结束日期 进度 操作" [ref=e258]:
+                - columnheader "项目编码" [ref=e259]:
+                  - generic [ref=e260]: 项目编码
+                - columnheader "项目名称" [ref=e261]:
+                  - generic [ref=e262]: 项目名称
+                - columnheader "领域" [ref=e263]:
+                  - generic [ref=e264]: 领域
+                - columnheader "状态" [ref=e265]:
+                  - generic [ref=e266]: 状态
+                - columnheader "负责人" [ref=e267]:
+                  - generic [ref=e268]: 负责人
+                - columnheader "版本数" [ref=e269]:
+                  - generic [ref=e270]: 版本数
+                - columnheader "PI数" [ref=e271]:
+                  - generic [ref=e272]: PI数
+                - columnheader "开始日期" [ref=e273]:
+                  - generic [ref=e274]: 开始日期
+                - columnheader "结束日期" [ref=e275]:
+                  - generic [ref=e276]: 结束日期
+                - columnheader "进度" [ref=e277]:
+                  - generic [ref=e278]: 进度
+                - columnheader "操作" [ref=e279]:
+                  - generic [ref=e280]: 操作
+          - table [ref=e285]:
+            - rowgroup [ref=e298]:
+              - row "PRJ-001 智能驾驶L3级功能开发 智能驾驶 进行中 张三" [ref=e299]:
+                - cell "PRJ-001" [ref=e300]:
+                  - generic [ref=e301]: PRJ-001
+                - cell "智能驾驶L3级功能开发" [ref=e302]:
+                  - generic [ref=e303]: 智能驾驶L3级功能开发
+                - cell "智能驾驶" [ref=e304]:
+                  - generic [ref=e305]: 智能驾驶
+                - cell "进行中" [ref=e306]:
+                  - generic [ref=e309]: 进行中
+                - cell "张三" [ref=e310]:
+                  - generic [ref=e311]: 张三
+              - row
+              - row
+        - generic [ref=e314]:
+          - generic [ref=e315]: 共 3 条
+          - generic [ref=e318] [cursor=pointer]:
+            - generic:
+              - combobox [ref=e320]
+              - generic [ref=e321]: 20条/页
+            - img [ref=e324]
+          - button "上一页" [disabled] [ref=e326]:
+            - generic:
+              - img
+          - list [ref=e327]:
+            - listitem "第 1 页" [ref=e328]: "1"
+          - button "下一页" [disabled] [ref=e329]:
+            - generic:
+              - img
+          - generic [ref=e330]:
+            - generic [ref=e331]: 前往
+            - spinbutton "页" [ref=e334]: "1"
+            - generic [ref=e335]: 页
+```
