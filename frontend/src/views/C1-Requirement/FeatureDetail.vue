@@ -117,7 +117,7 @@ const epics = computed(() => epicStore.epics)
 const loading = ref(false)
 const activeTab = ref('info')
 
-const goBack = () => router.push('/capability/c1-requirement/feature')
+const goBack = () => router.back()
 const handleEdit = () => console.log('Edit feature')
 const handleEditPRD = () => console.log('Edit PRD')
 const handleAddSSTS = () => console.log('Add SSTS')

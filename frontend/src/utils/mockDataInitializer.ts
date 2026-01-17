@@ -9,6 +9,7 @@ import { useFeatureStore } from '@/stores/modules/feature'
 import { useSSTSStore } from '@/stores/modules/ssts'
 import { usePIStore } from '@/stores/modules/pi'
 import { usePlanningStore } from '@/stores/modules/planning'
+import { useAssetStore } from '@/stores/modules/asset'
 
 import {
   generateMockProjects,
@@ -26,6 +27,10 @@ import {
   generateMockPIPlanningResult,
 } from '@/mock/planning-mock'
 
+import {
+  generateMockAssetHierarchy,
+} from '@/mock/asset-mock'
+
 /**
  * 初始化所有Mock数据
  */
@@ -41,6 +46,9 @@ export async function initializeMockData() {
 
     // 3. 初始化PI和Planning数据
     await initializePIPlanningData()
+
+    // 4. 初始化资产数据
+    await initializeAssetData()
 
     console.log('✅ Mock数据初始化完成')
     return true
@@ -161,6 +169,35 @@ async function initializePIPlanningData() {
 }
 
 /**
+ * 初始化资产数据
+ */
+async function initializeAssetData() {
+  const assetStore = useAssetStore()
+
+  // 生成资产层次结构：3个产品线，每个产品线3个产品，每个产品3-8个资产
+  const hierarchy = generateMockAssetHierarchy(3)
+
+  // 初始化产品线
+  for (const productLine of hierarchy.productLines) {
+    await assetStore.createProductLine(productLine)
+  }
+
+  // 初始化产品
+  for (const product of hierarchy.products) {
+    await assetStore.createProduct(product)
+  }
+
+  // 初始化资产
+  for (const asset of hierarchy.assets) {
+    await assetStore.createAsset(asset)
+  }
+
+  console.log(`✓ 创建了 ${hierarchy.productLines.length} 个产品线`)
+  console.log(`✓ 创建了 ${hierarchy.products.length} 个产品`)
+  console.log(`✓ 创建了 ${hierarchy.assets.length} 个资产`)
+}
+
+/**
  * 清空所有Mock数据
  */
 export function clearMockData() {
@@ -170,6 +207,7 @@ export function clearMockData() {
   const sstsStore = useSSTSStore()
   const piStore = usePIStore()
   const planningStore = usePlanningStore()
+  const assetStore = useAssetStore()
 
   projectStore.$reset()
   epicStore.$reset()
@@ -177,6 +215,7 @@ export function clearMockData() {
   sstsStore.$reset()
   piStore.$reset()
   planningStore.$reset()
+  assetStore.$reset()
 
   console.log('🧹 Mock数据已清空')
 }

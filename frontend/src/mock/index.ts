@@ -5,4 +5,5 @@
 export * from './project-mock'
 export * from './requirement-mock'
 export * from './planning-mock'
+export * from './asset-mock'
 export * from './helpers'
