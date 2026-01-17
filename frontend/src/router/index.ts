@@ -281,7 +281,13 @@ const routes: RouteRecordRaw[] = [
             path: 'c4',
             children: [
               {
-                path: 'sprint/board',
+                path: 'sprint/list',
+                name: 'SprintList',
+                component: () => import('@/views/C4-Iteration/SprintList.vue'),
+                meta: { title: 'Sprint管理', breadcrumb: ['固有功能', 'C4: 迭代执行', 'Sprint管理'] }
+              },
+              {
+                path: 'sprint/board/:sprintId',
                 name: 'SprintBoard',
                 component: () => import('@/views/C4-Iteration/SprintBoard.vue'),
                 meta: { title: 'Sprint看板', breadcrumb: ['固有功能', 'C4: 迭代执行', 'Sprint看板'] }
@@ -293,16 +299,16 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: '任务列表', breadcrumb: ['固有功能', 'C4: 迭代执行', '任务列表'] }
               },
               {
-                path: 'standup',
-                name: 'StandupMeeting',
-                component: () => import('@/views/C4-Iteration/StandupMeeting.vue'),
-                meta: { title: '每日站会', breadcrumb: ['固有功能', 'C4: 迭代执行', '每日站会'] }
+                path: 'task/board',
+                name: 'TaskBoard',
+                component: () => import('@/views/C4-Iteration/TaskBoard.vue'),
+                meta: { title: '任务看板', breadcrumb: ['固有功能', 'C4: 迭代执行', '任务看板'] }
               },
               {
-                path: 'burndown',
-                name: 'BurndownChart',
-                component: () => import('@/views/C4-Iteration/BurndownChart.vue'),
-                meta: { title: '燃尽图', breadcrumb: ['固有功能', 'C4: 迭代执行', '燃尽图'] }
+                path: 'code/review',
+                name: 'CodeReview',
+                component: () => import('@/views/C4-Iteration/CodeReview.vue'),
+                meta: { title: '代码评审', breadcrumb: ['固有功能', 'C4: 迭代执行', '代码评审'] }
               }
             ]
           },
@@ -323,10 +329,22 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: '测试用例', breadcrumb: ['固有功能', 'C5: 测试验收', '测试用例'] }
               },
               {
+                path: 'testcase/:id',
+                name: 'TestCaseDetail',
+                component: () => import('@/views/C5-Testing/TestCaseDetail.vue'),
+                meta: { title: '测试用例详情', breadcrumb: ['固有功能', 'C5: 测试验收', '测试用例详情'] }
+              },
+              {
                 path: 'defect/list',
                 name: 'DefectList',
                 component: () => import('@/views/C5-Testing/DefectList.vue'),
                 meta: { title: '缺陷管理', breadcrumb: ['固有功能', 'C5: 测试验收', '缺陷管理'] }
+              },
+              {
+                path: 'defect/:id',
+                name: 'DefectDetail',
+                component: () => import('@/views/C5-Testing/DefectDetail.vue'),
+                meta: { title: '缺陷详情', breadcrumb: ['固有功能', 'C5: 测试验收', '缺陷详情'] }
               },
               {
                 path: 'report',

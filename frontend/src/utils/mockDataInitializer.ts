@@ -10,6 +10,9 @@ import { useSSTSStore } from '@/stores/modules/ssts'
 import { usePIStore } from '@/stores/modules/pi'
 import { usePlanningStore } from '@/stores/modules/planning'
 import { useAssetStore } from '@/stores/modules/asset'
+import { useSprintStore } from '@/stores/modules/sprint'
+import { useTaskStore } from '@/stores/modules/task'
+import { useTestingStore } from '@/stores/modules/testing'
 
 import {
   generateMockProjects,
@@ -26,6 +29,13 @@ import {
 import {
   generateMockPIPlanningResult,
 } from '@/mock/planning-mock'
+
+import {
+  generateMockSprints,
+  generateMockTasks,
+  generateMockTestCases,
+  generateMockDefects,
+} from '@/mock/iteration-mock'
 
 import {
   generateMockAssetHierarchy,
@@ -47,11 +57,17 @@ export async function initializeMockData() {
     // 3. 初始化PI和Planning数据
     await initializePIPlanningData()
 
-    // 4. 初始化资产数据
-    await initializeAssetData()
+        // 4. 初始化资产数据
+        await initializeAssetData()
 
-    console.log('✅ Mock数据初始化完成')
-    return true
+        // 5. 初始化Sprint和Task数据
+        await initializeIterationData()
+
+        // 6. 初始化测试数据
+        await initializeTestingData()
+
+        console.log('✅ Mock数据初始化完成')
+        return true
   } catch (error) {
     console.error('❌ Mock数据初始化失败:', error)
     return false
@@ -208,6 +224,9 @@ export function clearMockData() {
   const piStore = usePIStore()
   const planningStore = usePlanningStore()
   const assetStore = useAssetStore()
+  const sprintStore = useSprintStore()
+  const taskStore = useTaskStore()
+  const testingStore = useTestingStore()
 
   projectStore.$reset()
   epicStore.$reset()
@@ -216,6 +235,9 @@ export function clearMockData() {
   piStore.$reset()
   planningStore.$reset()
   assetStore.$reset()
+  sprintStore.reset()
+  taskStore.reset()
+  testingStore.reset()
 
   console.log('🧹 Mock数据已清空')
 }
