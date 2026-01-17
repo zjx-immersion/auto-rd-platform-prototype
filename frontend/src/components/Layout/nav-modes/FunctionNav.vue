@@ -50,9 +50,9 @@
           <el-icon><FolderOpened /></el-icon>
           <span>C0: 领域项目管理</span>
         </template>
-        <el-menu-item index="/function/c0/project/list">项目列表</el-menu-item>
-        <el-menu-item index="/function/c0/version/list">版本管理</el-menu-item>
-        <el-menu-item index="/function/c0/pi/list">PI规划</el-menu-item>
+        <el-menu-item index="/function/c0-project/list">项目列表</el-menu-item>
+        <el-menu-item index="/function/c0-project/version/list">版本管理</el-menu-item>
+        <el-menu-item index="/function/c0-project/version/feature-allocation">Feature分配</el-menu-item>
       </el-sub-menu>
 
       <!-- C1: 需求管理 -->
@@ -63,31 +63,33 @@
         </template>
         <el-sub-menu index="c1-epic">
           <template #title>Epic管理</template>
-          <el-menu-item index="/function/c1/epic/list">Epic列表</el-menu-item>
+          <el-menu-item index="/function/c1-requirement/epic">Epic列表</el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="c1-feature">
           <template #title>Feature管理</template>
-          <el-menu-item index="/function/c1/feature/list">Feature列表</el-menu-item>
+          <el-menu-item index="/function/c1-requirement/feature">Feature列表</el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="c1-ssts">
           <template #title>SSTS管理</template>
-          <el-menu-item index="/function/c1/ssts/list">SSTS列表</el-menu-item>
+          <el-menu-item index="/function/c1-requirement/ssts/list">SSTS列表</el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="c1-mr">
           <template #title>MR管理</template>
-          <el-menu-item index="/function/c1/mr/list">MR列表</el-menu-item>
+          <el-menu-item index="/function/c1-requirement/mr/list">MR列表</el-menu-item>
         </el-sub-menu>
+        <el-menu-item index="/function/c1-requirement/pool">需求池</el-menu-item>
       </el-sub-menu>
 
-      <!-- C2: 产品管理(资产) -->
+      <!-- C2: 资产管理 -->
       <el-sub-menu index="c2">
         <template #title>
           <el-icon><Box /></el-icon>
-          <span>C2: 产品管理(资产)</span>
+          <span>C2: 资产管理</span>
         </template>
+        <el-menu-item index="/function/c2/productline/list">产品线管理</el-menu-item>
+        <el-menu-item index="/function/c2/product/list">产品管理</el-menu-item>
         <el-menu-item index="/function/c2/asset/search">资产搜索</el-menu-item>
         <el-menu-item index="/function/c2/asset/list">资产库</el-menu-item>
-        <el-menu-item index="/function/c2/asset/recommend">资产推荐</el-menu-item>
       </el-sub-menu>
 
       <!-- C3: 规划协调 -->
@@ -96,9 +98,9 @@
           <el-icon><Calendar /></el-icon>
           <span>C3: 规划协调</span>
         </template>
-        <el-menu-item index="/function/c3/sprint/list">Sprint管理</el-menu-item>
-        <el-menu-item index="/function/c3/pi/planning">PI Planning</el-menu-item>
+        <el-menu-item index="/function/c3/pi-planning-board">PI Planning看板</el-menu-item>
         <el-menu-item index="/function/c3/dependency">依赖管理</el-menu-item>
+        <el-menu-item index="/function/c3/risk">风险管理</el-menu-item>
       </el-sub-menu>
 
       <!-- C4: 迭代执行 -->
@@ -107,46 +109,41 @@
           <el-icon><Refresh /></el-icon>
           <span>C4: 迭代执行</span>
         </template>
-        <el-menu-item index="/function/c4/sprint/board">Sprint看板</el-menu-item>
+        <el-menu-item index="/function/c4/sprint/list">Sprint列表</el-menu-item>
         <el-menu-item index="/function/c4/task/list">任务列表</el-menu-item>
-        <el-menu-item index="/function/c4/standup">每日站会</el-menu-item>
-        <el-menu-item index="/function/c4/burndown">燃尽图</el-menu-item>
       </el-sub-menu>
 
-      <!-- C5: 测试验收 -->
+      <!-- C5: 测试管理 -->
       <el-sub-menu index="c5">
         <template #title>
           <el-icon><CircleCheck /></el-icon>
-          <span>C5: 测试验收</span>
+          <span>C5: 测试管理</span>
         </template>
         <el-menu-item index="/function/c5/testplan/list">测试计划</el-menu-item>
         <el-menu-item index="/function/c5/testcase/list">测试用例</el-menu-item>
         <el-menu-item index="/function/c5/defect/list">缺陷管理</el-menu-item>
-        <el-menu-item index="/function/c5/report">测试报告</el-menu-item>
       </el-sub-menu>
 
-      <!-- C6: DevOps交付 -->
+      <!-- C6: DevOps -->
       <el-sub-menu index="c6">
         <template #title>
           <el-icon><Promotion /></el-icon>
-          <span>C6: DevOps交付</span>
+          <span>C6: DevOps</span>
         </template>
+        <el-menu-item index="/function/c6/pipeline">流水线</el-menu-item>
         <el-menu-item index="/function/c6/build/list">构建管理</el-menu-item>
         <el-menu-item index="/function/c6/deploy/list">部署管理</el-menu-item>
-        <el-menu-item index="/function/c6/pipeline">流水线</el-menu-item>
-        <el-menu-item index="/function/c6/environment">环境管理</el-menu-item>
       </el-sub-menu>
 
-      <!-- C7: 分析与治理 -->
+      <!-- C7: 分析治理 -->
       <el-sub-menu index="c7">
         <template #title>
           <el-icon><DataAnalysis /></el-icon>
-          <span>C7: 分析与治理</span>
+          <span>C7: 分析治理</span>
         </template>
         <el-menu-item index="/function/c7/metrics/requirement">需求度量</el-menu-item>
         <el-menu-item index="/function/c7/metrics/quality">质量度量</el-menu-item>
         <el-menu-item index="/function/c7/metrics/delivery">交付度量</el-menu-item>
-        <el-menu-item index="/function/c7/metrics/team">团队效能</el-menu-item>
       </el-sub-menu>
     </el-menu>
   </div>

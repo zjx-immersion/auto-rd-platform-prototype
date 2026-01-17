@@ -10,8 +10,8 @@ import {
   generateDate,
   randomChoice,
   randomInt,
-  DOMAINS,
-  USERS
+  DOMAIN_OPTIONS,
+  MOCK_USER_IDS
 } from './helpers'
 
 /**
@@ -37,7 +37,7 @@ export function generateMockProductLine(domain: string): ProductLine {
     name,
     domain,
     description: `${name}的完整解决方案`,
-    owner: randomChoice(USERS).id,
+    owner: randomChoice(MOCK_USER_IDS),
     status: randomChoice(['active', 'planning', 'archived']),
     products: [],
     createdAt: generateDate(-180, -90),
@@ -50,7 +50,7 @@ export function generateMockProductLine(domain: string): ProductLine {
  */
 export function generateMockProductLines(count: number = 5): ProductLine[] {
   const productLines: ProductLine[] = []
-  const domains = Object.keys(DOMAINS)
+  const domains = Array.from(DOMAIN_OPTIONS)
   
   for (let i = 0; i < count; i++) {
     const domain = domains[i % domains.length]
@@ -91,7 +91,7 @@ export function generateMockProduct(productLineId: string, index: number): Produ
     productLineId,
     version: `V${randomInt(1, 3)}.${randomInt(0, 9)}.${randomInt(0, 9)}`,
     description: `${name}的核心功能实现`,
-    owner: randomChoice(USERS).id,
+    owner: randomChoice(MOCK_USER_IDS),
     status: randomChoice(['active', 'developing', 'deprecated']),
     releaseDate: generateDate(-90, 0),
     createdAt: generateDate(-180, -90),
@@ -173,7 +173,7 @@ export function generateMockAsset(productId: string, index: number): Asset {
     ]),
     interfaceSpec: `${code}_API_Spec_v1.0.pdf`,
     testCoverage: `${randomInt(70, 95)}%`,
-    owner: randomChoice(USERS).id,
+    owner: randomChoice(MOCK_USER_IDS),
     status: randomChoice(['available', 'in-use', 'deprecated', 'under-review']),
     tags,
     createdAt: generateDate(-365, -180),
