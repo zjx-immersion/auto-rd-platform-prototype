@@ -134,6 +134,12 @@ const routes: RouteRecordRaw[] = [
                 name: 'FeatureAllocation',
                 component: () => import('@/views/C0-Project/FeatureAllocation.vue'),
                 meta: { title: 'Feature分配', breadcrumb: ['固有功能', 'C0: 领域项目管理', 'Feature分配'] }
+              },
+              {
+                path: 'monitor/:id',
+                name: 'ProjectMonitor',
+                component: () => import('@/views/C0-Project/ProjectMonitor.vue'),
+                meta: { title: '项目监控', breadcrumb: ['固有功能', 'C0: 领域项目管理', '项目监控'] }
               }
             ]
           },
@@ -297,6 +303,18 @@ const routes: RouteRecordRaw[] = [
                 name: 'DependencyManagement',
                 component: () => import('@/views/C3-Planning/DependencyManagement.vue'),
                 meta: { title: '依赖管理', breadcrumb: ['固有功能', 'C3: 规划协调', '依赖管理'] }
+              },
+              {
+                path: 'risk',
+                name: 'RiskManagement',
+                component: () => import('@/views/C3-Planning/RiskManagement.vue'),
+                meta: { title: '风险管理', breadcrumb: ['固有功能', 'C3: 规划协调', '风险管理'] }
+              },
+              {
+                path: 'pi/progress/:id',
+                name: 'PIProgress',
+                component: () => import('@/views/C3-Planning/PIProgress.vue'),
+                meta: { title: 'PI进度跟踪', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI进度跟踪'] }
               }
             ]
           },
