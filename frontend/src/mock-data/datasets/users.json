@@ -1,0 +1,107 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-01-17T12:00:00Z",
+  "description": "系统用户数据集",
+  "data": [
+    {
+      "id": "user-001",
+      "name": "张三",
+      "email": "zhangsan@voyah.com",
+      "role": "项目经理",
+      "department": "智能驾驶",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Zhang",
+      "phone": "13800138001",
+      "status": "active"
+    },
+    {
+      "id": "user-002",
+      "name": "李四",
+      "email": "lisi@voyah.com",
+      "role": "开发工程师",
+      "department": "智能驾驶",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Li",
+      "phone": "13800138002",
+      "status": "active"
+    },
+    {
+      "id": "user-003",
+      "name": "王五",
+      "email": "wangwu@voyah.com",
+      "role": "测试工程师",
+      "department": "智能座舱",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Wang",
+      "phone": "13800138003",
+      "status": "active"
+    },
+    {
+      "id": "user-004",
+      "name": "赵六",
+      "email": "zhaoliu@voyah.com",
+      "role": "产品经理",
+      "department": "智能座舱",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Zhao",
+      "phone": "13800138004",
+      "status": "active"
+    },
+    {
+      "id": "user-005",
+      "name": "孙七",
+      "email": "sunqi@voyah.com",
+      "role": "架构师",
+      "department": "电子电器",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sun",
+      "phone": "13800138005",
+      "status": "active"
+    },
+    {
+      "id": "user-006",
+      "name": "周八",
+      "email": "zhouba@voyah.com",
+      "role": "开发工程师",
+      "department": "电子电器",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Zhou",
+      "phone": "13800138006",
+      "status": "active"
+    },
+    {
+      "id": "user-007",
+      "name": "吴九",
+      "email": "wujiu@voyah.com",
+      "role": "Scrum Master",
+      "department": "底盘域",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Wu",
+      "phone": "13800138007",
+      "status": "active"
+    },
+    {
+      "id": "user-008",
+      "name": "郑十",
+      "email": "zhengshi@voyah.com",
+      "role": "测试经理",
+      "department": "底盘域",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Zheng",
+      "phone": "13800138008",
+      "status": "active"
+    },
+    {
+      "id": "user-009",
+      "name": "陈十一",
+      "email": "chenshiyi@voyah.com",
+      "role": "开发工程师",
+      "department": "新能源",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Chen",
+      "phone": "13800138009",
+      "status": "active"
+    },
+    {
+      "id": "user-010",
+      "name": "刘十二",
+      "email": "liushier@voyah.com",
+      "role": "技术总监",
+      "department": "平台架构",
+      "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Liu",
+      "phone": "13800138010",
+      "status": "active"
+    }
+  ]
+}

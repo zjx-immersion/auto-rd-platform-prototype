@@ -1,0 +1,127 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-01-17T12:00:00Z",
+  "description": "产品版本数据集 - 关联项目和Feature",
+  "data": [
+    {
+      "id": "ver-001",
+      "code": "V1.0",
+      "name": "智驾1.0 - 高速NOA",
+      "projectId": "proj-001",
+      "description": "首个量产版本，包含高速NOA、自动变道、匝道汇入等核心功能",
+      "startDate": "2026-01-01",
+      "releaseDate": "2026-06-30",
+      "status": "in-progress",
+      "featureIds": [],
+      "metadata": {
+        "targetVehicles": ["岚图FREE 2026款"],
+        "marketRegions": ["中国大陆"],
+        "releaseNotes": "1. 高速公路NOA功能\n2. 自动变道辅助\n3. 匝道自动汇入/汇出\n4. 智能限速识别"
+      },
+      "createdAt": "2026-01-01T08:00:00Z",
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "createdBy": "user-001",
+      "updatedBy": "user-001"
+    },
+    {
+      "id": "ver-002",
+      "code": "V2.0",
+      "name": "智驾2.0 - 城市NGP",
+      "projectId": "proj-001",
+      "description": "第二个版本，增强城市场景自动驾驶能力",
+      "startDate": "2026-07-01",
+      "releaseDate": "2026-12-31",
+      "status": "planning",
+      "featureIds": [],
+      "metadata": {
+        "targetVehicles": ["岚图FREE 2026款", "岚图追光 2026款"],
+        "marketRegions": ["中国大陆"],
+        "releaseNotes": "1. 城市NGP功能\n2. 智能泊车辅助\n3. 记忆泊车\n4. 遥控泊车"
+      },
+      "createdAt": "2026-01-01T08:00:00Z",
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "createdBy": "user-001",
+      "updatedBy": "user-001"
+    },
+    {
+      "id": "ver-003",
+      "code": "V1.0",
+      "name": "座舱3.0 - 基础版",
+      "projectId": "proj-002",
+      "description": "智能座舱3.0首个版本，包含语音助手3.0和多屏联动",
+      "startDate": "2026-02-01",
+      "releaseDate": "2026-07-31",
+      "status": "in-progress",
+      "featureIds": [],
+      "metadata": {
+        "targetVehicles": ["岚图追光 2026款"],
+        "marketRegions": ["中国大陆"],
+        "releaseNotes": "1. 语音助手3.0\n2. 多屏联动显示\n3. 智能推荐系统\n4. 车载应用商店"
+      },
+      "createdAt": "2026-02-01T08:00:00Z",
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "createdBy": "user-004",
+      "updatedBy": "user-004"
+    },
+    {
+      "id": "ver-004",
+      "code": "V2.0",
+      "name": "座舱3.0 - 增强版",
+      "projectId": "proj-002",
+      "description": "智能座舱3.0增强版，增加AR-HUD和多模态交互",
+      "startDate": "2026-08-01",
+      "releaseDate": "2026-11-30",
+      "status": "planning",
+      "featureIds": [],
+      "metadata": {
+        "targetVehicles": ["岚图追光 2026款", "岚图梦想家 2026款"],
+        "marketRegions": ["中国大陆", "欧洲"],
+        "releaseNotes": "1. AR-HUD增强显示\n2. 手势控制\n3. 情绪识别\n4. 场景化推荐"
+      },
+      "createdAt": "2026-02-01T08:00:00Z",
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "createdBy": "user-004",
+      "updatedBy": "user-004"
+    },
+    {
+      "id": "ver-005",
+      "code": "V1.0",
+      "name": "E/E 3.0 - 架构基础",
+      "projectId": "proj-003",
+      "description": "新一代电子电器架构基础版本",
+      "startDate": "2026-03-01",
+      "releaseDate": "2026-10-31",
+      "status": "planning",
+      "featureIds": [],
+      "metadata": {
+        "targetVehicles": ["岚图梦想家 2027款"],
+        "marketRegions": ["全球"],
+        "releaseNotes": "1. 中央计算平台\n2. 区域控制器\n3. 千兆以太网骨干\n4. OTA基础能力"
+      },
+      "createdAt": "2026-03-01T08:00:00Z",
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "createdBy": "user-005",
+      "updatedBy": "user-005"
+    },
+    {
+      "id": "ver-006",
+      "code": "V2.0",
+      "name": "E/E 3.0 - 完整版",
+      "projectId": "proj-003",
+      "description": "电子电器架构完整版本，包含所有高级功能",
+      "startDate": "2026-11-01",
+      "releaseDate": "2027-03-31",
+      "status": "planning",
+      "featureIds": [],
+      "metadata": {
+        "targetVehicles": ["岚图梦想家 2027款"],
+        "marketRegions": ["全球"],
+        "releaseNotes": "1. 完整OTA能力\n2. 高级安全特性\n3. V2X通信\n4. 云端服务集成"
+      },
+      "createdAt": "2026-03-01T08:00:00Z",
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "createdBy": "user-005",
+      "updatedBy": "user-005"
+    }
+  ]
+}

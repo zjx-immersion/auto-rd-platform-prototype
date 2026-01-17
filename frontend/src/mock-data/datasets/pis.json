@@ -1,0 +1,183 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-01-17T12:00:00Z",
+  "description": "PI（Program Increment）数据集 - 规划和协调",
+  "data": [
+    {
+      "id": "pi-001",
+      "code": "PI-2026-Q1",
+      "name": "2026 Q1 PI",
+      "startDate": "2026-01-01",
+      "endDate": "2026-03-31",
+      "sprintCount": 6,
+      "sprintDuration": 14,
+      "projectIds": ["proj-001"],
+      "objectives": [
+        {
+          "id": "obj-001-1",
+          "description": "完成高速NOA核心算法开发",
+          "businessValue": 8,
+          "status": "achieved"
+        },
+        {
+          "id": "obj-001-2",
+          "description": "通过功能安全设计评审",
+          "businessValue": 9,
+          "status": "achieved"
+        }
+      ],
+      "epicIds": [],
+      "featureIds": [],
+      "teams": ["team-001", "team-002"],
+      "status": "completed",
+      "committedStoryPoints": 120,
+      "completedStoryPoints": 115,
+      "risks": [],
+      "owner": "user-001",
+      "notes": "Q1 PI成功完成，达成率95.8%",
+      "createdAt": "2025-12-01T08:00:00Z",
+      "updatedAt": "2026-03-31T18:00:00Z",
+      "createdBy": "user-001",
+      "updatedBy": "user-001"
+    },
+    {
+      "id": "pi-002",
+      "code": "PI-2026-Q2",
+      "name": "2026 Q2 PI",
+      "startDate": "2026-04-01",
+      "endDate": "2026-06-30",
+      "sprintCount": 6,
+      "sprintDuration": 14,
+      "projectIds": ["proj-001", "proj-002"],
+      "objectives": [
+        {
+          "id": "obj-002-1",
+          "description": "完成高速NOA功能集成测试",
+          "businessValue": 9,
+          "status": "in-progress"
+        },
+        {
+          "id": "obj-002-2",
+          "description": "完成座舱语音助手3.0核心功能",
+          "businessValue": 8,
+          "status": "in-progress"
+        },
+        {
+          "id": "obj-002-3",
+          "description": "完成V1.0版本Alpha发布",
+          "businessValue": 10,
+          "status": "at-risk"
+        }
+      ],
+      "epicIds": [],
+      "featureIds": [],
+      "teams": ["team-001", "team-002", "team-004"],
+      "status": "in-progress",
+      "committedStoryPoints": 150,
+      "completedStoryPoints": 85,
+      "risks": [
+        {
+          "id": "risk-001",
+          "title": "第三方SDK集成延期",
+          "description": "语音识别SDK供应商交付延期2周",
+          "probability": "high",
+          "impact": "medium",
+          "status": "identified",
+          "mitigation": "启用备用方案，自研轻量级识别模块"
+        }
+      ],
+      "owner": "user-001",
+      "notes": "当前进度56.7%，需要关注风险",
+      "createdAt": "2026-03-01T08:00:00Z",
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "createdBy": "user-001",
+      "updatedBy": "user-001"
+    },
+    {
+      "id": "pi-003",
+      "code": "PI-2026-Q3",
+      "name": "2026 Q3 PI",
+      "startDate": "2026-07-01",
+      "endDate": "2026-09-30",
+      "sprintCount": 6,
+      "sprintDuration": 14,
+      "projectIds": ["proj-001", "proj-002"],
+      "objectives": [
+        {
+          "id": "obj-003-1",
+          "description": "完成城市NGP功能开发",
+          "businessValue": 9,
+          "status": "committed"
+        },
+        {
+          "id": "obj-003-2",
+          "description": "完成AR-HUD基础功能",
+          "businessValue": 7,
+          "status": "committed"
+        },
+        {
+          "id": "obj-003-3",
+          "description": "通过道路测试5万公里",
+          "businessValue": 8,
+          "status": "committed"
+        }
+      ],
+      "epicIds": [],
+      "featureIds": [],
+      "teams": ["team-001", "team-002", "team-004", "team-005"],
+      "status": "committed",
+      "committedStoryPoints": 180,
+      "completedStoryPoints": 0,
+      "risks": [],
+      "owner": "user-001",
+      "notes": "Q3 PI规划已完成，等待启动",
+      "createdAt": "2026-05-01T08:00:00Z",
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "createdBy": "user-001",
+      "updatedBy": "user-001"
+    },
+    {
+      "id": "pi-004",
+      "code": "PI-2026-Q4",
+      "name": "2026 Q4 PI",
+      "startDate": "2026-10-01",
+      "endDate": "2026-12-31",
+      "sprintCount": 6,
+      "sprintDuration": 14,
+      "projectIds": ["proj-001", "proj-002", "proj-003"],
+      "objectives": [
+        {
+          "id": "obj-004-1",
+          "description": "完成所有功能最终测试",
+          "businessValue": 10,
+          "status": "planning"
+        },
+        {
+          "id": "obj-004-2",
+          "description": "通过功能安全认证",
+          "businessValue": 10,
+          "status": "planning"
+        },
+        {
+          "id": "obj-004-3",
+          "description": "E/E 3.0架构原理样机完成",
+          "businessValue": 8,
+          "status": "planning"
+        }
+      ],
+      "epicIds": [],
+      "featureIds": [],
+      "teams": ["team-001", "team-002", "team-004", "team-005", "team-006"],
+      "status": "planning",
+      "committedStoryPoints": 0,
+      "completedStoryPoints": 0,
+      "risks": [],
+      "owner": "user-001",
+      "notes": "Q4 PI初步规划中",
+      "createdAt": "2026-08-01T08:00:00Z",
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "createdBy": "user-001",
+      "updatedBy": "user-001"
+    }
+  ]
+}

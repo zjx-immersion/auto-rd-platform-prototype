@@ -1,0 +1,205 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-01-17T12:00:00Z",
+  "description": "领域项目数据集 - 支撑项目管理和PI规划",
+  "data": [
+    {
+      "id": "proj-001",
+      "code": "PRJ-001",
+      "name": "智能驾驶L3级功能开发",
+      "vehicleModel": "岚图FREE 2026款",
+      "domain": "智能驾驶",
+      "startDate": "2026-01-01",
+      "sopDate": "2026-12-31",
+      "endDate": "2026-12-31",
+      "status": "in-progress",
+      "health": "green",
+      "description": "实现L3级自动驾驶功能，包括高速NOA、城市NGP、自动泊车等核心特性。目标是在2026年底前完成所有功能开发并通过功能安全认证。",
+      "objectives": [
+        "实现高速公路L3级自动驾驶（NOA）",
+        "完成城市NGP功能开发",
+        "通过ISO 26262 ASIL-D功能安全认证",
+        "完成10万公里路测验证",
+        "实现OTA远程升级能力"
+      ],
+      "milestones": [
+        {
+          "id": "ms-001-1",
+          "name": "需求评审完成",
+          "date": "2026-03-31",
+          "type": "review",
+          "status": "achieved",
+          "description": "完成所有Epic和Feature的需求评审",
+          "deliverables": ["Epic评审报告", "Feature PRD文档", "技术方案评审"]
+        },
+        {
+          "id": "ms-001-2",
+          "name": "功能原型完成",
+          "date": "2026-06-30",
+          "type": "development",
+          "status": "at-risk",
+          "description": "完成核心功能的原型开发和内部测试",
+          "deliverables": ["高速NOA原型", "自动泊车原型", "HMI交互原型"]
+        },
+        {
+          "id": "ms-001-3",
+          "name": "Alpha版本发布",
+          "date": "2026-09-30",
+          "type": "release",
+          "status": "pending",
+          "description": "发布Alpha测试版本，开始道路测试",
+          "deliverables": ["Alpha版本软件包", "测试用例", "用户手册"]
+        },
+        {
+          "id": "ms-001-4",
+          "name": "SOP量产准备",
+          "date": "2026-12-31",
+          "type": "release",
+          "status": "pending",
+          "description": "完成量产准备，通过所有认证",
+          "deliverables": ["量产版本", "认证报告", "技术文档"]
+        }
+      ],
+      "teams": ["team-001", "team-002", "team-003"],
+      "owner": "user-001",
+      "epicIds": [],
+      "piVersionIds": [],
+      "createdAt": "2026-01-01T08:00:00Z",
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "createdBy": "user-001",
+      "updatedBy": "user-001"
+    },
+    {
+      "id": "proj-002",
+      "code": "PRJ-002",
+      "name": "智能座舱3.0升级",
+      "vehicleModel": "岚图追光 2026款",
+      "domain": "智能座舱",
+      "startDate": "2026-02-01",
+      "sopDate": "2026-11-30",
+      "endDate": "2026-11-30",
+      "status": "in-progress",
+      "health": "yellow",
+      "description": "智能座舱系统全面升级，包括语音助手3.0、AR-HUD、全景影像4.0、多屏联动等功能，提升用户体验。",
+      "objectives": [
+        "语音助手响应速度提升50%",
+        "实现多模态交互（语音+手势+触控）",
+        "AR-HUD显示信息丰富度提升3倍",
+        "实现4屏联动协同显示",
+        "车内智能推荐准确率达85%以上"
+      ],
+      "milestones": [
+        {
+          "id": "ms-002-1",
+          "name": "需求定义完成",
+          "date": "2026-04-30",
+          "type": "review",
+          "status": "achieved",
+          "description": "完成座舱3.0所有需求定义和评审",
+          "deliverables": ["需求规格书", "交互设计稿", "技术方案"]
+        },
+        {
+          "id": "ms-002-2",
+          "name": "核心功能开发完成",
+          "date": "2026-07-31",
+          "type": "development",
+          "status": "on-track",
+          "description": "完成语音助手、AR-HUD等核心功能开发",
+          "deliverables": ["功能软件包", "集成测试报告"]
+        },
+        {
+          "id": "ms-002-3",
+          "name": "Beta版本发布",
+          "date": "2026-09-30",
+          "type": "release",
+          "status": "pending",
+          "description": "发布Beta版本，开始用户体验测试",
+          "deliverables": ["Beta版本", "体验测试报告"]
+        },
+        {
+          "id": "ms-002-4",
+          "name": "量产版本发布",
+          "date": "2026-11-30",
+          "type": "release",
+          "status": "pending",
+          "description": "完成量产版本开发和测试",
+          "deliverables": ["量产软件", "用户手册", "培训材料"]
+        }
+      ],
+      "teams": ["team-004", "team-005"],
+      "owner": "user-004",
+      "epicIds": [],
+      "piVersionIds": [],
+      "createdAt": "2026-02-01T08:00:00Z",
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "createdBy": "user-004",
+      "updatedBy": "user-004"
+    },
+    {
+      "id": "proj-003",
+      "code": "PRJ-003",
+      "name": "电子电器架构E/E 3.0",
+      "vehicleModel": "岚图梦想家 2027款",
+      "domain": "电子电器",
+      "startDate": "2026-03-01",
+      "sopDate": "2027-03-31",
+      "endDate": "2027-03-31",
+      "status": "planning",
+      "health": "green",
+      "description": "全新一代电子电器架构，采用中央计算平台+区域控制器架构，支持千兆以太网骨干通信，实现软硬件解耦。",
+      "objectives": [
+        "实现域控制器集中化（5域→3域）",
+        "以太网骨干网带宽达到1Gbps",
+        "ECU数量减少30%",
+        "OTA升级覆盖率达90%以上",
+        "功能安全等级达到ASIL-D"
+      ],
+      "milestones": [
+        {
+          "id": "ms-003-1",
+          "name": "架构设计评审",
+          "date": "2026-06-30",
+          "type": "review",
+          "status": "pending",
+          "description": "完成E/E架构设计和评审",
+          "deliverables": ["架构设计文档", "网络拓扑设计", "安全架构设计"]
+        },
+        {
+          "id": "ms-003-2",
+          "name": "原理样机完成",
+          "date": "2026-10-31",
+          "type": "development",
+          "status": "pending",
+          "description": "完成原理样机开发和验证",
+          "deliverables": ["原理样机", "功能验证报告"]
+        },
+        {
+          "id": "ms-003-3",
+          "name": "集成测试完成",
+          "date": "2026-12-31",
+          "type": "testing",
+          "status": "pending",
+          "description": "完成系统集成和测试",
+          "deliverables": ["集成测试报告", "性能测试报告"]
+        },
+        {
+          "id": "ms-003-4",
+          "name": "量产准备就绪",
+          "date": "2027-03-31",
+          "type": "release",
+          "status": "pending",
+          "description": "完成量产准备和供应商认证",
+          "deliverables": ["量产版本", "供应商认证", "生产工艺文件"]
+        }
+      ],
+      "teams": ["team-006", "team-007"],
+      "owner": "user-005",
+      "epicIds": [],
+      "piVersionIds": [],
+      "createdAt": "2026-03-01T08:00:00Z",
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "createdBy": "user-005",
+      "updatedBy": "user-005"
+    }
+  ]
+}
