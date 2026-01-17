@@ -450,6 +450,8 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/styles/variables.scss';
+
 .project-list-container {
   height: 100%;
 }

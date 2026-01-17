@@ -409,6 +409,8 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/styles/variables.scss';
+
 .project-create-container {
   height: 100%;
 }

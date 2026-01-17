@@ -129,6 +129,8 @@ const reject = async (row: any) => {
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/styles/variables.scss';
+
 .requirement-pool-container {
   height: 100%;
 }

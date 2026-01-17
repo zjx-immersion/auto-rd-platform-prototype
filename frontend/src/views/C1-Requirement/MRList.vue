@@ -181,6 +181,8 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/styles/variables.scss';
+
 .mr-list-container {
   height: 100%;
 }

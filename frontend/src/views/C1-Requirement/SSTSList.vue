@@ -328,6 +328,8 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/styles/variables.scss';
+
 .ssts-list-container {
   height: 100%;
 }
