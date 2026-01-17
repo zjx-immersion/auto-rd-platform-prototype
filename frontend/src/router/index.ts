@@ -128,6 +128,12 @@ const routes: RouteRecordRaw[] = [
                 name: 'PICreate',
                 component: () => import('@/views/C0-Project/PICreate.vue'),
                 meta: { title: '创建PI', breadcrumb: ['固有功能', 'C0: 领域项目管理', '创建PI'] }
+              },
+              {
+                path: 'version/feature-allocation',
+                name: 'FeatureAllocation',
+                component: () => import('@/views/C0-Project/FeatureAllocation.vue'),
+                meta: { title: 'Feature分配', breadcrumb: ['固有功能', 'C0: 领域项目管理', 'Feature分配'] }
               }
             ]
           },
@@ -167,6 +173,12 @@ const routes: RouteRecordRaw[] = [
                 name: 'FeatureDecompose',
                 component: () => import('@/views/C1-Requirement/FeatureDecompose.vue'),
                 meta: { title: 'Feature拆解', breadcrumb: ['固有功能', 'C1: 需求管理', 'Feature拆解'] }
+              },
+              {
+                path: 'feature/:id/prd',
+                name: 'PRDEditor',
+                component: () => import('@/views/C1-Requirement/PRDEditor.vue'),
+                meta: { title: 'PRD编辑器', breadcrumb: ['固有功能', 'C1: 需求管理', 'PRD编辑器'] }
               },
               // SSTS管理
               {
@@ -220,6 +232,18 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'c2',
             children: [
+              {
+                path: 'productline/list',
+                name: 'ProductLineList',
+                component: () => import('@/views/C2-Assets/ProductLineList.vue'),
+                meta: { title: '产品线管理', breadcrumb: ['固有功能', 'C2: 资产管理', '产品线管理'] }
+              },
+              {
+                path: 'product/list',
+                name: 'ProductList',
+                component: () => import('@/views/C2-Assets/ProductList.vue'),
+                meta: { title: '产品管理', breadcrumb: ['固有功能', 'C2: 资产管理', '产品管理'] }
+              },
               {
                 path: 'asset/search',
                 name: 'AssetSearch',
