@@ -13,6 +13,7 @@ import { useAssetStore } from '@/stores/modules/asset'
 import { useSprintStore } from '@/stores/modules/sprint'
 import { useTaskStore } from '@/stores/modules/task'
 import { useTestingStore } from '@/stores/modules/testing'
+import { useUserStore } from '@/stores/modules/user'
 
 import {
   generateMockProjects,
@@ -79,6 +80,12 @@ export async function initializeMockData() {
  */
 async function initializeProjectData() {
   const projectStore = useProjectStore()
+  const userStore = useUserStore()
+
+  // 初始化用户数据（必须先于项目，因为项目需要引用用户）
+  const users = generateMockUsers(10)
+  userStore.users = users
+  console.log(`✓ 创建了 ${users.length} 个用户`)
 
   // 生成3个项目
   const projects = generateMockProjects(3)

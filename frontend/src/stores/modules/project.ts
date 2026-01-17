@@ -362,6 +362,14 @@ export const useProjectStore = defineStore('project', () => {
     console.log('createVersion called (not implemented yet)', versionData)
   }
 
+  /**
+   * 创建PI（临时方法，简化实现）
+   */
+  async function createPI(piData: any) {
+    // TODO: 实现PI创建逻辑
+    console.log('createPI called (not implemented yet)', piData)
+  }
+
   // ============================================================================
   // Return
   // ============================================================================
@@ -398,5 +406,6 @@ export const useProjectStore = defineStore('project', () => {
     getVersionsByProject,
     getPIsByProject,
     createVersion,
+    createPI,
   }
 })

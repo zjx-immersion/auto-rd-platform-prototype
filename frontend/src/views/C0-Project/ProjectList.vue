@@ -321,14 +321,18 @@ const getPICount = (projectId: string) => {
 
 const calculateProgress = (project: Project) => {
   // 简单计算：基于时间进度
+  if (!project.startDate || !project.endDate) return 0
+  
   const start = new Date(project.startDate).getTime()
   const end = new Date(project.endDate).getTime()
   const now = Date.now()
   
+  if (isNaN(start) || isNaN(end)) return 0
   if (now < start) return 0
   if (now > end) return 100
   
-  return Math.round(((now - start) / (end - start)) * 100)
+  const progress = Math.round(((now - start) / (end - start)) * 100)
+  return Math.max(0, Math.min(100, progress)) // 确保在0-100范围内
 }
 
 // 事件处理

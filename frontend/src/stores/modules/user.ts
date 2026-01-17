@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import type { User } from '@/types'
 
 export const useUserStore = defineStore('user', () => {
   // 状态
   const profile = ref<UserProfile | null>(null)
   const permissions = ref<string[]>([])
   const token = ref<string>('')
+  const users = ref<User[]>([]) // 用户列表
 
   // 方法
   async function login(username: string, password: string) {
@@ -54,13 +56,21 @@ export const useUserStore = defineStore('user', () => {
     return permissions.value.includes(permission)
   }
 
+  // 获取用户列表
+  async function fetchUsers() {
+    // TODO: 从服务器获取用户列表
+    // 暂时使用mock数据（将在mockDataInitializer中填充）
+  }
+
   return {
     profile,
     permissions,
     token,
+    users,
     login,
     logout,
     fetchUserInfo,
+    fetchUsers,
     hasPermission
   }
 })
