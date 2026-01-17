@@ -313,6 +313,55 @@ export const useProjectStore = defineStore('project', () => {
     error.value = null
   }
 
+  /**
+   * 删除项目
+   */
+  async function deleteProject(id: string) {
+    loading.value = true
+    error.value = null
+
+    try {
+      const index = projects.value.findIndex(p => p.id === id)
+      if (index !== -1) {
+        projects.value.splice(index, 1)
+      }
+
+      if (currentProject.value?.id === id) {
+        currentProject.value = null
+      }
+    } catch (err: any) {
+      error.value = err.message || '删除项目失败'
+      console.error('删除项目失败:', err)
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  /**
+   * 获取项目的版本列表（临时方法，简化实现）
+   */
+  function getVersionsByProject(projectId: string) {
+    // TODO: 从version store获取
+    return []
+  }
+
+  /**
+   * 获取项目的PI列表（临时方法，简化实现）
+   */
+  function getPIsByProject(projectId: string) {
+    // TODO: 从pi store获取
+    return []
+  }
+
+  /**
+   * 创建版本（临时方法，简化实现）
+   */
+  async function createVersion(versionData: any) {
+    // TODO: 实现版本创建逻辑
+    console.log('createVersion called (not implemented yet)', versionData)
+  }
+
   // ============================================================================
   // Return
   // ============================================================================
@@ -335,6 +384,7 @@ export const useProjectStore = defineStore('project', () => {
     fetchProjectById,
     createProject,
     updateProject,
+    deleteProject,
     addMilestone,
     updateMilestone,
     updateTeamConfig,
@@ -343,5 +393,10 @@ export const useProjectStore = defineStore('project', () => {
     calculateProjectProgress,
     resetCurrentProject,
     clearError,
+    
+    // Helper methods
+    getVersionsByProject,
+    getPIsByProject,
+    createVersion,
   }
 })

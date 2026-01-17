@@ -12,7 +12,7 @@
           <el-icon><Star /></el-icon>
           <span>我的收藏</span>
         </template>
-        <el-menu-item v-if="favorites.length === 0" disabled>
+        <el-menu-item v-if="favorites.length === 0" index="favorites-empty" disabled>
           <span class="empty-hint">暂无收藏</span>
         </el-menu-item>
         <el-menu-item
@@ -30,7 +30,7 @@
           <el-icon><Clock /></el-icon>
           <span>最近使用</span>
         </template>
-        <el-menu-item v-if="recentItems.length === 0" disabled>
+        <el-menu-item v-if="recentItems.length === 0" index="recent-empty" disabled>
           <span class="empty-hint">暂无记录</span>
         </el-menu-item>
         <el-menu-item
