@@ -7,6 +7,8 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { DomainProject, Milestone, TeamConfig } from '@/types'
+import { useVersionStore } from './version'
+import { usePIStore } from './pi'
 
 export const useProjectStore = defineStore('project', () => {
   // ============================================================================
@@ -339,35 +341,58 @@ export const useProjectStore = defineStore('project', () => {
   }
 
   /**
-   * 获取项目的版本列表（临时方法，简化实现）
+   * 获取项目的版本列表
    */
   function getVersionsByProject(projectId: string) {
-    // TODO: 从version store获取
-    return []
+    const versionStore = useVersionStore()
+    return versionStore.getVersionsByProject.value(projectId)
   }
 
   /**
-   * 获取项目的PI列表（临时方法，简化实现）
+   * 获取项目的PI列表
    */
   function getPIsByProject(projectId: string) {
-    // TODO: 从pi store获取
-    return []
+    const piStore = usePIStore()
+    return piStore.pisByProject.value(projectId)
   }
 
   /**
-   * 创建版本（临时方法，简化实现）
+   * 创建版本
    */
   async function createVersion(versionData: any) {
-    // TODO: 实现版本创建逻辑
-    console.log('createVersion called (not implemented yet)', versionData)
+    const versionStore = useVersionStore()
+    const version = await versionStore.createVersion(versionData)
+    
+    // 关联到项目
+    if (version && versionData.projectId) {
+      const project = projects.value.find(p => p.id === versionData.projectId)
+      if (project && !project.piVersionIds.includes(version.id)) {
+        // 注意：这里暂时存储在piVersionIds中，后续可能需要单独的versionIds字段
+        project.piVersionIds.push(version.id)
+      }
+    }
+    
+    return version
   }
 
   /**
-   * 创建PI（临时方法，简化实现）
+   * 创建PI
    */
   async function createPI(piData: any) {
-    // TODO: 实现PI创建逻辑
-    console.log('createPI called (not implemented yet)', piData)
+    const piStore = usePIStore()
+    const pi = await piStore.createPIVersion(piData)
+    
+    // 关联到项目
+    if (pi && piData.projectIds) {
+      for (const projectId of piData.projectIds) {
+        const project = projects.value.find(p => p.id === projectId)
+        if (project && !project.piVersionIds.includes(pi.id)) {
+          project.piVersionIds.push(pi.id)
+        }
+      }
+    }
+    
+    return pi
   }
 
   // ============================================================================

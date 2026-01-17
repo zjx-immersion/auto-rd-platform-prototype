@@ -192,6 +192,13 @@ export const usePIStore = defineStore('pi', () => {
     currentPI.value = null
   }
 
+  /**
+   * 根据项目ID获取PI列表（便捷方法）
+   */
+  function getPIsByProject(projectId: string) {
+    return piVersions.value.filter(pi => pi.projectIds.includes(projectId))
+  }
+
   return {
     piVersions,
     currentPI,
@@ -215,5 +222,6 @@ export const usePIStore = defineStore('pi', () => {
     calculateTotalCapacity,
     calculatePlannedLoad,
     resetCurrentPI,
+    getPIsByProject,
   }
 })

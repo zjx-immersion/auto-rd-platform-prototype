@@ -4,6 +4,7 @@
  */
 
 import { useProjectStore } from '@/stores/modules/project'
+import { useVersionStore } from '@/stores/modules/version'
 import { useEpicStore } from '@/stores/modules/epic'
 import { useFeatureStore } from '@/stores/modules/feature'
 import { useSSTSStore } from '@/stores/modules/ssts'
@@ -114,6 +115,8 @@ async function initializeProjectData() {
  */
 async function initializeRequirementData() {
   const projectStore = useProjectStore()
+  const versionStore = useVersionStore()
+  const piStore = usePIStore()
   const epicStore = useEpicStore()
   const featureStore = useFeatureStore()
   const sstsStore = useSSTSStore()
@@ -130,13 +133,55 @@ async function initializeRequirementData() {
     const project = projects[i]
     const hierarchy = generateMockRequirementHierarchy(project.id)
 
-    // 创建Epics
+    // 获取该项目的版本和PI
+    const projectVersions = versionStore.getVersionsByProject.value(project.id)
+    const projectPIs = piStore.getPIsByProject(project.id)
+
+    // 创建Epics并关联到项目和PI
     for (const epic of hierarchy.epics) {
+      // 随机关联到一个PI
+      if (projectPIs.length > 0) {
+        const targetPI = projectPIs[Math.floor(Math.random() * projectPIs.length)]
+        epic.targetPI = targetPI.id
+        
+        // 将Epic关联到PI
+        if (!targetPI.epicIds.includes(epic.id)) {
+          targetPI.epicIds.push(epic.id)
+        }
+      }
+      
       await epicStore.createEpic(epic)
+      
+      // 将Epic关联到项目
+      if (!project.epicIds.includes(epic.id)) {
+        project.epicIds.push(epic.id)
+      }
     }
 
-    // 创建Features
+    // 创建Features并关联到版本和PI
     for (const feature of hierarchy.features) {
+      // 随机关联到一个版本
+      if (projectVersions.length > 0) {
+        const targetVersion = projectVersions[Math.floor(Math.random() * projectVersions.length)]
+        feature.targetVersion = targetVersion.id
+        
+        // 将Feature关联到版本
+        if (!targetVersion.featureIds.includes(feature.id)) {
+          targetVersion.featureIds.push(feature.id)
+        }
+      }
+      
+      // 随机关联到一个PI
+      if (projectPIs.length > 0) {
+        const targetPI = projectPIs[Math.floor(Math.random() * projectPIs.length)]
+        feature.targetPI = targetPI.id
+        
+        // 将Feature关联到PI
+        if (!targetPI.featureIds.includes(feature.id)) {
+          targetPI.featureIds.push(feature.id)
+        }
+      }
+      
       await featureStore.createFeature(feature)
     }
 
@@ -151,8 +196,8 @@ async function initializeRequirementData() {
     }
 
     console.log(`✓ 为项目 "${project.name}" 创建了需求层次结构:`)
-    console.log(`  - ${hierarchy.epics.length} 个Epic`)
-    console.log(`  - ${hierarchy.features.length} 个Feature`)
+    console.log(`  - ${hierarchy.epics.length} 个Epic (关联到PI)`)
+    console.log(`  - ${hierarchy.features.length} 个Feature (关联到版本和PI)`)
     console.log(`  - ${hierarchy.sstsList.length} 个SSTS`)
     console.log(`  - ${hierarchy.mrList.length} 个MR`)
   }

@@ -9,6 +9,7 @@ export * from './modules/cache'
 
 // 业务领域Store
 export * from './modules/project'
+export * from './modules/version'
 export * from './modules/epic'
 export * from './modules/feature'
 export * from './modules/ssts'
