@@ -2,10 +2,15 @@
 
 > **面向智能驾驶、智能座舱、电子电器、底盘架构、新能源等领域的端到端研发协同平台**
 >
-> **版本**: V7.0 (Enterprise-Grade Business Solution Edition)  
+> **版本**: V7.1 (Enterprise-Grade Business Solution Edition)  
 > **日期**: 2026-01-18  
 > **设计理念**: 价值流驱动 + 领域模型 + 流程协同 + 资产复用  
 > **核心目标**: 构建高效、透明、协同的端到端整车软件研发管理平台
+> 
+> **修订说明**: 
+> - 修正需求模型为三层（Epic → Feature/SSTS → MR），Task为工作项
+> - 为所有设计图添加核心说明
+> - 补充C0领域项目管理核心能力（版本规划、PI Planning）
 
 ---
 
@@ -26,6 +31,8 @@
 ## 一、问题域与业务场景
 
 ### 1.1 整车软件研发核心挑战
+
+**设计说明**: 从需求管理、多域协同、资产复用、质量保障、交付效能五个维度系统梳理整车软件研发面临的核心挑战与痛点。
 
 ```mermaid
 mindmap
@@ -117,6 +124,8 @@ mindmap
 ### 1.2 典型业务场景
 
 #### 场景1: 智能驾驶功能开发
+
+**设计说明**: 展示智能驾驶从用户需求到OTA发布的完整开发流程，以及算法迭代快、集成测试复杂、合规追溯困难三大核心痛点。
 
 ```mermaid
 graph LR
@@ -298,6 +307,8 @@ graph TB
 
 ### 2.1 四层整体架构
 
+**设计说明**: 平台采用四层架构（管理框架层、价值流层、核心能力层、治理层），支撑从项目管理到价值交付的端到端研发协同。
+
 ```mermaid
 graph TB
     subgraph 管理框架层["🎯 管理框架层 (Management Layer)"]
@@ -334,10 +345,12 @@ graph TB
 
 ### 2.2 核心设计理念
 
+**设计说明**: 平台基于五大核心设计理念（三层需求模型、三层资产模型、九阶段价值流、流程驱动、多角色协同）构建完整的端到端研发协同体系。
+
 ```mermaid
 graph LR
     subgraph Design["平台五大核心设计理念"]
-        D1[四层需求模型<br/>━━━━━━━━<br/>Epic → Feature/SSTS<br/>→ Module/MR → Task<br/>━━━━━━━━<br/>价值: 结构化分解<br/>完整追溯链路]
+        D1[三层需求模型<br/>━━━━━━━━<br/>Epic → Feature/SSTS<br/>→ Module/MR<br/>+工作项Task<br/>━━━━━━━━<br/>价值: 结构化分解<br/>完整追溯链路]
 
         D2[三层资产模型<br/>━━━━━━━━<br/>Product → Feature<br/>→ Module绑定Team<br/>━━━━━━━━<br/>价值: 复用率70%+<br/>降低重复开发]
 
@@ -357,7 +370,7 @@ graph LR
 
 **设计理念详解**:
 
-1. **四层需求模型**: 从用户价值到可执行任务的层次化分解，确保需求可追溯、可验收
+1. **三层需求模型**: Epic → Feature/SSTS → Module/MR 三层结构化需求分解，Task作为工作项支持计划和跟踪，确保需求可追溯、可验收
 2. **三层资产模型**: 产品-功能-模块三层资产管理，支持跨项目复用和快速组装
 3. **九阶段价值流**: 从市场洞察到产品交付的端到端价值流，识别瓶颈并持续优化
 4. **流程驱动系统**: 关键业务流程模板化、自动化，提升协同效率
@@ -456,32 +469,38 @@ graph LR
 
 ## 四、需求与资产模型
 
-### 4.1 四层需求模型
+### 4.1 三层需求模型与工作项
+
+**设计说明**: 定义三层需求模型（Epic → Feature/SSTS → Module/MR）实现需求层次化分解，Task作为工作项（非需求层）用于计划、开发、测试管理和跟踪，可完整溯源到需求链路源头。
 
 ```mermaid
 graph TB
-    subgraph Epic层["用户需求层 (Epic)"]
-        Epic1[Epic: L2+级自动驾驶<br/>━━━━━━━━━━━━<br/>来源: 产品规划<br/>负责人: PO<br/>优先级: P0<br/>价值: 用户体验提升]
+    subgraph 需求层["三层需求模型"]
+        direction TB
+        subgraph Epic层["L1: 用户需求层 (Epic)"]
+            Epic1[Epic: L2+级自动驾驶<br/>━━━━━━━━━━━━<br/>来源: 产品规划<br/>负责人: PO<br/>优先级: P0<br/>价值: 用户体验提升]
+        end
+
+        subgraph Feature层["L2: 功能需求层 (Feature / SSTS)"]
+            Feature1[Feature: 自适应巡航ACC<br/>━━━━━━━━━━━━<br/>PRD: 详细功能需求文档<br/>负责人: FO<br/>复杂度: 高]
+            
+            SSTS1[SSTS-1: 车辆识别与跟随<br/>━━━━━━━━━━━━<br/>功能: 前车识别、距离保持<br/>验收: 响应时间<100ms]
+            
+            SSTS2[SSTS-2: 车速自动调节<br/>━━━━━━━━━━━━<br/>功能: 自动加速、减速<br/>验收: 舒适度评分≥4.5]
+        end
+
+        subgraph Module层["L3: 模块需求层 (MR)"]
+            MR1[MR: 雷达数据处理<br/>━━━━━━━━━━━━<br/>模块: 感知模块<br/>团队: 感知Team<br/>接口: 定义完整]
+            
+            MR2[MR: 决策控制算法<br/>━━━━━━━━━━━━<br/>模块: 决策模块<br/>团队: 决策Team<br/>接口: 定义完整]
+        end
     end
 
-    subgraph Feature层["功能需求层 (Feature / SSTS)"]
-        Feature1[Feature: 自适应巡航ACC<br/>━━━━━━━━━━━━<br/>PRD: 详细功能需求文档<br/>负责人: FO<br/>复杂度: 高]
+    subgraph 工作项层["工作项（非需求层）"]
+        direction LR
+        Task1[Task: 雷达信号滤波<br/>━━━━━━━━━━━━<br/>估算: 3人天<br/>开发: DEV-A<br/>状态: In Progress<br/>溯源: MR1]
         
-        SSTS1[SSTS-1: 车辆识别与跟随<br/>━━━━━━━━━━━━<br/>功能: 前车识别、距离保持<br/>验收: 响应时间<100ms]
-        
-        SSTS2[SSTS-2: 车速自动调节<br/>━━━━━━━━━━━━<br/>功能: 自动加速、减速<br/>验收: 舒适度评分≥4.5]
-    end
-
-    subgraph Module层["模块需求层 (MR)"]
-        MR1[MR: 雷达数据处理<br/>━━━━━━━━━━━━<br/>模块: 感知模块<br/>团队: 感知Team<br/>接口: 定义完整]
-        
-        MR2[MR: 决策控制算法<br/>━━━━━━━━━━━━<br/>模块: 决策模块<br/>团队: 决策Team<br/>接口: 定义完整]
-    end
-
-    subgraph Task层["任务层 (Task)"]
-        Task1[Task: 雷达信号滤波<br/>━━━━━━━━━━━━<br/>估算: 3人天<br/>开发: DEV-A<br/>状态: In Progress]
-        
-        Task2[Task: 目标跟踪算法<br/>━━━━━━━━━━━━<br/>估算: 5人天<br/>开发: DEV-B<br/>状态: To Do]
+        Task2[Task: 目标跟踪算法<br/>━━━━━━━━━━━━<br/>估算: 5人天<br/>开发: DEV-B<br/>状态: To Do<br/>溯源: MR2]
     end
 
     Epic1 --> Feature1
@@ -489,8 +508,8 @@ graph TB
     Feature1 --> SSTS2
     SSTS1 --> MR1
     SSTS2 --> MR2
-    MR1 --> Task1
-    MR2 --> Task2
+    MR1 -.转化为.-> Task1
+    MR2 -.转化为.-> Task2
 
     style Epic1 fill:#e3f2fd,stroke:#1565c0,stroke-width:3px
     style Feature1 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
@@ -498,21 +517,28 @@ graph TB
     style SSTS2 fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
     style MR1 fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
     style MR2 fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
-    style Task1 fill:#fce4ec,stroke:#c2185b,stroke-width:2px
-    style Task2 fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style Task1 fill:#fce4ec,stroke:#c2185b,stroke-width:2px,stroke-dasharray: 5 5
+    style Task2 fill:#fce4ec,stroke:#c2185b,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
-**需求层级说明**:
+**需求层级与工作项说明**:
 
-| 层级 | 名称 | 定义 | 负责人 | 管理位置 |
-|------|------|------|--------|---------|
-| **L1** | Epic | 用户价值需求，来自市场、产品规划 | PO | 需求池（可编辑、评审） |
-| **L2** | Feature | 产品功能，有PRD文档 | FO | 项目中（只读引用） |
-| **L2** | SSTS | 软件系统技术规格，功能/技术/测试 | SE | 项目中（拆解自PRD） |
-| **L3** | MR | 模块需求，分配给团队 | SO | 模块管理（Team视角） |
-| **L4** | Task | 可执行任务，2-8小时 | DEV | Sprint Backlog |
+| 类型 | 层级 | 名称 | 定义 | 负责人 | 管理位置 |
+|------|------|------|------|--------|---------|
+| **需求层** | **L1** | Epic | 用户价值需求，来自市场、产品规划 | PO | 需求池（可编辑、评审） |
+| **需求层** | **L2** | Feature | 产品功能，有PRD文档 | FO | 项目中（只读引用） |
+| **需求层** | **L2** | SSTS | 软件系统技术规格，功能/技术/测试 | SE | 项目中（拆解自PRD） |
+| **需求层** | **L3** | MR | 模块需求，分配给团队 | SO | 模块管理（Team视角） |
+| **工作项** | - | Task | 可执行任务，2-8小时，用于计划和跟踪 | DEV | Sprint Backlog |
+
+**说明**: 
+- Task是工作项，不是需求层级
+- Task从MR转化而来，用于开发、测试的计划、管理和跟踪
+- Task可完整溯源到Epic → Feature/SSTS → MR的需求链路
 
 ### 4.2 三层资产模型
+
+**设计说明**: 建立Product-Feature-Module三层资产管理体系，支持跨项目资产复用和快速组装，每层资产包含成熟度（TRL）、质量评分、依赖关系等关键信息。
 
 ```mermaid
 graph TB
@@ -606,6 +632,8 @@ graph LR
 
 ### 5.1 八大核心能力域
 
+**设计说明**: 平台核心能力域划分为八大领域（C0-C7），覆盖从项目管理、需求管理、资产管理到开发测试发布的全生命周期能力。
+
 ```mermaid
 graph TB
     subgraph C0["C0: 领域项目管理"]
@@ -669,7 +697,98 @@ graph TB
     style C7 fill:#e0f2f1,stroke:#00695c,stroke-width:2px
 ```
 
-### 5.2 C1需求管理核心能力
+### 5.2 C0领域项目管理核心能力
+
+**设计说明**: C0领域项目管理聚焦整车项目全生命周期管理，核心包括基于车型节点的产品版本规划、基线管理、多PI交付管理，以及为多团队多迭代提供的PI Planning协调能力。
+
+```mermaid
+graph TB
+    subgraph 项目管理
+        P1[整车项目创建<br/>━━━━━━<br/>车型定义<br/>交付节点<br/>团队配置]
+        P2[项目监控<br/>━━━━━━<br/>进度跟踪<br/>里程碑管理<br/>风险预警]
+    end
+
+    subgraph 产品版本规划
+        V1[车型节点规划<br/>━━━━━━<br/>SOP节点<br/>预量产节点<br/>试制节点]
+        V2[版本规划<br/>━━━━━━<br/>版本定义<br/>功能范围<br/>交付计划]
+        V3[基线管理<br/>━━━━━━<br/>基线锁定<br/>基线审批<br/>基线变更]
+    end
+
+    subgraph 多PI交付管理
+        PI1[PI Planning协调<br/>━━━━━━<br/>多团队协同<br/>跨域依赖管理<br/>资源均衡]
+        PI2[PI执行监控<br/>━━━━━━<br/>多PI并行<br/>节奏同步<br/>交付看板]
+        PI3[节点交付管理<br/>━━━━━━<br/>基线对齐<br/>集成验证<br/>里程碑检查]
+    end
+
+    subgraph 项目服务
+        S1[项目报告<br/>━━━━━━<br/>进度报告<br/>质量报告<br/>风险报告]
+        S2[项目归档<br/>━━━━━━<br/>交付物归档<br/>知识沉淀<br/>经验总结]
+    end
+
+    P1 --> V1
+    V1 --> V2 --> V3
+    V3 --> PI1
+    PI1 --> PI2 --> PI3
+    P2 -.监控.-> PI2
+    PI3 --> S1 --> S2
+
+    style P1 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style V1 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style V2 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style V3 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style PI1 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style PI2 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style PI3 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+```
+
+**核心能力说明**:
+
+#### 1. 产品版本规划（基于车型节点）
+
+**车型节点规划**:
+- 定义车型关键交付节点（SOP、预量产、试制等）
+- 节点与基线强关联，确保交付质量
+- 支持多车型并行开发
+
+**版本规划**:
+- 版本与车型节点绑定（如：SOP基线版本）
+- 明确版本功能范围和交付计划
+- 支持版本依赖和版本演进
+
+**基线管理**:
+- 基线定义：车型节点对应的软件配置基线
+- 基线锁定：节点前锁定基线，严格变更管理
+- 基线审批：多级审批机制，确保基线质量
+
+#### 2. 多PI交付管理
+
+**PI Planning协调**:
+- 多团队PI Planning统一协调（10-20个Team）
+- 跨域依赖识别和管理（智驾、座舱、车身等）
+- 资源容量评估和负载均衡
+
+**PI执行监控**:
+- 多PI并行执行（2-3个PI同时进行）
+- 节奏同步：保持各PI同步节奏
+- 交付看板：可视化PI执行状态
+
+**节点交付管理**:
+- 基线对齐：PI交付与车型节点基线对齐
+- 集成验证：多域集成验证（HIL、实车）
+- 里程碑检查：节点前质量门禁检查
+
+#### 3. 项目管理价值
+
+| 能力 | 价值 | 目标 |
+|------|------|------|
+| **车型节点规划** | 明确交付目标，对齐组织 | 节点达成率≥90% |
+| **基线管理** | 配置可控，质量可追溯 | 基线变更<5% |
+| **多PI协调** | 多团队高效协同 | PI Planning时间从5天→2天 |
+| **节点交付** | 按时按质交付 | 按时交付率≥85% |
+
+### 5.3 C1需求管理核心能力
+
+**设计说明**: C1需求管理实现Epic-Feature/SSTS-MR三层需求分解，支持需求池管理、PRD编写、SSTS拆解、MR细化全流程。
 
 ```mermaid
 graph TB
@@ -707,7 +826,9 @@ graph TB
     style M2 fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
 ```
 
-### 5.3 C2资产管理核心能力
+### 5.4 C2资产管理核心能力
+
+**设计说明**: C2资产管理通过AI语义搜索和智能匹配实现资产推荐，结合TRL成熟度评估和ROI计算支持复用决策。
 
 ```mermaid
 graph TB
@@ -745,7 +866,9 @@ graph TB
     style E3 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
 ```
 
-### 5.4 C3规划协调核心能力
+### 5.5 C3规划协调核心能力
+
+**设计说明**: C3规划协调通过PI Planning、依赖管理、风险管理三大核心能力，实现多团队高效协同规划和执行监控。
 
 ```mermaid
 graph TB
