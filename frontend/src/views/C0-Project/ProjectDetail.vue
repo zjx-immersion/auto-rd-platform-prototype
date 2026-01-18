@@ -165,8 +165,14 @@ const projectId = route.params.id as string
 
 // 计算属性
 const project = computed(() => projectStore.projects.find(p => p.id === projectId))
-const versions = computed(() => projectStore.getVersionsByProject(projectId))
-const pis = computed(() => projectStore.getPIsByProject(projectId))
+const versions = computed(() => {
+  const result = projectStore.getVersionsByProject(projectId)
+  return result || []
+})
+const pis = computed(() => {
+  const result = projectStore.getPIsByProject(projectId)
+  return result || []
+})
 const milestones = computed(() => project.value?.metadata?.milestones || [])
 const projectTeams = computed(() => {
   const teamIds = project.value?.teamIds || []
@@ -221,6 +227,7 @@ const getPIStatusText = (status: string) => {
 }
 
 const getPICountByVersion = (versionId: string) => {
+  if (!pis.value || !Array.isArray(pis.value)) return 0
   return pis.value.filter(pi => pi.versionId === versionId).length
 }
 

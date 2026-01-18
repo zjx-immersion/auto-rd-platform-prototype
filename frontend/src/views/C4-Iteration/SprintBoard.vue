@@ -98,7 +98,12 @@ const draggedTask = ref<Task | null>(null)
 
 const sprintId = computed(() => route.params.sprintId as string)
 const sprint = computed(() => sprintStore.currentSprint)
-const tasks = computed(() => taskStore.tasksBySprint(sprintId.value))
+const tasks = computed(() => {
+  if (!sprintId.value) return []
+  const taskBySprint = taskStore.tasksBySprint
+  if (!taskBySprint) return []
+  return taskBySprint(sprintId.value) || []
+})
 
 const completionRate = computed(() => {
   if (!sprint.value) return 0

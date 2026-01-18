@@ -113,11 +113,11 @@ const filters = ref({
   piId: ''
 })
 
-const sprints = computed(() => sprintStore.sprints)
-const activeSprints = computed(() => sprintStore.activeSprints)
-const planningSprints = computed(() => sprintStore.planningSprints)
-const completedSprints = computed(() => sprintStore.completedSprints)
-const pis = computed(() => piStore.pis)
+const sprints = computed(() => sprintStore.sprints || [])
+const activeSprints = computed(() => sprintStore.activeSprints || [])
+const planningSprints = computed(() => sprintStore.planningSprints || [])
+const completedSprints = computed(() => sprintStore.completedSprints || [])
+const pis = computed(() => piStore.piVersions || [])
 
 const filteredSprints = computed(() => {
   let result = sprints.value
@@ -143,7 +143,10 @@ const handleComplete = async (id: string) => {
   await sprintStore.completeSprint(id)
 }
 
-const getPIName = (piId: string) => pis.value.find(p => p.id === piId)?.name || piId
+const getPIName = (piId: string) => {
+  if (!pis.value || !Array.isArray(pis.value)) return piId
+  return pis.value.find(p => p.id === piId)?.name || piId
+}
 const formatDate = (date: Date) => new Date(date).toLocaleDateString('zh-CN')
 
 const getCompletionRate = (sprint: any) => {

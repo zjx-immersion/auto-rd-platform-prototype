@@ -54,6 +54,25 @@ export const useFeatureStore = defineStore('feature', () => {
     }
   }
 
+  async function fetchFeatureById(id: string) {
+    loading.value = true
+    try {
+      const feature = features.value.find(f => f.id === id)
+      if (feature) {
+        currentFeature.value = feature
+        console.log(`Feature ${id} 已加载`)
+      } else {
+        error.value = `Feature ${id} 未找到`
+        currentFeature.value = null
+      }
+    } catch (err: any) {
+      error.value = err.message
+      currentFeature.value = null
+    } finally {
+      loading.value = false
+    }
+  }
+
   async function createFeature(featureData: Partial<Feature>) {
     loading.value = true
     try {
@@ -139,6 +158,7 @@ export const useFeatureStore = defineStore('feature', () => {
     featuresByPI,
     fetchFeatures,
     fetchFeaturesByEpicId,
+    fetchFeatureById,
     createFeature,
     updateFeature,
     updatePRD,

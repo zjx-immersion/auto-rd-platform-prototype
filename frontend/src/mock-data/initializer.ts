@@ -11,7 +11,9 @@ import {
   pisData,
   epicsData,
   featuresData,
-  sstsData
+  sstsData,
+  sprintsData,
+  tasksData
 } from './datasets'
 
 import { useUserStore } from '@/stores/modules/user'
@@ -21,6 +23,8 @@ import { usePIStore } from '@/stores/modules/pi'
 import { useEpicStore } from '@/stores/modules/epic'
 import { useFeatureStore } from '@/stores/modules/feature'
 import { useSSTSStore } from '@/stores/modules/ssts'
+import { useSprintStore } from '@/stores/modules/sprint'
+import { useTaskStore } from '@/stores/modules/task'
 
 /**
  * 初始化所有JSON数据集
@@ -37,6 +41,8 @@ export async function initializeJSONDatasets() {
     dataLoader.registerDataset('epics', epicsData)
     dataLoader.registerDataset('features', featuresData)
     dataLoader.registerDataset('ssts', sstsData)
+    dataLoader.registerDataset('sprints', sprintsData)
+    dataLoader.registerDataset('tasks', tasksData)
 
     // 2. 加载数据到各个Store
     await loadUsersToStore()
@@ -46,6 +52,8 @@ export async function initializeJSONDatasets() {
     await loadEpicsToStore()
     await loadFeaturesToStore()
     await loadSSTSToStore()
+    await loadSprintsToStore()
+    await loadTasksToStore()
 
     // 3. 建立数据关联
     await establishDataRelations()
@@ -115,8 +123,13 @@ async function loadEpicsToStore() {
 async function loadFeaturesToStore() {
   const featureStore = useFeatureStore()
   const features = dataLoader.getDataset('features')
-  featureStore.features = features
-  console.log(`✓ 加载了 ${features.length} 个Feature`)
+  // 映射name字段到title字段，以符合类型定义
+  const mappedFeatures = features.map((f: any) => ({
+    ...f,
+    title: f.title || f.name || '', // 优先使用title，如果没有则使用name
+  }))
+  featureStore.features = mappedFeatures
+  console.log(`✓ 加载了 ${mappedFeatures.length} 个Feature`)
 }
 
 /**
@@ -125,8 +138,33 @@ async function loadFeaturesToStore() {
 async function loadSSTSToStore() {
   const sstsStore = useSSTSStore()
   const sstsList = dataLoader.getDataset('ssts')
-  sstsStore.sstsList = sstsList
-  console.log(`✓ 加载了 ${sstsList.length} 个SSTS`)
+  // 映射name字段到title字段，以符合类型定义
+  const mappedSSTS = sstsList.map((s: any) => ({
+    ...s,
+    title: s.title || s.name || '', // 优先使用title，如果没有则使用name
+  }))
+  sstsStore.sstsList = mappedSSTS
+  console.log(`✓ 加载了 ${mappedSSTS.length} 个SSTS`)
+}
+
+/**
+ * 加载Sprint数据
+ */
+async function loadSprintsToStore() {
+  const sprintStore = useSprintStore()
+  const sprints = dataLoader.getDataset('sprints')
+  sprintStore.sprints = sprints
+  console.log(`✓ 加载了 ${sprints.length} 个Sprint`)
+}
+
+/**
+ * 加载Task数据
+ */
+async function loadTasksToStore() {
+  const taskStore = useTaskStore()
+  const tasks = dataLoader.getDataset('tasks')
+  taskStore.tasks = tasks
+  console.log(`✓ 加载了 ${tasks.length} 个Task`)
 }
 
 /**
@@ -142,6 +180,8 @@ async function establishDataRelations() {
   const epicStore = useEpicStore()
   const featureStore = useFeatureStore()
   const sstsStore = useSSTSStore()
+  const sprintStore = useSprintStore()
+  const taskStore = useTaskStore()
 
   // 1. 关联项目 -> 版本
   projectStore.projects.forEach(project => {
@@ -212,6 +252,47 @@ async function establishDataRelations() {
         version.featureIds.push(feature.id)
       }
     }
+  })
+
+  // 9. 关联PI -> Sprint
+  sprintStore.sprints.forEach(sprint => {
+    const pi = piStore.piVersions.find(p => p.id === sprint.piId)
+    if (pi) {
+      // PI的sprintCount应该等于关联的Sprint数量
+      const piSprints = sprintStore.sprints.filter(s => s.piId === pi.id)
+      if (pi.sprintCount !== piSprints.length) {
+        // 更新PI的sprintCount（如果需要）
+      }
+    }
+  })
+
+  // 10. 关联Sprint -> Task
+  taskStore.tasks.forEach(task => {
+    const sprint = sprintStore.sprints.find(s => s.id === task.sprintId)
+    if (sprint && !sprint.taskIds.includes(task.id)) {
+      sprint.taskIds.push(task.id)
+    }
+  })
+
+  // 11. 关联MR -> Task
+  taskStore.tasks.forEach(task => {
+    if (task.mrId) {
+      const mr = sstsStore.mrList.find(m => m.id === task.mrId)
+      if (mr && !mr.taskIds.includes(task.id)) {
+        mr.taskIds.push(task.id)
+      }
+    }
+  })
+
+  // 12. 关联Sprint -> MR
+  sprintStore.sprints.forEach(sprint => {
+    // 通过Task找到关联的MR
+    const sprintTasks = taskStore.tasks.filter(t => t.sprintId === sprint.id)
+    sprintTasks.forEach(task => {
+      if (task.mrId && !sprint.mrIds.includes(task.mrId)) {
+        sprint.mrIds.push(task.mrId)
+      }
+    })
   })
 
   console.log('✓ 数据关联建立完成')

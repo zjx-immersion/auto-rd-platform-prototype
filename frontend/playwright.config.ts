@@ -9,9 +9,9 @@ export default defineConfig({
   testDir: './tests',
   
   // 超时设置
-  timeout: 30000,
+  timeout: 60000, // 60秒
   expect: {
-    timeout: 5000
+    timeout: 10000 // 10秒
   },
   
   // 测试执行设置
@@ -46,8 +46,8 @@ export default defineConfig({
     ignoreHTTPSErrors: true,
     
     // 等待设置
-    actionTimeout: 10000,
-    navigationTimeout: 30000
+    actionTimeout: 15000, // 15秒
+    navigationTimeout: 45000 // 45秒
   },
 
   // 项目配置

@@ -413,7 +413,7 @@ const handleRowClick = (row: Epic) => {
 }
 
 const handleView = (epic: Epic) => {
-  router.push(`/capability/c1-requirement/epic/${epic.id}`)
+  router.push(`/function/c1-requirement/epic/${epic.id}`)
 }
 
 const handleCreate = () => {
@@ -441,7 +441,7 @@ const handleEdit = (epic: Epic) => {
 }
 
 const handleDecompose = (epic: Epic) => {
-  router.push(`/capability/c1-requirement/epic/${epic.id}?tab=features`)
+  router.push(`/function/c1-requirement/epic/${epic.id}?tab=features`)
 }
 
 const handleDelete = async (epic: Epic) => {

@@ -147,15 +147,25 @@
           </template>
           <el-timeline>
             <el-timeline-item
-              v-for="version in versionHistory"
+              v-for="(version, index) in versionHistory"
               :key="version.version"
               :timestamp="version.createdAt"
             >
               <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span>{{ version.version }}</span>
-                <el-button link size="small" @click="loadVersion(version)">加载</el-button>
+                <span>
+                  <el-tag v-if="index === 0" size="small" type="success">当前</el-tag>
+                  {{ version.version }}
+                </span>
+                <div>
+                  <el-button v-if="index > 0" link size="small" @click="compareVersions(version, versionHistory[0])">对比</el-button>
+                  <el-button v-if="index > 0" link size="small" @click="showRollbackDialog(version)">回滚</el-button>
+                  <el-button link size="small" @click="loadVersion(version)">加载</el-button>
+                </div>
               </div>
               <div style="font-size: 12px; color: #909399;">{{ version.createdBy }}</div>
+              <div v-if="version.changeSummary" style="font-size: 12px; color: #606266; margin-top: 4px;">
+                {{ version.changeSummary }}
+              </div>
             </el-timeline-item>
           </el-timeline>
           <el-empty v-if="versionHistory.length === 0" description="暂无历史版本" />
@@ -181,6 +191,67 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <!-- 版本对比对话框 -->
+    <el-dialog v-model="compareDialogVisible" title="版本对比" width="90%" :close-on-click-modal="false">
+      <div class="version-compare-container">
+        <div class="version-selector">
+          <el-select v-model="compareVersion1" placeholder="选择版本1" style="width: 200px; margin-right: 16px;">
+            <el-option
+              v-for="v in versionHistory"
+              :key="v.version"
+              :label="v.version"
+              :value="v.version"
+            />
+          </el-select>
+          <el-select v-model="compareVersion2" placeholder="选择版本2" style="width: 200px;">
+            <el-option
+              v-for="v in versionHistory"
+              :key="v.version"
+              :label="v.version"
+              :value="v.version"
+            />
+          </el-select>
+          <el-button type="primary" style="margin-left: 16px;" @click="performCompare">对比</el-button>
+        </div>
+        <div v-if="compareResult" class="compare-result">
+          <div class="compare-view-selector">
+            <el-radio-group v-model="compareViewMode">
+              <el-radio-button label="unified">统一视图</el-radio-button>
+              <el-radio-button label="split">并排视图</el-radio-button>
+            </el-radio-group>
+          </div>
+          <div v-if="compareViewMode === 'unified'" class="unified-view" v-html="compareResult.unified"></div>
+          <div v-else class="split-view">
+            <div class="version-content">
+              <h4>{{ compareResult.version1.version }}</h4>
+              <div v-html="compareResult.version1.content"></div>
+            </div>
+            <div class="version-content">
+              <h4>{{ compareResult.version2.version }}</h4>
+              <div v-html="compareResult.version2.content"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <template #footer>
+        <el-button @click="compareDialogVisible = false">关闭</el-button>
+      </template>
+    </el-dialog>
+
+    <!-- 回滚确认对话框 -->
+    <el-dialog v-model="rollbackDialogVisible" title="版本回滚确认" width="500px">
+      <div>
+        <p>确定要回滚到版本 <strong>{{ rollbackTargetVersion?.version }}</strong> 吗？</p>
+        <p style="color: #909399; font-size: 12px; margin-top: 8px;">
+          回滚后将创建一个新版本，当前版本内容将被替换为所选版本的内容。
+        </p>
+      </div>
+      <template #footer>
+        <el-button @click="rollbackDialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="performRollback">确认回滚</el-button>
+      </template>
+    </el-dialog>
   </PageContainer>
 </template>
 
@@ -223,6 +294,17 @@ const versionHistory = ref<any[]>([])
 
 // 附件
 const attachments = ref<any[]>([])
+
+// 版本对比相关
+const compareDialogVisible = ref(false)
+const compareVersion1 = ref('')
+const compareVersion2 = ref('')
+const compareViewMode = ref<'unified' | 'split'>('unified')
+const compareResult = ref<any>(null)
+
+// 版本回滚相关
+const rollbackDialogVisible = ref(false)
+const rollbackTargetVersion = ref<any>(null)
 
 // TipTap编辑器
 const editor = useEditor({
@@ -270,12 +352,21 @@ const handlePublish = async () => {
   try {
     await new Promise(resolve => setTimeout(resolve, 500))
     prdStatus.value = 'published'
+    const oldVersion = prdVersion.value
     prdVersion.value = `v${parseFloat(prdVersion.value.substring(1)) + 0.1}`
+    
+    // 生成变更摘要
+    const previousVersion = versionHistory.value[0]
+    const changeSummary = previousVersion 
+      ? `从 ${oldVersion} 更新到 ${prdVersion.value}`
+      : `初始版本 ${prdVersion.value}`
+    
     versionHistory.value.unshift({
       version: prdVersion.value,
       content: prdContent.value,
       createdAt: new Date().toLocaleString('zh-CN'),
-      createdBy: 'Current User'
+      createdBy: 'Current User',
+      changeSummary
     })
     ElMessage.success('PRD已发布')
   } finally {
@@ -389,7 +480,109 @@ const getStatusText = (status: string) => {
 const loadVersion = (version: any) => {
   if (editor.value) {
     editor.value.commands.setContent(version.content)
+    prdContent.value = version.content
     ElMessage.success(`已加载版本 ${version.version}`)
+  }
+}
+
+// 版本对比功能
+const compareVersions = (v1: any, v2: any) => {
+  compareVersion1.value = v1.version
+  compareVersion2.value = v2.version
+  compareDialogVisible.value = true
+  performCompare()
+}
+
+const performCompare = () => {
+  if (!compareVersion1.value || !compareVersion2.value) {
+    ElMessage.warning('请选择两个版本进行对比')
+    return
+  }
+
+  const v1 = versionHistory.value.find(v => v.version === compareVersion1.value)
+  const v2 = versionHistory.value.find(v => v.version === compareVersion2.value)
+
+  if (!v1 || !v2) {
+    ElMessage.error('版本不存在')
+    return
+  }
+
+  // 简单的文本对比（实际可以使用diff库）
+  const content1 = v1.content || ''
+  const content2 = v2.content || ''
+  
+  // 生成统一视图（高亮差异）
+  const unified = generateUnifiedDiff(content1, content2)
+
+  compareResult.value = {
+    version1: v1,
+    version2: v2,
+    unified
+  }
+}
+
+const generateUnifiedDiff = (oldContent: string, newContent: string): string => {
+  // 简单的HTML对比实现
+  // 实际项目中可以使用diff库如diff-match-patch
+  const oldLines = oldContent.split('\n')
+  const newLines = newContent.split('\n')
+  let result = ''
+  
+  const maxLen = Math.max(oldLines.length, newLines.length)
+  for (let i = 0; i < maxLen; i++) {
+    const oldLine = oldLines[i] || ''
+    const newLine = newLines[i] || ''
+    
+    if (oldLine !== newLine) {
+      if (oldLine) {
+        result += `<div style="background-color: #ffebee; padding: 4px; margin: 2px 0;"><del>${oldLine}</del></div>`
+      }
+      if (newLine) {
+        result += `<div style="background-color: #e8f5e9; padding: 4px; margin: 2px 0;"><ins>${newLine}</ins></div>`
+      }
+    } else {
+      result += `<div style="padding: 4px; margin: 2px 0;">${oldLine}</div>`
+    }
+  }
+  
+  return result || '<p style="color: #909399;">两个版本内容相同</p>'
+}
+
+// 版本回滚功能
+const showRollbackDialog = (version: any) => {
+  rollbackTargetVersion.value = version
+  rollbackDialogVisible.value = true
+}
+
+const performRollback = async () => {
+  if (!rollbackTargetVersion.value) return
+
+  try {
+    // 回滚到指定版本
+    const targetContent = rollbackTargetVersion.value.content
+    
+    if (editor.value) {
+      editor.value.commands.setContent(targetContent)
+      prdContent.value = targetContent
+    }
+
+    // 创建新版本
+    const newVersion = `v${parseFloat(prdVersion.value.substring(1)) + 0.1}`
+    prdVersion.value = newVersion
+    
+    versionHistory.value.unshift({
+      version: newVersion,
+      content: targetContent,
+      createdAt: new Date().toLocaleString('zh-CN'),
+      createdBy: 'Current User',
+      changeSummary: `回滚自 ${rollbackTargetVersion.value.version}`
+    })
+
+    ElMessage.success(`已回滚到版本 ${rollbackTargetVersion.value.version}，并创建新版本 ${newVersion}`)
+    rollbackDialogVisible.value = false
+    rollbackTargetVersion.value = null
+  } catch (error) {
+    ElMessage.error('回滚失败')
   }
 }
 
@@ -561,6 +754,60 @@ onBeforeUnmount(() => {
   
   &:last-child {
     border-bottom: none;
+  }
+}
+
+.version-compare-container {
+  .version-selector {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #dcdfe6;
+  }
+
+  .compare-view-selector {
+    margin-bottom: 16px;
+  }
+
+  .compare-result {
+    max-height: 600px;
+    overflow-y: auto;
+  }
+
+  .unified-view {
+    padding: 16px;
+    background-color: #fafafa;
+    border-radius: 4px;
+    
+    :deep(del) {
+      text-decoration: line-through;
+      color: #f56c6c;
+    }
+    
+    :deep(ins) {
+      text-decoration: underline;
+      color: #67c23a;
+    }
+  }
+
+  .split-view {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    
+    .version-content {
+      padding: 16px;
+      background-color: #fafafa;
+      border-radius: 4px;
+      
+      h4 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #409eff;
+      }
+    }
   }
 }
 </style>

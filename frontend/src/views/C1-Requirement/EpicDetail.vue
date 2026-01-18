@@ -142,6 +142,11 @@
                 {{ row.productLine || '-' }}
               </template>
             </el-table-column>
+            <el-table-column label="产品" width="150" show-overflow-tooltip>
+              <template #default="{ row }">
+                {{ row.product || '-' }}
+              </template>
+            </el-table-column>
             <el-table-column label="状态" width="100" align="center">
               <template #default="{ row }">
                 <el-tag :type="getStatusType(row.status)" size="small">
@@ -149,14 +154,33 @@
                 </el-tag>
               </template>
             </el-table-column>
+            <el-table-column label="优先级" width="100" align="center">
+              <template #default="{ row }">
+                <el-tag size="small" :type="getPriorityType(row.priority)">
+                  {{ row.priority || '-' }}
+                </el-tag>
+              </template>
+            </el-table-column>
             <el-table-column label="故事点" width="100" align="center">
               <template #default="{ row }">
-                {{ row.storyPoints }}
+                {{ row.storyPoints || 0 }}
+              </template>
+            </el-table-column>
+            <el-table-column label="复杂度" width="100" align="center">
+              <template #default="{ row }">
+                <el-tag size="small" :type="getComplexityType(row.complexity)">
+                  {{ getComplexityText(row.complexity) }}
+                </el-tag>
               </template>
             </el-table-column>
             <el-table-column label="SSTS" width="100" align="center">
               <template #default="{ row }">
-                <el-tag size="small">{{ row.sstsIds.length }}</el-tag>
+                <el-tag size="small" type="info">{{ row.sstsIds?.length || 0 }}</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="负责人" width="100" align="center">
+              <template #default="{ row }">
+                {{ getUserName(row.owner) }}
               </template>
             </el-table-column>
             <el-table-column label="操作" width="150" align="center" fixed="right">
@@ -366,7 +390,7 @@ const featureFormData = ref({
 
 // 方法
 const goBack = () => {
-  router.push('/capability/c1-requirement/epic')
+  router.push('/function/c1-requirement/epic')
 }
 
 const handleEdit = () => {
@@ -412,7 +436,7 @@ const handleSubmitFeature = async () => {
 }
 
 const handleViewFeature = (feature: Feature) => {
-  router.push(`/capability/c1-requirement/feature/${feature.id}`)
+  router.push(`/function/c1-requirement/feature/${feature.id}`)
 }
 
 const handleRemoveFeature = async (feature: Feature) => {
@@ -491,6 +515,26 @@ const getProgressColor = (progress: number) => {
   if (progress < 30) return '#f56c6c'
   if (progress < 70) return '#e6a23c'
   return '#67c23a'
+}
+
+const getComplexityType = (complexity: string | undefined) => {
+  if (!complexity) return 'info'
+  const typeMap: Record<string, any> = {
+    high: 'danger',
+    medium: 'warning',
+    low: 'success',
+  }
+  return typeMap[complexity] || 'info'
+}
+
+const getComplexityText = (complexity: string | undefined) => {
+  if (!complexity) return '-'
+  const textMap: Record<string, string> = {
+    high: '高',
+    medium: '中',
+    low: '低',
+  }
+  return textMap[complexity] || complexity
 }
 
 const formatDate = (date: string | undefined) => {

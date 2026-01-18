@@ -189,6 +189,30 @@ export const useSSTSStore = defineStore('ssts', () => {
     currentSSTS.value = null
   }
 
+  /**
+   * 根据SSTS ID获取关联的MR列表（函数方法）
+   * 用于组件中直接调用
+   */
+  function getMRsBySSTS(sstsId: string): MR[] {
+    return mrList.value.filter(mr => mr.sstsId === sstsId)
+  }
+
+  /**
+   * 获取MR列表（用于组件加载）
+   */
+  async function fetchMRList() {
+    loading.value = true
+    error.value = null
+    try {
+      await new Promise(resolve => setTimeout(resolve, 300))
+      console.log('MR列表已加载')
+    } catch (err: any) {
+      error.value = err.message
+    } finally {
+      loading.value = false
+    }
+  }
+
   return {
     sstsList,
     mrList,
@@ -207,5 +231,7 @@ export const useSSTSStore = defineStore('ssts', () => {
     linkMRToSSTS,
     assignMRToTeam,
     resetCurrentSSTS,
+    getMRsBySSTS,
+    fetchMRList,
   }
 })

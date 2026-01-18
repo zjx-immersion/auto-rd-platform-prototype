@@ -199,6 +199,13 @@ export const usePIStore = defineStore('pi', () => {
     return piVersions.value.filter(pi => pi.projectIds.includes(projectId))
   }
 
+  /**
+   * 获取PI列表（fetchPIs别名，用于兼容性）
+   */
+  async function fetchPIs() {
+    return fetchPIVersions()
+  }
+
   return {
     piVersions,
     currentPI,
@@ -209,6 +216,7 @@ export const usePIStore = defineStore('pi', () => {
     piCommitmentRate,
     currentPIRisks,
     fetchPIVersions,
+    fetchPIs, // 添加fetchPIs别名
     fetchPIById,
     createPIVersion,
     updatePIVersion,

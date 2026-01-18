@@ -32,9 +32,10 @@ export const useEpicStore = defineStore('epic', () => {
     loading.value = true
     error.value = null
     try {
-      // TODO: API调用
-      await new Promise(resolve => setTimeout(resolve, 300))
-      console.log('Epic列表已加载')
+      // 数据已经在应用启动时通过initializeJSONDatasets加载
+      // 这里只需要确保数据已加载，不需要重新加载
+      await new Promise(resolve => setTimeout(resolve, 100))
+      console.log(`Epic列表已加载，共 ${epics.value.length} 个Epic`)
     } catch (err: any) {
       error.value = err.message
     } finally {

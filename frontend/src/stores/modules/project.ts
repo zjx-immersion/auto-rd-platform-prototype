@@ -345,7 +345,8 @@ export const useProjectStore = defineStore('project', () => {
    */
   function getVersionsByProject(projectId: string) {
     const versionStore = useVersionStore()
-    return versionStore.getVersionsByProject.value(projectId)
+    // getVersionsByProject是computed属性，返回的是函数，直接调用即可
+    return versionStore.getVersionsByProject(projectId)
   }
 
   /**
@@ -353,7 +354,8 @@ export const useProjectStore = defineStore('project', () => {
    */
   function getPIsByProject(projectId: string) {
     const piStore = usePIStore()
-    return piStore.pisByProject.value(projectId)
+    // pisByProject是computed属性，返回的是函数，直接调用即可
+    return piStore.pisByProject(projectId)
   }
 
   /**

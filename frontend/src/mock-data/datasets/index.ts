@@ -9,6 +9,8 @@ import pisData from './pis.json'
 import epicsData from './epics.json'
 import featuresData from './features.json'
 import sstsData from './ssts.json'
+import sprintsData from './sprints.json'
+import tasksData from './tasks.json'
 
 export {
   usersData,
@@ -17,5 +19,7 @@ export {
   pisData,
   epicsData,
   featuresData,
-  sstsData
+  sstsData,
+  sprintsData,
+  tasksData
 }

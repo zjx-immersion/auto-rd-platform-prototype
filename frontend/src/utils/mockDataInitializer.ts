@@ -134,7 +134,8 @@ async function initializeRequirementData() {
     const hierarchy = generateMockRequirementHierarchy(project.id)
 
     // 获取该项目的版本和PI
-    const projectVersions = versionStore.getVersionsByProject.value(project.id)
+    // getVersionsByProject是computed属性，返回的是函数，直接调用即可
+    const projectVersions = versionStore.getVersionsByProject(project.id)
     const projectPIs = piStore.getPIsByProject(project.id)
 
     // 创建Epics并关联到项目和PI
