@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "剩余P1任务详细分析.md",
+                "file": "用户体验优化/角色-流程-效率矩阵评估.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "剩余P1任务详细分析"
+              "title": "角色-流程-效率矩阵评估"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "剩余P1任务详细分析.md",
+                "file": "用户体验优化/角色-流程-效率矩阵评估.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "剩余P1任务详细分析 的反向链接列表"
+              "title": "角色-流程-效率矩阵评估 的反向链接列表"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "剩余P1任务详细分析.md",
+                "file": "用户体验优化/角色-流程-效率矩阵评估.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "剩余P1任务详细分析 的出链列表"
+              "title": "角色-流程-效率矩阵评估 的出链列表"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "剩余P1任务详细分析.md",
+                "file": "用户体验优化/角色-流程-效率矩阵评估.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "剩余P1任务详细分析 的大纲"
+              "title": "角色-流程-效率矩阵评估 的大纲"
             }
           }
         ]
@@ -185,6 +185,11 @@
   },
   "active": "b88a173e41b395d1",
   "lastOpenFiles": [
+    "P1任务完成最终报告.md",
+    "用户体验优化/00-平台整体用户体验优化设计.md",
+    "剩余P1任务详细分析.md",
+    "C0-领域项目管理/01-项目管理/C0-F07-项目归档与关闭.md",
+    "C0-领域项目管理/01-项目管理/C0-F02-项目配置与设置.md",
     "工作总结-2026-01-17-P1任务全量完成.md",
     "C3-规划协调/04-风险管理/C3-F15-风险跟踪.md",
     "C3-规划协调/04-风险管理/C3-F14-风险缓解.md",
@@ -202,18 +207,13 @@
     "详细任务分析执行总结.md",
     "示例和边界情况补充详细分析.md",
     "剩余任务设计完成总结.md",
-    "剩余P1任务详细分析.md",
     "固有功能页面集成与角色流程验证.md",
     "设计任务分析总览.md",
     "工作总结-2026-01-17-P0任务全量完成.md",
     "工作总结-2026-01-17-设计进度整理与清理.md",
     "C6-发布管理/00-代码管理/C6-F10-构建管理.md",
     "C6-发布管理/00-代码管理/C6-F09-代码合并.md",
-    "C6-发布管理/00-代码管理/C6-F08-代码评审.md",
     "C6-发布管理/00-代码管理",
-    "C7-分析度量/05-团队效能/C7-F07-团队效能看板.md",
-    "C7-分析度量/05-团队效能/C7-F08-自定义报表.md",
-    "C7-分析度量/04-交付度量/C7-F06-交付效能看板.md",
     "C7-分析度量/04-交付度量",
     "C7-分析度量/03-质量度量",
     "C7-分析度量/03-交付度量",
