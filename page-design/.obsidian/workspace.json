@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C1-需求管理/02-Feature管理/C1-F10-Feature评审.md",
-                "mode": "preview",
+                "file": "C5-质量保证/01-测试管理/C5-F02-测试用例设计.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "C1-F10-Feature评审"
+              "title": "C5-F02-测试用例设计"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "C1-需求管理/02-Feature管理/C1-F10-Feature评审.md",
+                "file": "C5-质量保证/01-测试管理/C5-F02-测试用例设计.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "C1-F10-Feature评审 的反向链接列表"
+              "title": "C5-F02-测试用例设计 的反向链接列表"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "C1-需求管理/02-Feature管理/C1-F10-Feature评审.md",
+                "file": "C5-质量保证/01-测试管理/C5-F02-测试用例设计.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "C1-F10-Feature评审 的出链列表"
+              "title": "C5-F02-测试用例设计 的出链列表"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "C1-需求管理/02-Feature管理/C1-F10-Feature评审.md",
+                "file": "C5-质量保证/01-测试管理/C5-F02-测试用例设计.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "C1-F10-Feature评审 的大纲"
+              "title": "C5-F02-测试用例设计 的大纲"
             }
           }
         ]
@@ -185,9 +185,38 @@
   },
   "active": "b88a173e41b395d1",
   "lastOpenFiles": [
+    "固有功能页面集成与角色流程验证.md.bak",
+    "固有功能页面集成与角色流程验证.md",
+    "平台设计评估标准和原则.md",
+    "用户体验优化/00-平台整体用户体验优化设计.md",
+    "通用功能/01-协作工具/COMMON-F04-订阅和关注.md",
+    "通用功能/01-协作工具/COMMON-F03-活动流.md",
+    "C1-需求管理/02-Feature管理/C1-F10-Feature评审.md",
+    "用户体验优化/评估文档索引.md",
+    "用户体验优化/评估总结和实施计划.md",
+    "用户体验优化/角色-流程-效率矩阵评估.md",
+    "用户体验优化/平台整体设计全量评估报告.md",
+    "用户体验优化/README.md",
+    "用户体验优化/UX-F04-智能通知系统.md",
+    "用户体验优化/UX-F03-批量操作中心.md",
+    "用户体验优化/UX-F02-上下文感知面板.md",
+    "用户体验优化",
+    "通用功能/01-协作工具/COMMON-F02-提及和通知.md",
+    "通用功能/01-协作工具/COMMON-F01-评论功能.md",
+    "通用功能/README.md",
+    "通用功能/01-协作工具",
+    "通用功能",
+    "剩余任务设计完成总结.md",
+    "C7-分析度量/05-团队效能/C7-F09-周月报.md",
+    "C7-分析度量/01-需求度量/C7-F03-价值流图.md",
+    "C7-分析度量/01-需求度量/C7-F02-需求流动图.md",
+    "C7-分析度量/05-团队效能",
+    "C7-分析度量/01-需求度量",
+    "C7-分析度量/00-C7功能总览.md",
+    "C7-分析度量",
+    "C3-规划协调/03-PI执行跟踪/C3-F19-PI回顾.md",
+    "C3-规划协调/03-PI执行跟踪",
     "C1-需求管理/02-Feature管理/C1-F11-Feature看板.md",
-    "C1-需求管理/01-Epic管理/C1-F05-Epic看板.md",
-    "C1-需求管理/01-Epic管理/C1-F04-Epic评审.md",
-    "C1-需求管理/03-SSTS管理/C1-F18-SSTS评审.md"
+    "C1-需求管理/01-Epic管理/C1-F05-Epic看板.md"
   ]
 }
