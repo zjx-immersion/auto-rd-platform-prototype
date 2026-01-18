@@ -2,15 +2,14 @@
 
 > **面向智能驾驶、智能座舱、电子电器、底盘架构、新能源等领域的端到端研发协同平台**
 >
-> **版本**: V7.1 (Enterprise-Grade Business Solution Edition)  
+> **版本**: V7.2 (Enterprise-Grade Business Solution Edition)  
 > **日期**: 2026-01-18  
 > **设计理念**: 价值流驱动 + 领域模型 + 流程协同 + 资产复用  
 > **核心目标**: 构建高效、透明、协同的端到端整车软件研发管理平台
 > 
 > **修订说明**: 
-> - 修正需求模型为三层（Epic → Feature/SSTS → MR），Task为工作项
-> - 为所有设计图添加核心说明
-> - 补充C0领域项目管理核心能力（版本规划、PI Planning）
+> - V7.1: 修正需求模型为三层，Task为工作项；补充C0核心能力
+> - V7.2: 补充C4-C7能力流方案；新增5个核心流程（Sprint执行、需求评审、版本管理、基线管理、变更管理）
 
 ---
 
@@ -902,6 +901,174 @@ graph TB
     style R2 fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
 ```
 
+### 5.6 C4迭代执行核心能力
+
+**设计说明**: C4迭代执行通过Sprint管理、Task看板、团队协同、进度跟踪四大核心能力，实现从Sprint Planning到Sprint交付的全过程管理。
+
+```mermaid
+graph TB
+    subgraph Sprint管理
+        SP1[Sprint Planning<br/>━━━━━━<br/>Backlog就绪<br/>Task拆解<br/>容量承诺]
+        SP2[Sprint启动<br/>━━━━━━<br/>目标宣贯<br/>任务分配<br/>环境准备]
+        SP3[Sprint监控<br/>━━━━━━<br/>燃尽图<br/>速率跟踪<br/>阻碍识别]
+    end
+
+    subgraph Task看板管理
+        TB1[看板可视化<br/>━━━━━━<br/>To Do<br/>In Progress<br/>Done]
+        TB2[WIP限制<br/>━━━━━━<br/>在制品控制<br/>流动效率<br/>瓶颈识别]
+        TB3[状态流转<br/>━━━━━━<br/>自动更新<br/>关联代码<br/>同步测试]
+    end
+
+    subgraph 团队协同
+        TC1[Daily Standup<br/>━━━━━━<br/>进展同步<br/>问题暴露<br/>计划调整]
+        TC2[结对编程<br/>━━━━━━<br/>Code Review<br/>知识共享<br/>质量提升]
+        TC3[技术讨论<br/>━━━━━━<br/>架构评审<br/>方案讨论<br/>经验分享]
+    end
+
+    subgraph Sprint交付
+        SD1[Sprint Review<br/>━━━━━━<br/>Demo演示<br/>客户反馈<br/>接受度评估]
+        SD2[Sprint回顾<br/>━━━━━━<br/>成功经验<br/>改进点<br/>行动计划]
+        SD3[增量交付<br/>━━━━━━<br/>可工作软件<br/>文档更新<br/>知识沉淀]
+    end
+
+    SP1 --> SP2 --> SP3
+    SP2 --> TB1 --> TB2 --> TB3
+    SP2 --> TC1 --> TC2 --> TC3
+    SP3 --> SD1 --> SD2 --> SD3
+
+    style SP1 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style TB1 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style TC1 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style SD1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+```
+
+### 5.7 C5测试验收核心能力
+
+**设计说明**: C5测试验收通过V模型验证（MIL/SIL/HIL/Vehicle）、测试管理、缺陷管理、质量门禁四大核心能力，确保软件质量和功能符合性。
+
+```mermaid
+graph TB
+    subgraph V模型验证
+        VM1[MIL验证<br/>━━━━━━<br/>模型在环<br/>算法验证<br/>功能正确性]
+        VM2[SIL验证<br/>━━━━━━<br/>软件在环<br/>代码验证<br/>性能测试]
+        VM3[HIL验证<br/>━━━━━━<br/>硬件在环<br/>集成验证<br/>实时性测试]
+        VM4[实车验证<br/>━━━━━━<br/>整车测试<br/>场景验证<br/>用户体验]
+    end
+
+    subgraph 测试管理
+        TM1[测试计划<br/>━━━━━━<br/>测试策略<br/>用例设计<br/>资源安排]
+        TM2[用例管理<br/>━━━━━━<br/>用例库<br/>需求覆盖<br/>版本管理]
+        TM3[测试执行<br/>━━━━━━<br/>自动化测试<br/>手工测试<br/>结果记录]
+    end
+
+    subgraph 缺陷管理
+        DM1[缺陷提交<br/>━━━━━━<br/>缺陷记录<br/>严重级别<br/>复现步骤]
+        DM2[缺陷跟踪<br/>━━━━━━<br/>状态流转<br/>修复验证<br/>关闭确认]
+        DM3[缺陷分析<br/>━━━━━━<br/>根因分析<br/>趋势分析<br/>预防措施]
+    end
+
+    subgraph 质量门禁
+        QG1[代码质量<br/>━━━━━━<br/>代码扫描<br/>覆盖率检查<br/>复杂度分析]
+        QG2[测试质量<br/>━━━━━━<br/>测试覆盖率<br/>通过率<br/>缺陷密度]
+        QG3[发布准入<br/>━━━━━━<br/>门禁检查<br/>准出评审<br/>发布决策]
+    end
+
+    VM1 --> VM2 --> VM3 --> VM4
+    TM1 --> TM2 --> TM3
+    TM3 --> DM1 --> DM2 --> DM3
+    DM3 --> QG1 --> QG2 --> QG3
+
+    style VM1 fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style VM3 fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style TM1 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style DM2 fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style QG3 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+```
+
+### 5.8 C6 DevOps交付核心能力
+
+**设计说明**: C6 DevOps交付通过代码管理、CI/CD流水线、制品管理、发布部署四大核心能力，实现从代码提交到生产发布的自动化交付。
+
+```mermaid
+graph TB
+    subgraph 代码管理
+        CM1[代码仓库<br/>━━━━━━<br/>Git分支策略<br/>权限管理<br/>合并请求]
+        CM2[Code Review<br/>━━━━━━<br/>评审规则<br/>静态检查<br/>评审通过]
+        CM3[分支管理<br/>━━━━━━<br/>Feature分支<br/>Release分支<br/>Hotfix分支]
+    end
+
+    subgraph CI/CD流水线
+        CI1[持续集成<br/>━━━━━━<br/>自动构建<br/>单元测试<br/>集成测试]
+        CI2[持续部署<br/>━━━━━━<br/>环境部署<br/>自动化测试<br/>冒烟测试]
+        CI3[质量门禁<br/>━━━━━━<br/>代码扫描<br/>覆盖率检查<br/>安全扫描]
+    end
+
+    subgraph 制品管理
+        AM1[制品构建<br/>━━━━━━<br/>版本号<br/>依赖打包<br/>签名加密]
+        AM2[制品存储<br/>━━━━━━<br/>制品库<br/>版本管理<br/>访问控制]
+        AM3[制品晋级<br/>━━━━━━<br/>Dev→Test→Prod<br/>审批流程<br/>回滚能力]
+    end
+
+    subgraph 发布部署
+        RD1[灰度发布<br/>━━━━━━<br/>金丝雀<br/>蓝绿部署<br/>A/B测试]
+        RD2[OTA升级<br/>━━━━━━<br/>差分包<br/>断点续传<br/>回滚机制]
+        RD3[监控告警<br/>━━━━━━<br/>性能监控<br/>日志分析<br/>异常告警]
+    end
+
+    CM1 --> CM2 --> CM3
+    CM3 --> CI1 --> CI2 --> CI3
+    CI3 --> AM1 --> AM2 --> AM3
+    AM3 --> RD1 --> RD2 --> RD3
+
+    style CM2 fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style CI1 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style CI3 fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style AM3 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style RD1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+```
+
+### 5.9 C7分析与治理核心能力
+
+**设计说明**: C7分析与治理通过效能分析、质量分析、追溯分析、仪表板四大核心能力，提供数据驱动的决策支持和持续改进。
+
+```mermaid
+graph TB
+    subgraph 效能分析
+        EA1[交付效能<br/>━━━━━━<br/>前置时间<br/>部署频率<br/>MTTR]
+        EA2[流程效率<br/>━━━━━━<br/>周期时间<br/>流动效率<br/>瓶颈识别]
+        EA3[团队效能<br/>━━━━━━<br/>速率稳定性<br/>产能分析<br/>负载均衡]
+    end
+
+    subgraph 质量分析
+        QA1[缺陷分析<br/>━━━━━━<br/>缺陷密度<br/>缺陷趋势<br/>逃逸率]
+        QA2[测试分析<br/>━━━━━━<br/>测试覆盖率<br/>自动化率<br/>测试效率]
+        QA3[代码质量<br/>━━━━━━<br/>复杂度<br/>重复率<br/>技术债务]
+    end
+
+    subgraph 追溯分析
+        TA1[需求追溯<br/>━━━━━━<br/>Epic→Task<br/>完整链路<br/>影响分析]
+        TA2[变更追溯<br/>━━━━━━<br/>变更历史<br/>关联分析<br/>根因定位]
+        TA3[复用分析<br/>━━━━━━<br/>复用率<br/>ROI计算<br/>收益评估]
+    end
+
+    subgraph 仪表板与报告
+        DB1[管理驾驶舱<br/>━━━━━━<br/>高管视角<br/>战略指标<br/>决策支持]
+        DB2[项目仪表板<br/>━━━━━━<br/>PM视角<br/>进度质量<br/>风险预警]
+        DB3[团队仪表板<br/>━━━━━━<br/>Team视角<br/>速率燃尽<br/>任务状态]
+    end
+
+    EA1 --> EA2 --> EA3
+    QA1 --> QA2 --> QA3
+    TA1 --> TA2 --> TA3
+    EA3 & QA3 & TA3 --> DB1 --> DB2 --> DB3
+
+    style EA1 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style QA1 fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style TA1 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style DB1 fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style DB3 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+```
+
 ---
 
 ## 六、流程定义详解
@@ -1005,6 +1172,338 @@ graph TB
     style S5 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
     style END fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
 ```
+
+### 6.4 Sprint执行与交付流程（承接PI Planning）
+
+**设计说明**: Sprint执行与交付流程承接PI Planning，通过持续计划、每日协同、进度跟踪、Review和Retrospective实现2周迭代的目标交付。
+
+```mermaid
+graph TB
+    START([Sprint开始<br/>承接PI Planning]) --> SP1[SP1: Sprint Planning<br/>━━━━━━<br/>角色: DL+Team<br/>输入: PI分配的Feature/MR<br/>输出: Sprint Backlog<br/>检查点: 承诺明确]
+    
+    SP1 --> SP2[SP2: Sprint启动会<br/>━━━━━━<br/>角色: DL+Team<br/>输入: Sprint目标<br/>输出: 任务分配<br/>检查点: 目标理解一致]
+    
+    SP2 --> LOOP_START{开始迭代循环<br/>━━━━━━<br/>持续2周}
+    
+    LOOP_START --> DS1[DS1: Daily Standup<br/>━━━━━━<br/>角色: Team<br/>频率: 每日15分钟<br/>内容: 昨天/今天/阻碍<br/>输出: 问题清单]
+    
+    DS1 --> DS2[DS2: Task执行<br/>━━━━━━<br/>角色: DEV/QA<br/>活动: 开发测试<br/>工具: 看板燃尽图<br/>输出: 增量代码]
+    
+    DS2 --> DS3[DS3: 进度跟踪<br/>━━━━━━<br/>角色: DL<br/>活动: 燃尽图更新<br/>监控: WIP/阻碍<br/>输出: 进度报告]
+    
+    DS3 --> DS4[DS4: 协同解决<br/>━━━━━━<br/>角色: Team<br/>活动: 技术讨论<br/>处理: 阻碍依赖<br/>输出: 问题解决]
+    
+    DS4 --> CHECK{Sprint结束?<br/>━━━━━━<br/>2周到期}
+    
+    CHECK -->|否| DS1
+    
+    CHECK -->|是| SR1[SR1: Sprint Review<br/>━━━━━━<br/>角色: Team+PO<br/>活动: Demo演示<br/>验收: DoD检查<br/>输出: 完成增量]
+    
+    SR1 --> SR2[SR2: Sprint Retrospective<br/>━━━━━━<br/>角色: Team+DL<br/>活动: 回顾改进<br/>识别: 成功点/改进点<br/>输出: 改进行动]
+    
+    SR2 --> SR3[SR3: 同步到PI<br/>━━━━━━<br/>角色: DL+PM<br/>活动: PI看板更新<br/>同步: 完成度/风险<br/>输出: PI进度报告]
+    
+    SR3 --> NEXT_CHECK{PI结束?<br/>━━━━━━<br/>所有Sprint完成}
+    
+    NEXT_CHECK -->|否<br/>继续下个Sprint| SP1
+    NEXT_CHECK -->|是<br/>PI完成| END([PI交付<br/>节点验收])
+    
+    style START fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+    style SP1 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style DS1 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style DS2 fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style SR1 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style SR3 fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style END fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+```
+
+**Sprint执行关键活动**:
+
+| 阶段 | 活动 | 频率 | 关键输出 | 检查点 |
+|------|------|------|---------|--------|
+| **Planning** | Sprint Planning | Sprint开始 | Sprint Backlog | 承诺明确、容量合理 |
+| **执行** | Daily Standup | 每日 | 问题清单 | 阻碍及时暴露 |
+| **执行** | Task执行 | 持续 | 增量代码 | WIP限制、质量门禁 |
+| **执行** | 进度跟踪 | 每日 | 燃尽图 | 速率稳定、风险预警 |
+| **Review** | Sprint Review | Sprint结束 | 完成增量 | DoD检查通过 |
+| **改进** | Retrospective | Sprint结束 | 改进行动 | 持续改进PDCA |
+| **同步** | PI同步 | Sprint结束 | PI进度报告 | PI目标对齐 |
+
+### 6.5 特性需求评审流程
+
+**设计说明**: 特性需求评审流程包含PRD评审（单个Feature评审）和SSTS批量评审（多个SSTS统一评审），确保需求质量和团队共识。
+
+```mermaid
+graph TB
+    START([需求评审开始]) --> TYPE_CHECK{评审类型<br/>━━━━━━}
+    
+    TYPE_CHECK -->|PRD评审| PRD1[PRD1: PRD准备<br/>━━━━━━<br/>角色: FO<br/>活动: PRD编写完成<br/>检查: 完整性检查<br/>输出: PRD文档v1.0]
+    
+    PRD1 --> PRD2[PRD2: 评审准备<br/>━━━━━━<br/>角色: FO<br/>活动: 发起评审<br/>邀请: SE/SO/DL/QA<br/>输出: 评审会议]
+    
+    PRD2 --> PRD3[PRD3: PRD评审<br/>━━━━━━<br/>角色: 评审团队<br/>活动: 需求宣讲<br/>验证: 完整性/可行性<br/>输出: 评审意见]
+    
+    PRD3 --> PRD4{评审结果<br/>━━━━━━}
+    
+    PRD4 -->|不通过<br/>重大问题| PRD5[PRD修订<br/>━━━━━━<br/>FO修订PRD<br/>重新发起评审]
+    PRD5 --> PRD2
+    
+    PRD4 -->|通过<br/>或小问题| PRD6[PRD6: PRD发布<br/>━━━━━━<br/>角色: FO<br/>活动: 状态设为评审通过<br/>触发: SSTS拆解<br/>输出: PRD v1.0正式版]
+    
+    TYPE_CHECK -->|SSTS批量评审| SSTS1[SSTS1: SSTS拆解<br/>━━━━━━<br/>角色: SE<br/>输入: PRD<br/>拆解: 功能/技术/测试型<br/>输出: SSTS列表]
+    
+    SSTS1 --> SSTS2[SSTS2: 评审准备<br/>━━━━━━<br/>角色: SE<br/>活动: 批量打包<br/>邀请: SO/DL/QA团队<br/>输出: 批量评审清单]
+    
+    SSTS2 --> SSTS3[SSTS3: 批量评审<br/>━━━━━━<br/>角色: 评审团队<br/>活动: 逐条评审<br/>批注: 通过/问题/退回<br/>输出: 评审记录]
+    
+    SSTS3 --> SSTS4[SSTS4: 问题处理<br/>━━━━━━<br/>角色: SE<br/>活动: 修订有问题的SSTS<br/>重审: 仅修订项<br/>输出: SSTS修订版]
+    
+    SSTS4 --> SSTS5[SSTS5: SSTS发布<br/>━━━━━━<br/>角色: SE<br/>活动: 批量发布<br/>触发: MR拆解<br/>输出: SSTS正式版]
+    
+    PRD6 --> MERGE([评审完成<br/>需求就绪])
+    SSTS5 --> MERGE
+    
+    style START fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+    style PRD3 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style PRD6 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style SSTS3 fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style SSTS5 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style MERGE fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+```
+
+**评审关键检查项**:
+
+| 评审类型 | 检查项 | 评审角色 | 通过标准 |
+|---------|--------|---------|---------|
+| **PRD评审** | 需求完整性 | SE/SO/DL/QA | 功能描述清晰完整 |
+| **PRD评审** | 技术可行性 | SE/DL | 技术方案可实现 |
+| **PRD评审** | 测试可验证性 | QA | 验收标准明确 |
+| **PRD评审** | 接口依赖 | SO/DL | 接口定义清晰 |
+| **SSTS批量评审** | 覆盖完整性 | SO/DL | 覆盖PRD全部条目 |
+| **SSTS批量评审** | 拆解合理性 | SO/DL | 粒度适中、可实现 |
+| **SSTS批量评审** | 模块分配 | SO | 模块责任明确 |
+| **SSTS批量评审** | 验收标准 | QA | 可测试、可量化 |
+
+### 6.6 产品需求版本管理与发布流程
+
+**设计说明**: 产品需求版本管理流程管理产品下Feature和MR的版本定义、内容规划、评审发布、变更控制全生命周期。
+
+```mermaid
+graph TB
+    START([版本规划开始]) --> V1[V1: 版本创建<br/>━━━━━━<br/>角色: PO<br/>输入: 产品路线图<br/>定义: 版本号/发布日期<br/>输出: 版本实例]
+    
+    V1 --> V2[V2: Feature规划<br/>━━━━━━<br/>角色: PO+FO<br/>活动: 选择Epic拆解Feature<br/>分配: Feature→Version<br/>输出: 版本Feature清单]
+    
+    V2 --> V3[V3: Feature评审<br/>━━━━━━<br/>角色: PO+TPM<br/>活动: PRD评审<br/>确认: 功能范围<br/>输出: 锁定Feature列表]
+    
+    V3 --> V4[V4: SSTS拆解<br/>━━━━━━<br/>角色: SE<br/>活动: 批量拆解SSTS<br/>评审: SSTS批量评审<br/>输出: SSTS清单]
+    
+    V4 --> V5[V5: MR分配<br/>━━━━━━<br/>角色: SO<br/>活动: SSTS分配到Module<br/>拆解: MR细化<br/>输出: MR清单]
+    
+    V5 --> V6[V6: 版本锁定<br/>━━━━━━<br/>角色: PO<br/>决策: 版本内容最终确认<br/>锁定: Feature/SSTS/MR<br/>输出: 版本Baseline v1.0]
+    
+    V6 --> V7[V7: 版本发布<br/>━━━━━━<br/>角色: PO<br/>活动: 状态设为已发布<br/>通知: 项目团队<br/>输出: 版本可用于项目]
+    
+    V7 --> V8{版本变更?<br/>━━━━━━<br/>开发过程中}
+    
+    V8 -->|需要变更| VC1[VC1: 变更申请<br/>━━━━━━<br/>角色: FO/SE/SO<br/>活动: 提交变更请求<br/>说明: 变更原因/影响<br/>输出: 变更申请单]
+    
+    VC1 --> VC2[VC2: 影响分析<br/>━━━━━━<br/>角色: TPM+团队<br/>活动: 评估影响范围<br/>分析: 工作量/风险<br/>输出: 影响分析报告]
+    
+    VC2 --> VC3[VC3: 变更评审<br/>━━━━━━<br/>角色: CCB变更委员会<br/>活动: 变更评审会<br/>决策: 批准/拒绝/延期<br/>输出: 变更决策]
+    
+    VC3 --> VC4{变更批准?<br/>━━━━━━}
+    
+    VC4 -->|拒绝| V8
+    
+    VC4 -->|批准| VC5[VC5: 版本更新<br/>━━━━━━<br/>角色: PO<br/>活动: 更新版本内容<br/>版本号: v1.0→v1.1<br/>输出: 新版本Baseline]
+    
+    VC5 --> VC6[VC6: 变更通知<br/>━━━━━━<br/>角色: PO<br/>活动: 通知相关团队<br/>同步: 计划调整<br/>输出: 变更通知]
+    
+    VC6 --> V8
+    
+    V8 -->|版本完成| END([版本关闭<br/>归档])
+    
+    style START fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+    style V3 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style V6 fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style V7 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style VC3 fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style END fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+```
+
+**版本管理关键规则**:
+
+| 阶段 | 活动 | 可变更度 | 批准权限 |
+|------|------|---------|---------|
+| **创建** | 版本定义 | 高 | PO |
+| **规划** | Feature规划 | 高 | PO |
+| **评审** | PRD/SSTS评审 | 中 | 评审团队 |
+| **锁定** | Baseline锁定 | 低 | PO+CCB |
+| **发布** | 版本发布 | 低 | PO+CCB |
+| **执行中** | 小变更 | 中 | TPM |
+| **执行中** | 大变更 | 低 | CCB |
+| **完成** | 版本关闭 | 无 | PO |
+
+### 6.7 项目基线管理流程
+
+**设计说明**: 项目基线管理流程定义车型节点基线的设定、锁定、变更控制，基线关联产品版本、需求版本、代码版本，确保交付质量可控。
+
+```mermaid
+graph TB
+    START([基线规划开始]) --> BL1[BL1: 车型节点定义<br/>━━━━━━<br/>角色: PM<br/>输入: 车型计划<br/>定义: SOP/预量产/试制节点<br/>输出: 节点时间表]
+    
+    BL1 --> BL2[BL2: 基线规划<br/>━━━━━━<br/>角色: PM+PO<br/>活动: 节点与基线绑定<br/>定义: 基线范围/内容<br/>输出: 基线规划]
+    
+    BL2 --> BL3[BL3: 产品版本选择<br/>━━━━━━<br/>角色: PO<br/>活动: 选择版本纳入基线<br/>确认: Feature/SSTS/MR清单<br/>输出: 需求版本清单]
+    
+    BL3 --> BL4[BL4: PI规划对齐<br/>━━━━━━<br/>角色: PM+TPM<br/>活动: PI计划对齐基线<br/>检查: 交付能力<br/>输出: PI-基线映射]
+    
+    BL4 --> BL5[BL5: 基线评审<br/>━━━━━━<br/>角色: 管理团队<br/>活动: 基线评审会<br/>确认: 范围/计划/风险<br/>输出: 基线评审通过]
+    
+    BL5 --> BL6[BL6: 基线锁定<br/>━━━━━━<br/>角色: PM<br/>活动: 锁定基线配置<br/>冻结: 需求/代码/文档<br/>输出: 基线Baseline v1.0]
+    
+    BL6 --> BL7[BL7: 基线发布<br/>━━━━━━<br/>角色: PM<br/>活动: 正式发布基线<br/>通知: 全员同步<br/>输出: 基线可用]
+    
+    BL7 --> BL8{基线执行<br/>━━━━━━<br/>开发测试中}
+    
+    BL8 -->|无变更| BL13[BL13: 基线验证<br/>━━━━━━<br/>角色: QA+PM<br/>活动: 基线验收测试<br/>检查: 完整性/一致性<br/>输出: 验证报告]
+    
+    BL8 -->|需要变更| BC1[BC1: 变更申请<br/>━━━━━━<br/>角色: PO/TPM<br/>活动: 提交基线变更<br/>说明: 变更原因<br/>输出: 变更申请CCR]
+    
+    BC1 --> BC2[BC2: 影响分析<br/>━━━━━━<br/>角色: PM+TPM+PO<br/>活动: 评估基线影响<br/>分析: 节点/质量/成本<br/>输出: 影响评估报告]
+    
+    BC2 --> BC3[BC3: CCB评审<br/>━━━━━━<br/>角色: CCB委员会<br/>活动: 基线变更评审<br/>决策: 批准/拒绝<br/>输出: CCB决策]
+    
+    BC3 --> BC4{变更批准?<br/>━━━━━━}
+    
+    BC4 -->|拒绝| BL8
+    
+    BC4 -->|批准| BC5[BC5: 基线更新<br/>━━━━━━<br/>角色: PM<br/>活动: 更新基线配置<br/>版本: v1.0→v1.1<br/>输出: 新基线版本]
+    
+    BC5 --> BC6[BC6: 产品版本更新<br/>━━━━━━<br/>角色: PO<br/>活动: 同步更新需求版本<br/>调整: Feature/SSTS/MR<br/>输出: 需求版本同步]
+    
+    BC6 --> BC7[BC7: 计划调整<br/>━━━━━━<br/>角色: TPM<br/>活动: PI/Sprint计划调整<br/>同步: 团队任务<br/>输出: 调整后计划]
+    
+    BC7 --> BC8[BC8: 变更通知<br/>━━━━━━<br/>角色: PM<br/>活动: 全员同步变更<br/>培训: 变更内容<br/>输出: 变更通知]
+    
+    BC8 --> BL8
+    
+    BL13 --> BL14[BL14: 节点交付<br/>━━━━━━<br/>角色: PM<br/>活动: 车型节点验收<br/>交付: 软件/文档<br/>输出: 节点完成]
+    
+    BL14 --> END([基线关闭<br/>归档])
+    
+    style START fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+    style BL5 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style BL6 fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style BC3 fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style BC6 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style BL14 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style END fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+```
+
+**基线管理关键要素**:
+
+| 基线类型 | 内容 | 锁定时机 | 变更控制级别 |
+|---------|------|---------|------------|
+| **需求基线** | Feature/SSTS/MR | 基线锁定前 | CCB审批 |
+| **代码基线** | 源代码/配置 | 集成测试前 | CCB审批 |
+| **测试基线** | 测试用例/结果 | 验收测试前 | QA+CCB |
+| **文档基线** | 设计文档/手册 | 节点交付前 | CCB审批 |
+| **节点基线** | 完整交付物 | 车型节点前 | 高层审批 |
+
+### 6.8 需求全生命周期变更管理流程
+
+**设计说明**: 需求全生命周期变更管理流程覆盖从Epic接受到需求池、PRD/SSTS拆解、MR细化、计划执行、迭代开发全过程的需求变更控制。
+
+```mermaid
+graph TB
+    START([需求变更触发]) --> TYPE{变更阶段<br/>━━━━━━}
+    
+    TYPE -->|Epic阶段| E1[E1: Epic变更<br/>━━━━━━<br/>触发: 市场/客户反馈<br/>位置: 需求池<br/>权限: 高<br/>影响: 需重新评审]
+    
+    E1 --> E2[E2: Epic变更评估<br/>━━━━━━<br/>角色: PO<br/>活动: 价值评估<br/>分析: 优先级/ROI<br/>输出: 变更建议]
+    
+    E2 --> E3[E3: Epic变更决策<br/>━━━━━━<br/>角色: 产品委员会<br/>决策: 接受/拒绝/延期<br/>输出: Epic更新]
+    
+    TYPE -->|Feature阶段<br/>PRD已拆解| F1[F1: Feature变更<br/>━━━━━━<br/>触发: 技术/市场变化<br/>状态: 已有PRD<br/>权限: 中<br/>影响: 影响下游]
+    
+    F1 --> F2[F2: 变更影响分析<br/>━━━━━━<br/>角色: FO+SE<br/>活动: 分析影响范围<br/>识别: SSTS/MR/Task<br/>输出: 影响分析报告]
+    
+    F2 --> F3[F3: 变更评审<br/>━━━━━━<br/>角色: TPM+团队<br/>活动: 评估工作量<br/>评估: 进度/成本影响<br/>输出: 评审建议]
+    
+    F3 --> F4{纳入版本?<br/>━━━━━━}
+    
+    F4 -->|纳入当前版本| F5[F5: 版本变更CCB<br/>━━━━━━<br/>角色: CCB<br/>决策: 版本内容调整<br/>输出: 版本变更批准]
+    
+    F4 -->|延期到下版本| F6[F6: 延期处理<br/>━━━━━━<br/>角色: PO<br/>活动: 加入下版本<br/>通知: 干系人<br/>输出: 变更延期]
+    
+    TYPE -->|SSTS阶段<br/>已拆解SSTS| S1[S1: SSTS变更<br/>━━━━━━<br/>触发: 技术方案调整<br/>状态: SSTS已评审<br/>权限: 中<br/>影响: 影响MR/Task]
+    
+    S1 --> S2[S2: SSTS影响分析<br/>━━━━━━<br/>角色: SE+SO<br/>活动: 分析MR影响<br/>识别: 受影响模块<br/>输出: 影响清单]
+    
+    S2 --> S3[S3: 团队评估<br/>━━━━━━<br/>角色: SO+DL<br/>活动: 评估工作量<br/>检查: Sprint影响<br/>输出: 工作量评估]
+    
+    S3 --> S4[S4: 变更批准<br/>━━━━━━<br/>角色: TPM<br/>决策: 批准/延期<br/>调整: 计划/资源<br/>输出: 变更批准]
+    
+    TYPE -->|MR阶段<br/>开发前| M1[M1: MR变更<br/>━━━━━━<br/>触发: 实现细节调整<br/>状态: 开发前/中<br/>权限: 低到中<br/>影响: 影响Task]
+    
+    M1 --> M2[M2: 团队内评估<br/>━━━━━━<br/>角色: DL+DEV<br/>活动: 评估技术影响<br/>评估: Sprint内可消化<br/>输出: 影响评估]
+    
+    M2 --> M3{影响范围<br/>━━━━━━}
+    
+    M3 -->|Sprint内| M4[M4: 团队内变更<br/>━━━━━━<br/>角色: DL<br/>决策: 团队内消化<br/>调整: Task<br/>输出: 内部调整]
+    
+    M3 -->|跨Sprint/团队| M5[M5: 上报TPM<br/>━━━━━━<br/>角色: DL<br/>活动: 上报变更<br/>协调: 跨团队<br/>输出: 变更升级]
+    
+    M5 --> S4
+    
+    TYPE -->|Task阶段<br/>开发中| T1[T1: Task变更<br/>━━━━━━<br/>触发: 实现问题<br/>状态: 开发中<br/>权限: 低<br/>影响: 团队内]
+    
+    T1 --> T2[T2: 开发者处理<br/>━━━━━━<br/>角色: DEV<br/>活动: 技术方案调整<br/>沟通: DL<br/>输出: 技术方案]
+    
+    T2 --> T3{需上报?<br/>━━━━━━}
+    
+    T3 -->|不需要| T4[T4: 团队内消化<br/>━━━━━━<br/>角色: Team<br/>活动: Daily同步<br/>调整: Task拆分<br/>输出: 继续开发]
+    
+    T3 -->|需要上报| M5
+    
+    E3 --> SYNC[变更同步<br/>━━━━━━<br/>更新需求<br/>通知干系人<br/>调整计划]
+    F5 --> SYNC
+    F6 --> SYNC
+    S4 --> SYNC
+    M4 --> SYNC
+    T4 --> SYNC
+    
+    SYNC --> TRACK[变更跟踪<br/>━━━━━━<br/>变更记录<br/>影响跟踪<br/>经验总结]
+    
+    TRACK --> END([变更完成<br/>归档])
+    
+    style START fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+    style E3 fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style F3 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style F5 fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style S4 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style M4 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style END fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+```
+
+**需求变更控制矩阵**:
+
+| 需求阶段 | 变更触发 | 评估角色 | 批准权限 | 影响范围 | 控制级别 |
+|---------|---------|---------|---------|---------|---------|
+| **Epic** | 市场/战略 | PO | 产品委员会 | 全局 | 高 - 严格控制 |
+| **Feature<br/>PRD已拆** | 技术/市场 | FO+SE+TPM | CCB | 版本/PI | 中高 - CCB审批 |
+| **SSTS<br/>已评审** | 技术方案 | SE+SO+TPM | TPM | PI/Sprint | 中 - TPM审批 |
+| **MR<br/>开发前** | 实现细节 | DL+DEV | DL/TPM | Sprint/Team | 中低 - DL审批 |
+| **Task<br/>开发中** | 实现问题 | DEV | DL | Team内部 | 低 - 团队内消化 |
+
+**变更管理原则**:
+1. **阶段越早，变更成本越低** - 鼓励早期发现问题
+2. **权限分层** - 根据影响范围确定审批权限
+3. **影响分析必须** - 所有变更需先影响分析
+4. **CCB机制** - 重大变更需CCB评审
+5. **全程追溯** - 变更记录完整可追溯
 
 ---
 
