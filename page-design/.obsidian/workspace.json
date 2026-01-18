@@ -11,10 +11,14 @@
             "id": "b88a173e41b395d1",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "用户体验优化/00-平台整体用户体验优化设计.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "00-平台整体用户体验优化设计"
             }
           }
         ]
@@ -90,6 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "用户体验优化/00-平台整体用户体验优化设计.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "反向链接"
+              "title": "00-平台整体用户体验优化设计 的反向链接列表"
             }
           },
           {
@@ -108,11 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "用户体验优化/00-平台整体用户体验优化设计.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "出链"
+              "title": "00-平台整体用户体验优化设计 的出链列表"
             }
           },
           {
@@ -150,12 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "用户体验优化/00-平台整体用户体验优化设计.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "00-平台整体用户体验优化设计 的大纲"
             }
           }
         ],
@@ -178,6 +185,7 @@
   },
   "active": "b88a173e41b395d1",
   "lastOpenFiles": [
+    "固有功能页面集成与角色流程验证.md",
     "整车软件研发平台业务方案设计.md",
     "archives/详细任务分析执行总结.md",
     "archives/设计方案对比与最终确认.md",
@@ -198,7 +206,6 @@
     "平台完整设计方案V2.0-基于价值流.md",
     "平台设计评估标准和原则.md",
     "平台设计差距分析与调整方案.md",
-    "固有功能页面集成与角色流程验证.md",
     "工作总结-2026-01-17-完整设计方案V2.0.md",
     "总体设计进度报告.md",
     "工作总结-2026-01-17-P1任务全量完成.md",
