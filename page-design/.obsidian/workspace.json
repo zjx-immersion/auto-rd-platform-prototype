@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "用户体验优化/00-平台整体用户体验优化设计.md",
+                "file": "C3-规划协调/01-版本规划/C3-F02-Feature分配.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "00-平台整体用户体验优化设计"
+              "title": "C3-F02-Feature分配"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "用户体验优化/00-平台整体用户体验优化设计.md",
+                "file": "C3-规划协调/01-版本规划/C3-F02-Feature分配.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "00-平台整体用户体验优化设计 的反向链接列表"
+              "title": "C3-F02-Feature分配 的反向链接列表"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "用户体验优化/00-平台整体用户体验优化设计.md",
+                "file": "C3-规划协调/01-版本规划/C3-F02-Feature分配.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "00-平台整体用户体验优化设计 的出链列表"
+              "title": "C3-F02-Feature分配 的出链列表"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "用户体验优化/00-平台整体用户体验优化设计.md",
+                "file": "C3-规划协调/01-版本规划/C3-F02-Feature分配.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "00-平台整体用户体验优化设计 的大纲"
+              "title": "C3-F02-Feature分配 的大纲"
             }
           }
         ],
@@ -185,6 +185,8 @@
   },
   "active": "b88a173e41b395d1",
   "lastOpenFiles": [
+    "用户体验优化/平台整体设计全量评估报告.md",
+    "用户体验优化/00-平台整体用户体验优化设计.md",
     "固有功能页面集成与角色流程验证.md",
     "整车软件研发平台业务方案设计.md",
     "archives/详细任务分析执行总结.md",
@@ -210,8 +212,6 @@
     "总体设计进度报告.md",
     "工作总结-2026-01-17-P1任务全量完成.md",
     "工作总结-2026-01-17-P0任务全量完成.md",
-    "用户体验优化/角色-流程-效率矩阵评估.md",
-    "P1任务完成最终报告.md",
     "C3-规划协调/04-风险管理",
     "C3-规划协调/01-版本规划",
     "C6-发布管理/00-代码管理",

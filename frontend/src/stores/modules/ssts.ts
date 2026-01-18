@@ -172,6 +172,20 @@ export const useSSTSStore = defineStore('ssts', () => {
     }
   }
 
+  async function updateSSTS(id: string, updates: Partial<SSTS>) {
+    const index = sstsList.value.findIndex(s => s.id === id)
+    if (index !== -1) {
+      sstsList.value[index] = {
+        ...sstsList.value[index],
+        ...updates,
+        updatedAt: new Date().toISOString(),
+      }
+      if (currentSSTS.value?.id === id) {
+        currentSSTS.value = sstsList.value[index]
+      }
+    }
+  }
+
   async function assignMRToTeam(mrId: string, teamId: string, teamName: string) {
     const index = mrList.value.findIndex(m => m.id === mrId)
     if (index !== -1) {
@@ -183,6 +197,51 @@ export const useSSTSStore = defineStore('ssts', () => {
         updatedAt: new Date().toISOString(),
       }
     }
+  }
+
+  /**
+   * 提交SSTS评审
+   */
+  async function submitSSTSReview(sstsId: string) {
+    const ssts = sstsList.value.find(s => s.id === sstsId)
+    if (ssts) {
+      await updateSSTS(sstsId, {
+        reviewStatus: 'in-review',
+        reviewComments: ssts.reviewComments || []
+      })
+    }
+  }
+
+  /**
+   * 添加SSTS评审意见
+   */
+  async function addSSTSReviewComment(
+    sstsId: string,
+    commentType: 'approve' | 'reject' | 'comment',
+    content: string,
+    author: string = '当前用户'
+  ) {
+    const ssts = sstsList.value.find(s => s.id === sstsId)
+    if (!ssts) return
+
+    const newComment = {
+      id: `comment-${Date.now()}`,
+      author,
+      content,
+      type: commentType,
+      createdAt: new Date().toISOString()
+    }
+
+    const reviewComments = [...(ssts.reviewComments || []), newComment]
+    let reviewStatus: SSTS['reviewStatus'] = ssts.reviewStatus
+
+    if (commentType === 'approve') {
+      reviewStatus = 'approved'
+    } else if (commentType === 'reject') {
+      reviewStatus = 'rejected'
+    }
+
+    await updateSSTS(sstsId, { reviewComments, reviewStatus })
   }
 
   function resetCurrentSSTS() {
@@ -227,9 +286,12 @@ export const useSSTSStore = defineStore('ssts', () => {
     fetchSSTSByFeatureId,
     createSSTS,
     batchCreateSSTS,
+    updateSSTS,
     createMR,
     linkMRToSSTS,
     assignMRToTeam,
+    submitSSTSReview,
+    addSSTSReviewComment,
     resetCurrentSSTS,
     getMRsBySSTS,
     fetchMRList,

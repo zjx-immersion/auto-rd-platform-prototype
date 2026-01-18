@@ -169,6 +169,10 @@ export interface Epic extends Timestamps {
   // 度量
   storyPoints?: number                 // 故事点估算
   
+  // 评审流程（新增）
+  reviewStatus?: 'pending' | 'in-review' | 'approved' | 'rejected'
+  reviewComments?: ReviewComment[]     // 评审意见
+  
   // 标签
   tags: string[]
   domain?: Domain                      // 所属领域
@@ -314,6 +318,10 @@ export interface SSTS extends Timestamps {
   
   // 工作量
   estimate: number                     // 估算工作量（人天）
+  
+  // 评审流程（新增）
+  reviewStatus?: 'pending' | 'in-review' | 'approved' | 'rejected'
+  reviewComments?: ReviewComment[]     // 评审意见
   
   // 状态
   status: 'draft' | 'review' | 'approved' | 'in-development' | 'completed'

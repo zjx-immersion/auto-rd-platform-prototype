@@ -114,6 +114,51 @@ export const useEpicStore = defineStore('epic', () => {
     }
   }
 
+  /**
+   * 提交Epic评审
+   */
+  async function submitEpicReview(epicId: string) {
+    const epic = epics.value.find(e => e.id === epicId)
+    if (epic) {
+      await updateEpic(epicId, {
+        reviewStatus: 'in-review',
+        reviewComments: epic.reviewComments || []
+      })
+    }
+  }
+
+  /**
+   * 添加Epic评审意见
+   */
+  async function addEpicReviewComment(
+    epicId: string,
+    commentType: 'approve' | 'reject' | 'comment',
+    content: string,
+    author: string = '当前用户'
+  ) {
+    const epic = epics.value.find(e => e.id === epicId)
+    if (!epic) return
+
+    const newComment = {
+      id: `comment-${Date.now()}`,
+      author,
+      content,
+      type: commentType,
+      createdAt: new Date().toISOString()
+    }
+
+    const reviewComments = [...(epic.reviewComments || []), newComment]
+    let reviewStatus: Epic['reviewStatus'] = epic.reviewStatus
+
+    if (commentType === 'approve') {
+      reviewStatus = 'approved'
+    } else if (commentType === 'reject') {
+      reviewStatus = 'rejected'
+    }
+
+    await updateEpic(epicId, { reviewComments, reviewStatus })
+  }
+
   function resetCurrentEpic() {
     currentEpic.value = null
   }
@@ -131,6 +176,8 @@ export const useEpicStore = defineStore('epic', () => {
     createEpic,
     updateEpic,
     linkFeature,
+    submitEpicReview,
+    addEpicReviewComment,
     resetCurrentEpic,
   }
 })
