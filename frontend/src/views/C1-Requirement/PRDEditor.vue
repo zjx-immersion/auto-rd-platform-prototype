@@ -172,7 +172,7 @@
         </el-card>
 
         <!-- 附件 -->
-        <el-card>
+        <el-card style="margin-bottom: 16px;">
           <template #header>
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <span>附件 ({{ attachments.length }})</span>
@@ -188,6 +188,87 @@
             <el-button link size="small" type="danger" @click="deleteAttachment(attachment.id)">删除</el-button>
           </div>
           <el-empty v-if="attachments.length === 0" description="暂无附件" />
+        </el-card>
+
+        <!-- PRD评审 -->
+        <el-card>
+          <template #header>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span>PRD评审</span>
+              <el-button 
+                v-if="reviewStatus !== 'pending' && reviewStatus !== 'in-review'" 
+                size="small" 
+                type="primary" 
+                @click="handleSubmitReview"
+              >
+                提交评审
+              </el-button>
+            </div>
+          </template>
+
+          <!-- 评审状态 -->
+          <div style="margin-bottom: 16px;">
+            <el-descriptions :column="1" border size="small">
+              <el-descriptions-item label="评审状态">
+                <el-tag v-if="reviewStatus" :type="getReviewStatusType(reviewStatus)">
+                  {{ getReviewStatusText(reviewStatus) }}
+                </el-tag>
+                <span v-else>未提交</span>
+              </el-descriptions-item>
+            </el-descriptions>
+          </div>
+
+          <!-- 添加评审意见 -->
+          <div v-if="reviewStatus === 'pending' || reviewStatus === 'in-review'" style="margin-bottom: 16px;">
+            <el-form label-width="80px" size="small">
+              <el-form-item label="评审意见">
+                <el-input
+                  v-model="newReviewComment"
+                  type="textarea"
+                  :rows="3"
+                  placeholder="请输入评审意见..."
+                />
+              </el-form-item>
+              <el-form-item>
+                <el-button-group>
+                  <el-button type="success" @click="handleAddReviewComment('approve')">
+                    <el-icon><Check /></el-icon>
+                    批准
+                  </el-button>
+                  <el-button type="danger" @click="handleAddReviewComment('reject')">
+                    <el-icon><Close /></el-icon>
+                    拒绝
+                  </el-button>
+                  <el-button @click="handleAddReviewComment('comment')">
+                    <el-icon><ChatDotRound /></el-icon>
+                    评论
+                  </el-button>
+                </el-button-group>
+              </el-form-item>
+            </el-form>
+          </div>
+
+          <!-- 评审意见列表 -->
+          <div class="review-comments">
+            <el-timeline v-if="reviewComments.length > 0">
+              <el-timeline-item
+                v-for="comment in reviewComments"
+                :key="comment.id"
+                :timestamp="formatDateTime(comment.createdAt)"
+              >
+                <div class="review-comment-item">
+                  <div class="comment-header">
+                    <strong>{{ comment.author }}</strong>
+                    <el-tag :type="getCommentTypeColor(comment.type)" size="small">
+                      {{ getCommentTypeText(comment.type) }}
+                    </el-tag>
+                  </div>
+                  <div class="comment-content">{{ comment.content }}</div>
+                </div>
+              </el-timeline-item>
+            </el-timeline>
+            <el-empty v-else description="暂无评审意见" />
+          </div>
         </el-card>
       </el-col>
     </el-row>
@@ -258,7 +339,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ArrowLeft, DocumentCopy, Check, Plus, Picture, Upload, Document } from '@element-plus/icons-vue'
+import { ArrowLeft, DocumentCopy, Check, Plus, Picture, Upload, Document, Close, ChatDotRound } from '@element-plus/icons-vue'
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
@@ -294,6 +375,11 @@ const versionHistory = ref<any[]>([])
 
 // 附件
 const attachments = ref<any[]>([])
+
+// 评审相关
+const reviewStatus = ref<'pending' | 'in-review' | 'approved' | 'rejected' | undefined>(undefined)
+const reviewComments = ref<any[]>([])
+const newReviewComment = ref('')
 
 // 版本对比相关
 const compareDialogVisible = ref(false)
@@ -338,10 +424,15 @@ const goBack = () => router.back()
 const handleSaveDraft = async () => {
   saving.value = true
   try {
-    // 模拟保存
-    await new Promise(resolve => setTimeout(resolve, 500))
-    lastSaved.value = new Date().toLocaleString('zh-CN')
-    ElMessage.success('草稿已保存')
+    const success = await featureStore.savePRDDraft(featureId.value, prdContent.value)
+    if (success) {
+      lastSaved.value = new Date().toLocaleString('zh-CN')
+      ElMessage.success('草稿已保存')
+    } else {
+      ElMessage.error('保存失败')
+    }
+  } catch (error) {
+    ElMessage.error('保存失败')
   } finally {
     saving.value = false
   }
@@ -350,25 +441,21 @@ const handleSaveDraft = async () => {
 const handlePublish = async () => {
   publishing.value = true
   try {
-    await new Promise(resolve => setTimeout(resolve, 500))
-    prdStatus.value = 'published'
-    const oldVersion = prdVersion.value
-    prdVersion.value = `v${parseFloat(prdVersion.value.substring(1)) + 0.1}`
+    const changeSummary = `发布PRD版本`
+    const newVersion = await featureStore.publishPRD(featureId.value, prdContent.value, changeSummary)
     
-    // 生成变更摘要
-    const previousVersion = versionHistory.value[0]
-    const changeSummary = previousVersion 
-      ? `从 ${oldVersion} 更新到 ${prdVersion.value}`
-      : `初始版本 ${prdVersion.value}`
-    
-    versionHistory.value.unshift({
-      version: prdVersion.value,
-      content: prdContent.value,
-      createdAt: new Date().toLocaleString('zh-CN'),
-      createdBy: 'Current User',
-      changeSummary
-    })
-    ElMessage.success('PRD已发布')
+    if (newVersion) {
+      prdVersion.value = newVersion
+      prdStatus.value = 'draft' // 发布后重置为草稿状态
+      
+      // 重新加载Feature数据以获取最新的版本历史
+      await featureStore.fetchFeatureById(featureId.value)
+      loadPRDData()
+      
+      ElMessage.success(`PRD已发布为版本 ${newVersion}`)
+    } else {
+      ElMessage.error('发布失败')
+    }
   } finally {
     publishing.value = false
   }
@@ -433,17 +520,23 @@ const editAC = (index: number) => {
   acceptanceCriteria.value[index].editing = true
 }
 
-const saveAC = (index: number) => {
+const saveAC = async (index: number) => {
   if (!acceptanceCriteria.value[index].description) {
     ElMessage.warning('请输入验收标准描述')
     return
   }
   acceptanceCriteria.value[index].editing = false
+  
+  // 保存到Store
+  await featureStore.updateAcceptanceCriteria(featureId.value, acceptanceCriteria.value)
   ElMessage.success('验收标准已保存')
 }
 
-const deleteAC = (index: number) => {
+const deleteAC = async (index: number) => {
   acceptanceCriteria.value.splice(index, 1)
+  
+  // 保存到Store
+  await featureStore.updateAcceptanceCriteria(featureId.value, acceptanceCriteria.value)
   ElMessage.success('验收标准已删除')
 }
 
@@ -558,27 +651,18 @@ const performRollback = async () => {
   if (!rollbackTargetVersion.value) return
 
   try {
-    // 回滚到指定版本
-    const targetContent = rollbackTargetVersion.value.content
+    const success = await featureStore.rollbackPRDVersion(featureId.value, rollbackTargetVersion.value.version)
     
-    if (editor.value) {
-      editor.value.commands.setContent(targetContent)
-      prdContent.value = targetContent
+    if (success) {
+      // 重新加载Feature数据
+      await featureStore.fetchFeatureById(featureId.value)
+      loadPRDData()
+      
+      ElMessage.success(`已回滚到版本 ${rollbackTargetVersion.value.version}`)
+    } else {
+      ElMessage.error('回滚失败')
     }
-
-    // 创建新版本
-    const newVersion = `v${parseFloat(prdVersion.value.substring(1)) + 0.1}`
-    prdVersion.value = newVersion
     
-    versionHistory.value.unshift({
-      version: newVersion,
-      content: targetContent,
-      createdAt: new Date().toLocaleString('zh-CN'),
-      createdBy: 'Current User',
-      changeSummary: `回滚自 ${rollbackTargetVersion.value.version}`
-    })
-
-    ElMessage.success(`已回滚到版本 ${rollbackTargetVersion.value.version}，并创建新版本 ${newVersion}`)
     rollbackDialogVisible.value = false
     rollbackTargetVersion.value = null
   } catch (error) {
@@ -587,33 +671,155 @@ const performRollback = async () => {
 }
 
 const handleAttachmentUpload = () => {
-  ElMessage.info('附件上传功能待实现')
+  // 模拟文件上传
+  const mockAttachment = {
+    name: `attachment-${Date.now()}.pdf`,
+    url: `https://example.com/attachments/${Date.now()}.pdf`,
+    size: Math.floor(Math.random() * 1000000),
+    type: 'application/pdf',
+    uploadedBy: 'Current User'
+  }
+  
+  featureStore.addPRDAttachment(featureId.value, mockAttachment).then(() => {
+    loadPRDData()
+    ElMessage.success('附件上传成功')
+  }).catch(() => {
+    ElMessage.error('附件上传失败')
+  })
 }
 
-const deleteAttachment = (id: string) => {
-  const index = attachments.value.findIndex(a => a.id === id)
-  if (index !== -1) {
-    attachments.value.splice(index, 1)
-    ElMessage.success('附件已删除')
+const deleteAttachment = async (id: string) => {
+  try {
+    const success = await featureStore.removePRDAttachment(featureId.value, id)
+    if (success) {
+      loadPRDData()
+      ElMessage.success('附件已删除')
+    } else {
+      ElMessage.error('删除失败')
+    }
+  } catch (error) {
+    ElMessage.error('删除失败')
   }
+}
+
+// 评审相关方法
+const handleSubmitReview = async () => {
+  try {
+    const success = await featureStore.submitPRDReview(featureId.value)
+    if (success) {
+      await featureStore.fetchFeatureById(featureId.value)
+      loadPRDData()
+      ElMessage.success('PRD已提交评审')
+    } else {
+      ElMessage.error('提交评审失败')
+    }
+  } catch (error) {
+    ElMessage.error('提交评审失败')
+  }
+}
+
+const handleAddReviewComment = async (type: 'approve' | 'reject' | 'comment') => {
+  if (!newReviewComment.value.trim()) {
+    ElMessage.warning('请输入评审意见')
+    return
+  }
+
+  try {
+    const success = await featureStore.addPRDReviewComment(featureId.value, {
+      author: 'Current User',
+      content: newReviewComment.value,
+      type
+    })
+
+    if (success) {
+      await featureStore.fetchFeatureById(featureId.value)
+      loadPRDData()
+      newReviewComment.value = ''
+      
+      const actionText = type === 'approve' ? '已批准' : type === 'reject' ? '已拒绝' : '已添加评论'
+      ElMessage.success(`评审意见${actionText}`)
+    } else {
+      ElMessage.error('添加评审意见失败')
+    }
+  } catch (error) {
+    ElMessage.error('添加评审意见失败')
+  }
+}
+
+const getReviewStatusType = (status: string) => {
+  const map: Record<string, any> = {
+    pending: 'warning',
+    'in-review': 'primary',
+    approved: 'success',
+    rejected: 'danger'
+  }
+  return map[status] || 'info'
+}
+
+const getReviewStatusText = (status: string) => {
+  const map: Record<string, string> = {
+    pending: '待评审',
+    'in-review': '评审中',
+    approved: '已批准',
+    rejected: '已拒绝'
+  }
+  return map[status] || status
+}
+
+const getCommentTypeColor = (type: string) => {
+  const map: Record<string, any> = {
+    approve: 'success',
+    reject: 'danger',
+    comment: 'info'
+  }
+  return map[type] || 'info'
+}
+
+const getCommentTypeText = (type: string) => {
+  const map: Record<string, string> = {
+    approve: '批准',
+    reject: '拒绝',
+    comment: '评论'
+  }
+  return map[type] || type
+}
+
+const formatDateTime = (dateStr: string) => {
+  return new Date(dateStr).toLocaleString('zh-CN')
+}
+
+// 从Feature数据加载PRD相关信息
+const loadPRDData = () => {
+  if (!feature.value) return
+  
+  const prd = feature.value.prd
+  prdContent.value = prd.content || '<h1>产品需求文档</h1><p>开始编写...</p>'
+  prdVersion.value = prd.version || 'v1.0'
+  prdStatus.value = prd.status || 'draft'
+  
+  if (editor.value) {
+    editor.value.commands.setContent(prdContent.value)
+  }
+  
+  // 加载版本历史
+  versionHistory.value = prd.versionHistory || []
+  
+  // 加载附件
+  attachments.value = prd.attachments || []
+  
+  // 加载评审信息
+  reviewStatus.value = prd.reviewStatus
+  reviewComments.value = prd.reviewComments || []
+  
+  // 加载验收标准
+  acceptanceCriteria.value = feature.value.acceptanceCriteria || []
 }
 
 onMounted(async () => {
   loading.value = true
   try {
     await featureStore.fetchFeatureById(featureId.value)
-    
-    // 模拟加载PRD数据
-    prdContent.value = '<h1>产品需求文档</h1><p>开始编写...</p>'
-    if (editor.value) {
-      editor.value.commands.setContent(prdContent.value)
-    }
-    
-    // 模拟验收标准
-    acceptanceCriteria.value = [
-      { code: 'AC-001', description: '基础功能正常运行', status: 'pending', editing: false },
-      { code: 'AC-002', description: '性能满足要求（响应时间<200ms）', status: 'pending', editing: false }
-    ]
+    loadPRDData()
   } finally {
     loading.value = false
   }
@@ -807,6 +1013,24 @@ onBeforeUnmount(() => {
         padding-bottom: 8px;
         border-bottom: 2px solid #409eff;
       }
+    }
+  }
+}
+
+.review-comments {
+  .review-comment-item {
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .comment-content {
+      padding: 12px;
+      background-color: #f5f7fa;
+      border-radius: 4px;
+      line-height: 1.6;
     }
   }
 }

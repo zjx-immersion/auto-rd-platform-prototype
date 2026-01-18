@@ -123,11 +123,42 @@ async function loadEpicsToStore() {
 async function loadFeaturesToStore() {
   const featureStore = useFeatureStore()
   const features = dataLoader.getDataset('features')
-  // 映射name字段到title字段，以符合类型定义
-  const mappedFeatures = features.map((f: any) => ({
-    ...f,
-    title: f.title || f.name || '', // 优先使用title，如果没有则使用name
-  }))
+  // 映射name字段到title字段，并扩展PRD数据结构
+  const mappedFeatures = features.map((f: any) => {
+    // 确保PRD字段有完整结构
+    const prd = f.prd || {}
+    return {
+      ...f,
+      title: f.title || f.name || '', // 优先使用title，如果没有则使用name
+      prd: {
+        content: prd.content || '<h1>产品需求文档</h1><p>待编写...</p>',
+        version: prd.version || 'v1.0',
+        status: prd.status || 'draft',
+        url: prd.url,
+        attachments: prd.attachments || [],
+        versionHistory: prd.versionHistory || [],
+        reviewStatus: prd.reviewStatus,
+        reviewComments: prd.reviewComments || []
+      },
+      // 确保验收标准字段存在
+      acceptanceCriteria: f.acceptanceCriteria || [
+        {
+          id: `ac-${f.id}-001`,
+          code: 'AC-001',
+          description: '基础功能正常运行',
+          status: 'pending',
+          priority: 'must'
+        },
+        {
+          id: `ac-${f.id}-002`,
+          code: 'AC-002',
+          description: '性能满足要求',
+          status: 'pending',
+          priority: 'should'
+        }
+      ]
+    }
+  })
   featureStore.features = mappedFeatures
   console.log(`✓ 加载了 ${mappedFeatures.length} 个Feature`)
 }

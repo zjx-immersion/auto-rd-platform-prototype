@@ -97,7 +97,12 @@
               <div class="feature-title">{{ feature.name }}</div>
               <div class="feature-meta">
                 <span>Epic: {{ getEpicName(feature.epicId) }}</span>
-                <el-tag size="small" type="warning">{{ feature.estimate || 0 }} SP</el-tag>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <el-tag size="small" type="warning">{{ feature.estimate || 0 }} SP</el-tag>
+                  <el-button link size="small" @click.stop="handleEditWorkload(feature)">
+                    <el-icon><Edit /></el-icon>
+                  </el-button>
+                </div>
               </div>
             </div>
             <el-empty v-if="filteredUnallocatedFeatures.length === 0" description="暂无待分配Feature" />
@@ -116,7 +121,13 @@
           <div v-if="selectedVersion" style="margin-bottom: 20px;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
               <span>版本容量</span>
-              <span>{{ totalAllocatedSP }} / {{ versionCapacity }} SP ({{ capacityPercentage }}%)</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span>{{ totalAllocatedSP }} / {{ versionCapacity }} SP ({{ capacityPercentage }}%)</span>
+                <el-button size="small" link type="primary" @click="showCapacityDialog = true">
+                  <el-icon><Setting /></el-icon>
+                  设置容量
+                </el-button>
+              </div>
             </div>
             <el-progress
               :percentage="capacityPercentage"
@@ -130,6 +141,14 @@
               style="margin-top: 8px;"
             >
               容量超载！请调整Feature分配
+            </el-alert>
+            <el-alert
+              v-else-if="capacityPercentage > 90"
+              type="warning"
+              :closable="false"
+              style="margin-top: 8px;"
+            >
+              容量使用率较高，建议预留缓冲
             </el-alert>
           </div>
 
@@ -229,13 +248,94 @@
         <el-button type="primary" @click="handleBatchAllocate">确定分配</el-button>
       </template>
     </el-dialog>
+
+    <!-- 容量设置对话框 -->
+    <el-dialog v-model="showCapacityDialog" title="设置版本容量" width="500px">
+      <el-form label-width="120px">
+        <el-form-item label="版本名称">
+          <el-input :value="selectedVersion?.name" disabled />
+        </el-form-item>
+        <el-form-item label="容量(SP)">
+          <el-input-number
+            v-model="capacityInput"
+            :min="0"
+            :max="10000"
+            :step="10"
+            style="width: 100%;"
+          />
+        </el-form-item>
+        <el-form-item label="当前已分配">
+          <span>{{ totalAllocatedSP }} SP</span>
+        </el-form-item>
+        <el-form-item label="剩余容量">
+          <span :style="{ color: (capacityInput - totalAllocatedSP) < 0 ? '#f56c6c' : '#67c23a' }">
+            {{ capacityInput - totalAllocatedSP }} SP
+          </span>
+        </el-form-item>
+        <el-alert
+          v-if="capacityInput < totalAllocatedSP"
+          type="warning"
+          :closable="false"
+          style="margin-bottom: 16px;"
+        >
+          警告：设置的容量小于已分配的工作量，可能导致超载
+        </el-alert>
+        <el-form-item label="建议容量">
+          <el-tag>{{ suggestedCapacity }} SP</el-tag>
+          <span style="margin-left: 8px; font-size: 12px; color: #909399;">
+            基于已分配Feature + 20%缓冲
+          </span>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="showCapacityDialog = false">取消</el-button>
+        <el-button @click="capacityInput = suggestedCapacity">采用建议值</el-button>
+        <el-button type="primary" @click="handleSaveCapacity">确定</el-button>
+      </template>
+    </el-dialog>
+
+    <!-- Feature工作量编辑对话框 -->
+    <el-dialog v-model="showWorkloadDialog" title="编辑工作量估算" width="500px">
+      <el-form v-if="editingFeature" label-width="120px">
+        <el-form-item label="Feature">
+          <el-input :value="`${editingFeature.code} - ${editingFeature.name}`" disabled />
+        </el-form-item>
+        <el-form-item label="工作量(SP)">
+          <el-input-number
+            v-model="workloadInput"
+            :min="0"
+            :max="1000"
+            :step="1"
+            style="width: 100%;"
+          />
+        </el-form-item>
+        <el-form-item label="复杂度">
+          <el-radio-group v-model="complexityInput">
+            <el-radio label="low">低</el-radio>
+            <el-radio label="medium">中</el-radio>
+            <el-radio label="high">高</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="建议工作量">
+          <el-tag>{{ getEstimatedWorkload(complexityInput) }} SP</el-tag>
+          <span style="margin-left: 8px; font-size: 12px; color: #909399;">
+            基于复杂度的参考值
+          </span>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="showWorkloadDialog = false">取消</el-button>
+        <el-button @click="workloadInput = getEstimatedWorkload(complexityInput)">采用建议值</el-button>
+        <el-button type="primary" @click="handleSaveWorkload">确定</el-button>
+      </template>
+    </el-dialog>
   </PageContainer>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { ArrowLeft, Check, Filter, Search } from '@element-plus/icons-vue'
+import { ArrowLeft, Check, Filter, Search, Setting, Edit } from '@element-plus/icons-vue'
 import PageContainer from '@/components/Common/PageContainer.vue'
 import PageHeader from '@/components/Common/PageHeader.vue'
 import { useProjectStore } from '@/stores/modules/project'
@@ -244,10 +344,15 @@ import { useEpicStore } from '@/stores/modules/epic'
 import type { Feature, PI } from '@/types'
 import { ElMessage } from 'element-plus'
 
+import { useVersionStore } from '@/stores/modules/version'
+import { usePIStore } from '@/stores/modules/pi'
+
 const router = useRouter()
 const projectStore = useProjectStore()
 const featureStore = useFeatureStore()
 const epicStore = useEpicStore()
+const versionStore = useVersionStore()
+const piStore = usePIStore()
 
 const loading = ref(false)
 const saving = ref(false)
@@ -258,9 +363,23 @@ const filterPriority = ref('')
 const searchKeyword = ref('')
 const showFilterDialog = ref(false)
 const showBatchDialog = ref(false)
+const showCapacityDialog = ref(false)
+const showWorkloadDialog = ref(false)
 const batchTargetPI = ref('')
 const batchSelectedFeatures = ref<string[]>([])
-const versionCapacity = ref(300) // 默认容量300SP
+const capacityInput = ref(300)
+const workloadInput = ref(0)
+const complexityInput = ref<'low' | 'medium' | 'high'>('medium')
+const editingFeature = ref<Feature | null>(null)
+
+const versionCapacity = computed(() => {
+  if (!selectedVersionId.value) return 300
+  return versionStore.getVersionCapacity(selectedVersionId.value)
+})
+
+const suggestedCapacity = computed(() => {
+  return Math.ceil(totalAllocatedSP.value * 1.2) // 已分配 + 20%缓冲
+})
 
 const projects = computed(() => projectStore.projects)
 const versions = computed(() => {
@@ -427,13 +546,22 @@ const handleBatchAllocate = () => {
 const handleSaveAllocation = async () => {
   saving.value = true
   try {
-    // 模拟保存
-    await new Promise(resolve => setTimeout(resolve, 500))
+    // 保存分配结果到Version Store
+    const success = await versionStore.saveFeatureAllocation(selectedVersionId.value, allocationMap.value)
     
-    // 实际应该调用API保存分配结果
-    // await projectStore.saveFeatureAllocation(selectedVersionId.value, allocationMap.value)
-    
-    ElMessage.success('Feature分配已保存')
+    if (success) {
+      // 更新Feature的targetPI和targetVersion
+      for (const [featureId, piId] of Object.entries(allocationMap.value)) {
+        await featureStore.updateFeature(featureId, {
+          targetPI: piId,
+          targetVersion: selectedVersionId.value
+        })
+      }
+      
+      ElMessage.success('Feature分配已保存')
+    } else {
+      ElMessage.error('保存失败')
+    }
   } finally {
     saving.value = false
   }
@@ -445,10 +573,48 @@ const loadProjectData = async () => {
 }
 
 const loadVersionData = async () => {
-  allocationMap.value = {}
   // 加载已有的分配数据
-  // const allocations = await projectStore.getFeatureAllocation(selectedVersionId.value)
-  // allocationMap.value = allocations
+  if (selectedVersionId.value) {
+    allocationMap.value = versionStore.getFeatureAllocation(selectedVersionId.value)
+    capacityInput.value = versionStore.getVersionCapacity(selectedVersionId.value)
+  } else {
+    allocationMap.value = {}
+    capacityInput.value = 300
+  }
+}
+
+const handleSaveCapacity = async () => {
+  if (!selectedVersionId.value) return
+  
+  await versionStore.setVersionCapacity(selectedVersionId.value, capacityInput.value)
+  showCapacityDialog.value = false
+  ElMessage.success('容量设置已保存')
+}
+
+const handleEditWorkload = (feature: Feature) => {
+  editingFeature.value = feature
+  workloadInput.value = feature.estimate || 0
+  complexityInput.value = feature.complexity || 'medium'
+  showWorkloadDialog.value = true
+}
+
+const handleSaveWorkload = async () => {
+  if (!editingFeature.value) return
+  
+  await featureStore.updateFeature(editingFeature.value.id, {
+    estimate: workloadInput.value,
+    complexity: complexityInput.value,
+    storyPoints: workloadInput.value
+  })
+  
+  showWorkloadDialog.value = false
+  editingFeature.value = null
+  ElMessage.success('工作量已更新')
+}
+
+const getEstimatedWorkload = (complexity: 'low' | 'medium' | 'high'): number => {
+  const map = { low: 5, medium: 13, high: 34 }
+  return map[complexity] || 13
 }
 
 const goBack = () => router.back()

@@ -30,7 +30,7 @@ export default defineConfig({
   // 输出设置
   use: {
     // 基础URL
-    baseURL: 'http://localhost:6060',
+    baseURL: 'http://localhost:6061',
     
     // 截图设置
     screenshot: 'only-on-failure',

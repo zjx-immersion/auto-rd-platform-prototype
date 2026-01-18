@@ -188,6 +188,121 @@ export const usePIStore = defineStore('pi', () => {
     return pi.teams.reduce((sum, team) => sum + team.plannedStoryPoints, 0)
   }
 
+  /**
+   * 更新团队容量
+   */
+  async function updateTeamCapacity(piId: string, teamId: string, capacity: number, velocity?: number) {
+    const pi = piVersions.value.find(p => p.id === piId)
+    if (pi) {
+      const teams = pi.teams.map(team => {
+        if (team.teamId === teamId) {
+          return {
+            ...team,
+            capacity,
+            velocity: velocity || team.velocity || capacity / pi.sprintCount
+          }
+        }
+        return team
+      })
+      await updatePIVersion(piId, { teams })
+    }
+  }
+
+  /**
+   * 批量更新所有团队容量
+   */
+  async function batchUpdateTeamCapacities(piId: string, capacities: Array<{ teamId: string; capacity: number; velocity?: number }>) {
+    const pi = piVersions.value.find(p => p.id === piId)
+    if (pi) {
+      const teams = pi.teams.map(team => {
+        const capacityUpdate = capacities.find(c => c.teamId === team.teamId)
+        if (capacityUpdate) {
+          return {
+            ...team,
+            capacity: capacityUpdate.capacity,
+            velocity: capacityUpdate.velocity || team.velocity || capacityUpdate.capacity / pi.sprintCount
+          }
+        }
+        return team
+      })
+      await updatePIVersion(piId, { teams })
+      return true
+    }
+    return false
+  }
+
+  /**
+   * 获取PI的容量利用率
+   */
+  function getCapacityUtilization(piId: string): number {
+    const totalCapacity = calculateTotalCapacity(piId)
+    const plannedLoad = calculatePlannedLoad(piId)
+    if (totalCapacity === 0) return 0
+    return Math.round((plannedLoad / totalCapacity) * 100)
+  }
+
+  /**
+   * 获取团队负载信息
+   */
+  function getTeamLoadInfo(piId: string, teamId: string) {
+    const pi = piVersions.value.find(p => p.id === piId)
+    if (!pi) return null
+
+    const team = pi.teams.find(t => t.teamId === teamId)
+    if (!team) return null
+
+    const utilization = team.capacity > 0 ? Math.round((team.plannedStoryPoints / team.capacity) * 100) : 0
+
+    return {
+      teamId: team.teamId,
+      teamName: team.teamName,
+      capacity: team.capacity,
+      plannedStoryPoints: team.plannedStoryPoints,
+      availableCapacity: team.capacity - team.plannedStoryPoints,
+      utilization,
+      isOverloaded: utilization > 100,
+      velocity: team.velocity || 0
+    }
+  }
+
+  /**
+   * 获取所有团队负载信息
+   */
+  function getAllTeamsLoadInfo(piId: string) {
+    const pi = piVersions.value.find(p => p.id === piId)
+    if (!pi) return []
+
+    return pi.teams.map(team => {
+      const utilization = team.capacity > 0 ? Math.round((team.plannedStoryPoints / team.capacity) * 100) : 0
+      return {
+        teamId: team.teamId,
+        teamName: team.teamName,
+        capacity: team.capacity,
+        plannedStoryPoints: team.plannedStoryPoints,
+        availableCapacity: team.capacity - team.plannedStoryPoints,
+        utilization,
+        isOverloaded: utilization > 100,
+        velocity: team.velocity || 0
+      }
+    })
+  }
+
+  /**
+   * 检查是否可以分配Feature到团队
+   */
+  function canAllocateFeature(piId: string, teamId: string, storyPoints: number): { can: boolean; reason?: string } {
+    const teamLoad = getTeamLoadInfo(piId, teamId)
+    if (!teamLoad) {
+      return { can: false, reason: '团队不存在' }
+    }
+
+    if (teamLoad.availableCapacity < storyPoints) {
+      return { can: false, reason: `容量不足，剩余${teamLoad.availableCapacity}SP，需要${storyPoints}SP` }
+    }
+
+    return { can: true }
+  }
+
   function resetCurrentPI() {
     currentPI.value = null
   }
@@ -229,6 +344,12 @@ export const usePIStore = defineStore('pi', () => {
     completePI,
     calculateTotalCapacity,
     calculatePlannedLoad,
+    updateTeamCapacity,
+    batchUpdateTeamCapacities,
+    getCapacityUtilization,
+    getTeamLoadInfo,
+    getAllTeamsLoadInfo,
+    canAllocateFeature,
     resetCurrentPI,
     getPIsByProject,
   }

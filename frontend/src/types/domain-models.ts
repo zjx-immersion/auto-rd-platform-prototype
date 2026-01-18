@@ -198,7 +198,10 @@ export interface Feature extends Timestamps {
     version: string                    // PRD版本号
     status: 'draft' | 'review' | 'approved'
     url?: string                       // PRD文档链接
-    attachments: string[]              // 附件列表
+    attachments: PRDAttachment[]       // 附件列表
+    versionHistory?: PRDVersion[]      // 版本历史
+    reviewStatus?: 'pending' | 'in-review' | 'approved' | 'rejected' // 评审状态
+    reviewComments?: ReviewComment[]   // 评审意见
   }
   
   // 验收标准
@@ -230,10 +233,50 @@ export interface Feature extends Timestamps {
  */
 export interface AcceptanceCriteria {
   id: ID
-  given: string                        // 前置条件
-  when: string                         // 操作动作
-  then: string                         // 预期结果
+  code: string                         // 编号（如：AC-001）
+  description: string                  // 简化的描述（也支持Given-When-Then格式）
+  given?: string                       // 前置条件（可选，完整格式）
+  when?: string                        // 操作动作（可选，完整格式）
+  then?: string                        // 预期结果（可选，完整格式）
+  status: 'pending' | 'passed' | 'failed' // 验证状态
   priority: 'must' | 'should' | 'nice-to-have'
+}
+
+/**
+ * PRD附件
+ */
+export interface PRDAttachment {
+  id: ID
+  name: string                         // 文件名
+  url: string                          // 下载链接
+  size: number                         // 文件大小（字节）
+  type: string                         // MIME类型
+  uploadedBy: string                   // 上传人
+  uploadedAt: ISODate                  // 上传时间
+}
+
+/**
+ * PRD版本历史
+ */
+export interface PRDVersion {
+  version: string                      // 版本号（如：v1.0, v1.1）
+  content: string                      // PRD内容快照
+  createdAt: ISODate                   // 创建时间
+  createdBy: string                    // 创建人
+  changeSummary?: string               // 变更摘要
+  status: 'draft' | 'review' | 'approved'
+}
+
+/**
+ * 评审意见
+ */
+export interface ReviewComment {
+  id: ID
+  author: string                       // 评审人
+  content: string                      // 评审意见
+  type: 'approve' | 'reject' | 'comment' // 意见类型
+  createdAt: ISODate                   // 创建时间
+  resolved?: boolean                   // 是否已解决
 }
 
 /**

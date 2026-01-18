@@ -216,6 +216,71 @@ export const useVersionStore = defineStore('version', () => {
   }
 
   /**
+   * 批量关联Feature到版本
+   */
+  async function batchLinkFeatures(versionId: string, featureIds: string[]) {
+    const version = versions.value.find(v => v.id === versionId)
+    if (version) {
+      featureIds.forEach(featureId => {
+        if (!version.featureIds.includes(featureId)) {
+          version.featureIds.push(featureId)
+        }
+      })
+      version.updatedAt = new Date().toISOString()
+    }
+  }
+
+  /**
+   * 保存Feature分配到PI
+   */
+  async function saveFeatureAllocation(versionId: string, allocationMap: Record<string, string>) {
+    const version = versions.value.find(v => v.id === versionId)
+    if (version) {
+      // 保存分配映射到version的metadata
+      if (!version.metadata) {
+        version.metadata = {}
+      }
+      version.metadata.featureAllocation = allocationMap
+      version.updatedAt = new Date().toISOString()
+      return true
+    }
+    return false
+  }
+
+  /**
+   * 获取版本的Feature分配
+   */
+  function getFeatureAllocation(versionId: string): Record<string, string> {
+    const version = versions.value.find(v => v.id === versionId)
+    if (version?.metadata?.featureAllocation) {
+      return version.metadata.featureAllocation as Record<string, string>
+    }
+    return {}
+  }
+
+  /**
+   * 设置版本容量
+   */
+  async function setVersionCapacity(versionId: string, capacity: number) {
+    const version = versions.value.find(v => v.id === versionId)
+    if (version) {
+      if (!version.metadata) {
+        version.metadata = {}
+      }
+      version.metadata.capacity = capacity
+      version.updatedAt = new Date().toISOString()
+    }
+  }
+
+  /**
+   * 获取版本容量
+   */
+  function getVersionCapacity(versionId: string): number {
+    const version = versions.value.find(v => v.id === versionId)
+    return (version?.metadata?.capacity as number) || 300 // 默认300SP
+  }
+
+  /**
    * 重置当前版本
    */
   function resetCurrentVersion() {
@@ -253,6 +318,11 @@ export const useVersionStore = defineStore('version', () => {
     deleteVersion,
     linkFeature,
     unlinkFeature,
+    batchLinkFeatures,
+    saveFeatureAllocation,
+    getFeatureAllocation,
+    setVersionCapacity,
+    getVersionCapacity,
     resetCurrentVersion,
     clearError,
   }
