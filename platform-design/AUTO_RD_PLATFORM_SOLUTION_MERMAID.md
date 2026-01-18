@@ -310,7 +310,7 @@ graph TB
     subgraph 核心能力层["⚙️ 核心能力层 (Capability Layer)"]
         direction LR
         C1[C1: 需求管理<br/>━━━━━━━━<br/>Epic池管理<br/>Feature管理<br/>SSTS拆解<br/>MR管理<br/>需求追溯]
-        C2[C2: 产品管理<br/>(资产)<br/>━━━━━━━━<br/>产品资产库<br/>Feature资产<br/>Module资产<br/>资产复用<br/>成熟度评估]
+        C2["C2: 产品管理<br/>资产管理<br/>━━━━━━━━<br/>产品资产库<br/>Feature资产<br/>Module资产<br/>资产复用<br/>成熟度评估"]
         C3[C3: 规划协调<br/>━━━━━━━━<br/>版本规划<br/>PI Planning<br/>容量规划<br/>依赖管理<br/>风险管理]
         C4[C4: 迭代执行<br/>━━━━━━━━<br/>Sprint管理<br/>Task管理<br/>看板管理<br/>燃尽图<br/>团队协同]
         C5[C5: 测试验收<br/>━━━━━━━━<br/>MIL验证<br/>SIL验证<br/>HIL验证<br/>测试管理<br/>缺陷管理]
@@ -1189,37 +1189,54 @@ graph TB
 | **P10** | PI承诺 | 团队 | PI计划 | 团队承诺 | 团队确认承诺、锁定计划 | 承诺明确 |
 
 **流程数据模型**:
-```typescript
-interface PIPlanning Process {
-  processId: string;
-  processName: "PI Planning";
-  status: "not_started" | "in_progress" | "paused" | "completed";
-  currentStep: number; // 1-10
-  
-  // 输入数据
-  input: {
-    projectId: string;
-    epicList: Epic[];
-    teams: Team[];
-  };
-  
-  // 流程上下文
-  context: {
-    pi: PI;
-    features: Feature[];
-    teamCapacity: Map<TeamId, Capacity>;
-    dependencies: Dependency[];
-    risks: Risk[];
-  };
-  
-  // 输出数据
-  output: {
-    piPlan: PIPlan;
-    sprintPlans: SprintPlan[];
-    commitments: TeamCommitment[];
-  };
-}
+
+```mermaid
+graph TB
+    subgraph 流程实例数据
+        P1[流程基本信息<br/>━━━━━━<br/>流程ID<br/>流程名称<br/>当前状态<br/>当前步骤]
+    end
+    
+    subgraph 输入数据
+        I1[项目信息<br/>━━━━━━<br/>项目ID<br/>Epic列表<br/>团队列表]
+    end
+    
+    subgraph 流程上下文
+        C1[PI数据<br/>━━━━━━<br/>PI实例<br/>Feature列表<br/>团队容量<br/>依赖列表<br/>风险列表]
+    end
+    
+    subgraph 输出数据
+        O1[输出成果<br/>━━━━━━<br/>PI计划<br/>Sprint计划<br/>团队承诺]
+    end
+    
+    I1 --> P1
+    P1 --> C1
+    C1 --> O1
+    
+    style P1 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style I1 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style C1 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style O1 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
 ```
+
+**数据结构定义**:
+
+| 数据类别 | 数据项 | 类型 | 说明 |
+|---------|--------|------|------|
+| **流程基本信息** | 流程ID | 字符串 | 唯一标识 |
+| | 流程名称 | 字符串 | "PI Planning" |
+| | 状态 | 枚举 | 未开始/进行中/暂停/已完成 |
+| | 当前步骤 | 数字 | 1-10 |
+| **输入数据** | 项目ID | 字符串 | 关联项目 |
+| | Epic列表 | 数组 | Epic对象列表 |
+| | 团队列表 | 数组 | Team对象列表 |
+| **流程上下文** | PI实例 | 对象 | PI详细信息 |
+| | Feature列表 | 数组 | 已分配的Feature |
+| | 团队容量 | 映射表 | 团队ID→容量数据 |
+| | 依赖列表 | 数组 | 跨团队依赖 |
+| | 风险列表 | 数组 | 识别的风险 |
+| **输出数据** | PI计划 | 对象 | 完整的PI计划 |
+| | Sprint计划 | 数组 | 各Sprint计划 |
+| | 团队承诺 | 数组 | 各团队承诺 |
 
 ### 7.3 需求拆解流程（7步）
 
@@ -1365,54 +1382,98 @@ graph TB
 
 ### 7.6 流程数据模型
 
-```typescript
-// 流程定义
-interface ProcessDefinition {
-  id: string;
-  name: string;
-  version: string;
-  steps: ProcessStep[];
-  roles: ProcessRole[];
-  triggers: ProcessTrigger[];
-}
+#### 流程数据关系图
 
-// 流程步骤
-interface ProcessStep {
-  stepId: string;
-  stepName: string;
-  stepType: "manual" | "automatic" | "decision";
-  roles: string[];
-  inputs: DataSchema;
-  outputs: DataSchema;
-  checkpoints: Checkpoint[];
-  nextSteps: string[]; // 下一步骤ID列表
-}
-
-// 流程实例
-interface ProcessInstance {
-  instanceId: string;
-  definitionId: string;
-  status: "not_started" | "in_progress" | "paused" | "completed" | "failed";
-  currentStep: string;
-  context: Record<string, any>; // 流程上下文数据
-  history: ProcessHistory[];
-  startTime: Date;
-  endTime?: Date;
-  duration?: number; // ms
-}
-
-// 流程历史
-interface ProcessHistory {
-  stepId: string;
-  stepName: string;
-  startTime: Date;
-  endTime: Date;
-  duration: number;
-  executor: string;
-  result: "success" | "failed" | "skipped";
-  data: Record<string, any>;
-}
+```mermaid
+graph TB
+    subgraph 流程定义层
+        PD[流程定义<br/>ProcessDefinition<br/>━━━━━━<br/>流程ID<br/>流程名称<br/>版本号]
+        
+        PS[流程步骤<br/>ProcessStep<br/>━━━━━━<br/>步骤ID<br/>步骤名称<br/>步骤类型]
+        
+        PR[流程角色<br/>ProcessRole<br/>━━━━━━<br/>角色名称<br/>权限定义]
+        
+        PT[流程触发器<br/>ProcessTrigger<br/>━━━━━━<br/>触发类型<br/>触发条件]
+    end
+    
+    subgraph 流程实例层
+        PI[流程实例<br/>ProcessInstance<br/>━━━━━━<br/>实例ID<br/>当前状态<br/>当前步骤]
+        
+        PC[流程上下文<br/>Context<br/>━━━━━━<br/>输入数据<br/>中间数据<br/>输出数据]
+        
+        PH[流程历史<br/>ProcessHistory<br/>━━━━━━<br/>步骤记录<br/>执行结果<br/>耗时统计]
+    end
+    
+    PD --> PS
+    PD --> PR
+    PD --> PT
+    PD -.实例化.-> PI
+    PI --> PC
+    PI --> PH
+    
+    style PD fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style PI fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style PC fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style PH fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
 ```
+
+#### 流程数据模型定义
+
+**1. 流程定义 (ProcessDefinition)**
+
+| 字段名 | 类型 | 必填 | 说明 |
+|-------|------|------|------|
+| id | 字符串 | ✅ | 流程唯一标识 |
+| name | 字符串 | ✅ | 流程名称（如"PI Planning"） |
+| version | 字符串 | ✅ | 流程版本号（如"1.0.0"） |
+| steps | 数组 | ✅ | 流程步骤列表 |
+| roles | 数组 | ✅ | 参与角色列表 |
+| triggers | 数组 | ✅ | 触发器配置 |
+| description | 字符串 | ❌ | 流程描述 |
+| createdAt | 日期时间 | ✅ | 创建时间 |
+
+**2. 流程步骤 (ProcessStep)**
+
+| 字段名 | 类型 | 必填 | 说明 |
+|-------|------|------|------|
+| stepId | 字符串 | ✅ | 步骤唯一标识 |
+| stepName | 字符串 | ✅ | 步骤名称 |
+| stepType | 枚举 | ✅ | 步骤类型：手动/自动/决策 |
+| roles | 数组 | ✅ | 执行角色列表 |
+| inputs | 对象 | ✅ | 输入数据定义 |
+| outputs | 对象 | ✅ | 输出数据定义 |
+| checkpoints | 数组 | ✅ | 检查点列表 |
+| nextSteps | 数组 | ✅ | 下一步骤ID列表 |
+| estimatedDuration | 数字 | ❌ | 预估耗时（分钟） |
+
+**3. 流程实例 (ProcessInstance)**
+
+| 字段名 | 类型 | 必填 | 说明 |
+|-------|------|------|------|
+| instanceId | 字符串 | ✅ | 实例唯一标识 |
+| definitionId | 字符串 | ✅ | 关联的流程定义ID |
+| status | 枚举 | ✅ | 状态：未开始/进行中/暂停/已完成/失败 |
+| currentStep | 字符串 | ✅ | 当前步骤ID |
+| context | 对象 | ✅ | 流程上下文数据 |
+| history | 数组 | ✅ | 历史记录列表 |
+| startTime | 日期时间 | ✅ | 开始时间 |
+| endTime | 日期时间 | ❌ | 结束时间 |
+| duration | 数字 | ❌ | 总耗时（毫秒） |
+| executor | 字符串 | ✅ | 当前执行人 |
+
+**4. 流程历史 (ProcessHistory)**
+
+| 字段名 | 类型 | 必填 | 说明 |
+|-------|------|------|------|
+| stepId | 字符串 | ✅ | 步骤ID |
+| stepName | 字符串 | ✅ | 步骤名称 |
+| startTime | 日期时间 | ✅ | 步骤开始时间 |
+| endTime | 日期时间 | ✅ | 步骤结束时间 |
+| duration | 数字 | ✅ | 耗时（毫秒） |
+| executor | 字符串 | ✅ | 执行人 |
+| result | 枚举 | ✅ | 执行结果：成功/失败/跳过 |
+| data | 对象 | ❌ | 执行数据快照 |
+| comment | 字符串 | ❌ | 备注信息 |
 
 ---
 
