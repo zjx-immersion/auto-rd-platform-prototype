@@ -2,7 +2,7 @@
 
 > **面向智能驾驶、智能座舱、电子电器、底盘架构、新能源等领域的端到端研发协同平台**
 >
-> **版本**: V7.0 (Business Solution with Value Stream & Process Integration)  
+> **版本**: V8.0 (Complete Solution with Full Capability Details & Process Definitions)  
 > **日期**: 2026-01-17  
 > **设计理念**: 价值流驱动 + 领域模型 + 流程协同 + 资产复用  
 > **核心目标**: 构建高效、透明、协同的端到端整车软件研发管理平台
@@ -17,10 +17,11 @@
 - [四、需求与资产模型](#四需求与资产模型)
 - [五、能力架构与核心功能](#五能力架构与核心功能)
 - [六、核心能力详解](#六核心能力详解)
-- [七、流程驱动与范围控制](#七流程驱动与范围控制)
-- [八、能力域集成与联通](#八能力域集成与联通)
-- [九、角色协同与职责](#九角色协同与职责)
-- [十、平台核心价值](#十平台核心价值)
+- [七、流程定义详解](#七流程定义详解) 🆕
+- [八、流程驱动与范围控制](#八流程驱动与范围控制)
+- [九、能力域集成与联通](#九能力域集成与联通)
+- [十、角色协同与职责](#十角色协同与职责)
+- [十一、平台核心价值](#十一平台核心价值)
 
 ---
 
@@ -432,43 +433,6 @@ graph TB
     style E1 fill:#fff3e0,stroke:#e65100,stroke-width:2px
     style E2 fill:#fff3e0,stroke:#e65100,stroke-width:2px
     style E3 fill:#fff3e0,stroke:#e65100,stroke-width:2px
-```
-
-### 3.3 价值流瓶颈识别与优化
-
-```mermaid
-graph TB
-    subgraph 识别瓶颈
-        B1[数据采集<br/>全流程埋点]
-        B2[瓶颈分析<br/>等待时间分析]
-        B3[根因分析<br/>5-Why分析]
-    end
-    
-    subgraph 优化措施
-        O1[流程优化<br/>减少不必要环节]
-        O2[自动化<br/>减少人工操作]
-        O3[并行化<br/>减少串行依赖]
-        O4[标准化<br/>减少重复劳动]
-    end
-    
-    subgraph 持续改进
-        I1[效果验证<br/>前后对比]
-        I2[经验沉淀<br/>最佳实践]
-        I3[推广复制<br/>全面应用]
-    end
-    
-    B1 --> B2 --> B3
-    B3 --> O1 & O2 & O3 & O4
-    O1 & O2 & O3 & O4 --> I1
-    I1 --> I2 --> I3
-    I3 -.反馈.-> B1
-    
-    style B2 fill:#ffcdd2,stroke:#c62828,stroke-width:2px
-    style O1 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
-    style O2 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
-    style O3 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
-    style O4 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
-    style I3 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
 ```
 
 ---
@@ -912,19 +876,549 @@ graph TB
 - ✅ 看板视图（按状态分组）
 - ✅ Sprint看板和燃尽图
 
-### 6.6 其他能力域简要说明
+### 6.6 C5-测试验收（V型验证）
 
-| 能力域 | 核心功能 | 关键特性 |
-|-------|---------|---------|
-| **C5-测试验收** | MIL/SIL/HIL验证、测试管理、缺陷管理 | V型验证、XiL管理、测试覆盖率 |
-| **C6-DevOps交付** | CI/CD流水线、质量门禁、灰度发布 | 自动化构建、质量门禁、灰度策略 |
-| **C7-分析与治理** | 效能分析、质量分析、持续改进 | 价值流度量、质量报告、最佳实践 |
+```mermaid
+graph TB
+    subgraph V型验证流程
+        MIL[MIL验证<br/>Model-in-the-Loop<br/>━━━━━━<br/>模型仿真<br/>算法验证]
+        
+        SIL[SIL验证<br/>Software-in-the-Loop<br/>━━━━━━<br/>软件仿真<br/>功能验证]
+        
+        HIL[HIL验证<br/>Hardware-in-the-Loop<br/>━━━━━━<br/>硬件在环<br/>系统验证]
+        
+        VEHICLE[实车验证<br/>━━━━━━<br/>整车测试<br/>道路验证]
+    end
+    
+    subgraph 测试管理
+        TP[测试计划]
+        TC[测试用例]
+        TE[测试执行]
+        TR[测试报告]
+        
+        TP --> TC --> TE --> TR
+    end
+    
+    subgraph 缺陷管理
+        BUG[缺陷录入]
+        ASSIGN[缺陷分配]
+        FIX[缺陷修复]
+        VERIFY[缺陷验证]
+        CLOSE[缺陷关闭]
+        
+        BUG --> ASSIGN --> FIX --> VERIFY --> CLOSE
+    end
+    
+    MIL --> SIL --> HIL --> VEHICLE
+    TE -.发现.-> BUG
+    
+    style MIL fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style SIL fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style HIL fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style VEHICLE fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style BUG fill:#ffebee,stroke:#c62828,stroke-width:2px
+```
+
+**C5核心功能**:
+
+| 功能模块 | 关键特性 | 价值 |
+|---------|---------|------|
+| **MIL验证** | 模型仿真、算法验证、参数优化 | 早期发现算法问题，降低成本 |
+| **SIL验证** | 软件仿真、功能验证、接口测试 | 验证软件功能正确性 |
+| **HIL验证** | 硬件在环、系统验证、实时测试 | 验证系统集成和实时性 |
+| **实车验证** | 道路测试、场景覆盖、性能验证 | 最终验证产品质量 |
+| **测试管理** | 测试计划、用例管理、执行跟踪 | 测试过程可控可追溯 |
+| **缺陷管理** | 缺陷全生命周期管理 | 质量问题闭环管理 |
+
+**测试策略**:
+```
+测试金字塔:
+├─ 单元测试（70%）- 开发人员编写，快速反馈
+├─ 集成测试（20%）- 测试人员编写，验证模块集成
+└─ 系统测试（10%）- 测试人员+用户，验证端到端流程
+
+测试覆盖率要求:
+├─ 代码覆盖率≥80%（单元测试）
+├─ 接口覆盖率100%（集成测试）
+└─ 业务场景覆盖率≥90%（系统测试）
+```
+
+### 6.7 C6-DevOps交付（CI/CD）
+
+```mermaid
+graph LR
+    subgraph CI流程
+        CODE[代码提交] --> BUILD[自动构建]
+        BUILD --> TEST[自动化测试]
+        TEST --> SCAN[质量扫描]
+        SCAN --> GATE[质量门禁]
+    end
+    
+    subgraph CD流程
+        GATE -->|通过| ARTIFACT[制品管理]
+        ARTIFACT --> DEV[开发环境]
+        DEV --> QA[测试环境]
+        QA --> PRE[预生产环境]
+        PRE --> PROD[生产环境]
+    end
+    
+    subgraph 灰度发布
+        PROD --> GRAY1[5%灰度]
+        GRAY1 --> MONITOR1[监控指标]
+        MONITOR1 -->|正常| GRAY2[20%灰度]
+        GRAY2 --> MONITOR2[监控指标]
+        MONITOR2 -->|正常| GRAY3[100%全量]
+        MONITOR1 -->|异常| ROLLBACK[自动回滚]
+        MONITOR2 -->|异常| ROLLBACK
+    end
+    
+    style GATE fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style ARTIFACT fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style ROLLBACK fill:#ffebee,stroke:#c62828,stroke-width:2px
+```
+
+**C6核心功能**:
+
+| 功能模块 | 关键特性 | 价值 |
+|---------|---------|------|
+| **CI/CD流水线** | 自动触发、并行执行、快速反馈 | 提升交付效率，缩短反馈周期 |
+| **自动化测试** | 单元测试、集成测试、UI测试 | 保证代码质量，减少人工测试 |
+| **质量门禁** | 代码规范、覆盖率、安全扫描 | 质量内建，防止低质量代码合入 |
+| **制品管理** | 版本管理、依赖管理、镜像仓库 | 制品可追溯、可回溯 |
+| **灰度发布** | 分阶段发布、监控告警、自动回滚 | 降低发布风险，快速止损 |
+| **环境管理** | 环境自动化、配置管理、容器化 | 环境一致性，降低环境问题 |
+
+**质量门禁规则**:
+```
+门禁项:
+├─ 代码规范检查（ESLint/SonarQube）
+├─ 单元测试覆盖率≥80%
+├─ 代码重复率≤5%
+├─ 安全漏洞扫描（无高危漏洞）
+├─ 依赖安全检查（无已知漏洞）
+└─ 性能基准测试（无明显退化）
+
+不满足任一项 → 阻止合并
+```
+
+**灰度发布策略**:
+```
+阶段1: 5%灰度（金丝雀发布）
+  ├─ 目标: 快速验证基本功能
+  ├─ 监控: 错误率、响应时间、可用性
+  └─ 决策: 正常→下一阶段，异常→自动回滚
+
+阶段2: 20%灰度
+  ├─ 目标: 验证性能和稳定性
+  ├─ 监控: 吞吐量、资源使用、业务指标
+  └─ 决策: 正常→全量，异常→回滚
+
+阶段3: 100%全量
+  ├─ 目标: 全量发布
+  └─ 监控: 持续监控，快速响应
+```
+
+### 6.8 C7-分析与治理（效能度量）
+
+```mermaid
+graph TB
+    subgraph 数据采集
+        D1[需求数据]
+        D2[开发数据]
+        D3[测试数据]
+        D4[发布数据]
+        D5[质量数据]
+    end
+    
+    subgraph 效能分析
+        A1[速度分析<br/>━━━━━━<br/>前置时间<br/>周期时间<br/>吞吐量]
+        
+        A2[质量分析<br/>━━━━━━<br/>缺陷率<br/>一次通过率<br/>逃逸率]
+        
+        A3[效率分析<br/>━━━━━━<br/>流动效率<br/>资源利用率<br/>自动化率]
+        
+        A4[价值分析<br/>━━━━━━<br/>客户满意度<br/>业务价值<br/>投资回报]
+    end
+    
+    subgraph 可视化报告
+        V1[仪表板]
+        V2[趋势图]
+        V3[对比图]
+        V4[热力图]
+    end
+    
+    subgraph 持续改进
+        I1[识别瓶颈]
+        I2[制定措施]
+        I3[跟踪执行]
+        I4[验证效果]
+    end
+    
+    D1 & D2 & D3 & D4 & D5 --> A1 & A2 & A3 & A4
+    A1 & A2 & A3 & A4 --> V1 & V2 & V3 & V4
+    V1 & V2 & V3 & V4 --> I1
+    I1 --> I2 --> I3 --> I4
+    I4 -.反馈.-> D1
+    
+    style A1 fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style A2 fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+    style A3 fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style A4 fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style I1 fill:#ffebee,stroke:#c62828,stroke-width:2px
+```
+
+**C7核心功能**:
+
+| 功能模块 | 关键特性 | 价值 |
+|---------|---------|------|
+| **效能分析** | 速度、质量、效率、价值四维分析 | 全面了解研发效能状况 |
+| **质量分析** | 缺陷分析、根因分析、趋势预测 | 持续提升产品质量 |
+| **追溯分析** | 需求追溯、代码追溯、测试追溯 | 快速定位问题，影响分析 |
+| **复用分析** | 资产复用率、复用收益、复用趋势 | 提升资产复用率 |
+| **仪表板** | 实时数据、多维度展示、钻取分析 | 数据驱动决策 |
+| **度量报告** | 自动生成、定期发送、对比分析 | 定期回顾，持续改进 |
+
+**效能指标体系**:
+
+| 指标类别 | 指标名称 | 计算公式 | 目标值 | 用途 |
+|---------|---------|---------|--------|------|
+| **速度指标** | 前置时间 | 交付时间 - 创建时间 | ≤30天 | 衡量交付速度 |
+| | 周期时间 | 交付时间 - 开发开始时间 | ≤15天 | 衡量开发效率 |
+| | 吞吐量 | 完成数量 / 时间周期 | ≥30个/PI | 衡量产能 |
+| **质量指标** | 流动效率 | 工作时间 / 前置时间 | ≥40% | 识别等待浪费 |
+| | 一次通过率 | 一次通过数 / 总数 | ≥85% | 衡量质量稳定性 |
+| | 缺陷密度 | 缺陷数 / 代码行数×1000 | ≤0.5/KLOC | 衡量代码质量 |
+| | 逃逸率 | 线上缺陷 / 总缺陷 | <3% | 衡量测试有效性 |
+| **效率指标** | 速率稳定性 | CV(Velocity) | ≤20% | 衡量团队稳定性 |
+| | 资产复用率 | 复用数 / 总数 | ≥70% | 衡量复用水平 |
+| | 自动化率 | 自动化数 / 总数 | ≥70% | 衡量自动化程度 |
 
 ---
 
-## 七、流程驱动与范围控制
+## 七、流程定义详解
 
-### 7.1 流程驱动系统架构
+### 7.1 流程定义概述
+
+流程定义是平台流程驱动能力的核心，通过标准化的流程模板和灵活的流程引擎，支撑PI Planning、需求拆解、Sprint规划等核心业务流程。
+
+#### 流程6要素
+
+```mermaid
+mindmap
+  root((流程定义<br/>6要素))
+    明确的范围
+      起点清晰
+      终点明确
+      边界定义
+      输入条件
+    清晰的角色
+      发起人
+      参与者
+      审批人
+      通知对象
+    标准的步骤
+      步骤顺序
+      步骤类型
+      步骤输入
+      步骤输出
+      检查点
+    定义的数据
+      输入数据
+      输出数据
+      中间状态
+      上下文传递
+    合理的触发
+      自动触发
+      手动触发
+      定时触发
+      事件触发
+    完善的监控
+      进度监控
+      异常告警
+      耗时统计
+      效能分析
+```
+
+### 7.2 PI Planning流程（10步）
+
+```mermaid
+graph TB
+    START([流程开始]) --> P1[P1: PI创建<br/>━━━━━━<br/>角色: PM<br/>输入: 项目、Epic列表<br/>输出: PI实例]
+    
+    P1 --> P2[P2: 目标设定<br/>━━━━━━<br/>角色: PM+PO<br/>输入: PI愿景<br/>输出: PI目标]
+    
+    P2 --> P3[P3: Feature分配<br/>━━━━━━<br/>角色: TPM<br/>输入: Feature池<br/>输出: Feature分配方案]
+    
+    P3 --> P4[P4: 容量规划<br/>━━━━━━<br/>角色: DL<br/>输入: 团队速率<br/>输出: 容量评估]
+    
+    P4 --> P5[P5: 负载均衡<br/>━━━━━━<br/>角色: TPM<br/>输入: 容量数据<br/>输出: 调整方案]
+    
+    P5 --> P6[P6: Sprint规划<br/>━━━━━━<br/>角色: DL<br/>输入: Feature分配<br/>输出: Sprint计划]
+    
+    P6 --> P7[P7: PI Board<br/>━━━━━━<br/>角色: PM+团队<br/>输入: Sprint计划<br/>输出: PI看板]
+    
+    P7 --> P8[P8: 依赖识别<br/>━━━━━━<br/>角色: 全体<br/>输入: PI看板<br/>输出: 依赖列表]
+    
+    P8 --> P9[P9: 风险识别<br/>━━━━━━<br/>角色: 全体<br/>输入: PI计划<br/>输出: 风险列表]
+    
+    P9 --> P10[P10: PI承诺<br/>━━━━━━<br/>角色: 团队<br/>输入: PI计划<br/>输出: 团队承诺]
+    
+    P10 --> END([流程结束])
+    
+    style START fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+    style P1 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style P3 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style P6 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style P10 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style END fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+```
+
+**流程详细定义**:
+
+| 步骤 | 步骤名称 | 角色 | 输入 | 输出 | 关键活动 | 检查点 |
+|------|---------|------|------|------|---------|--------|
+| **P1** | PI创建 | PM | 项目、Epic列表 | PI实例 | 设置PI名称、时间范围、目标 | PI信息完整 |
+| **P2** | 目标设定 | PM+PO | PI愿景 | PI目标 | 讨论PI业务目标、成功标准 | 目标SMART |
+| **P3** | Feature分配 | TPM | Feature池 | Feature分配方案 | WSJF排序、Feature分配到团队 | 容量不超载 |
+| **P4** | 容量规划 | DL | 团队速率 | 容量评估 | 评估团队可用人天、速率 | 容量合理 |
+| **P5** | 负载均衡 | TPM | 容量数据 | 调整方案 | 根据容量调整Feature分配 | 负载均衡 |
+| **P6** | Sprint规划 | DL | Feature分配 | Sprint计划 | 将Feature分配到Sprint | Sprint可交付 |
+| **P7** | PI Board | PM+团队 | Sprint计划 | PI看板 | 展示PI全貌、团队计划 | 可视化清晰 |
+| **P8** | 依赖识别 | 全体 | PI看板 | 依赖列表 | 识别跨团队依赖、记录 | 依赖明确 |
+| **P9** | 风险识别 | 全体 | PI计划 | 风险列表 | 识别技术、资源、依赖风险 | 风险已记录 |
+| **P10** | PI承诺 | 团队 | PI计划 | 团队承诺 | 团队确认承诺、锁定计划 | 承诺明确 |
+
+**流程数据模型**:
+```typescript
+interface PIPlanning Process {
+  processId: string;
+  processName: "PI Planning";
+  status: "not_started" | "in_progress" | "paused" | "completed";
+  currentStep: number; // 1-10
+  
+  // 输入数据
+  input: {
+    projectId: string;
+    epicList: Epic[];
+    teams: Team[];
+  };
+  
+  // 流程上下文
+  context: {
+    pi: PI;
+    features: Feature[];
+    teamCapacity: Map<TeamId, Capacity>;
+    dependencies: Dependency[];
+    risks: Risk[];
+  };
+  
+  // 输出数据
+  output: {
+    piPlan: PIPlan;
+    sprintPlans: SprintPlan[];
+    commitments: TeamCommitment[];
+  };
+}
+```
+
+### 7.3 需求拆解流程（7步）
+
+```mermaid
+graph TB
+    START([流程开始]) --> R1[R1: Epic导入<br/>━━━━━━<br/>角色: PO<br/>输入: Epic池<br/>输出: 项目Epic]
+    
+    R1 --> R2[R2: Feature拆解<br/>━━━━━━<br/>角色: FO<br/>输入: Epic<br/>输出: Feature列表]
+    
+    R2 --> R3[R3: PRD编写<br/>━━━━━━<br/>角色: FO<br/>输入: Feature<br/>输出: PRD文档]
+    
+    R3 --> R4[R4: PRD评审<br/>━━━━━━<br/>角色: PO+SE<br/>输入: PRD<br/>输出: 评审结果]
+    
+    R4 --> CHECK1{评审通过?}
+    CHECK1 -->|否| R3
+    CHECK1 -->|是| R5[R5: SSTS拆解<br/>━━━━━━<br/>角色: FO+SE<br/>输入: PRD<br/>输出: SSTS列表]
+    
+    R5 --> R6[R6: SSTS评审<br/>━━━━━━<br/>角色: SO+DL<br/>输入: SSTS+PRD<br/>输出: 评审结果]
+    
+    R6 --> CHECK2{评审通过?}
+    CHECK2 -->|否| R5
+    CHECK2 -->|是| R7[R7: Feature完成<br/>━━━━━━<br/>角色: 系统<br/>输入: SSTS列表<br/>输出: Feature就绪]
+    
+    R7 --> END([流程结束])
+    
+    style START fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+    style R1 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style R3 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style R5 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style CHECK1 fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style CHECK2 fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style R7 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style END fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+```
+
+**流程详细定义**:
+
+| 步骤 | 步骤名称 | 角色 | 输入 | 输出 | 关键活动 | 检查点 |
+|------|---------|------|------|------|---------|--------|
+| **R1** | Epic导入 | PO | Epic池 | 项目Epic | 从需求池选择Epic导入项目 | Epic状态=已导入 |
+| **R2** | Feature拆解 | FO | Epic | Feature列表 | 拆解Epic为Feature、定义用户故事 | Feature符合INVEST |
+| **R3** | PRD编写 | FO | Feature | PRD文档 | 编写PRD（背景、目标、需求、方案、验收） | PRD完整性检查 |
+| **R4** | PRD评审 | PO+SE | PRD | 评审结果 | 评审PRD合理性、可行性 | 通过/拒绝/有条件通过 |
+| **R5** | SSTS拆解 | FO+SE | PRD | SSTS列表 | 拆解PRD为SSTS（功能/技术/安全） | SSTS符合SMART |
+| **R6** | SSTS评审 | SO+DL | SSTS+PRD | 评审结果 | 批量评审SSTS（可查看PRD） | 通过/拒绝 |
+| **R7** | Feature完成 | 系统 | SSTS列表 | Feature就绪 | 自动更新Feature状态为"就绪" | 可分配到PI |
+
+**创新点**:
+- ✅ **PRD双模式**: 支持在线编辑和文档上传
+- ✅ **SSTS批量评审**: 左侧显示PRD参考，右侧批量勾选SSTS
+- ✅ **自动状态更新**: SSTS评审通过后Feature自动变为"就绪"
+
+### 7.4 Sprint规划流程（7步）
+
+```mermaid
+graph TB
+    START([流程开始]) --> S1[S1: Sprint创建<br/>━━━━━━<br/>角色: DL<br/>输入: PI计划<br/>输出: Sprint实例]
+    
+    S1 --> S2[S2: Backlog整理<br/>━━━━━━<br/>角色: DL+PO<br/>输入: Feature/SSTS<br/>输出: 优先级排序]
+    
+    S2 --> S3[S3: Story选择<br/>━━━━━━<br/>角色: DL+团队<br/>输入: Backlog<br/>输出: Sprint Backlog]
+    
+    S3 --> S4[S4: 容量检查<br/>━━━━━━<br/>角色: DL<br/>输入: Story Points<br/>输出: 容量评估]
+    
+    S4 --> CHECK{容量超限?}
+    CHECK -->|是| S3
+    CHECK -->|否| S5[S5: Task拆解<br/>━━━━━━<br/>角色: 团队<br/>输入: Story<br/>输出: Task列表]
+    
+    S5 --> S6[S6: Task分配<br/>━━━━━━<br/>角色: DL+团队<br/>输入: Task列表<br/>输出: 任务分配]
+    
+    S6 --> S7[S7: Sprint承诺<br/>━━━━━━<br/>角色: 团队<br/>输入: Sprint计划<br/>输出: 团队承诺]
+    
+    S7 --> END([流程结束])
+    
+    style START fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+    style S1 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style S3 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style S5 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style CHECK fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style S7 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style END fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+```
+
+**流程详细定义**:
+
+| 步骤 | 步骤名称 | 角色 | 输入 | 输出 | 关键活动 | 检查点 |
+|------|---------|------|------|------|---------|--------|
+| **S1** | Sprint创建 | DL | PI计划 | Sprint实例 | 设置Sprint名称、时间范围、目标 | Sprint信息完整 |
+| **S2** | Backlog整理 | DL+PO | Feature/SSTS | 优先级排序 | 整理Backlog、重新排序 | 优先级明确 |
+| **S3** | Story选择 | DL+团队 | Backlog | Sprint Backlog | 团队选择本Sprint要完成的Story | Story明确 |
+| **S4** | 容量检查 | DL | Story Points | 容量评估 | 计算Story Points总和vs团队速率 | 容量合理 |
+| **S5** | Task拆解 | 团队 | Story | Task列表 | 将Story拆解为可执行Task（2-3天） | Task可交付 |
+| **S6** | Task分配 | DL+团队 | Task列表 | 任务分配 | 分配Task给开发人员 | 负载均衡 |
+| **S7** | Sprint承诺 | 团队 | Sprint计划 | 团队承诺 | 团队确认承诺、开始Sprint | 承诺明确 |
+
+### 7.5 流程引擎设计
+
+```mermaid
+graph TB
+    subgraph 流程模板库
+        T1[PI Planning模板]
+        T2[需求拆解模板]
+        T3[Sprint规划模板]
+        T4[发布流程模板]
+        T5[测试流程模板]
+    end
+    
+    subgraph 流程引擎
+        ENGINE[流程引擎<br/>ProcessEngine]
+        
+        ENGINE --> START[启动流程]
+        ENGINE --> EXECUTE[执行步骤]
+        ENGINE --> PAUSE[暂停流程]
+        ENGINE --> RESUME[恢复流程]
+        ENGINE --> COMPLETE[完成流程]
+        ENGINE --> ROLLBACK[回滚流程]
+    end
+    
+    subgraph 流程实例管理
+        INSTANCE[流程实例<br/>ProcessInstance]
+        
+        INSTANCE --> STATE[状态管理]
+        INSTANCE --> CONTEXT[上下文数据]
+        INSTANCE --> HISTORY[历史记录]
+        INSTANCE --> METRIC[效能度量]
+    end
+    
+    T1 & T2 & T3 & T4 & T5 -.实例化.-> ENGINE
+    ENGINE --> INSTANCE
+    
+    style ENGINE fill:#fff9c4,stroke:#f57f17,stroke-width:3px
+    style INSTANCE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+```
+
+**流程引擎核心功能**:
+
+| 功能 | 说明 | 技术方案 |
+|------|------|---------|
+| **流程定义** | 支持BPMN 2.0标准，可视化流程设计 | BPMN引擎（Camunda/Activiti） |
+| **流程实例** | 运行时流程实例管理、状态跟踪 | 状态机模式 + 事件溯源 |
+| **流程监控** | 实时监控流程进度、异常告警 | WebSocket + 事件总线 |
+| **流程优化** | 分析流程耗时、识别瓶颈 | 数据分析 + 可视化 |
+
+### 7.6 流程数据模型
+
+```typescript
+// 流程定义
+interface ProcessDefinition {
+  id: string;
+  name: string;
+  version: string;
+  steps: ProcessStep[];
+  roles: ProcessRole[];
+  triggers: ProcessTrigger[];
+}
+
+// 流程步骤
+interface ProcessStep {
+  stepId: string;
+  stepName: string;
+  stepType: "manual" | "automatic" | "decision";
+  roles: string[];
+  inputs: DataSchema;
+  outputs: DataSchema;
+  checkpoints: Checkpoint[];
+  nextSteps: string[]; // 下一步骤ID列表
+}
+
+// 流程实例
+interface ProcessInstance {
+  instanceId: string;
+  definitionId: string;
+  status: "not_started" | "in_progress" | "paused" | "completed" | "failed";
+  currentStep: string;
+  context: Record<string, any>; // 流程上下文数据
+  history: ProcessHistory[];
+  startTime: Date;
+  endTime?: Date;
+  duration?: number; // ms
+}
+
+// 流程历史
+interface ProcessHistory {
+  stepId: string;
+  stepName: string;
+  startTime: Date;
+  endTime: Date;
+  duration: number;
+  executor: string;
+  result: "success" | "failed" | "skipped";
+  data: Record<string, any>;
+}
+```
+
+---
+
+## 八、流程驱动与范围控制
+
+### 8.1 流程驱动系统架构
 
 ```mermaid
 graph TB
@@ -1061,9 +1555,9 @@ graph TB
 
 ---
 
-## 八、能力域集成与联通
+## 九、能力域集成与联通
 
-### 8.1 端到端业务流集成
+### 9.1 端到端业务流集成
 
 ```mermaid
 sequenceDiagram
@@ -1093,7 +1587,7 @@ sequenceDiagram
     C7->>C0: 15.反馈改进<br/>下一迭代
 ```
 
-### 8.2 核心集成场景
+### 9.2 核心集成场景
 
 #### 场景1: 需求到开发的联通
 
@@ -1216,7 +1710,7 @@ graph TB
     style A3 fill:#ffcdd2,stroke:#c62828,stroke-width:2px
 ```
 
-### 8.3 功能联通矩阵
+### 9.3 功能联通矩阵
 
 | 源能力域 | 目标能力域 | 集成点 | 数据传递 | 触发条件 |
 |---------|----------|--------|---------|---------|
@@ -1231,9 +1725,9 @@ graph TB
 
 ---
 
-## 九、角色协同与职责
+## 十、角色协同与职责
 
-### 9.1 角色协同图
+### 10.1 角色协同图
 
 ```mermaid
 graph LR
@@ -1276,7 +1770,7 @@ graph LR
     style 交付线角色 fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
 ```
 
-### 9.2 角色职责与平台功能映射
+### 10.2 角色职责与平台功能映射
 
 | 角色 | 核心职责 | 主要使用功能 | 关键场景 |
 |------|---------|-------------|---------|
@@ -1292,9 +1786,9 @@ graph LR
 
 ---
 
-## 十、平台核心价值
+## 十一、平台核心价值
 
-### 10.1 平台六大核心价值
+### 11.1 平台六大核心价值
 
 ```mermaid
 graph TB
@@ -1329,7 +1823,7 @@ graph TB
     style R6 fill:#fff59d,stroke:#f57f17
 ```
 
-### 10.2 平台价值总结
+### 11.2 平台价值总结
 
 | 设计要素 | 核心内容 | 价值 |
 |---------|---------|------|
@@ -1377,8 +1871,18 @@ graph TB
 
 ---
 
-**文档版本**: V7.0  
+**文档版本**: V8.0  
 **最后更新**: 2026-01-17  
-**文档类型**: 业务方案设计  
+**文档类型**: 完整业务方案设计  
 **状态**: 已完成设计，可进入实施阶段  
-**总文档规模**: ~2,500行，45+个mermaid图表
+
+**文档特点**:
+- ✅ 完整的能力域详解（C0-C7全部展开）
+- ✅ 详细的流程定义（PI Planning、需求拆解、Sprint规划）
+- ✅ 价值流优化方法论（已移至方法论文档）
+- ✅ 50+个mermaid图表，11章完整结构
+
+**相关文档**:
+- [平台设计方法论.md](./平台设计方法论.md) - 设计方法与最佳实践
+- [AUTO_RD_PLATFORM_DESIGN_MERMAID.md](./AUTO_RD_PLATFORM_DESIGN_MERMAID.md) - 功能详细设计
+- [平台架构意图总览-Mermaid版.md](./平台架构意图总览-Mermaid版.md) - 架构意图参考
