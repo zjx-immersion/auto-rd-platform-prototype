@@ -51,12 +51,14 @@ import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Search } from '@element-plus/icons-vue'
 import { useProjectStore } from '@/stores/modules/project'
+import { useVersionStore } from '@/stores/modules/version'
 import PageContainer from '@/components/Common/PageContainer.vue'
 
 const router = useRouter()
 const projectStore = useProjectStore()
+const versionStore = useVersionStore()
 
-const versions = computed(() => projectStore.versions)
+const versions = computed(() => versionStore.versions)
 const allProjects = computed(() => projectStore.projects)
 
 const getProjectName = (projectId: string) => {
@@ -84,7 +86,7 @@ const handleDelete = async (row: any) => {
       cancelButtonText: '取消',
       type: 'warning'
     })
-    await projectStore.deleteVersion(row.id)
+    await versionStore.deleteVersion(row.id)
     ElMessage.success('删除成功')
   } catch (error) {
     if (error !== 'cancel') ElMessage.error('删除失败')

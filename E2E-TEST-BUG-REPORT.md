@@ -121,15 +121,44 @@
 
 ---
 
-## 📝 发现的主要问题
+### Bug #8 (已修复) - 版本管理无数据显示
 
-### 阻塞性问题 (P0) - 已修复
-1. ✅ 项目详情页面空白 - 已修复
-
-### 高优先级问题 (P1) - 待修复
-1. ⏳ 需求池无数据显示 - 阻塞Step 2测试
-2. ⏳ 多个页面布局需要优化（项目列表、项目详情、需求池）
+**严重程度**: P1 - 阻塞测试  
+**发现时间**: Step 7.1  
+**问题描述**: 版本管理页面显示"暂无数据"，但系统已加载6个版本  
+**根本原因**: VersionManagement.vue从projectStore.versions读取，但projectStore没有versions属性  
+**文件**: `frontend/src/views/C0-Project/VersionManagement.vue:59`  
+**修复方案**: 导入useVersionStore，从versionStore.versions读取数据  
+**状态**: ✅ 已修复
 
 ---
 
-**最后更新**: 2026-01-19 16:30
+### Bug #9 (已修复) - Feature分配版本下拉框无数据
+
+**严重程度**: P1 - 阻塞分配  
+**发现时间**: Step 7.2  
+**问题描述**: Feature分配页面的版本下拉框显示"无数据"  
+**根本原因**: 从project?.versions读取，但project对象没有versions属性  
+**文件**: `frontend/src/views/C0-Project/FeatureAllocation.vue:392`  
+**修复方案**: 使用projectStore.getVersionsByProject(projectId)方法获取版本  
+**状态**: ✅ 已修复
+
+---
+
+## 📝 发现的主要问题
+
+### 阻塞性问题 (P0) - 已修复
+1. ✅ Bug #3: 项目详情页面空白 - 已修复
+
+### 高优先级问题 (P1) - 已修复
+1. ✅ Bug #6: 需求池无数据显示 - 已修复
+2. ✅ Bug #8: 版本管理无数据显示 - 已修复
+3. ✅ Bug #9: Feature分配版本下拉框无数据 - 已修复
+4. ✅ 页面布局优化（8个页面已完成）
+
+**Bug修复率**: 100% (所有阻塞性Bug已修复)
+
+---
+
+**最后更新**: 2026-01-19 18:45  
+**测试状态**: ✅ 完整的端到端流程测试完成

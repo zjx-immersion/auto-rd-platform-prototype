@@ -388,8 +388,7 @@ const suggestedCapacity = computed(() => {
 const projects = computed(() => projectStore.projects)
 const versions = computed(() => {
   if (!selectedProjectId.value) return []
-  const project = projects.value.find(p => p.id === selectedProjectId.value)
-  return project?.versions || []
+  return projectStore.getVersionsByProject(selectedProjectId.value) || []
 })
 const selectedVersion = computed(() => versions.value.find(v => v.id === selectedVersionId.value))
 const pis = computed(() => selectedVersion.value?.pis || [])
