@@ -9,6 +9,10 @@
         </el-select>
       </div>
       <div class="header-right">
+        <el-button type="primary" size="large" @click="handleGoToNewPlanning" style="margin-right: 16px;">
+          <el-icon style="margin-right: 4px;"><Promotion /></el-icon>
+          进入2阶段规划工作台（新版）
+        </el-button>
         <el-button :icon="Refresh" @click="handleRefresh">刷新</el-button>
         <el-button type="primary" @click="handleStartPlanning" v-if="!currentPlanning">开始规划</el-button>
         <el-button type="success" @click="handleCommitPlanning" v-if="currentPlanning && currentPlanning.status === 'draft'">
@@ -98,66 +102,97 @@
       </el-col>
     </el-row>
 
-    <!-- 团队规划看板 -->
-    <el-card shadow="never" style="margin-top: 20px" v-if="currentPlanning">
+    <!-- PI迭代看板（按产品和迭代显示） -->
+    <el-card shadow="never" style="margin-top: 20px" v-if="currentPI">
       <template #header>
         <div style="display: flex; justify-content: space-between; align-items: center">
-          <span>团队规划看板</span>
-          <el-button size="small" @click="handleDetectConflicts">检测冲突</el-button>
+          <span>PI迭代看板</span>
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <el-text size="small">产品筛选:</el-text>
+            <el-select 
+              v-model="selectedProductIds" 
+              multiple 
+              placeholder="选择产品（默认显示全部）"
+              style="width: 300px;"
+              size="small"
+            >
+              <el-option label="全部产品" value="all" />
+              <el-option 
+                v-for="product in availableProducts" 
+                :key="product.id"
+                :label="product.name"
+                :value="product.id"
+              />
+            </el-select>
+            <el-button size="small" @click="handleDetectConflicts">检测冲突</el-button>
+          </div>
         </div>
       </template>
 
-      <el-row :gutter="20">
-        <el-col :span="8" v-for="teamPlanning in teamPlannings" :key="teamPlanning.teamId">
-          <el-card class="team-card" shadow="hover">
-            <template #header>
-              <div class="team-header">
-                <span class="team-name">{{ teamPlanning.teamName }}</span>
-                <el-tag size="small" :type="getLoadStatusType(teamPlanning.loadPercentage)">
-                  {{ teamPlanning.loadPercentage }}%
-                </el-tag>
-              </div>
-            </template>
-
-            <div class="team-capacity">
-              <el-progress
-                :percentage="Math.min(teamPlanning.loadPercentage, 100)"
-                :color="getProgressColor(teamPlanning.loadPercentage)"
-                :stroke-width="10"
-              />
-              <div class="capacity-text">
-                {{ teamPlanning.totalLoad }} / {{ teamPlanning.capacity }} SP
-              </div>
+      <!-- Sprint迭代时间轴 -->
+      <div class="sprint-timeline">
+        <div 
+          class="sprint-column" 
+          v-for="sprint in sprintList" 
+          :key="sprint.id"
+        >
+          <div class="sprint-header">
+            <div class="sprint-info">
+              <el-text tag="b" size="large">{{ sprint.name }}</el-text>
+              <el-text size="small" type="info">
+                {{ formatDateRange(sprint.startDate, sprint.endDate) }}
+              </el-text>
             </div>
+            <div class="sprint-milestones" v-if="sprint.milestones && sprint.milestones.length > 0">
+              <el-tag 
+                v-for="milestone in sprint.milestones" 
+                :key="milestone.id"
+                size="small"
+                type="warning"
+                style="margin-right: 4px;"
+              >
+                {{ milestone.name }}
+              </el-tag>
+            </div>
+          </div>
 
-            <el-divider />
-
-            <div class="feature-list">
-              <div class="list-header">
-                <span>Features ({{ teamPlanning.features.length }})</span>
-                <el-button size="small" text @click="handleAddFeatureToTeam(teamPlanning.teamId)">
-                  +添加
-                </el-button>
+          <!-- 按产品分组显示Feature -->
+          <div class="sprint-content">
+            <div 
+              v-for="product in getProductsInSprint(sprint.id)" 
+              :key="product.id"
+              class="product-section"
+            >
+              <div class="product-header">
+                <el-text tag="b" size="small">{{ product.name }}</el-text>
+                <el-tag size="small">{{ getFeaturesCountByProductAndSprint(product.id, sprint.id) }}</el-tag>
               </div>
-              <div class="feature-item" v-for="feature in teamPlanning.features" :key="feature.featureId">
-                <div class="feature-info">
-                  <span class="feature-name">{{ feature.featureName }}</span>
-                  <el-tag size="small">{{ feature.storyPoints }} SP</el-tag>
-                </div>
-                <el-button
-                  size="small"
-                  text
-                  type="danger"
-                  @click="handleRemoveFeatureFromTeam(teamPlanning.teamId, feature.featureId)"
+              
+              <div class="feature-list-compact">
+                <div 
+                  class="feature-card-compact" 
+                  v-for="feature in getFeaturesByProductAndSprint(product.id, sprint.id)" 
+                  :key="feature.id"
                 >
-                  移除
-                </el-button>
+                  <div class="feature-card-content">
+                    <el-text class="feature-code" size="small" type="info">{{ feature.code }}</el-text>
+                    <el-text class="feature-name-compact">{{ feature.name }}</el-text>
+                    <el-tag size="small" type="primary">{{ feature.storyPoints }} SP</el-tag>
+                  </div>
+                  <div class="feature-version" v-if="feature.version">
+                    <el-tag size="small" type="success">v{{ feature.version }}</el-tag>
+                  </div>
+                </div>
+                <el-empty 
+                  v-if="getFeaturesByProductAndSprint(product.id, sprint.id).length === 0" 
+                  :image-size="40" 
+                  description="暂无Feature"
+                />
               </div>
-              <el-empty v-if="teamPlanning.features.length === 0" :image-size="60" description="暂无分配" />
             </div>
-          </el-card>
-        </el-col>
-      </el-row>
+          </div>
+        </div>
+      </div>
     </el-card>
 
     <!-- PI目标 -->
@@ -203,13 +238,19 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { Refresh } from '@element-plus/icons-vue'
+import { Refresh, Promotion } from '@element-plus/icons-vue'
 import { usePIStore } from '@/stores/modules/pi'
 import { usePlanningStore } from '@/stores/modules/planning'
+import { useFeatureStore } from '@/stores/modules/feature'
+import { useSprintStore } from '@/stores/modules/sprint'
+import { useAssetStore } from '@/stores/modules/asset'
 import dayjs from 'dayjs'
 
 const piStore = usePIStore()
 const planningStore = usePlanningStore()
+const featureStore = useFeatureStore()
+const sprintStore = useSprintStore()
+const assetStore = useAssetStore()
 const router = useRouter()
 
 const piVersions = computed(() => piStore.piVersions)
@@ -221,6 +262,7 @@ const criticalDependencies = computed(() => planningStore.criticalDependencies)
 
 const selectedPIId = ref('')
 const loading = ref(false)
+const selectedProductIds = ref<string[]>(['all'])
 
 const blockingDependencies = computed(() => dependencies.value.filter(d => d.status === 'blocking'))
 const risks = computed(() => currentPI.value?.risks || [])
@@ -239,6 +281,39 @@ const loadRate = computed(() => {
   if (totalCapacity.value === 0) return 0
   return Math.round((totalPlannedLoad.value / totalCapacity.value) * 100)
 })
+
+// 新增：产品和Sprint相关的computed
+const availableProducts = computed(() => assetStore.products)
+
+const sprintList = computed(() => {
+  if (!currentPI.value) return []
+  return sprintStore.sprints.filter(s => s.piId === currentPI.value.id)
+})
+
+const filteredFeatures = computed(() => {
+  const allFeatures = featureStore.features
+  if (selectedProductIds.value.includes('all') || selectedProductIds.value.length === 0) {
+    return allFeatures
+  }
+  return allFeatures.filter(f => selectedProductIds.value.includes(f.productId))
+})
+
+// 获取某个Sprint中的所有产品
+const getProductsInSprint = (sprintId: string) => {
+  const featuresInSprint = filteredFeatures.value.filter(f => f.targetSprint === sprintId)
+  const productIds = [...new Set(featuresInSprint.map(f => f.productId))]
+  return availableProducts.value.filter(p => productIds.includes(p.id))
+}
+
+// 获取某个产品在某个Sprint中的Feature数量
+const getFeaturesCountByProductAndSprint = (productId: string, sprintId: string) => {
+  return filteredFeatures.value.filter(f => f.productId === productId && f.targetSprint === sprintId).length
+}
+
+// 获取某个产品在某个Sprint中的所有Features
+const getFeaturesByProductAndSprint = (productId: string, sprintId: string) => {
+  return filteredFeatures.value.filter(f => f.productId === productId && f.targetSprint === sprintId)
+}
 
 const handlePIChange = async (piId: string) => {
   loading.value = true
@@ -267,6 +342,15 @@ const handleStartPlanning = async () => {
   } catch (error) {
     ElMessage.error('启动失败')
   }
+}
+
+const handleGoToNewPlanning = () => {
+  if (!selectedPIId.value) {
+    ElMessage.warning('请先选择PI')
+    return
+  }
+  // 跳转到新的2阶段规划工作台
+  router.push(`/function/c3/planning/pi/${selectedPIId.value}/stage1`)
 }
 
 const handleCommitPlanning = async () => {
@@ -380,7 +464,13 @@ const getUserName = (userId: string) => userId
 onMounted(async () => {
   loading.value = true
   try {
-    await piStore.fetchPIVersions()
+    // 加载所有必要的数据（products已经在initializer中被加载到assetStore）
+    await Promise.all([
+      piStore.fetchPIVersions(),
+      featureStore.fetchFeatures(),
+      sprintStore.fetchSprints()
+    ])
+    
     if (piVersions.value.length > 0) {
       selectedPIId.value = piVersions.value[0].id
       await handlePIChange(selectedPIId.value)
@@ -488,6 +578,106 @@ onMounted(async () => {
 
           .feature-name {
             font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  // 新增：Sprint时间轴样式
+  .sprint-timeline {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 16px 0;
+
+    .sprint-column {
+      min-width: 280px;
+      flex: 1;
+      background: #f5f7fa;
+      border-radius: 8px;
+      padding: 16px;
+
+      .sprint-header {
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e4e7ed;
+
+        .sprint-info {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          margin-bottom: 8px;
+        }
+
+        .sprint-milestones {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 4px;
+        }
+      }
+
+      .sprint-content {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .product-section {
+          background: white;
+          border-radius: 6px;
+          padding: 12px;
+          border: 1px solid #e4e7ed;
+
+          .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ebeef5;
+          }
+
+          .feature-list-compact {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .feature-card-compact {
+              background: #f0f9ff;
+              border: 1px solid #b3e0ff;
+              border-radius: 4px;
+              padding: 8px;
+              transition: all 0.2s;
+
+              &:hover {
+                box-shadow: 0 2px 8px rgba(64, 158, 255, 0.15);
+                transform: translateY(-1px);
+              }
+
+              .feature-card-content {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+
+                .feature-code {
+                  font-family: 'Courier New', monospace;
+                  font-size: 12px;
+                }
+
+                .feature-name-compact {
+                  font-size: 13px;
+                  font-weight: 500;
+                  color: #303133;
+                  line-height: 1.4;
+                }
+              }
+
+              .feature-version {
+                margin-top: 6px;
+                display: flex;
+                justify-content: flex-end;
+              }
+            }
           }
         }
       }

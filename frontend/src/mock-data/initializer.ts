@@ -14,7 +14,10 @@ import {
   sstsData,
   sprintsData,
   tasksData,
-  productsData
+  productsData,
+  mrsData,
+  teamsData,
+  vehicleNodesData
 } from './datasets'
 
 import { useUserStore } from '@/stores/modules/user'
@@ -27,6 +30,9 @@ import { useSSTSStore } from '@/stores/modules/ssts'
 import { useSprintStore } from '@/stores/modules/sprint'
 import { useTaskStore } from '@/stores/modules/task'
 import { useAssetStore } from '@/stores/modules/asset'
+import { useMRStore } from '@/stores/modules/mr'
+import { useTeamStore } from '@/stores/modules/team'
+import { useVehicleNodeStore } from '@/stores/modules/vehicle-node'
 
 /**
  * 初始化所有JSON数据集
@@ -46,6 +52,9 @@ export async function initializeJSONDatasets() {
     dataLoader.registerDataset('sprints', sprintsData)
     dataLoader.registerDataset('tasks', tasksData)
     dataLoader.registerDataset('products', productsData)
+    dataLoader.registerDataset('mrs', mrsData)
+    dataLoader.registerDataset('teams', teamsData)
+    dataLoader.registerDataset('vehicleNodes', vehicleNodesData)
 
     // 2. 加载数据到各个Store
     await loadUsersToStore()
@@ -58,6 +67,9 @@ export async function initializeJSONDatasets() {
     await loadSprintsToStore()
     await loadTasksToStore()
     await loadProductsToStore()
+    await loadMRsToStore()
+    await loadTeamsToStore()
+    await loadVehicleNodesToStore()
 
     // 3. 建立数据关联
     await establishDataRelations()
@@ -210,6 +222,36 @@ async function loadProductsToStore() {
   const products = dataLoader.getDataset('products')
   assetStore.products = products
   console.log(`✓ 加载了 ${products.length} 个产品`)
+}
+
+/**
+ * 加载MR数据
+ */
+async function loadMRsToStore() {
+  const mrStore = useMRStore()
+  const mrs = dataLoader.getDataset('mrs')
+  mrStore.mrList = mrs
+  console.log(`✓ 加载了 ${mrs.length} 个MR`)
+}
+
+/**
+ * 加载Team数据
+ */
+async function loadTeamsToStore() {
+  const teamStore = useTeamStore()
+  const teams = dataLoader.getDataset('teams')
+  teamStore.teams = teams
+  console.log(`✓ 加载了 ${teams.length} 个Team`)
+}
+
+/**
+ * 加载整车计划节点数据
+ */
+async function loadVehicleNodesToStore() {
+  const vehicleNodeStore = useVehicleNodeStore()
+  const vehicleNodes = dataLoader.getDataset('vehicleNodes')
+  vehicleNodeStore.vehicleNodes = vehicleNodes
+  console.log(`✓ 加载了 ${vehicleNodes.length} 个整车节点`)
 }
 
 /**

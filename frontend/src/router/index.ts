@@ -311,6 +311,18 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'PI Planning', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI Planning'] }
               },
               {
+                path: 'planning/pi/:piId/stage1',
+                name: 'PIPlanningStage1',
+                component: () => import('@/views/C3-Planning/PIPlanningStage1.vue'),
+                meta: { title: 'PI Planning - 阶段1', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI Planning', '阶段1'] }
+              },
+              {
+                path: 'planning/pi/:piId/stage2',
+                name: 'PIPlanningStage2',
+                component: () => import('@/views/C3-Planning/PIPlanningStage2.vue'),
+                meta: { title: 'PI Planning - 阶段2', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI Planning', '阶段2'] }
+              },
+              {
                 path: 'dependency-matrix',
                 name: 'DependencyMatrix',
                 component: () => import('@/views/C3-Planning/DependencyMatrix.vue'),

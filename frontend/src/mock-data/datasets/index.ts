@@ -12,6 +12,9 @@ import sstsData from './ssts.json'
 import sprintsData from './sprints.json'
 import tasksData from './tasks.json'
 import productsData from './products.json'
+import mrsData from './mrs.json'
+import teamsData from './teams.json'
+import vehicleNodesData from './vehicle-nodes.json'
 
 export {
   usersData,
@@ -23,5 +26,8 @@ export {
   sstsData,
   sprintsData,
   tasksData,
-  productsData
+  productsData,
+  mrsData,
+  teamsData,
+  vehicleNodesData
 }

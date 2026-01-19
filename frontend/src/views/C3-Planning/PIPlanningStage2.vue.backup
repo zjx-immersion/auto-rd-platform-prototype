@@ -1,0 +1,957 @@
+<template>
+  <PageContainer>
+    <!-- 页面头部 -->
+    <div class="action-bar">
+      <div class="action-bar-left">
+        <el-button @click="$router.back()">
+          <el-icon><ArrowLeft /></el-icon>
+          返回
+        </el-button>
+        <span class="page-title">PI Planning - 团队视角: 模块需求排布</span>
+        <el-tag v-if="currentPI" :type="getPIStatusType(currentPI.status)" size="large" style="margin-left: 12px;">
+          {{ currentPI.name }}
+        </el-tag>
+      </div>
+      <div class="action-bar-right">
+        <el-button @click="handleSaveDraft">保存草稿</el-button>
+      </div>
+    </div>
+
+    <!-- PI信息卡片 -->
+    <el-card style="margin-bottom: 16px;" v-if="currentPI">
+      <el-descriptions :column="4" border>
+        <el-descriptions-item label="PI名称">
+          <el-text tag="b">{{ currentPI.name }}</el-text>
+        </el-descriptions-item>
+        <el-descriptions-item label="团队规划进度" :span="2">
+          <el-text>{{ completedTeamsCount }}/{{ teams.length }} 团队已规划</el-text>
+        </el-descriptions-item>
+        <el-descriptions-item label="整体进度" :span="2">
+          <el-progress :percentage="stage2Progress" />
+        </el-descriptions-item>
+      </el-descriptions>
+    </el-card>
+
+    <!-- 团队选择 -->
+    <el-card style="margin-bottom: 16px;">
+      <template #header>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <el-text tag="b" size="large">选择团队</el-text>
+            <el-text size="small" type="info" style="margin-left: 12px;">
+              单团队视角：选择一个团队，规划该团队的模块需求到不同迭代
+            </el-text>
+          </div>
+          <el-button type="primary" plain @click="$router.push(`/function/c3/planning/pi/${piId}/stage1`)">
+            <el-icon><ArrowLeft /></el-icon>
+            切换到全局视角
+          </el-button>
+        </div>
+      </template>
+      <el-radio-group v-model="selectedTeamId" size="large">
+        <el-radio-button 
+          v-for="team in teams" 
+          :key="team.id"
+          :label="team.id"
+        >
+          {{ team.name }}
+          <el-tag 
+            v-if="getTeamStage2Status(team.id) === 'completed'" 
+            type="success" 
+            size="small" 
+            style="margin-left: 8px;"
+          >
+            已完成
+          </el-tag>
+        </el-radio-button>
+      </el-radio-group>
+    </el-card>
+
+    <!-- 主要内容区域 -->
+    <el-row :gutter="16" v-if="selectedTeamId">
+      <!-- 左侧：特性树（Feature → SSTS → MR） -->
+      <el-col :span="12">
+        <el-card shadow="hover" style="height: calc(100vh - 400px); overflow-y: auto;">
+          <template #header>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span>{{ getTeamName(selectedTeamId) }} - 特性需求树</span>
+              <el-button size="small" @click="expandAll = !expandAll">
+                {{ expandAll ? '全部收起' : '全部展开' }}
+              </el-button>
+            </div>
+          </template>
+
+          <div 
+            v-for="sprint in teamSprints" 
+            :key="sprint.id"
+            class="sprint-card"
+            :class="{ 'drop-target': dragTargetSprintId === sprint.id }"
+            @dragover.prevent="handleDragOver($event, sprint.id)"
+            @drop="handleDrop($event, sprint.id)"
+            @dragleave="handleDragLeave"
+          >
+            <div class="sprint-header">
+              <div>
+                <el-text tag="b">{{ sprint.name }}</el-text>
+                <el-text size="small" type="info" style="margin-left: 8px;">
+                  {{ formatSprintDates(sprint) }}
+                </el-text>
+              </div>
+              <el-tag size="small" :type="getLoadRateType(sprint)">
+                {{ getSprintLoadRate(sprint) }}%
+              </el-tag>
+            </div>
+
+            <div class="sprint-capacity">
+              <el-text size="small" type="info">
+                容量: {{ sprint.capacity }} SP | 
+                Feature/SSTS负载: {{ getFeatureSSTSLoad(sprint) }} SP | 
+                MR负载: {{ getMRLoad(sprint) }} SP | 
+                可用: {{ getAvailableCapacity(sprint) }} SP
+              </el-text>
+              <el-progress 
+                :percentage="getSprintLoadRate(sprint)" 
+                :status="getSprintLoadRate(sprint) > 100 ? 'exception' : undefined"
+                :stroke-width="8"
+                style="margin-top: 8px;"
+              >
+                <template #default>
+                  <span style="font-size: 12px;">
+                    {{ getFeatureSSTSLoad(sprint) + getMRLoad(sprint) }}/{{ sprint.capacity }} SP
+                  </span>
+                </template>
+              </el-progress>
+            </div>
+
+            <!-- Feature/SSTS分配（只读，来自全局视角） -->
+            <div class="stage1-items" v-if="getStage1Items(sprint.id).length > 0">
+              <el-text size="small" type="info" style="margin-bottom: 8px; display: block;">
+                全局视角分配（只读）:
+              </el-text>
+              <div 
+                v-for="item in getStage1Items(sprint.id)"
+                :key="`stage1-${item.type}-${item.id}`"
+                class="stage1-item"
+              >
+                <el-icon><Lock /></el-icon>
+                <el-text size="small">{{ item.code }}</el-text>
+                <el-text size="small" type="info">{{ item.storyPoints || getSSTSStoryPoints(item) }} SP</el-text>
+              </div>
+            </div>
+
+            <!-- MR分配（团队视角） -->
+            <div class="mr-items">
+              <el-text size="small" type="success" style="margin-bottom: 8px; display: block;">
+                MR分配:
+              </el-text>
+              <div 
+                v-for="mr in getMRsInSprint(sprint.id)"
+                :key="mr.id"
+                class="mr-item"
+                draggable="true"
+                @dragstart="handleDragStart($event, mr)"
+              >
+                <div class="mr-header">
+                  <el-text tag="b" size="small">{{ mr.code }}</el-text>
+                  <el-button 
+                    size="small" 
+                    text 
+                    type="danger"
+                    @click.stop="handleRemoveMR(mr.id, sprint.id)"
+                  >
+                    <el-icon><Close /></el-icon>
+                  </el-button>
+                </div>
+                <el-text size="small" class="mr-title">{{ mr.title || mr.name }}</el-text>
+                <div class="mr-meta">
+                  <el-tag size="small">{{ mr.storyPoints }} SP</el-tag>
+                  <el-text size="small" type="info">SSTS: {{ getSSTSCode(mr.sstsId) }}</el-text>
+                </div>
+              </div>
+            </div>
+
+            <!-- 放置提示 -->
+            <div v-if="getMRsInSprint(sprint.id).length === 0" class="drop-hint">
+              [+ 放置MR到此处]
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+
+      <!-- 右侧：MR列表（按迭代分组） -->
+      <el-col :span="12">
+        <el-card shadow="hover" style="height: calc(100vh - 400px); overflow-y: auto;">
+          <template #header>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span>MR列表（按迭代分组）</span>
+              <el-select v-model="mrFilter" size="small" style="width: 150px;">
+                <el-option label="全部" value="all" />
+                <el-option label="未分配" value="unallocated" />
+                <el-option label="已分配" value="allocated" />
+              </el-select>
+            </div>
+          </template>
+
+          <!-- 搜索 -->
+          <el-input 
+            v-model="mrSearchKeyword" 
+            placeholder="搜索MR..." 
+            clearable 
+            style="margin-bottom: 12px;"
+          >
+            <template #prefix>
+              <el-icon><Search /></el-icon>
+            </template>
+          </el-input>
+
+          <!-- 按Sprint分组的MR -->
+          <div 
+            v-for="sprint in teamSprints" 
+            :key="sprint.id"
+            class="mr-group"
+          >
+            <div class="mr-group-header">
+              <el-text tag="b">{{ sprint.name }}</el-text>
+              <el-text size="small" type="info">
+                {{ formatSprintDates(sprint) }} | 
+                容量: {{ sprint.capacity }} SP | 
+                已用: {{ getFeatureSSTSLoad(sprint) + getMRLoad(sprint) }} SP
+              </el-text>
+            </div>
+
+            <!-- 该Sprint的SSTS -->
+            <div class="ssts-info" v-if="getSprintSSTS(sprint.id).length > 0">
+              <el-text size="small" type="info">所属SSTS: </el-text>
+              <el-tag 
+                v-for="ssts in getSprintSSTS(sprint.id)"
+                :key="ssts.id"
+                size="small"
+                style="margin-right: 4px;"
+              >
+                {{ ssts.code }}
+              </el-tag>
+            </div>
+
+            <!-- 该Sprint的MR（默认基于SSTS分配） -->
+            <div class="mr-list">
+              <div 
+                v-for="mr in getMRsForSprint(sprint.id)"
+                :key="mr.id"
+                class="mr-card"
+                :class="{ 'allocated': isMRAllocated(mr.id) }"
+                draggable="true"
+                @dragstart="handleDragStart($event, mr)"
+                @click="handleViewMR(mr.id)"
+              >
+                <div class="mr-card-header">
+                  <el-text tag="b">{{ mr.code }}</el-text>
+                  <el-tag v-if="isMRAllocated(mr.id)" type="success" size="small">已分配</el-tag>
+                </div>
+                <el-text class="mr-card-title">{{ mr.title || mr.name }}</el-text>
+                <div class="mr-card-meta">
+                  <el-tag size="small">{{ mr.storyPoints }} SP</el-tag>
+                  <el-tag size="small" :type="getPriorityType(mr.priority)">{{ mr.priority }}</el-tag>
+                  <el-text size="small" type="info">SSTS: {{ getSSTSCode(mr.sstsId) }}</el-text>
+                </div>
+                <div class="mr-card-meta" v-if="mr.dependencies?.length">
+                  <el-text size="small" type="warning">依赖: {{ mr.dependencies.length }}个</el-text>
+                </div>
+                <div class="mr-card-hint" v-if="!isMRAllocated(mr.id)">
+                  <el-text size="small" type="info">💡 默认位置（所属SSTS在此Sprint）</el-text>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 未分配MR（所属SSTS未分配） -->
+          <div class="mr-group" v-if="unallocatedMRs.length > 0">
+            <div class="mr-group-header">
+              <el-text tag="b" type="warning">未分配MR</el-text>
+              <el-text size="small" type="info">所属SSTS未分配到Sprint</el-text>
+            </div>
+            <div class="mr-list">
+              <div 
+                v-for="mr in unallocatedMRs"
+                :key="mr.id"
+                class="mr-card"
+                draggable="true"
+                @dragstart="handleDragStart($event, mr)"
+              >
+                <div class="mr-card-header">
+                  <el-text tag="b">{{ mr.code }}</el-text>
+                </div>
+                <el-text class="mr-card-title">{{ mr.title || mr.name }}</el-text>
+                <div class="mr-card-meta">
+                  <el-tag size="small">{{ mr.storyPoints }} SP</el-tag>
+                  <el-text size="small" type="warning">⚠️ 所属SSTS未分配</el-text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+  </PageContainer>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, onMounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import {
+  ArrowLeft, Search, Lock, Close
+} from '@element-plus/icons-vue'
+import PageContainer from '@/components/Common/PageContainer.vue'
+import { usePIStore } from '@/stores/modules/pi'
+import { useSprintStore } from '@/stores/modules/sprint'
+import { useFeatureStore } from '@/stores/modules/feature'
+import { useSSTSStore } from '@/stores/modules/ssts'
+import { useTeamStore } from '@/stores/modules/team'
+import { useMRStore } from '@/stores/modules/mr'
+import dayjs from 'dayjs'
+
+// ============================================================================
+// Setup
+// ============================================================================
+
+const route = useRoute()
+const router = useRouter()
+const piStore = usePIStore()
+const sprintStore = useSprintStore()
+const featureStore = useFeatureStore()
+const sstsStore = useSSTSStore()
+const teamStore = useTeamStore()
+const mrStore = useMRStore()
+
+const piId = route.params.piId as string
+
+// ============================================================================
+// State
+// ============================================================================
+
+const loading = ref(false)
+const selectedTeamId = ref('')
+const mrSearchKeyword = ref('')
+const mrFilter = ref<'all' | 'unallocated' | 'allocated'>('all')
+const dragTargetSprintId = ref<string | null>(null)
+const draggedMR = ref<any>(null)
+
+// 全局视角的分配结果（只读）
+const stage1Allocations = ref<{
+  features: Array<{ featureId: string; teamId: string; sprintId: string }>
+  sstss: Array<{ sstsId: string; teamId: string; sprintId: string }>
+}>({
+  features: [],
+  sstss: []
+})
+
+// 团队视角的MR分配
+const stage2MRAllocations = ref<Array<{
+  mrId: string
+  sprintId: string
+}>>([])
+
+// 团队完成状态
+const teamCompletionStatus = ref<Record<string, boolean>>({})
+
+// ============================================================================
+// Computed
+// ============================================================================
+
+const currentPI = computed(() => {
+  return piStore.piVersions.find(p => p.id === piId)
+})
+
+const teams = computed(() => teamStore.teams)
+
+const selectedTeam = computed(() => {
+  return teams.value.find(t => t.id === selectedTeamId.value)
+})
+
+// 该团队在全局视角中分配的Sprint
+const teamSprints = computed(() => {
+  if (!selectedTeamId.value) return []
+  
+  const sprintIds = new Set<string>()
+  
+  // 从全局视角分配中找出该团队的Sprint
+  stage1Allocations.value.features.forEach(alloc => {
+    if (alloc.teamId === selectedTeamId.value) {
+      sprintIds.add(alloc.sprintId)
+    }
+  })
+  stage1Allocations.value.sstss.forEach(alloc => {
+    if (alloc.teamId === selectedTeamId.value) {
+      sprintIds.add(alloc.sprintId)
+    }
+  })
+
+  return sprintStore.sprints
+    .filter(s => s.piId === piId && sprintIds.has(s.id))
+    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+})
+
+// 该团队的所有MR（从SSTS拆解出的）
+const teamMRs = computed(() => {
+  if (!selectedTeamId.value) return []
+  
+  // 找出该团队在全局视角中分配的SSTS
+  const teamSSTSIds = stage1Allocations.value.sstss
+    .filter(alloc => alloc.teamId === selectedTeamId.value)
+    .map(alloc => alloc.sstsId)
+  
+  // 找出这些SSTS下的MR
+  return mrStore.mrList.filter(mr => teamSSTSIds.includes(mr.sstsId))
+})
+
+// 未分配的MR（所属SSTS未分配）
+const unallocatedMRs = computed(() => {
+  return teamMRs.value.filter(mr => {
+    const sstsAlloc = stage1Allocations.value.sstss.find(a => a.sstsId === mr.sstsId)
+    return !sstsAlloc
+  })
+})
+
+const completedTeamsCount = computed(() => {
+  return Object.values(teamCompletionStatus.value).filter(Boolean).length
+})
+
+const stage2Progress = computed(() => {
+  return teams.value.length > 0 
+    ? Math.round((completedTeamsCount.value / teams.value.length) * 100)
+    : 0
+})
+
+// 移除canCompleteStage2，不再有完成的概念
+
+// ============================================================================
+// Methods
+// ============================================================================
+
+function formatSprintDates(sprint: any) {
+  return `${dayjs(sprint.startDate).format('MM/DD')} ~ ${dayjs(sprint.endDate).format('MM/DD')}`
+}
+
+function getTeamName(teamId: string) {
+  const team = teams.value.find(t => t.id === teamId)
+  return team?.name || teamId
+}
+
+function getPIStatusType(status: string) {
+  const map: Record<string, 'success' | 'warning' | 'info' | ''> = {
+    'planning': 'info',
+    'committed': 'warning',
+    'in-progress': 'warning',
+    'completed': 'success'
+  }
+  return map[status] || 'info'
+}
+
+function getPriorityType(priority: string) {
+  const map: Record<string, 'danger' | 'warning' | 'info' | ''> = {
+    'P0': 'danger',
+    'P1': 'warning',
+    'P2': 'info',
+    'P3': ''
+  }
+  return map[priority] || 'info'
+}
+
+function getSSTSStoryPoints(ssts: any) {
+  return ssts.storyPoints || ssts.estimate || 0
+}
+
+function getSSTSCode(sstsId: string) {
+  const ssts = sstsStore.sstsList.find(s => s.id === sstsId)
+  return ssts?.code || sstsId
+}
+
+// 获取全局视角分配的Feature/SSTS（只读）
+function getStage1Items(sprintId: string) {
+  const items: any[] = []
+  
+  // Feature
+  stage1Allocations.value.features.forEach(alloc => {
+    if (alloc.teamId === selectedTeamId.value && alloc.sprintId === sprintId) {
+      const feature = featureStore.features.find(f => f.id === alloc.featureId)
+      if (feature) {
+        items.push({ ...feature, type: 'feature' })
+      }
+    }
+  })
+
+  // SSTS
+  stage1Allocations.value.sstss.forEach(alloc => {
+    if (alloc.teamId === selectedTeamId.value && alloc.sprintId === sprintId) {
+      const ssts = sstsStore.sstsList.find(s => s.id === alloc.sstsId)
+      if (ssts) {
+        items.push({ ...ssts, type: 'ssts' })
+      }
+    }
+  })
+
+  return items
+}
+
+// 获取Sprint的Feature/SSTS负载（来自全局视角）
+function getFeatureSSTSLoad(sprint: any) {
+  const items = getStage1Items(sprint.id)
+  return items.reduce((sum, item) => {
+    if (item.type === 'feature') {
+      return sum + (item.storyPoints || 0)
+    } else {
+      return sum + getSSTSStoryPoints(item)
+    }
+  }, 0)
+}
+
+// 获取Sprint的MR负载（团队视角）
+function getMRLoad(sprint: any) {
+  const mrs = getMRsInSprint(sprint.id)
+  return mrs.reduce((sum, mr) => sum + (mr.storyPoints || 0), 0)
+}
+
+// 获取可用容量
+function getAvailableCapacity(sprint: any) {
+  const used = getFeatureSSTSLoad(sprint) + getMRLoad(sprint)
+  return Math.max(0, sprint.capacity - used)
+}
+
+// 获取负载率
+function getSprintLoadRate(sprint: any) {
+  const used = getFeatureSSTSLoad(sprint) + getMRLoad(sprint)
+  return sprint.capacity > 0 ? Math.round((used / sprint.capacity) * 100) : 0
+}
+
+function getLoadRateType(sprint: any) {
+  const rate = getSprintLoadRate(sprint)
+  if (rate > 100) return 'danger'
+  if (rate > 90) return 'warning'
+  return 'success'
+}
+
+// 获取Sprint中的SSTS（用于显示MR的所属SSTS）
+function getSprintSSTS(sprintId: string) {
+  return stage1Allocations.value.sstss
+    .filter(alloc => alloc.teamId === selectedTeamId.value && alloc.sprintId === sprintId)
+    .map(alloc => sstsStore.sstsList.find(s => s.id === alloc.sstsId))
+    .filter(Boolean)
+}
+
+// 获取该Sprint的MR（默认基于SSTS分配）
+function getMRsForSprint(sprintId: string) {
+  // 找出该Sprint中的SSTS
+  const sprintSSTSIds = stage1Allocations.value.sstss
+    .filter(alloc => alloc.teamId === selectedTeamId.value && alloc.sprintId === sprintId)
+    .map(alloc => alloc.sstsId)
+  
+  // 找出这些SSTS下的MR
+  let mrs = teamMRs.value.filter(mr => sprintSSTSIds.includes(mr.sstsId))
+  
+  // 搜索过滤
+  if (mrSearchKeyword.value) {
+    const keyword = mrSearchKeyword.value.toLowerCase()
+    mrs = mrs.filter(mr => 
+      mr.code.toLowerCase().includes(keyword) || 
+      (mr.title || mr.name || '').toLowerCase().includes(keyword)
+    )
+  }
+  
+  // 状态过滤
+  if (mrFilter.value === 'allocated') {
+    mrs = mrs.filter(mr => isMRAllocated(mr.id))
+  } else if (mrFilter.value === 'unallocated') {
+    mrs = mrs.filter(mr => !isMRAllocated(mr.id))
+  }
+  
+  return mrs
+}
+
+// 获取Sprint中已分配的MR
+function getMRsInSprint(sprintId: string) {
+  return stage2MRAllocations.value
+    .filter(alloc => alloc.sprintId === sprintId)
+    .map(alloc => teamMRs.value.find(mr => mr.id === alloc.mrId))
+    .filter(Boolean)
+}
+
+// 检查MR是否已分配
+function isMRAllocated(mrId: string) {
+  return stage2MRAllocations.value.some(alloc => alloc.mrId === mrId)
+}
+
+function handleDragStart(event: DragEvent, mr: any) {
+  draggedMR.value = mr
+  if (event.dataTransfer) {
+    event.dataTransfer.effectAllowed = 'move'
+  }
+}
+
+function handleDragOver(event: DragEvent, sprintId: string) {
+  event.preventDefault()
+  dragTargetSprintId.value = sprintId
+  if (event.dataTransfer) {
+    event.dataTransfer.dropEffect = 'move'
+  }
+}
+
+function handleDragLeave() {
+  dragTargetSprintId.value = null
+}
+
+function handleDrop(event: DragEvent, sprintId: string) {
+  event.preventDefault()
+  dragTargetSprintId.value = null
+
+  if (!draggedMR.value) return
+
+  const mr = draggedMR.value
+  const sprint = teamSprints.value.find(s => s.id === sprintId)
+
+  if (!sprint) return
+
+  // 容量检查
+  const currentLoad = getFeatureSSTSLoad(sprint) + getMRLoad(sprint)
+  const mrSP = mr.storyPoints || 0
+  
+  if (currentLoad + mrSP > sprint.capacity) {
+    ElMessage.warning(`容量不足！当前负载: ${currentLoad} SP，添加后: ${currentLoad + mrSP} SP，容量: ${sprint.capacity} SP`)
+    draggedMR.value = null
+    return
+  }
+
+  // 依赖检查
+  if (mr.dependencies && Array.isArray(mr.dependencies) && mr.dependencies.length > 0) {
+    // 处理依赖：可能是字符串数组或Dependency对象数组
+    const depIds = mr.dependencies.map((dep: any) => {
+      return typeof dep === 'string' ? dep : dep.targetId || dep.id
+    })
+    
+    const unmetDeps = depIds.filter((depId: string) => {
+      const depAlloc = stage2MRAllocations.value.find(a => a.mrId === depId)
+      if (!depAlloc) return true // 依赖未分配
+      // 检查依赖是否在更早的Sprint
+      const depSprint = teamSprints.value.find(s => s.id === depAlloc.sprintId)
+      const currentSprint = teamSprints.value.find(s => s.id === sprintId)
+      if (depSprint && currentSprint) {
+        return new Date(depSprint.endDate) > new Date(currentSprint.startDate)
+      }
+      return false
+    })
+
+    if (unmetDeps.length > 0) {
+      ElMessage.warning(`依赖未满足！请先分配依赖的MR`)
+      draggedMR.value = null
+      return
+    }
+  }
+
+  // 移除旧分配
+  const index = stage2MRAllocations.value.findIndex(a => a.mrId === mr.id)
+  if (index !== -1) {
+    stage2MRAllocations.value.splice(index, 1)
+  }
+
+  // 添加新分配
+  stage2MRAllocations.value.push({
+    mrId: mr.id,
+    sprintId
+  })
+
+  ElMessage.success('MR已分配')
+  draggedMR.value = null
+}
+
+function handleRemoveMR(mrId: string, sprintId: string) {
+  const index = stage2MRAllocations.value.findIndex(
+    a => a.mrId === mrId && a.sprintId === sprintId
+  )
+  if (index !== -1) {
+    stage2MRAllocations.value.splice(index, 1)
+    ElMessage.success('MR已移除')
+  }
+}
+
+function handleViewMR(mrId: string) {
+  router.push(`/function/c1-requirement/mr/${mrId}`)
+}
+
+function handleSaveDraft() {
+  const draft = {
+    piId,
+    teamId: selectedTeamId.value,
+    mrAllocations: stage2MRAllocations.value,
+    updatedAt: new Date().toISOString()
+  }
+  localStorage.setItem(`pi-planning-stage2-draft-${piId}-${selectedTeamId.value}`, JSON.stringify(draft))
+  ElMessage.success('草稿已保存')
+}
+
+function handleCompleteStage2() {
+  if (!selectedTeamId.value) return
+
+  ElMessageBox.confirm('确定要完成该团队的阶段2规划吗？', '确认完成', {
+    confirmButtonText: '完成',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    teamCompletionStatus.value[selectedTeamId.value] = true
+    handleSaveDraft()
+    ElMessage.success('阶段2已完成')
+    
+    // 如果所有团队都完成，提示完成PI Planning
+    if (canCompleteStage2.value) {
+      ElMessageBox.confirm('所有团队已完成阶段2，是否完成PI Planning？', '完成PI Planning', {
+        confirmButtonText: '完成',
+        cancelButtonText: '稍后',
+        type: 'success'
+      }).then(() => {
+        ElMessage.success('PI Planning已完成！')
+      }).catch(() => {})
+    }
+  }).catch(() => {})
+}
+
+function getTeamStage2Status(teamId: string) {
+  return teamCompletionStatus.value[teamId] ? 'completed' : 'in-progress'
+}
+
+// 注：虽然保留teamCompletionStatus跟踪状态，但不再强制"完成"流程
+
+// ============================================================================
+// Lifecycle
+// ============================================================================
+
+onMounted(async () => {
+  loading.value = true
+  try {
+    await piStore.fetchPIById(piId)
+    
+    // 加载全局视角的分配结果（不检查是否完成，允许随时切换）
+    const stage1Draft = localStorage.getItem(`pi-planning-stage1-draft-${piId}`)
+    if (stage1Draft) {
+      const stage1Data = JSON.parse(stage1Draft)
+    stage1Allocations.value = stage1Data.allocations || { features: [], sstss: [] }
+
+      stage1Allocations.value = stage1Data.allocations || { features: [], sstss: [] }
+    }
+
+    // 加载团队视角草稿
+    if (teams.value.length > 0) {
+      selectedTeamId.value = teams.value[0].id
+      const draft = localStorage.getItem(`pi-planning-stage2-draft-${piId}-${selectedTeamId.value}`)
+      if (draft) {
+        const draftData = JSON.parse(draft)
+        stage2MRAllocations.value = draftData.mrAllocations || []
+        teamCompletionStatus.value[selectedTeamId.value] = draftData.completed || false
+      }
+    }
+  } catch (error) {
+    ElMessage.error('加载失败')
+  } finally {
+    loading.value = false
+  }
+})
+
+// 切换团队时加载该团队的草稿
+watch(selectedTeamId, (newTeamId) => {
+  if (newTeamId) {
+    const draft = localStorage.getItem(`pi-planning-stage2-draft-${piId}-${newTeamId}`)
+    if (draft) {
+      const draftData = JSON.parse(draft)
+      stage2MRAllocations.value = draftData.mrAllocations || []
+      teamCompletionStatus.value[newTeamId] = draftData.completed || false
+    } else {
+      stage2MRAllocations.value = []
+      teamCompletionStatus.value[newTeamId] = false
+    }
+  }
+})
+</script>
+
+<style scoped>
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.action-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #303133;
+}
+
+.sprint-card {
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  background: white;
+  transition: all 0.3s;
+}
+
+.sprint-card.drop-target {
+  border-color: #67c23a;
+  background-color: #f0f9ff;
+}
+
+.sprint-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sprint-capacity {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e4e7ed;
+}
+
+.stage1-items {
+  margin-bottom: 12px;
+  padding: 8px;
+  background: #f5f7fa;
+  border-radius: 4px;
+}
+
+.stage1-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 12px;
+  color: #909399;
+}
+
+.mr-items {
+  min-height: 100px;
+}
+
+.mr-item {
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  background: white;
+  cursor: move;
+  transition: all 0.3s;
+}
+
+.mr-item:hover {
+  border-color: #409eff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.mr-title {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: #606266;
+}
+
+.mr-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.drop-hint {
+  text-align: center;
+  color: #c0c4cc;
+  font-size: 12px;
+  padding: 20px;
+  border: 1px dashed #dcdfe6;
+  border-radius: 4px;
+}
+
+.mr-group {
+  margin-bottom: 24px;
+}
+
+.mr-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e4e7ed;
+}
+
+.ssts-info {
+  margin-bottom: 8px;
+  padding: 8px;
+  background: #f5f7fa;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.mr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mr-card {
+  padding: 12px;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  background: white;
+  cursor: move;
+  transition: all 0.3s;
+}
+
+.mr-card:hover {
+  border-color: #409eff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mr-card.allocated {
+  border-left: 3px solid #67c23a;
+  background: #f0f9ff;
+}
+
+.mr-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.mr-card-title {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #606266;
+}
+
+.mr-card-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.mr-card-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #909399;
+}
+</style>

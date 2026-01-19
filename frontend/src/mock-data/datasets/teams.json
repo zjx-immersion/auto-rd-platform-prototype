@@ -1,0 +1,34 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-01-19T12:00:00Z",
+  "description": "Team数据集 - 团队",
+  "data": [
+    {
+      "id": "team-001",
+      "code": "TEAM-001",
+      "name": "ACC团队",
+      "capacity": 100,
+      "lead": "user-001",
+      "members": ["user-001", "user-002"],
+      "description": "负责ACC（自适应巡航控制）功能开发"
+    },
+    {
+      "id": "team-002",
+      "code": "TEAM-002",
+      "name": "APA团队",
+      "capacity": 100,
+      "lead": "user-002",
+      "members": ["user-002", "user-003"],
+      "description": "负责APA（自动泊车辅助）功能开发"
+    },
+    {
+      "id": "team-003",
+      "code": "TEAM-003",
+      "name": "LKA团队",
+      "capacity": 100,
+      "lead": "user-003",
+      "members": ["user-003", "user-004"],
+      "description": "负责LKA（车道保持辅助）功能开发"
+    }
+  ]
+}

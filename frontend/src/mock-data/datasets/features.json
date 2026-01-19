@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-01-17T12:00:00Z",
+  "updatedAt": "2026-01-19T21:42:53.962941Z",
   "description": "Feature数据集 - Epic拆解的功能特性",
   "data": [
     {
@@ -36,7 +36,8 @@
       "createdBy": "user-001",
       "updatedBy": "user-002",
       "productId": "prod-001",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-001"
     },
     {
       "id": "feat-002",
@@ -71,7 +72,8 @@
       "createdBy": "user-001",
       "updatedBy": "user-002",
       "productId": "prod-001",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-002"
     },
     {
       "id": "feat-003",
@@ -88,7 +90,7 @@
       "estimate": "10周",
       "status": "in-progress",
       "targetVersion": "ver-001",
-      "targetPI": "pi-002",
+      "targetPI": "pi-001",
       "owner": "user-002",
       "sstsIds": [],
       "prd": {
@@ -106,7 +108,8 @@
       "createdBy": "user-001",
       "updatedBy": "user-002",
       "productId": "prod-001",
-      "version": "1.1"
+      "version": "1.1",
+      "targetSprint": "sprint-pi001-003"
     },
     {
       "id": "feat-004",
@@ -123,7 +126,7 @@
       "estimate": "8周",
       "status": "committed",
       "targetVersion": "ver-002",
-      "targetPI": "pi-003",
+      "targetPI": "pi-001",
       "owner": "user-002",
       "sstsIds": [],
       "prd": {
@@ -141,7 +144,8 @@
       "createdBy": "user-001",
       "updatedBy": "user-002",
       "productId": "prod-002",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-004"
     },
     {
       "id": "feat-005",
@@ -158,7 +162,7 @@
       "estimate": "9周",
       "status": "committed",
       "targetVersion": "ver-002",
-      "targetPI": "pi-003",
+      "targetPI": "pi-001",
       "owner": "user-002",
       "sstsIds": [],
       "prd": {
@@ -176,7 +180,8 @@
       "createdBy": "user-001",
       "updatedBy": "user-002",
       "productId": "prod-003",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-004"
     },
     {
       "id": "feat-006",
@@ -193,7 +198,7 @@
       "estimate": "7周",
       "status": "in-progress",
       "targetVersion": "ver-002",
-      "targetPI": "pi-002",
+      "targetPI": "pi-001",
       "owner": "user-002",
       "sstsIds": [],
       "prd": {
@@ -210,7 +215,8 @@
       "createdBy": "user-001",
       "updatedBy": "user-002",
       "productId": "prod-004",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-003"
     },
     {
       "id": "feat-007",
@@ -227,7 +233,7 @@
       "estimate": "6周",
       "status": "in-progress",
       "targetVersion": "ver-003",
-      "targetPI": "pi-002",
+      "targetPI": "pi-001",
       "owner": "user-003",
       "sstsIds": [],
       "prd": {
@@ -245,7 +251,8 @@
       "createdBy": "user-004",
       "updatedBy": "user-003",
       "productId": "prod-005",
-      "version": "2.0"
+      "version": "2.0",
+      "targetSprint": "sprint-002"
     },
     {
       "id": "feat-008",
@@ -262,7 +269,7 @@
       "estimate": "8周",
       "status": "in-progress",
       "targetVersion": "ver-003",
-      "targetPI": "pi-002",
+      "targetPI": "pi-001",
       "owner": "user-003",
       "sstsIds": [],
       "prd": {
@@ -280,7 +287,8 @@
       "createdBy": "user-004",
       "updatedBy": "user-003",
       "productId": "prod-005",
-      "version": "2.1"
+      "version": "2.1",
+      "targetSprint": "sprint-pi001-003"
     },
     {
       "id": "feat-009",
@@ -297,7 +305,7 @@
       "estimate": "7周",
       "status": "committed",
       "targetVersion": "ver-004",
-      "targetPI": "pi-003",
+      "targetPI": "pi-001",
       "owner": "user-003",
       "sstsIds": [],
       "prd": {
@@ -315,7 +323,8 @@
       "createdBy": "user-004",
       "updatedBy": "user-003",
       "productId": "prod-006",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-005"
     },
     {
       "id": "feat-010",
@@ -367,7 +376,7 @@
       "estimate": "8周",
       "status": "backlog",
       "targetVersion": null,
-      "targetPI": null,
+      "targetPI": "pi-001",
       "owner": "user-001",
       "sstsIds": [],
       "prd": {
@@ -385,7 +394,8 @@
       "createdBy": "user-001",
       "updatedBy": "user-001",
       "productId": "prod-009",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-003"
     },
     {
       "id": "feat-012",
@@ -402,7 +412,7 @@
       "estimate": "10周",
       "status": "backlog",
       "targetVersion": null,
-      "targetPI": null,
+      "targetPI": "pi-001",
       "owner": "user-001",
       "sstsIds": [],
       "prd": {
@@ -420,7 +430,8 @@
       "createdBy": "user-001",
       "updatedBy": "user-001",
       "productId": "prod-009",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-005"
     },
     {
       "id": "feat-013",
@@ -437,7 +448,7 @@
       "estimate": "6周",
       "status": "backlog",
       "targetVersion": null,
-      "targetPI": null,
+      "targetPI": "pi-001",
       "owner": "user-001",
       "sstsIds": [],
       "prd": {
@@ -455,7 +466,8 @@
       "createdBy": "user-001",
       "updatedBy": "user-001",
       "productId": "prod-009",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-006"
     },
     {
       "id": "feat-014",
@@ -472,7 +484,7 @@
       "estimate": "7周",
       "status": "backlog",
       "targetVersion": null,
-      "targetPI": null,
+      "targetPI": "pi-001",
       "owner": "user-004",
       "sstsIds": [],
       "prd": {
@@ -490,7 +502,8 @@
       "createdBy": "user-004",
       "updatedBy": "user-004",
       "productId": "prod-007",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-005"
     },
     {
       "id": "feat-015",
@@ -507,7 +520,7 @@
       "estimate": "7周",
       "status": "backlog",
       "targetVersion": null,
-      "targetPI": null,
+      "targetPI": "pi-001",
       "owner": "user-004",
       "sstsIds": [],
       "prd": {
@@ -525,7 +538,8 @@
       "createdBy": "user-004",
       "updatedBy": "user-004",
       "productId": "prod-007",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-005"
     },
     {
       "id": "feat-016",
@@ -542,7 +556,7 @@
       "estimate": "9周",
       "status": "backlog",
       "targetVersion": null,
-      "targetPI": null,
+      "targetPI": "pi-001",
       "owner": "user-004",
       "sstsIds": [],
       "prd": {
@@ -560,7 +574,8 @@
       "createdBy": "user-004",
       "updatedBy": "user-004",
       "productId": "prod-007",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-006"
     },
     {
       "id": "feat-017",
@@ -577,7 +592,7 @@
       "estimate": "11周",
       "status": "backlog",
       "targetVersion": null,
-      "targetPI": null,
+      "targetPI": "pi-001",
       "owner": "user-005",
       "sstsIds": [],
       "prd": {
@@ -595,7 +610,8 @@
       "createdBy": "user-005",
       "updatedBy": "user-005",
       "productId": "prod-010",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-006"
     },
     {
       "id": "feat-018",
@@ -612,7 +628,7 @@
       "estimate": "8周",
       "status": "backlog",
       "targetVersion": null,
-      "targetPI": null,
+      "targetPI": "pi-001",
       "owner": "user-005",
       "sstsIds": [],
       "prd": {
@@ -630,7 +646,8 @@
       "createdBy": "user-005",
       "updatedBy": "user-005",
       "productId": "prod-010",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-005"
     },
     {
       "id": "feat-019",
@@ -647,7 +664,7 @@
       "estimate": "9周",
       "status": "backlog",
       "targetVersion": null,
-      "targetPI": null,
+      "targetPI": "pi-001",
       "owner": "user-005",
       "sstsIds": [],
       "prd": {
@@ -665,7 +682,8 @@
       "createdBy": "user-005",
       "updatedBy": "user-005",
       "productId": "prod-010",
-      "version": "1.0"
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-006"
     },
     {
       "id": "feat-020",
@@ -682,7 +700,7 @@
       "estimate": "10周",
       "status": "backlog",
       "targetVersion": null,
-      "targetPI": null,
+      "targetPI": "pi-001",
       "owner": "user-001",
       "sstsIds": [],
       "prd": {
@@ -700,7 +718,8 @@
       "createdBy": "user-001",
       "updatedBy": "user-001",
       "productId": "prod-011",
-      "version": "0.5"
+      "version": "0.5",
+      "targetSprint": "sprint-pi001-004"
     },
     {
       "id": "feat-021",
@@ -717,7 +736,7 @@
       "estimate": "7周",
       "status": "backlog",
       "targetVersion": null,
-      "targetPI": null,
+      "targetPI": "pi-001",
       "owner": "user-001",
       "sstsIds": [],
       "prd": {
@@ -735,7 +754,8 @@
       "createdBy": "user-001",
       "updatedBy": "user-001",
       "productId": "prod-011",
-      "version": "0.5"
+      "version": "0.5",
+      "targetSprint": "sprint-pi001-005"
     },
     {
       "id": "feat-022",
@@ -752,7 +772,7 @@
       "estimate": "7周",
       "status": "backlog",
       "targetVersion": null,
-      "targetPI": null,
+      "targetPI": "pi-001",
       "owner": "user-001",
       "sstsIds": [],
       "prd": {
@@ -770,7 +790,296 @@
       "createdBy": "user-001",
       "updatedBy": "user-001",
       "productId": "prod-011",
-      "version": "0.5"
+      "version": "0.5",
+      "targetSprint": "sprint-pi001-006"
+    },
+    {
+      "id": "feat-023",
+      "code": "FEAT-023",
+      "name": "360度环视系统",
+      "epicId": "epic-003",
+      "projectId": "proj-001",
+      "description": "实现4摄像头360度全景环视功能",
+      "productLine": "智能驾驶",
+      "product": "泊车算法",
+      "priority": "high",
+      "complexity": "medium",
+      "storyPoints": 28,
+      "estimate": "5周",
+      "status": "backlog",
+      "targetVersion": null,
+      "targetPI": "pi-001",
+      "owner": "user-002",
+      "sstsIds": [],
+      "prd": {
+        "content": "<h2>360环视需求</h2><p>实现4摄像头拼接...</p>",
+        "version": "1.0",
+        "status": "draft"
+      },
+      "tags": [
+        "环视",
+        "AVM",
+        "泊车"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "createdBy": "user-002",
+      "updatedBy": "user-002",
+      "productId": "prod-004",
+      "version": "1.0",
+      "targetSprint": "sprint-001"
+    },
+    {
+      "id": "feat-024",
+      "code": "FEAT-024",
+      "name": "记忆泊车",
+      "epicId": "epic-003",
+      "projectId": "proj-001",
+      "description": "实现固定停车位的记忆泊车功能",
+      "productLine": "智能驾驶",
+      "product": "泊车算法",
+      "priority": "medium",
+      "complexity": "high",
+      "storyPoints": 48,
+      "estimate": "9周",
+      "status": "backlog",
+      "targetVersion": null,
+      "targetPI": "pi-001",
+      "owner": "user-002",
+      "sstsIds": [],
+      "prd": {
+        "content": "<h2>记忆泊车需求</h2><p>学习泊车路径...</p>",
+        "version": "1.0",
+        "status": "in-review"
+      },
+      "tags": [
+        "记忆泊车",
+        "RPA",
+        "L4"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "createdBy": "user-002",
+      "updatedBy": "user-002",
+      "productId": "prod-004",
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-005"
+    },
+    {
+      "id": "feat-025",
+      "code": "FEAT-025",
+      "name": "情感化TTS合成",
+      "epicId": "epic-004",
+      "projectId": "proj-002",
+      "description": "实现带情感表达的语音合成功能",
+      "productLine": "智能座舱",
+      "product": "语音交互系统",
+      "priority": "medium",
+      "complexity": "medium",
+      "storyPoints": 30,
+      "estimate": "5周",
+      "status": "backlog",
+      "targetVersion": null,
+      "targetPI": "pi-001",
+      "owner": "user-003",
+      "sstsIds": [],
+      "prd": {
+        "content": "<h2>情感TTS需求</h2><p>支持多种情感表达...</p>",
+        "version": "1.0",
+        "status": "approved"
+      },
+      "tags": [
+        "TTS",
+        "语音",
+        "情感"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "createdBy": "user-003",
+      "updatedBy": "user-003",
+      "productId": "prod-005",
+      "version": "2.1",
+      "targetSprint": "sprint-pi001-004"
+    },
+    {
+      "id": "feat-026",
+      "code": "FEAT-026",
+      "name": "声纹识别",
+      "epicId": "epic-004",
+      "projectId": "proj-002",
+      "description": "实现基于声纹的用户身份识别",
+      "productLine": "智能座舱",
+      "product": "语音交互系统",
+      "priority": "low",
+      "complexity": "high",
+      "storyPoints": 40,
+      "estimate": "7周",
+      "status": "backlog",
+      "targetVersion": null,
+      "targetPI": "pi-001",
+      "owner": "user-003",
+      "sstsIds": [],
+      "prd": {
+        "content": "<h2>声纹识别需求</h2><p>声纹特征提取...</p>",
+        "version": "0.9",
+        "status": "draft"
+      },
+      "tags": [
+        "声纹",
+        "识别",
+        "安全"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "createdBy": "user-003",
+      "updatedBy": "user-003",
+      "productId": "prod-005",
+      "version": "2.1",
+      "targetSprint": "sprint-pi001-006"
+    },
+    {
+      "id": "feat-027",
+      "code": "FEAT-027",
+      "name": "AR驾驶辅助提示",
+      "epicId": "epic-005",
+      "projectId": "proj-002",
+      "description": "在AR-HUD上显示ADAS功能状态和提示",
+      "productLine": "智能座舱",
+      "product": "AR-HUD系统",
+      "priority": "high",
+      "complexity": "medium",
+      "storyPoints": 32,
+      "estimate": "6周",
+      "status": "backlog",
+      "targetVersion": null,
+      "targetPI": "pi-001",
+      "owner": "user-003",
+      "sstsIds": [],
+      "prd": {
+        "content": "<h2>AR驾驶辅助需求</h2><p>实时叠加ADAS信息...</p>",
+        "version": "1.0",
+        "status": "in-review"
+      },
+      "tags": [
+        "AR",
+        "HUD",
+        "ADAS"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "createdBy": "user-003",
+      "updatedBy": "user-003",
+      "productId": "prod-006",
+      "version": "1.3",
+      "targetSprint": "sprint-001"
+    },
+    {
+      "id": "feat-028",
+      "code": "FEAT-028",
+      "name": "AR车道线投射",
+      "epicId": "epic-005",
+      "projectId": "proj-002",
+      "description": "在AR-HUD上投射车道线和车道保持提示",
+      "productLine": "智能座舱",
+      "product": "AR-HUD系统",
+      "priority": "high",
+      "complexity": "high",
+      "storyPoints": 44,
+      "estimate": "8周",
+      "status": "backlog",
+      "targetVersion": null,
+      "targetPI": "pi-001",
+      "owner": "user-003",
+      "sstsIds": [],
+      "prd": {
+        "content": "<h2>AR车道线需求</h2><p>实时车道线识别和投射...</p>",
+        "version": "1.0",
+        "status": "approved"
+      },
+      "tags": [
+        "AR",
+        "车道线",
+        "HUD"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "createdBy": "user-003",
+      "updatedBy": "user-003",
+      "productId": "prod-006",
+      "version": "1.3",
+      "targetSprint": "sprint-002"
+    },
+    {
+      "id": "feat-029",
+      "code": "FEAT-029",
+      "name": "疲劳检测预警",
+      "epicId": "epic-008",
+      "projectId": "proj-002",
+      "description": "基于眼动和人脸识别的疲劳检测",
+      "productLine": "智能座舱",
+      "product": "多模交互",
+      "priority": "high",
+      "complexity": "medium",
+      "storyPoints": 35,
+      "estimate": "6周",
+      "status": "backlog",
+      "targetVersion": null,
+      "targetPI": "pi-001",
+      "owner": "user-004",
+      "sstsIds": [],
+      "prd": {
+        "content": "<h2>疲劳检测需求</h2><p>实时检测驾驶员疲劳状态...</p>",
+        "version": "1.0",
+        "status": "approved"
+      },
+      "tags": [
+        "疲劳",
+        "监测",
+        "安全"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "createdBy": "user-004",
+      "updatedBy": "user-004",
+      "productId": "prod-007",
+      "version": "1.0",
+      "targetSprint": "sprint-002"
+    },
+    {
+      "id": "feat-030",
+      "code": "FEAT-030",
+      "name": "驾驶模式自适应",
+      "epicId": "epic-008",
+      "projectId": "proj-002",
+      "description": "根据驾驶员状态自适应调整驾驶模式",
+      "productLine": "智能座舱",
+      "product": "多模交互",
+      "priority": "medium",
+      "complexity": "high",
+      "storyPoints": 42,
+      "estimate": "7周",
+      "status": "backlog",
+      "targetVersion": null,
+      "targetPI": "pi-001",
+      "owner": "user-004",
+      "sstsIds": [],
+      "prd": {
+        "content": "<h2>模式自适应需求</h2><p>智能调整驾驶体验...</p>",
+        "version": "0.9",
+        "status": "draft"
+      },
+      "tags": [
+        "自适应",
+        "驾驶",
+        "AI"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "createdBy": "user-004",
+      "updatedBy": "user-004",
+      "productId": "prod-007",
+      "version": "1.0",
+      "targetSprint": "sprint-pi001-003"
     }
   ]
 }

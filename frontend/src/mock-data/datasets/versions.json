@@ -122,6 +122,126 @@
       "updatedAt": "2026-01-17T12:00:00Z",
       "createdBy": "user-005",
       "updatedBy": "user-005"
+    },
+    {
+      "id": "ver-007",
+      "code": "V1.5",
+      "name": "智驾1.5 - 高速增强",
+      "projectId": "proj-001",
+      "description": "智驾1.0增强版，优化高速NOA性能和用户体验",
+      "startDate": "2026-04-01",
+      "releaseDate": "2026-08-31",
+      "status": "planning",
+      "featureIds": [],
+      "metadata": {
+        "targetVehicles": ["岚图FREE 2026款"],
+        "marketRegions": ["中国大陆"],
+        "releaseNotes": "1. 优化变道决策\n2. 提升舒适度\n3. 增强雨天性能\n4. 支持更多高速场景"
+      },
+      "createdAt": "2026-01-10T08:00:00Z",
+      "updatedAt": "2026-01-19T14:00:00Z",
+      "createdBy": "user-001",
+      "updatedBy": "user-001"
+    },
+    {
+      "id": "ver-008",
+      "code": "V3.0",
+      "name": "智驾3.0 - 全场景自动驾驶",
+      "projectId": "proj-001",
+      "description": "第三代智驾系统，支持全场景自动驾驶",
+      "startDate": "2027-01-01",
+      "releaseDate": "2027-06-30",
+      "status": "planning",
+      "featureIds": [],
+      "metadata": {
+        "targetVehicles": ["岚图FREE 2027款", "岚图追光 2027款", "岚图梦想家 2027款"],
+        "marketRegions": ["中国大陆", "欧洲"],
+        "releaseNotes": "1. 全场景NOA\n2. 城市拥堵辅助\n3. 无图NOA\n4. 端到端大模型"
+      },
+      "createdAt": "2026-01-15T08:00:00Z",
+      "updatedAt": "2026-01-19T14:00:00Z",
+      "createdBy": "user-001",
+      "updatedBy": "user-001"
+    },
+    {
+      "id": "ver-009",
+      "code": "V1.0",
+      "name": "ADAS基础版",
+      "projectId": "proj-001",
+      "description": "ADAS基础功能包，包含L2级驾驶辅助",
+      "startDate": "2025-11-01",
+      "releaseDate": "2026-03-31",
+      "status": "completed",
+      "featureIds": [],
+      "metadata": {
+        "targetVehicles": ["岚图FREE 2025款"],
+        "marketRegions": ["中国大陆"],
+        "releaseNotes": "1. ACC自适应巡航\n2. LKA车道保持\n3. AEB自动紧急制动\n4. BSD盲区监测"
+      },
+      "createdAt": "2025-11-01T08:00:00Z",
+      "updatedAt": "2026-01-19T14:00:00Z",
+      "createdBy": "user-001",
+      "updatedBy": "user-001"
+    },
+    {
+      "id": "ver-010",
+      "code": "V1.2",
+      "name": "ADAS增强版",
+      "projectId": "proj-001",
+      "description": "ADAS增强功能包，增加更多辅助功能",
+      "startDate": "2026-04-01",
+      "releaseDate": "2026-07-31",
+      "status": "planning",
+      "featureIds": [],
+      "metadata": {
+        "targetVehicles": ["岚图FREE 2026款", "岚图追光 2026款"],
+        "marketRegions": ["中国大陆"],
+        "releaseNotes": "1. TJA交通拥堵辅助\n2. ICA智能巡航辅助\n3. APA自动泊车\n4. RPA遥控泊车"
+      },
+      "createdAt": "2026-01-01T08:00:00Z",
+      "updatedAt": "2026-01-19T14:00:00Z",
+      "createdBy": "user-001",
+      "updatedBy": "user-001"
+    },
+    {
+      "id": "ver-011",
+      "code": "V1.5",
+      "name": "座舱3.0 - 中期改款",
+      "projectId": "proj-002",
+      "description": "座舱3.0中期改款，优化性能和用户体验",
+      "startDate": "2026-06-01",
+      "releaseDate": "2026-09-30",
+      "status": "planning",
+      "featureIds": [],
+      "metadata": {
+        "targetVehicles": ["岚图追光 2026款"],
+        "marketRegions": ["中国大陆"],
+        "releaseNotes": "1. 优化语音识别\n2. 增强多屏交互\n3. 新增车家互联\n4. 性能优化"
+      },
+      "createdAt": "2026-02-15T08:00:00Z",
+      "updatedAt": "2026-01-19T14:00:00Z",
+      "createdBy": "user-004",
+      "updatedBy": "user-004"
+    },
+    {
+      "id": "ver-012",
+      "code": "V3.0",
+      "name": "座舱3.0 - 旗舰版",
+      "projectId": "proj-002",
+      "description": "座舱3.0旗舰版，集成所有高级功能",
+      "startDate": "2026-12-01",
+      "releaseDate": "2027-03-31",
+      "status": "planning",
+      "featureIds": [],
+      "metadata": {
+        "targetVehicles": ["岚图梦想家 2027款"],
+        "marketRegions": ["中国大陆", "欧洲", "北美"],
+        "releaseNotes": "1. AI副驾驶\n2. 全息投影\n3. 沉浸式音响\n4. 智能香氛系统"
+      },
+      "createdAt": "2026-02-20T08:00:00Z",
+      "updatedAt": "2026-01-19T14:00:00Z",
+      "createdBy": "user-004",
+      "updatedBy": "user-004"
     }
   ]
 }

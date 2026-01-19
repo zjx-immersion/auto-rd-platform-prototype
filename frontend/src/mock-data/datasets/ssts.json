@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updatedAt": "2026-01-17T12:00:00Z",
+  "updatedAt": "2026-01-19T23:12:37.076740Z",
   "description": "SSTS（系统级技术规格）数据集 - Feature拆解的技术需求",
   "data": [
     {
@@ -13,7 +13,7 @@
       "complexity": "high",
       "estimate": "2周",
       "status": "done",
-      "assignedTeam": "team-001",
+      "assignedTeam": "team-002",
       "targetPI": "pi-001",
       "dependencies": [],
       "createdAt": "2025-12-10T08:00:00Z",
@@ -30,7 +30,7 @@
       "complexity": "high",
       "estimate": "2周",
       "status": "done",
-      "assignedTeam": "team-001",
+      "assignedTeam": "team-002",
       "targetPI": "pi-001",
       "dependencies": [
         "ssts-001"
@@ -85,7 +85,7 @@
       "complexity": "high",
       "estimate": "3周",
       "status": "in-progress",
-      "assignedTeam": "team-001",
+      "assignedTeam": "team-002",
       "targetPI": "pi-002",
       "dependencies": [],
       "createdAt": "2026-01-05T08:00:00Z",
@@ -102,7 +102,7 @@
       "complexity": "high",
       "estimate": "3周",
       "status": "committed",
-      "assignedTeam": "team-001",
+      "assignedTeam": "team-002",
       "targetPI": "pi-002",
       "dependencies": [
         "ssts-005"
@@ -138,7 +138,7 @@
       "complexity": "medium",
       "estimate": "2周",
       "status": "committed",
-      "assignedTeam": "team-001",
+      "assignedTeam": "team-002",
       "targetPI": "pi-003",
       "dependencies": [
         "ssts-007"
@@ -284,7 +284,7 @@
       "complexity": "high",
       "estimate": "3周",
       "status": "backlog",
-      "assignedTeam": null,
+      "assignedTeam": "team-002",
       "targetPI": null,
       "dependencies": [],
       "createdAt": "2026-01-18T08:00:00Z",
@@ -301,7 +301,7 @@
       "complexity": "medium",
       "estimate": "2周",
       "status": "backlog",
-      "assignedTeam": null,
+      "assignedTeam": "team-002",
       "targetPI": null,
       "dependencies": [
         "ssts-016"
@@ -320,7 +320,7 @@
       "complexity": "high",
       "estimate": "4周",
       "status": "backlog",
-      "assignedTeam": null,
+      "assignedTeam": "team-002",
       "targetPI": null,
       "dependencies": [],
       "createdAt": "2026-01-18T08:00:00Z",
@@ -337,7 +337,7 @@
       "complexity": "high",
       "estimate": "3周",
       "status": "backlog",
-      "assignedTeam": null,
+      "assignedTeam": "team-002",
       "targetPI": null,
       "dependencies": [],
       "createdAt": "2026-01-18T08:00:00Z",
@@ -354,7 +354,7 @@
       "complexity": "high",
       "estimate": "4周",
       "status": "backlog",
-      "assignedTeam": null,
+      "assignedTeam": "team-002",
       "targetPI": null,
       "dependencies": [],
       "createdAt": "2026-01-18T08:00:00Z",
@@ -668,7 +668,7 @@
       "complexity": "high",
       "estimate": "4周",
       "status": "committed",
-      "assignedTeam": "team-001",
+      "assignedTeam": "team-003",
       "targetPI": "pi-003",
       "dependencies": [],
       "createdAt": "2026-01-19T10:00:00Z",
@@ -685,7 +685,7 @@
       "complexity": "high",
       "estimate": "3周",
       "status": "committed",
-      "assignedTeam": "team-001",
+      "assignedTeam": "team-003",
       "targetPI": "pi-003",
       "dependencies": [
         "ssts-037"
@@ -704,7 +704,7 @@
       "complexity": "high",
       "estimate": "3周",
       "status": "planning",
-      "assignedTeam": "team-001",
+      "assignedTeam": "team-003",
       "targetPI": "pi-003",
       "dependencies": [
         "ssts-038"
@@ -767,6 +767,526 @@
       "createdAt": "2026-01-19T10:00:00Z",
       "updatedAt": "2026-01-19T10:00:00Z",
       "version": "0.5"
+    },
+    {
+      "id": "ssts-005",
+      "code": "SSTS-005",
+      "title": "ACC控制器核心算法",
+      "featureId": "feat-001",
+      "moduleName": "ACC控制模块",
+      "description": "实现ACC速度和距离控制算法",
+      "estimate": "3周",
+      "storyPoints": 13,
+      "priority": "high",
+      "status": "done",
+      "owner": "user-002",
+      "targetPI": "pi-001",
+      "dependencies": [],
+      "tags": [
+        "ACC",
+        "控制算法"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-001",
+      "version": "1.0"
+    },
+    {
+      "id": "ssts-006",
+      "code": "SSTS-006",
+      "title": "ACC雷达数据处理",
+      "featureId": "feat-001",
+      "moduleName": "传感器融合",
+      "description": "处理毫米波雷达数据，提取目标信息",
+      "estimate": "2周",
+      "storyPoints": 8,
+      "priority": "high",
+      "status": "done",
+      "owner": "user-002",
+      "targetPI": "pi-001",
+      "dependencies": [],
+      "tags": [
+        "ACC",
+        "雷达"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-001",
+      "version": "1.0"
+    },
+    {
+      "id": "ssts-007",
+      "code": "SSTS-007",
+      "title": "ACC人机交互界面",
+      "featureId": "feat-001",
+      "moduleName": "HMI模块",
+      "description": "实现ACC功能的开关、设置和状态显示",
+      "estimate": "2周",
+      "storyPoints": 5,
+      "priority": "medium",
+      "status": "done",
+      "owner": "user-003",
+      "targetPI": "pi-001",
+      "dependencies": [
+        {
+          "id": "dep-005",
+          "targetId": "ssts-005",
+          "type": "strong"
+        }
+      ],
+      "tags": [
+        "ACC",
+        "HMI"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-001",
+      "version": "1.0"
+    },
+    {
+      "id": "ssts-008",
+      "code": "SSTS-008",
+      "title": "ACC故障诊断",
+      "featureId": "feat-001",
+      "moduleName": "诊断模块",
+      "description": "实现ACC系统的故障检测和诊断",
+      "estimate": "1周",
+      "storyPoints": 3,
+      "priority": "medium",
+      "status": "done",
+      "owner": "user-002",
+      "targetPI": "pi-001",
+      "dependencies": [
+        {
+          "id": "dep-006",
+          "targetId": "ssts-005",
+          "type": "strong"
+        }
+      ],
+      "tags": [
+        "ACC",
+        "诊断"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-001",
+      "version": "1.0"
+    },
+    {
+      "id": "ssts-009",
+      "code": "SSTS-009",
+      "title": "4摄像头图像采集",
+      "featureId": "feat-023",
+      "moduleName": "图像采集",
+      "description": "实现4个环视摄像头的图像采集和同步",
+      "estimate": "2周",
+      "storyPoints": 8,
+      "priority": "high",
+      "status": "backlog",
+      "owner": "user-002",
+      "targetPI": "pi-001",
+      "dependencies": [],
+      "tags": [
+        "环视",
+        "采集"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-004",
+      "version": "1.0"
+    },
+    {
+      "id": "ssts-010",
+      "code": "SSTS-010",
+      "title": "图像拼接算法",
+      "featureId": "feat-023",
+      "moduleName": "图像处理",
+      "description": "实现4图像无缝拼接算法",
+      "estimate": "2周",
+      "storyPoints": 10,
+      "priority": "high",
+      "status": "backlog",
+      "owner": "user-002",
+      "targetPI": "pi-001",
+      "dependencies": [
+        {
+          "id": "dep-007",
+          "targetId": "ssts-009",
+          "type": "strong"
+        }
+      ],
+      "tags": [
+        "环视",
+        "拼接"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-004",
+      "version": "1.0"
+    },
+    {
+      "id": "ssts-011",
+      "code": "SSTS-011",
+      "title": "环视HMI显示",
+      "featureId": "feat-023",
+      "moduleName": "HMI模块",
+      "description": "实现360环视图像的显示和交互",
+      "estimate": "1周",
+      "storyPoints": 5,
+      "priority": "medium",
+      "status": "backlog",
+      "owner": "user-003",
+      "targetPI": "pi-001",
+      "dependencies": [
+        {
+          "id": "dep-008",
+          "targetId": "ssts-010",
+          "type": "strong"
+        }
+      ],
+      "tags": [
+        "环视",
+        "HMI"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-004",
+      "version": "1.0"
+    },
+    {
+      "id": "ssts-012",
+      "code": "SSTS-012",
+      "title": "泊车路径学习",
+      "featureId": "feat-024",
+      "moduleName": "路径规划",
+      "description": "记录和学习固定泊车位的行驶路径",
+      "estimate": "3周",
+      "storyPoints": 15,
+      "priority": "high",
+      "status": "backlog",
+      "owner": "user-002",
+      "targetPI": "pi-001",
+      "dependencies": [],
+      "tags": [
+        "记忆泊车",
+        "学习"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-004",
+      "version": "1.0"
+    },
+    {
+      "id": "ssts-013",
+      "code": "SSTS-013",
+      "title": "自动复现泊车",
+      "featureId": "feat-024",
+      "moduleName": "路径跟踪",
+      "description": "自动复现学习的泊车路径",
+      "estimate": "3周",
+      "storyPoints": 18,
+      "priority": "high",
+      "status": "backlog",
+      "owner": "user-002",
+      "targetPI": "pi-001",
+      "dependencies": [
+        {
+          "id": "dep-009",
+          "targetId": "ssts-012",
+          "type": "strong"
+        }
+      ],
+      "tags": [
+        "记忆泊车",
+        "复现"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-004",
+      "version": "1.0"
+    },
+    {
+      "id": "ssts-014",
+      "code": "SSTS-014",
+      "title": "环境变化检测",
+      "featureId": "feat-024",
+      "moduleName": "感知模块",
+      "description": "检测泊车环境变化，判断是否可执行",
+      "estimate": "2周",
+      "storyPoints": 10,
+      "priority": "high",
+      "status": "backlog",
+      "owner": "user-002",
+      "targetPI": "pi-001",
+      "dependencies": [],
+      "tags": [
+        "记忆泊车",
+        "感知"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-004",
+      "version": "1.0"
+    },
+    {
+      "id": "ssts-015",
+      "code": "SSTS-015",
+      "title": "情感参数模型",
+      "featureId": "feat-025",
+      "moduleName": "TTS引擎",
+      "description": "建立情感表达的声学参数模型",
+      "estimate": "2周",
+      "storyPoints": 12,
+      "priority": "medium",
+      "status": "backlog",
+      "owner": "user-003",
+      "targetPI": "pi-001",
+      "dependencies": [],
+      "tags": [
+        "TTS",
+        "情感"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-005",
+      "version": "2.1"
+    },
+    {
+      "id": "ssts-016",
+      "code": "SSTS-016",
+      "title": "情感合成引擎",
+      "featureId": "feat-025",
+      "moduleName": "TTS引擎",
+      "description": "实现支持情感表达的TTS合成",
+      "estimate": "2周",
+      "storyPoints": 13,
+      "priority": "medium",
+      "status": "backlog",
+      "owner": "user-003",
+      "targetPI": "pi-001",
+      "dependencies": [
+        {
+          "id": "dep-010",
+          "targetId": "ssts-015",
+          "type": "strong"
+        }
+      ],
+      "tags": [
+        "TTS",
+        "合成"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-005",
+      "version": "2.1"
+    },
+    {
+      "id": "ssts-017",
+      "code": "SSTS-017",
+      "title": "ADAS状态信息提取",
+      "featureId": "feat-027",
+      "moduleName": "数据接口",
+      "description": "从ADAS模块提取状态和提示信息",
+      "estimate": "1周",
+      "storyPoints": 5,
+      "priority": "high",
+      "status": "backlog",
+      "owner": "user-003",
+      "targetPI": "pi-001",
+      "dependencies": [],
+      "tags": [
+        "AR",
+        "ADAS"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-006",
+      "version": "1.3"
+    },
+    {
+      "id": "ssts-018",
+      "code": "SSTS-018",
+      "title": "AR图形渲染",
+      "featureId": "feat-027",
+      "moduleName": "AR渲染",
+      "description": "在HUD上渲染ADAS辅助图形",
+      "estimate": "3周",
+      "storyPoints": 15,
+      "priority": "high",
+      "status": "backlog",
+      "owner": "user-003",
+      "targetPI": "pi-001",
+      "dependencies": [
+        {
+          "id": "dep-011",
+          "targetId": "ssts-017",
+          "type": "strong"
+        }
+      ],
+      "tags": [
+        "AR",
+        "渲染"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-006",
+      "version": "1.3"
+    },
+    {
+      "id": "ssts-019",
+      "code": "SSTS-019",
+      "title": "AR透视对齐",
+      "featureId": "feat-027",
+      "moduleName": "AR渲染",
+      "description": "实现AR图形与真实世界的准确对齐",
+      "estimate": "2周",
+      "storyPoints": 10,
+      "priority": "high",
+      "status": "backlog",
+      "owner": "user-003",
+      "targetPI": "pi-001",
+      "dependencies": [],
+      "tags": [
+        "AR",
+        "对齐"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-006",
+      "version": "1.3"
+    },
+    {
+      "id": "ssts-020",
+      "code": "SSTS-020",
+      "title": "车道线实时识别",
+      "featureId": "feat-028",
+      "moduleName": "感知模块",
+      "description": "实时识别前方车道线位置",
+      "estimate": "3周",
+      "storyPoints": 15,
+      "priority": "high",
+      "status": "backlog",
+      "owner": "user-002",
+      "targetPI": "pi-001",
+      "dependencies": [],
+      "tags": [
+        "AR",
+        "车道线"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-006",
+      "version": "1.3"
+    },
+    {
+      "id": "ssts-021",
+      "code": "SSTS-021",
+      "title": "车道线AR投射",
+      "featureId": "feat-028",
+      "moduleName": "AR渲染",
+      "description": "将车道线投射到HUD上",
+      "estimate": "3周",
+      "storyPoints": 18,
+      "priority": "high",
+      "status": "backlog",
+      "owner": "user-003",
+      "targetPI": "pi-001",
+      "dependencies": [
+        {
+          "id": "dep-012",
+          "targetId": "ssts-020",
+          "type": "strong"
+        }
+      ],
+      "tags": [
+        "AR",
+        "投射"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-006",
+      "version": "1.3"
+    },
+    {
+      "id": "ssts-022",
+      "code": "SSTS-022",
+      "title": "眼动特征提取",
+      "featureId": "feat-029",
+      "moduleName": "视觉算法",
+      "description": "提取眼睛疲劳特征（眨眼频率、闭眼时长等）",
+      "estimate": "2周",
+      "storyPoints": 12,
+      "priority": "high",
+      "status": "backlog",
+      "owner": "user-004",
+      "targetPI": "pi-001",
+      "dependencies": [],
+      "tags": [
+        "疲劳",
+        "眼动"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-007",
+      "version": "1.0"
+    },
+    {
+      "id": "ssts-023",
+      "code": "SSTS-023",
+      "title": "疲劳判断算法",
+      "featureId": "feat-029",
+      "moduleName": "AI算法",
+      "description": "基于多特征的疲劳状态判断算法",
+      "estimate": "2周",
+      "storyPoints": 13,
+      "priority": "high",
+      "status": "backlog",
+      "owner": "user-004",
+      "targetPI": "pi-001",
+      "dependencies": [
+        {
+          "id": "dep-013",
+          "targetId": "ssts-022",
+          "type": "strong"
+        }
+      ],
+      "tags": [
+        "疲劳",
+        "算法"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-007",
+      "version": "1.0"
+    },
+    {
+      "id": "ssts-024",
+      "code": "SSTS-024",
+      "title": "疲劳预警提示",
+      "featureId": "feat-029",
+      "moduleName": "HMI模块",
+      "description": "疲劳检测到时的多模态预警",
+      "estimate": "1周",
+      "storyPoints": 5,
+      "priority": "medium",
+      "status": "backlog",
+      "owner": "user-003",
+      "targetPI": "pi-001",
+      "dependencies": [
+        {
+          "id": "dep-014",
+          "targetId": "ssts-023",
+          "type": "strong"
+        }
+      ],
+      "tags": [
+        "疲劳",
+        "预警"
+      ],
+      "createdAt": "2026-01-19T10:00:00Z",
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "productId": "prod-007",
+      "version": "1.0"
     }
   ]
 }
