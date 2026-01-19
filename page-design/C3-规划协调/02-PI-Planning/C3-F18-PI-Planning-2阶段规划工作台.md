@@ -154,6 +154,33 @@ graph TD
 │  │ [+放置Feature/SSTS到此处]                                              │
 │  └─────────────────────────────────────────────────────────────────────┘  │
 │                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐  │
+│  │ 依赖关系可视化                                                       │  │
+│  │ ┌───────────────────────────────────────────────────────────────┐  │  │
+│  │ │ 选中SSTS: [SSTS-001] ACC目标车辆检测                          │  │  │
+│  │ │                                                               │  │  │
+│  │ │ 依赖关系:                                                      │  │  │
+│  │ │   • 依赖的SSTS: 无                                            │  │  │
+│  │ │   • 被依赖的SSTS: SSTS-002 (ACC速度控制算法) [高亮显示]      │  │  │
+│  │ │                                                               │  │  │
+│  │ │ [管理依赖关系] [查看依赖图]                                   │  │  │
+│  │ └───────────────────────────────────────────────────────────────┘  │  │
+│  └─────────────────────────────────────────────────────────────────────┘  │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐  │
+│  │ Sprint里程碑设置                                                    │  │
+│  │ ┌───────────────────────────────────────────────────────────────┐  │  │
+│  │ │ Sprint-1 (01/01-14) │ [设置里程碑]                            │  │  │
+│  │ │   里程碑: 产品版本 v1.2.0 │ 整车节点: M1 (功能验证)          │  │  │
+│  │ │                                                               │  │  │
+│  │ │ Sprint-2 (01/15-28) │ [设置里程碑]                            │  │  │
+│  │ │   里程碑: 产品版本 v1.3.0 │ 整车节点: M2 (集成测试)          │  │  │
+│  │ │                                                               │  │  │
+│  │ │ Sprint-3 (01/29-11) │ [设置里程碑]                            │  │  │
+│  │ │   里程碑: 未设置                                               │  │  │
+│  │ └───────────────────────────────────────────────────────────────┘  │  │
+│  └─────────────────────────────────────────────────────────────────────┘  │
+│                                                                             │
 │  [完成阶段1] 按钮：完成阶段1后，解锁阶段2页面                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -350,6 +377,35 @@ interface SSTSAllocation {
 }
 
 /**
+ * SSTS依赖关系
+ */
+interface SSTSDependency {
+  /** 依赖ID */
+  id: string
+  
+  /** 源SSTS ID（依赖者） */
+  sourceSSTSId: string
+  
+  /** 目标SSTS ID（被依赖者） */
+  targetSSTSId: string
+  
+  /** 依赖类型 */
+  type: 'strong' | 'weak' | 'optional'
+  
+  /** 依赖原因 */
+  reason: string
+  
+  /** 依赖详情 */
+  details?: string
+  
+  /** 创建时间 */
+  createdAt: string
+  
+  /** 更新时间 */
+  updatedAt: string
+}
+
+/**
  * 团队×Sprint容量矩阵
  */
 interface TeamSprintCapacity {
@@ -393,6 +449,41 @@ interface SprintCapacity {
   
   /** 负载率（%） */
   loadRate: number
+  
+  /** Sprint里程碑 */
+  milestone?: SprintMilestone
+}
+
+/**
+ * Sprint里程碑
+ */
+interface SprintMilestone {
+  /** 里程碑ID */
+  id: string
+  
+  /** Sprint ID */
+  sprintId: string
+  
+  /** 产品版本ID */
+  productVersionId?: string
+  
+  /** 产品版本名称 */
+  productVersion?: string
+  
+  /** 整车计划节点ID */
+  vehicleNodeId?: string
+  
+  /** 整车计划节点名称 */
+  vehicleNode?: string
+  
+  /** 里程碑描述 */
+  description?: string
+  
+  /** 里程碑日期 */
+  milestoneDate: string
+  
+  /** 里程碑类型 */
+  type: 'product-release' | 'vehicle-milestone' | 'integration' | 'test' | 'other'
 }
 ```
 
@@ -577,6 +668,7 @@ interface TeamSprintDetail {
    - ✅ 容量检查：该Sprint的可用容量是否足够
    - ✅ 依赖检查：依赖的Feature/SSTS是否已分配
    - ✅ 团队技能检查：团队是否具备所需技能
+   - ✅ 里程碑检查：是否符合Sprint里程碑要求
 4. 如果检查通过，卡片放置到格子中，更新容量显示
 5. 如果检查失败，显示错误提示，卡片返回原位置
 
@@ -585,6 +677,7 @@ interface TeamSprintDetail {
 - 可放置区域：高亮显示（绿色边框）
 - 不可放置区域：红色边框，显示原因（容量不足/依赖未满足）
 - 放置后：卡片显示在格子中，显示故事点、优先级等信息
+- **依赖高亮**：放置后，如果该SSTS有依赖关系，自动高亮显示依赖的SSTS位置
 
 #### 2. 容量预警
 
@@ -599,7 +692,7 @@ interface TeamSprintDetail {
 - 进度条颜色根据负载率变化
 - 超载时显示警告图标和提示文字
 
-#### 3. 依赖检查
+#### 3. 依赖检查和高亮
 
 **检查逻辑**:
 - 分配Feature时，检查其依赖的Feature是否已分配
@@ -612,10 +705,68 @@ interface TeamSprintDetail {
 - 点击查看依赖详情
 - 依赖未满足时，卡片显示警告图标
 
-#### 4. 批量操作
+**依赖高亮功能**:
+- **选中SSTS时，在看板中高亮显示其依赖的SSTS**
+- 依赖的SSTS卡片显示高亮边框（蓝色或黄色）
+- 如果依赖的SSTS已分配，显示连线或箭头指向其位置
+- 如果依赖的SSTS未分配，显示警告提示
+- 依赖关系面板显示详细信息：
+  - 依赖的SSTS列表
+  - 被依赖的SSTS列表
+  - 依赖类型和原因
+
+#### 4. SSTS依赖关系管理
+
+**添加依赖关系**:
+1. 选中某个SSTS卡片
+2. 点击"管理依赖关系"按钮
+3. 在弹出的对话框中：
+   - 选择要依赖的SSTS（从列表中选择）
+   - 选择依赖类型（强依赖/弱依赖/可选依赖）
+   - 输入依赖原因（为什么需要这个依赖）
+   - 输入依赖详情（具体的依赖内容）
+4. 保存依赖关系
+
+**编辑依赖关系**:
+- 在依赖关系面板中，点击某个依赖项
+- 编辑依赖类型、原因、详情
+- 保存修改
+
+**删除依赖关系**:
+- 在依赖关系面板中，点击删除按钮
+- 确认删除
+
+**依赖关系可视化**:
+- 依赖图视图：显示SSTS之间的依赖关系网络
+- 在看板中用连线或箭头表示依赖关系
+- 支持展开/折叠依赖关系显示
+
+#### 5. Sprint里程碑设置
+
+**设置里程碑**:
+1. 点击Sprint的"设置里程碑"按钮
+2. 在弹出的对话框中：
+   - **选择产品版本**（从版本列表中选择，如：v1.2.0）
+   - **选择整车计划节点**（从节点列表中选择，如：M1功能验证）
+   - 输入里程碑描述（可选）
+   - 设置里程碑日期（默认使用Sprint结束日期）
+3. 保存里程碑
+
+**里程碑显示**:
+- 每个Sprint卡片顶部显示里程碑信息
+- 显示产品版本和整车节点
+- 里程碑图标标识
+
+**里程碑指导规划**:
+- 根据里程碑要求，推荐Feature/SSTS的分配
+- 里程碑日期前必须完成关键Feature/SSTS
+- 显示里程碑相关的Feature/SSTS列表
+- 里程碑倒计时提醒
+
+#### 6. 批量操作
 
 **功能**:
-- 智能分配：根据容量、技能、依赖关系自动分配
+- 智能分配：根据容量、技能、依赖关系、里程碑自动分配
 - 批量移动：选中多个卡片，批量移动到其他Sprint
 - 批量移除：选中多个卡片，批量移除分配
 
@@ -864,6 +1015,103 @@ Response: {
 }
 
 /**
+ * 获取SSTS依赖关系
+ */
+GET /api/pi/{piId}/planning/stage1/ssts/{sstsId}/dependencies
+
+Response: {
+  dependencies: SSTSDependency[]
+  dependents: SSTSDependency[]  // 被依赖的SSTS
+}
+
+/**
+ * 添加SSTS依赖关系
+ */
+POST /api/pi/{piId}/planning/stage1/ssts/{sstsId}/dependencies
+
+Request: {
+  targetSSTSId: string
+  type: 'strong' | 'weak' | 'optional'
+  reason: string
+  details?: string
+}
+
+Response: {
+  success: boolean
+  dependency: SSTSDependency
+}
+
+/**
+ * 更新SSTS依赖关系
+ */
+PUT /api/pi/{piId}/planning/stage1/ssts/{sstsId}/dependencies/{dependencyId}
+
+Request: {
+  type?: 'strong' | 'weak' | 'optional'
+  reason?: string
+  details?: string
+}
+
+Response: {
+  success: boolean
+  dependency: SSTSDependency
+}
+
+/**
+ * 删除SSTS依赖关系
+ */
+DELETE /api/pi/{piId}/planning/stage1/ssts/{sstsId}/dependencies/{dependencyId}
+
+Response: {
+  success: boolean
+}
+
+/**
+ * 设置Sprint里程碑
+ */
+POST /api/pi/{piId}/planning/stage1/sprint/{sprintId}/milestone
+
+Request: {
+  productVersionId?: string
+  vehicleNodeId?: string
+  description?: string
+  milestoneDate: string
+  type: 'product-release' | 'vehicle-milestone' | 'integration' | 'test' | 'other'
+}
+
+Response: {
+  success: boolean
+  milestone: SprintMilestone
+}
+
+/**
+ * 更新Sprint里程碑
+ */
+PUT /api/pi/{piId}/planning/stage1/sprint/{sprintId}/milestone
+
+Request: {
+  productVersionId?: string
+  vehicleNodeId?: string
+  description?: string
+  milestoneDate?: string
+  type?: 'product-release' | 'vehicle-milestone' | 'integration' | 'test' | 'other'
+}
+
+Response: {
+  success: boolean
+  milestone: SprintMilestone
+}
+
+/**
+ * 删除Sprint里程碑
+ */
+DELETE /api/pi/{piId}/planning/stage1/sprint/{sprintId}/milestone
+
+Response: {
+  success: boolean
+}
+
+/**
  * 智能分配Feature/SSTS
  */
 POST /api/pi/{piId}/planning/stage1/smart-allocate
@@ -1023,6 +1271,10 @@ Response: {
 - [ ] 实时更新容量和负载率显示
 - [ ] 支持移除已分配的Feature/SSTS
 - [ ] 支持智能分配功能
+- [ ] **选中SSTS时，高亮显示其依赖的SSTS**
+- [ ] **支持添加、编辑、删除SSTS依赖关系**
+- [ ] **支持设置Sprint里程碑（产品版本、整车节点）**
+- [ ] **里程碑指导规划排期**
 - [ ] 支持保存草稿
 - [ ] **完成阶段1后，解锁阶段2页面/Tab**
 - [ ] **阶段1完成后，数据作为阶段2的输入**
@@ -1094,9 +1346,13 @@ Response: {
 - [ ] 基础API接口
 - [ ] **完成阶段1功能（解锁阶段2）**
 
-### Phase 2: 阶段1高级功能（预计2-3天）
+### Phase 2: 阶段1高级功能（预计3-4天）
 
 - [ ] 依赖检查
+- [ ] **SSTS依赖高亮显示**
+- [ ] **SSTS依赖关系管理（添加、编辑、删除）**
+- [ ] **Sprint里程碑设置（产品版本、整车节点）**
+- [ ] **里程碑指导规划**
 - [ ] 智能推荐
 - [ ] 批量操作
 - [ ] 草稿保存
