@@ -312,13 +312,13 @@
       "owner": "user-001",
       "sstsIds": [],
       "prd": {
-        "content": "",
-        "version": "0.1",
-        "status": "draft"
+        "content": "<h2>1. 需求背景</h2><p>为实现L3级及以上自动驾驶功能，需要高精度地图数据支撑。高精地图数据采集是构建高精地图服务的基础，需要实现多传感器数据的自动化采集和标准化处理。</p><h2>2. 功能目标</h2><ul><li>实现激光雷达、摄像头、IMU等多传感器数据的实时采集</li><li>支持数据同步和时间戳对齐</li><li>完成原始数据的预处理和格式转换</li><li>建立数据质量检查机制</li></ul><h2>3. 功能描述</h2><h3>3.1 传感器数据采集</h3><ul><li>激光雷达：支持64线/128线激光雷达，采集频率10Hz</li><li>摄像头：支持前视/侧视/后视多摄像头，分辨率1920x1080，帧率30fps</li><li>IMU：采集频率100Hz，提供车辆姿态信息</li><li>GNSS：支持RTK定位，精度≤5cm</li></ul><h3>3.2 数据预处理</h3><ul><li>点云去噪和滤波</li><li>图像畸变校正和增强</li><li>传感器数据时间戳同步</li><li>坐标系转换和统一</li></ul><h3>3.3 数据格式转换</h3><ul><li>支持ROS bag格式输出</li><li>支持标准点云格式(PCD/LAS)</li><li>支持视频格式(MP4/H264)</li></ul><h2>4. 验收标准</h2><ul><li>支持至少3种传感器类型的数据采集</li><li>数据采集频率满足要求（激光雷达≥10Hz，摄像头≥30fps）</li><li>数据同步误差≤10ms</li><li>数据格式转换准确率100%</li><li>数据质量检查覆盖率≥95%</li></ul><h2>5. 技术方案</h2><ul><li>采用ROS2框架进行传感器数据采集和处理</li><li>使用PCL库进行点云处理</li><li>使用OpenCV进行图像处理</li><li>采用时间戳对齐算法保证数据同步</li></ul><h2>6. 依赖与风险</h2><p><strong>依赖</strong>：</p><ul><li>硬件：激光雷达、摄像头、IMU、GNSS设备</li><li>软件：ROS2、PCL、OpenCV库</li></ul><p><strong>风险</strong>：</p><ul><li>传感器数据量大，需要高性能计算平台</li><li>多传感器时间同步精度要求高</li><li>数据存储和传输带宽要求高</li></ul>",
+        "version": "1.0",
+        "status": "in-review"
       },
       "tags": ["地图", "采集", "数据"],
       "createdAt": "2026-01-18T08:00:00Z",
-      "updatedAt": "2026-01-18T08:00:00Z",
+      "updatedAt": "2026-01-19T12:00:00Z",
       "createdBy": "user-001",
       "updatedBy": "user-001"
     },
@@ -370,13 +370,13 @@
       "owner": "user-001",
       "sstsIds": [],
       "prd": {
-        "content": "",
-        "version": "0.1",
-        "status": "draft"
+        "content": "<h2>1. 需求背景</h2><p>高精地图需要持续更新以反映道路实况变化。云端更新机制可以降低车端存储压力，提升更新效率，减少流量消耗。</p><h2>2. 功能目标</h2><ul><li>实现高精地图数据的云端存储和管理</li><li>支持增量更新机制，减少数据传输量</li><li>提供版本管理和回滚功能</li><li>实现地图数据的动态加载和缓存管理</li></ul><h2>3. 功能描述</h2><h3>3.1 云端服务</h3><ul><li>地图数据云端存储服务</li><li>增量更新包生成服务</li><li>版本管理服务</li><li>数据分发CDN服务</li></ul><h3>3.2 车端功能</h3><ul><li>地图版本检测和更新通知</li><li>增量数据下载和合并</li><li>本地缓存管理</li><li>更新失败回滚机制</li></ul><h3>3.3 增量更新策略</h3><ul><li>基于地图瓦片的增量更新</li><li>仅更新变化区域</li><li>支持差分压缩算法</li><li>断点续传功能</li></ul><h2>4. 验收标准</h2><ul><li>增量更新包大小≤全量包的20%</li><li>更新成功率≥99.5%</li><li>支持断点续传</li><li>更新失败可自动回滚</li><li>更新过程不影响导航使用</li></ul><h2>5. 技术方案</h2><ul><li>采用对象存储服务存储地图数据</li><li>使用差分算法生成增量包</li><li>采用CDN加速数据分发</li><li>使用HTTPS协议保证数据安全</li></ul><h2>6. 依赖与风险</h2><p><strong>依赖</strong>：</p><ul><li>云端对象存储服务</li><li>CDN分发网络</li><li>车端网络连接</li></ul><p><strong>风险</strong>：</p><ul><li>网络不稳定可能导致更新失败</li><li>增量更新算法复杂度高</li><li>需要考虑版本兼容性</li></ul>",
+        "version": "1.0",
+        "status": "in-review"
       },
       "tags": ["地图", "云端", "更新"],
       "createdAt": "2026-01-18T08:00:00Z",
-      "updatedAt": "2026-01-18T08:00:00Z",
+      "updatedAt": "2026-01-19T12:00:00Z",
       "createdBy": "user-001",
       "updatedBy": "user-001"
     },
@@ -515,13 +515,13 @@
       "owner": "user-005",
       "sstsIds": [],
       "prd": {
-        "content": "",
-        "version": "0.1",
-        "status": "draft"
+        "content": "<h2>1. 需求背景</h2><p>整车OTA升级包通常体积较大（几百MB到数GB），全量下载耗时长且消耗流量。差分升级算法可以显著减小升级包大小，提升用户体验。</p><h2>2. 功能目标</h2><ul><li>实现高效的二进制差分算法</li><li>支持多种文件格式的差分</li><li>实现差分包的高压缩率</li><li>保证差分包应用的正确性和安全性</li></ul><h2>3. 功能描述</h2><h3>3.1 差分算法核心</h3><ul><li>采用bsdiff/xdelta等成熟算法</li><li>支持块级差分和字节级差分</li><li>实现智能块匹配算法</li><li>支持多线程并行处理</li></ul><h3>3.2 压缩优化</h3><ul><li>差分数据LZMA/Zstd压缩</li><li>根据数据特征选择最优压缩算法</li><li>压缩率目标：>60%</li></ul><h3>3.3 完整性校验</h3><ul><li>差分包SHA256校验</li><li>增量式校验和</li><li>应用后全量校验</li></ul><h2>4. 验收标准</h2><ul><li>差分包大小≤原包大小的30%</li><li>压缩率≥60%</li><li>差分精度100%（无数据丢失）</li><li>差分包生成速度≥10MB/s</li><li>差分包应用成功率≥99.9%</li></ul><h2>5. 技术方案</h2><ul><li>采用bsdiff作为基础算法</li><li>使用Zstd进行高效压缩</li><li>采用并行计算提升性能</li><li>实现完整的错误检测和恢复机制</li></ul><h2>6. 依赖与风险</h2><p><strong>依赖</strong>：</p><ul><li>bsdiff/xdelta库</li><li>Zstd压缩库</li><li>充足的计算资源</li></ul><p><strong>风险</strong>：</p><ul><li>差分算法计算复杂度高</li><li>内存占用较大</li><li>需要处理各种异常情况</li></ul>",
+        "version": "1.0",
+        "status": "in-review"
       },
       "tags": ["OTA", "差分", "算法"],
       "createdAt": "2026-01-18T08:00:00Z",
-      "updatedAt": "2026-01-18T08:00:00Z",
+      "updatedAt": "2026-01-19T12:00:00Z",
       "createdBy": "user-005",
       "updatedBy": "user-005"
     },
@@ -573,13 +573,13 @@
       "owner": "user-001",
       "sstsIds": [],
       "prd": {
-        "content": "",
-        "version": "0.1",
-        "status": "pending-review"
+        "content": "<h2>1. 需求背景</h2><p>C-V2X（Cellular Vehicle-to-Everything）是下一代智能网联汽车的关键技术，可以实现车辆与周边环境的实时信息交互，提升道路安全和交通效率。</p><h2>2. 功能目标</h2><ul><li>实现完整的C-V2X协议栈</li><li>支持PC5和Uu两种通信接口</li><li>实现消息安全认证和加密</li><li>支持标准V2X应用层消息</li></ul><h2>3. 功能描述</h2><h3>3.1 协议栈层次</h3><ul><li>应用层：支持BSM、RSI、RSM等标准消息</li><li>网络层：支持GeoNetworking协议</li><li>MAC层：支持LTE-V2X MAC协议</li><li>物理层：支持5.9GHz频段</li></ul><h3>3.2 通信接口</h3><ul><li>PC5接口：直连通信，通信距离300-500m</li><li>Uu接口：蜂窝网络通信，支持长距离通信</li><li>支持接口自动切换</li></ul><h3>3.3 安全机制</h3><ul><li>消息签名和验证</li><li>证书管理</li><li>防重放攻击</li><li>隐私保护</li></ul><h3>3.4 消息类型</h3><ul><li>BSM：基本安全消息，10Hz</li><li>RSI：路侧信息消息</li><li>RSM：路侧交通信息</li><li>MAP：地图消息</li><li>SPAT：信号灯相位与时序</li></ul><h2>4. 验收标准</h2><ul><li>支持PC5和Uu两种接口</li><li>消息发送频率≥10Hz（BSM）</li><li>通信时延≤100ms</li><li>消息接收率≥95%</li><li>安全认证通过率100%</li><li>通过C-V2X协议一致性测试</li></ul><h2>5. 技术方案</h2><ul><li>基于LTE-V2X标准实现</li><li>使用硬件安全模块进行加密</li><li>采用多线程架构提升性能</li><li>实现消息队列管理</li></ul><h2>6. 依赖与风险</h2><p><strong>依赖</strong>：</p><ul><li>C-V2X通信模组硬件</li><li>安全证书服务</li><li>测试环境和设备</li></ul><p><strong>风险</strong>：</p><ul><li>协议复杂，开发周期长</li><li>需要通过第三方认证测试</li><li>安全机制实现难度高</li><li>测试环境搭建成本高</li></ul>",
+        "version": "1.0",
+        "status": "in-review"
       },
       "tags": ["V2X", "通信", "协议"],
       "createdAt": "2026-01-18T08:00:00Z",
-      "updatedAt": "2026-01-18T08:00:00Z",
+      "updatedAt": "2026-01-19T12:00:00Z",
       "createdBy": "user-001",
       "updatedBy": "user-001"
     },
