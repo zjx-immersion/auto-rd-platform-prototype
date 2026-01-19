@@ -1,9 +1,24 @@
 <template>
   <div class="requirement-pool-container">
     <PageContainer>
-      <div class="page-header">
-        <h2>需求池管理</h2>
-        <p class="description">管理和导入Epic到项目</p>
+      <!-- Action Bar -->
+      <div class="action-bar">
+        <div class="filters">
+          <el-input placeholder="搜索Epic..." style="width: 200px" clearable>
+            <template #prefix>
+              <el-icon><Search /></el-icon>
+            </template>
+          </el-input>
+          <el-select placeholder="筛选状态" clearable style="width: 120px">
+            <el-option label="草稿" value="draft" />
+            <el-option label="待评审" value="pending-review" />
+            <el-option label="已批准" value="approved" />
+          </el-select>
+        </div>
+        <div class="actions">
+          <el-button type="primary" :icon="Plus">创建Epic</el-button>
+          <el-button>批量导入</el-button>
+        </div>
       </div>
 
       <el-card>
@@ -75,6 +90,7 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { Plus, Search } from '@element-plus/icons-vue'
 import { useEpicStore } from '@/stores/modules/epic'
 import { useProjectStore } from '@/stores/modules/project'
 import PageContainer from '@/components/Common/PageContainer.vue'
@@ -135,19 +151,21 @@ const reject = async (row: any) => {
   height: 100%;
 }
 
-.page-header {
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
 
-  h2 {
-    margin: 0 0 8px 0;
-    font-size: 24px;
-    font-weight: 600;
+  .filters {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .description {
-    margin: 0;
-    font-size: 14px;
-    color: $text-color-secondary;
+  .actions {
+    display: flex;
+    gap: 8px;
   }
 }
 </style>

@@ -1,13 +1,12 @@
 <template>
   <div class="ssts-list-container">
     <PageContainer>
-      <!-- 页面头部 -->
-    <div class="page-header">
-        <div class="header-left">
-          <h2>SSTS管理</h2>
-          <p class="description">软硬件技术规格管理</p>
+      <!-- Action Bar -->
+      <div class="action-bar">
+        <div class="left">
+          <el-tag size="large">SSTS管理</el-tag>
         </div>
-        <div class="header-right">
+        <div class="right">
           <el-button type="primary" :icon="Plus" @click="handleCreate">新建SSTS</el-button>
           <el-button :icon="Upload">导入</el-button>
           <el-button :icon="Download">导出</el-button>

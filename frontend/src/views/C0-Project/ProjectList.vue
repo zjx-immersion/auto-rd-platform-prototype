@@ -1,11 +1,9 @@
 <template>
   <div class="project-list-container">
     <PageContainer>
-      <!-- 紧凑型工具栏：标题+操作+筛选一体化 -->
-      <div class="compact-toolbar">
-        <div class="toolbar-left">
-          <h2 class="page-title">项目管理</h2>
-          <el-divider direction="vertical" />
+      <!-- Action Bar: 筛选+操作 -->
+      <div class="action-bar">
+        <div class="filters">
           <el-input 
             v-model="filterForm.keyword" 
             placeholder="搜索项目名称、编码" 
@@ -35,7 +33,7 @@
           </el-select>
           <el-button :icon="RefreshLeft" @click="handleReset" circle title="重置筛选" />
         </div>
-        <div class="toolbar-right">
+        <div class="actions">
           <el-button type="primary" :icon="Plus" @click="handleCreate">新建项目</el-button>
           <el-button :icon="Upload">导入</el-button>
           <el-button :icon="Download">导出</el-button>
@@ -477,38 +475,21 @@ onUnmounted(() => {
   background: #f5f5f5;
 }
 
-// 紧凑型工具栏
-.compact-toolbar {
+// Action Bar 布局
+.action-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  background: #fff;
-  border-radius: 4px;
-  margin-bottom: 12px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  margin-bottom: 16px;
 
-  .toolbar-left {
+  .filters {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     flex: 1;
-
-    .page-title {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 600;
-      color: $text-color-primary;
-      white-space: nowrap;
-    }
-
-    .el-divider {
-      height: 24px;
-      margin: 0 4px;
-    }
   }
 
-  .toolbar-right {
+  .actions {
     display: flex;
     gap: 8px;
   }

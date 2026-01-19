@@ -1,9 +1,21 @@
 <template>
   <div class="version-management-container">
     <PageContainer>
-      <div class="page-header">
-        <h2>版本管理</h2>
-        <el-button type="primary" :icon="Plus" @click="handleCreate">新建版本</el-button>
+      <!-- Action Bar -->
+      <div class="action-bar">
+        <div class="filters">
+          <el-input placeholder="搜索版本..." style="width: 200px" clearable>
+            <template #prefix>
+              <el-icon><Search /></el-icon>
+            </template>
+          </el-input>
+          <el-select placeholder="筛选项目" clearable style="width: 150px">
+            <el-option v-for="project in allProjects" :key="project.id" :label="project.name" :value="project.id" />
+          </el-select>
+        </div>
+        <div class="actions">
+          <el-button type="primary" :icon="Plus" @click="handleCreate">新建版本</el-button>
+        </div>
       </div>
 
       <el-card>
@@ -37,7 +49,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
+import { Plus, Search } from '@element-plus/icons-vue'
 import { useProjectStore } from '@/stores/modules/project'
 import PageContainer from '@/components/Common/PageContainer.vue'
 
@@ -45,6 +57,7 @@ const router = useRouter()
 const projectStore = useProjectStore()
 
 const versions = computed(() => projectStore.versions)
+const allProjects = computed(() => projectStore.projects)
 
 const getProjectName = (projectId: string) => {
   const project = projectStore.projects.find(p => p.id === projectId)
@@ -88,16 +101,21 @@ onMounted(async () => {
   height: 100%;
 }
 
-.page-header {
+.action-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 
-  h2 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 600;
+  .filters {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
   }
 }
 </style>

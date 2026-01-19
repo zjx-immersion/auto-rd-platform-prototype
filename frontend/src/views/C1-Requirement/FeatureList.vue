@@ -1,11 +1,11 @@
 <template>
   <div class="feature-list-container">
-    <div class="page-header">
-      <div class="header-left">
-        <h2>Feature 管理</h2>
+    <!-- Action Bar -->
+    <div class="action-bar">
+      <div class="left">
         <el-tag type="info" size="large">{{ filteredFeatures.length }} 个Feature</el-tag>
       </div>
-      <div class="header-right">
+      <div class="right">
         <el-button type="primary" :icon="Plus" @click="handleCreate">创建Feature</el-button>
       </div>
     </div>

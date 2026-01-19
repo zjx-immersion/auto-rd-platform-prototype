@@ -1,17 +1,21 @@
 <template>
   <PageContainer>
-    <PageHeader title="Feature分配工作台" description="将Feature分配到版本和PI，支持拖拽分配和容量管理">
-      <template #actions>
+    <!-- Action Bar -->
+    <div class="action-bar">
+      <div class="left">
         <el-button @click="goBack">
           <el-icon><ArrowLeft /></el-icon>
           返回
         </el-button>
+        <el-tag size="large">Feature分配工作台</el-tag>
+      </div>
+      <div class="right">
         <el-button type="primary" @click="handleSaveAllocation" :loading="saving">
           <el-icon><Check /></el-icon>
           保存分配
         </el-button>
-      </template>
-    </PageHeader>
+      </div>
+    </div>
 
     <el-row :gutter="16" style="margin-bottom: 16px;">
       <el-col :span="12">

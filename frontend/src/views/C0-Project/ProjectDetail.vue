@@ -1,18 +1,16 @@
 <template>
   <div class="project-detail-container">
     <PageContainer v-loading="loading">
-      <!-- 页面头部 -->
-      <div class="page-header">
-        <div class="header-left">
+      <!-- Action Bar -->
+      <div class="action-bar">
+        <div class="left">
           <el-button :icon="ArrowLeft" @click="goBack">返回</el-button>
-          <div class="title-section">
-            <h2>{{ project?.name }}</h2>
-            <el-tag :type="getStatusType(project?.status)" size="large">
-              {{ getStatusText(project?.status) }}
-            </el-tag>
-          </div>
+          <el-tag size="large">{{ project?.name }}</el-tag>
+          <el-tag :type="getStatusType(project?.status)" size="large">
+            {{ getStatusText(project?.status) }}
+          </el-tag>
         </div>
-        <div class="header-right">
+        <div class="right">
           <el-button :icon="Edit" @click="handleEdit">编辑</el-button>
           <el-button :icon="Delete" type="danger" @click="handleDelete">删除</el-button>
         </div>
@@ -322,32 +320,19 @@ onMounted(async () => {
   height: 100%;
 }
 
-.page-header {
+.action-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 
-  .header-left {
+  .left {
     display: flex;
     align-items: center;
-    gap: 16px;
-
-    .title-section {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      h2 {
-        margin: 0;
-        font-size: 24px;
-        font-weight: 600;
-        color: $text-color-primary;
-      }
-    }
+    gap: 12px;
   }
 
-  .header-right {
+  .right {
     display: flex;
     gap: 12px;
   }
