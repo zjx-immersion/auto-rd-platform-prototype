@@ -90,6 +90,19 @@
           </template>
 
           <div style="height: calc(100vh - 500px); overflow-y: auto;">
+            <!-- 批量操作按钮 -->
+            <div v-if="checkedMRKeys.length > 0" style="margin-bottom: 12px; padding: 8px; background: #ecf5ff; border-radius: 4px;">
+              <el-text size="small" type="primary" style="margin-right: 12px;">
+                已选择 {{ checkedMRKeys.length }} 个MR
+              </el-text>
+              <el-button size="small" type="primary" @click="handleBatchAllocate">
+                批量分配到Sprint
+              </el-button>
+              <el-button size="small" @click="handleClearSelection">
+                清空选择
+              </el-button>
+            </div>
+
             <!-- 特性树 -->
             <el-tree
               ref="treeRef"
@@ -99,6 +112,9 @@
               :default-expand-all="false"
               :expand-on-click-node="false"
               :filter-node-method="filterNode"
+              show-checkbox
+              :check-strictly="true"
+              @check="handleTreeCheck"
               style="margin-top: 12px;"
             >
               <template #default="{ node, data }">
@@ -224,13 +240,58 @@
 
     <!-- 提示信息 -->
     <el-empty v-if="!selectedTeamId" description="请先选择一个团队" />
+
+    <!-- 批量分配对话框 -->
+    <el-dialog
+      v-model="batchDialogVisible"
+      title="批量分配到Sprint"
+      width="500px"
+    >
+      <div>
+        <el-text style="display: block; margin-bottom: 12px;">
+          已选择 {{ checkedMRKeys.length }} 个MR，请选择目标Sprint：
+        </el-text>
+        <el-select 
+          v-model="batchTargetSprintId" 
+          placeholder="请选择Sprint"
+          style="width: 100%;"
+        >
+          <el-option 
+            v-for="sprint in teamSprints" 
+            :key="sprint.id" 
+            :label="`${sprint.name} (${sprint.startDate} ~ ${sprint.endDate})`"
+            :value="sprint.id"
+          />
+        </el-select>
+        
+        <!-- Sprint容量预警 -->
+        <el-alert
+          v-if="batchTargetSprintId"
+          :title="`容量: ${getTargetSprintCapacity()} SP | 已分配: ${getTargetSprintLoad()} SP | 批量后: ${getTargetSprintLoad() + getBatchTotalHours()} SP`"
+          :type="getTargetSprintLoad() + getBatchTotalHours() > getTargetSprintCapacity() ? 'warning' : 'success'"
+          style="margin-top: 12px;"
+          show-icon
+        />
+      </div>
+      
+      <template #footer>
+        <el-button @click="batchDialogVisible = false">取消</el-button>
+        <el-button 
+          type="primary" 
+          :disabled="!batchTargetSprintId"
+          @click="confirmBatchAllocate"
+        >
+          确认分配
+        </el-button>
+      </template>
+    </el-dialog>
   </PageContainer>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ElMessage, ElMessageBox, ElTree } from 'element-plus'
+import { ElMessage, ElTree } from 'element-plus'
 import { ArrowLeft, Document, FolderOpened, Files, Search, Close } from '@element-plus/icons-vue'
 import type { PI } from '@/types/execution-models'
 import { usePIStore } from '@/stores/modules/pi'
@@ -262,6 +323,10 @@ const treeSearchKeyword = ref('')
 const draggedMR = ref<any>(null)
 const dragTargetSprintId = ref<string | null>(null)
 const treeRef = ref<InstanceType<typeof ElTree>>()
+const checkedMRKeys = ref<string[]>([])
+const expandedKeys = ref<string[]>([])
+const batchDialogVisible = ref(false)
+const batchTargetSprintId = ref<string>('')
 
 // MR分配数据
 const mrAllocations = ref<Array<{
@@ -441,6 +506,9 @@ function getLoadRateType(sprint: any) {
 }
 
 function handleTreeDragStart(event: DragEvent, data: any) {
+  // 保存当前展开状态
+  saveExpandedState()
+  
   draggedMR.value = data.mrData
   if (event.dataTransfer) {
     event.dataTransfer.effectAllowed = 'move'
@@ -450,6 +518,30 @@ function handleTreeDragStart(event: DragEvent, data: any) {
 function handleTreeDragEnd() {
   draggedMR.value = null
   dragTargetSprintId.value = null
+}
+
+// 保存树的展开状态
+function saveExpandedState() {
+  if (treeRef.value) {
+    const nodes = treeRef.value.store.nodesMap
+    expandedKeys.value = Object.keys(nodes)
+      .filter(key => nodes[key].expanded)
+      .map(key => nodes[key].data.id)
+  }
+}
+
+// 恢复树的展开状态
+function restoreExpandedState() {
+  nextTick(() => {
+    if (treeRef.value && expandedKeys.value.length > 0) {
+      expandedKeys.value.forEach(key => {
+        const node = treeRef.value!.store.nodesMap[key]
+        if (node) {
+          node.expanded = true
+        }
+      })
+    }
+  })
 }
 
 function handleDragOver(event: DragEvent, sprintId: string) {
@@ -481,6 +573,10 @@ function handleDrop(event: DragEvent, sprintId: string) {
   if (mr) {
     mr.targetSprint = sprintId
     ElMessage.success(`已将 ${mr.code} 分配到 ${getSprintName(sprintId)}`)
+    
+    // 恢复展开状态
+    restoreExpandedState()
+    
     handleSaveDraft()
   }
   
@@ -492,8 +588,98 @@ function handleRemoveMR(mrId: string, sprintId: string) {
   if (mr) {
     mr.targetSprint = undefined
     ElMessage.success(`已移除 ${mr.code}`)
+    
+    // 恢复展开状态
+    restoreExpandedState()
+    
     handleSaveDraft()
   }
+}
+
+// 处理树节点选择
+function handleTreeCheck(data: any, checkedInfo: any) {
+  // 只收集MR类型的节点
+  const checkedNodes = checkedInfo.checkedNodes || []
+  checkedMRKeys.value = checkedNodes
+    .filter((node: any) => node.type === 'mr')
+    .map((node: any) => node.id)
+}
+
+// 清空选择
+function handleClearSelection() {
+  if (treeRef.value) {
+    treeRef.value.setCheckedKeys([])
+  }
+  checkedMRKeys.value = []
+}
+
+// 批量分配到Sprint
+function handleBatchAllocate() {
+  if (checkedMRKeys.value.length === 0) {
+    ElMessage.warning('请先选择MR')
+    return
+  }
+  
+  // 重置目标Sprint
+  batchTargetSprintId.value = ''
+  batchDialogVisible.value = true
+}
+
+// 确认批量分配
+function confirmBatchAllocate() {
+  if (!batchTargetSprintId.value) {
+    ElMessage.warning('请选择Sprint')
+    return
+  }
+  
+  // 保存展开状态
+  saveExpandedState()
+  
+  // 批量分配
+  let successCount = 0
+  checkedMRKeys.value.forEach(mrKey => {
+    const mrId = mrKey.replace('mr-', '')
+    const mr = teamMRs.value.find(m => m.id === mrId)
+    if (mr) {
+      mr.targetSprint = batchTargetSprintId.value
+      successCount++
+    }
+  })
+  
+  ElMessage.success(`已将 ${successCount} 个MR分配到 ${getSprintName(batchTargetSprintId.value)}`)
+  
+  // 恢复展开状态
+  restoreExpandedState()
+  
+  handleSaveDraft()
+  handleClearSelection()
+  batchTargetSprintId.value = ''
+  batchDialogVisible.value = false
+}
+
+// 获取目标Sprint的容量
+function getTargetSprintCapacity() {
+  const sprint = teamSprints.value.find(s => s.id === batchTargetSprintId.value)
+  return sprint?.capacity || 0
+}
+
+// 获取目标Sprint当前负载
+function getTargetSprintLoad() {
+  if (!batchTargetSprintId.value) return 0
+  return getMRLoad({ id: batchTargetSprintId.value })
+}
+
+// 获取批量分配的总工时
+function getBatchTotalHours() {
+  let total = 0
+  checkedMRKeys.value.forEach(mrKey => {
+    const mrId = mrKey.replace('mr-', '')
+    const mr = teamMRs.value.find(m => m.id === mrId)
+    if (mr) {
+      total += mr.effortHours || 0
+    }
+  })
+  return total
 }
 
 function handleExpandAll() {
