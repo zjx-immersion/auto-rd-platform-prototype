@@ -26,11 +26,17 @@
         "version": "1.0",
         "status": "approved"
       },
-      "tags": ["ACC", "巡航", "ADAS"],
+      "tags": [
+        "ACC",
+        "巡航",
+        "ADAS"
+      ],
       "createdAt": "2025-12-05T08:00:00Z",
       "updatedAt": "2026-03-20T12:00:00Z",
       "createdBy": "user-001",
-      "updatedBy": "user-002"
+      "updatedBy": "user-002",
+      "productId": "prod-001",
+      "version": "1.0"
     },
     {
       "id": "feat-002",
@@ -55,11 +61,17 @@
         "version": "1.0",
         "status": "approved"
       },
-      "tags": ["LKA", "车道保持", "ADAS"],
+      "tags": [
+        "LKA",
+        "车道保持",
+        "ADAS"
+      ],
       "createdAt": "2025-12-05T08:00:00Z",
       "updatedAt": "2026-03-25T12:00:00Z",
       "createdBy": "user-001",
-      "updatedBy": "user-002"
+      "updatedBy": "user-002",
+      "productId": "prod-001",
+      "version": "1.0"
     },
     {
       "id": "feat-003",
@@ -84,11 +96,17 @@
         "version": "1.0",
         "status": "approved"
       },
-      "tags": ["ALC", "变道", "NOA"],
+      "tags": [
+        "ALC",
+        "变道",
+        "NOA"
+      ],
       "createdAt": "2025-12-10T08:00:00Z",
       "updatedAt": "2026-01-17T12:00:00Z",
       "createdBy": "user-001",
-      "updatedBy": "user-002"
+      "updatedBy": "user-002",
+      "productId": "prod-001",
+      "version": "1.1"
     },
     {
       "id": "feat-004",
@@ -113,11 +131,17 @@
         "version": "1.0",
         "status": "in-review"
       },
-      "tags": ["红绿灯", "感知", "NGP"],
+      "tags": [
+        "红绿灯",
+        "感知",
+        "NGP"
+      ],
       "createdAt": "2026-01-08T08:00:00Z",
       "updatedAt": "2026-01-17T12:00:00Z",
       "createdBy": "user-001",
-      "updatedBy": "user-002"
+      "updatedBy": "user-002",
+      "productId": "prod-002",
+      "version": "1.0"
     },
     {
       "id": "feat-005",
@@ -142,11 +166,17 @@
         "version": "1.0",
         "status": "draft"
       },
-      "tags": ["路口", "决策", "NGP"],
+      "tags": [
+        "路口",
+        "决策",
+        "NGP"
+      ],
       "createdAt": "2026-01-08T08:00:00Z",
       "updatedAt": "2026-01-17T12:00:00Z",
       "createdBy": "user-001",
-      "updatedBy": "user-002"
+      "updatedBy": "user-002",
+      "productId": "prod-003",
+      "version": "1.0"
     },
     {
       "id": "feat-006",
@@ -171,11 +201,16 @@
         "version": "1.0",
         "status": "approved"
       },
-      "tags": ["泊车", "APA"],
+      "tags": [
+        "泊车",
+        "APA"
+      ],
       "createdAt": "2025-12-20T08:00:00Z",
       "updatedAt": "2026-01-17T12:00:00Z",
       "createdBy": "user-001",
-      "updatedBy": "user-002"
+      "updatedBy": "user-002",
+      "productId": "prod-004",
+      "version": "1.0"
     },
     {
       "id": "feat-007",
@@ -200,11 +235,17 @@
         "version": "1.0",
         "status": "approved"
       },
-      "tags": ["语音", "ASR", "唤醒"],
+      "tags": [
+        "语音",
+        "ASR",
+        "唤醒"
+      ],
       "createdAt": "2026-01-12T08:00:00Z",
       "updatedAt": "2026-01-17T12:00:00Z",
       "createdBy": "user-004",
-      "updatedBy": "user-003"
+      "updatedBy": "user-003",
+      "productId": "prod-005",
+      "version": "2.0"
     },
     {
       "id": "feat-008",
@@ -229,11 +270,17 @@
         "version": "1.0",
         "status": "in-review"
       },
-      "tags": ["语音", "对话", "NLU"],
+      "tags": [
+        "语音",
+        "对话",
+        "NLU"
+      ],
       "createdAt": "2026-01-12T08:00:00Z",
       "updatedAt": "2026-01-17T12:00:00Z",
       "createdBy": "user-004",
-      "updatedBy": "user-003"
+      "updatedBy": "user-003",
+      "productId": "prod-005",
+      "version": "2.1"
     },
     {
       "id": "feat-009",
@@ -258,11 +305,17 @@
         "version": "1.0",
         "status": "draft"
       },
-      "tags": ["AR", "导航", "HUD"],
+      "tags": [
+        "AR",
+        "导航",
+        "HUD"
+      ],
       "createdAt": "2026-02-05T08:00:00Z",
       "updatedAt": "2026-01-17T12:00:00Z",
       "createdBy": "user-004",
-      "updatedBy": "user-003"
+      "updatedBy": "user-003",
+      "productId": "prod-006",
+      "version": "1.0"
     },
     {
       "id": "feat-010",
@@ -287,11 +340,17 @@
         "version": "0.9",
         "status": "draft"
       },
-      "tags": ["域控", "硬件", "E/E"],
+      "tags": [
+        "域控",
+        "硬件",
+        "E/E"
+      ],
       "createdAt": "2026-03-05T08:00:00Z",
       "updatedAt": "2026-01-17T12:00:00Z",
       "createdBy": "user-005",
-      "updatedBy": "user-006"
+      "updatedBy": "user-006",
+      "productId": "prod-008",
+      "version": "1.0"
     },
     {
       "id": "feat-011",
@@ -316,11 +375,17 @@
         "version": "1.0",
         "status": "in-review"
       },
-      "tags": ["地图", "采集", "数据"],
+      "tags": [
+        "地图",
+        "采集",
+        "数据"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
       "updatedAt": "2026-01-19T12:00:00Z",
       "createdBy": "user-001",
-      "updatedBy": "user-001"
+      "updatedBy": "user-001",
+      "productId": "prod-009",
+      "version": "1.0"
     },
     {
       "id": "feat-012",
@@ -345,11 +410,17 @@
         "version": "0.1",
         "status": "draft"
       },
-      "tags": ["地图", "匹配", "定位"],
+      "tags": [
+        "地图",
+        "匹配",
+        "定位"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
       "updatedAt": "2026-01-18T08:00:00Z",
       "createdBy": "user-001",
-      "updatedBy": "user-001"
+      "updatedBy": "user-001",
+      "productId": "prod-009",
+      "version": "1.0"
     },
     {
       "id": "feat-013",
@@ -374,11 +445,17 @@
         "version": "1.0",
         "status": "in-review"
       },
-      "tags": ["地图", "云端", "更新"],
+      "tags": [
+        "地图",
+        "云端",
+        "更新"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
       "updatedAt": "2026-01-19T12:00:00Z",
       "createdBy": "user-001",
-      "updatedBy": "user-001"
+      "updatedBy": "user-001",
+      "productId": "prod-009",
+      "version": "1.0"
     },
     {
       "id": "feat-014",
@@ -403,11 +480,17 @@
         "version": "0.1",
         "status": "draft"
       },
-      "tags": ["手势", "识别", "AI"],
+      "tags": [
+        "手势",
+        "识别",
+        "AI"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
       "updatedAt": "2026-01-18T08:00:00Z",
       "createdBy": "user-004",
-      "updatedBy": "user-004"
+      "updatedBy": "user-004",
+      "productId": "prod-007",
+      "version": "1.0"
     },
     {
       "id": "feat-015",
@@ -432,11 +515,17 @@
         "version": "0.1",
         "status": "draft"
       },
-      "tags": ["眼动", "监测", "安全"],
+      "tags": [
+        "眼动",
+        "监测",
+        "安全"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
       "updatedAt": "2026-01-18T08:00:00Z",
       "createdBy": "user-004",
-      "updatedBy": "user-004"
+      "updatedBy": "user-004",
+      "productId": "prod-007",
+      "version": "1.0"
     },
     {
       "id": "feat-016",
@@ -461,11 +550,17 @@
         "version": "0.1",
         "status": "draft"
       },
-      "tags": ["多模态", "融合", "AI"],
+      "tags": [
+        "多模态",
+        "融合",
+        "AI"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
       "updatedAt": "2026-01-18T08:00:00Z",
       "createdBy": "user-004",
-      "updatedBy": "user-004"
+      "updatedBy": "user-004",
+      "productId": "prod-007",
+      "version": "1.0"
     },
     {
       "id": "feat-017",
@@ -490,11 +585,17 @@
         "version": "0.1",
         "status": "draft"
       },
-      "tags": ["OTA", "平台", "管理"],
+      "tags": [
+        "OTA",
+        "平台",
+        "管理"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
       "updatedAt": "2026-01-18T08:00:00Z",
       "createdBy": "user-005",
-      "updatedBy": "user-005"
+      "updatedBy": "user-005",
+      "productId": "prod-010",
+      "version": "1.0"
     },
     {
       "id": "feat-018",
@@ -519,11 +620,17 @@
         "version": "1.0",
         "status": "in-review"
       },
-      "tags": ["OTA", "差分", "算法"],
+      "tags": [
+        "OTA",
+        "差分",
+        "算法"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
       "updatedAt": "2026-01-19T12:00:00Z",
       "createdBy": "user-005",
-      "updatedBy": "user-005"
+      "updatedBy": "user-005",
+      "productId": "prod-010",
+      "version": "1.0"
     },
     {
       "id": "feat-019",
@@ -548,11 +655,17 @@
         "version": "0.1",
         "status": "draft"
       },
-      "tags": ["OTA", "多域", "协同"],
+      "tags": [
+        "OTA",
+        "多域",
+        "协同"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
       "updatedAt": "2026-01-18T08:00:00Z",
       "createdBy": "user-005",
-      "updatedBy": "user-005"
+      "updatedBy": "user-005",
+      "productId": "prod-010",
+      "version": "1.0"
     },
     {
       "id": "feat-020",
@@ -577,11 +690,17 @@
         "version": "1.0",
         "status": "in-review"
       },
-      "tags": ["V2X", "通信", "协议"],
+      "tags": [
+        "V2X",
+        "通信",
+        "协议"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
       "updatedAt": "2026-01-19T12:00:00Z",
       "createdBy": "user-001",
-      "updatedBy": "user-001"
+      "updatedBy": "user-001",
+      "productId": "prod-011",
+      "version": "0.5"
     },
     {
       "id": "feat-021",
@@ -606,11 +725,17 @@
         "version": "0.1",
         "status": "pending-review"
       },
-      "tags": ["V2X", "解析", "消息"],
+      "tags": [
+        "V2X",
+        "解析",
+        "消息"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
       "updatedAt": "2026-01-18T08:00:00Z",
       "createdBy": "user-001",
-      "updatedBy": "user-001"
+      "updatedBy": "user-001",
+      "productId": "prod-011",
+      "version": "0.5"
     },
     {
       "id": "feat-022",
@@ -635,11 +760,17 @@
         "version": "0.1",
         "status": "pending-review"
       },
-      "tags": ["V2X", "场景", "应用"],
+      "tags": [
+        "V2X",
+        "场景",
+        "应用"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
       "updatedAt": "2026-01-18T08:00:00Z",
       "createdBy": "user-001",
-      "updatedBy": "user-001"
+      "updatedBy": "user-001",
+      "productId": "prod-011",
+      "version": "0.5"
     }
   ]
 }

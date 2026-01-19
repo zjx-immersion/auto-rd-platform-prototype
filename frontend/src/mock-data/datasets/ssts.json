@@ -17,7 +17,8 @@
       "targetPI": "pi-001",
       "dependencies": [],
       "createdAt": "2025-12-10T08:00:00Z",
-      "updatedAt": "2026-02-28T12:00:00Z"
+      "updatedAt": "2026-02-28T12:00:00Z",
+      "version": "1.0"
     },
     {
       "id": "ssts-002",
@@ -31,9 +32,12 @@
       "status": "done",
       "assignedTeam": "team-001",
       "targetPI": "pi-001",
-      "dependencies": ["ssts-001"],
+      "dependencies": [
+        "ssts-001"
+      ],
       "createdAt": "2025-12-10T08:00:00Z",
-      "updatedAt": "2026-03-10T12:00:00Z"
+      "updatedAt": "2026-03-10T12:00:00Z",
+      "version": "1.0"
     },
     {
       "id": "ssts-003",
@@ -49,7 +53,8 @@
       "targetPI": "pi-001",
       "dependencies": [],
       "createdAt": "2025-12-10T08:00:00Z",
-      "updatedAt": "2026-03-05T12:00:00Z"
+      "updatedAt": "2026-03-05T12:00:00Z",
+      "version": "1.0"
     },
     {
       "id": "ssts-004",
@@ -63,9 +68,12 @@
       "status": "done",
       "assignedTeam": "team-002",
       "targetPI": "pi-001",
-      "dependencies": ["ssts-003"],
+      "dependencies": [
+        "ssts-003"
+      ],
       "createdAt": "2025-12-10T08:00:00Z",
-      "updatedAt": "2026-03-18T12:00:00Z"
+      "updatedAt": "2026-03-18T12:00:00Z",
+      "version": "1.0"
     },
     {
       "id": "ssts-005",
@@ -81,7 +89,8 @@
       "targetPI": "pi-002",
       "dependencies": [],
       "createdAt": "2026-01-05T08:00:00Z",
-      "updatedAt": "2026-01-17T12:00:00Z"
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-006",
@@ -95,9 +104,12 @@
       "status": "committed",
       "assignedTeam": "team-001",
       "targetPI": "pi-002",
-      "dependencies": ["ssts-005"],
+      "dependencies": [
+        "ssts-005"
+      ],
       "createdAt": "2026-01-05T08:00:00Z",
-      "updatedAt": "2026-01-17T12:00:00Z"
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "version": "0.9"
     },
     {
       "id": "ssts-007",
@@ -113,7 +125,8 @@
       "targetPI": "pi-003",
       "dependencies": [],
       "createdAt": "2026-01-10T08:00:00Z",
-      "updatedAt": "2026-01-17T12:00:00Z"
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "version": "0.9"
     },
     {
       "id": "ssts-008",
@@ -127,9 +140,12 @@
       "status": "committed",
       "assignedTeam": "team-001",
       "targetPI": "pi-003",
-      "dependencies": ["ssts-007"],
+      "dependencies": [
+        "ssts-007"
+      ],
       "createdAt": "2026-01-10T08:00:00Z",
-      "updatedAt": "2026-01-17T12:00:00Z"
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "version": "0.9"
     },
     {
       "id": "ssts-009",
@@ -145,7 +161,8 @@
       "targetPI": "pi-002",
       "dependencies": [],
       "createdAt": "2025-12-25T08:00:00Z",
-      "updatedAt": "2026-01-17T12:00:00Z"
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-010",
@@ -159,9 +176,12 @@
       "status": "in-progress",
       "assignedTeam": "team-002",
       "targetPI": "pi-002",
-      "dependencies": ["ssts-009"],
+      "dependencies": [
+        "ssts-009"
+      ],
       "createdAt": "2025-12-25T08:00:00Z",
-      "updatedAt": "2026-01-17T12:00:00Z"
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-011",
@@ -177,7 +197,8 @@
       "targetPI": "pi-002",
       "dependencies": [],
       "createdAt": "2026-01-15T08:00:00Z",
-      "updatedAt": "2026-01-17T12:00:00Z"
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-012",
@@ -191,9 +212,12 @@
       "status": "committed",
       "assignedTeam": "team-004",
       "targetPI": "pi-002",
-      "dependencies": ["ssts-011"],
+      "dependencies": [
+        "ssts-011"
+      ],
       "createdAt": "2026-01-15T08:00:00Z",
-      "updatedAt": "2026-01-17T12:00:00Z"
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "version": "0.9"
     },
     {
       "id": "ssts-013",
@@ -207,9 +231,12 @@
       "status": "in-progress",
       "assignedTeam": "team-004",
       "targetPI": "pi-002",
-      "dependencies": ["ssts-012"],
+      "dependencies": [
+        "ssts-012"
+      ],
       "createdAt": "2026-01-15T08:00:00Z",
-      "updatedAt": "2026-01-17T12:00:00Z"
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-014",
@@ -223,9 +250,12 @@
       "status": "committed",
       "assignedTeam": "team-004",
       "targetPI": "pi-002",
-      "dependencies": ["ssts-012"],
+      "dependencies": [
+        "ssts-012"
+      ],
       "createdAt": "2026-01-15T08:00:00Z",
-      "updatedAt": "2026-01-17T12:00:00Z"
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "version": "0.9"
     },
     {
       "id": "ssts-015",
@@ -241,7 +271,8 @@
       "targetPI": "pi-003",
       "dependencies": [],
       "createdAt": "2026-02-08T08:00:00Z",
-      "updatedAt": "2026-01-17T12:00:00Z"
+      "updatedAt": "2026-01-17T12:00:00Z",
+      "version": "0.5"
     },
     {
       "id": "ssts-016",
@@ -257,7 +288,8 @@
       "targetPI": null,
       "dependencies": [],
       "createdAt": "2026-01-18T08:00:00Z",
-      "updatedAt": "2026-01-18T08:00:00Z"
+      "updatedAt": "2026-01-18T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-017",
@@ -271,9 +303,12 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-016"],
+      "dependencies": [
+        "ssts-016"
+      ],
       "createdAt": "2026-01-18T08:00:00Z",
-      "updatedAt": "2026-01-18T08:00:00Z"
+      "updatedAt": "2026-01-18T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-018",
@@ -289,7 +324,8 @@
       "targetPI": null,
       "dependencies": [],
       "createdAt": "2026-01-18T08:00:00Z",
-      "updatedAt": "2026-01-18T08:00:00Z"
+      "updatedAt": "2026-01-18T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-019",
@@ -305,7 +341,8 @@
       "targetPI": null,
       "dependencies": [],
       "createdAt": "2026-01-18T08:00:00Z",
-      "updatedAt": "2026-01-18T08:00:00Z"
+      "updatedAt": "2026-01-18T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-020",
@@ -321,7 +358,8 @@
       "targetPI": null,
       "dependencies": [],
       "createdAt": "2026-01-18T08:00:00Z",
-      "updatedAt": "2026-01-18T08:00:00Z"
+      "updatedAt": "2026-01-18T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-021",
@@ -337,7 +375,8 @@
       "targetPI": null,
       "dependencies": [],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-022",
@@ -351,9 +390,12 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-021"],
+      "dependencies": [
+        "ssts-021"
+      ],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-023",
@@ -369,7 +411,8 @@
       "targetPI": null,
       "dependencies": [],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-024",
@@ -383,9 +426,12 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-023"],
+      "dependencies": [
+        "ssts-023"
+      ],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-025",
@@ -399,9 +445,13 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-019", "ssts-024"],
+      "dependencies": [
+        "ssts-019",
+        "ssts-024"
+      ],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-026",
@@ -415,9 +465,12 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-025"],
+      "dependencies": [
+        "ssts-025"
+      ],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-027",
@@ -433,7 +486,8 @@
       "targetPI": null,
       "dependencies": [],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-028",
@@ -447,9 +501,12 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-027"],
+      "dependencies": [
+        "ssts-027"
+      ],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-029",
@@ -463,9 +520,12 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-020"],
+      "dependencies": [
+        "ssts-020"
+      ],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-030",
@@ -479,9 +539,12 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-029"],
+      "dependencies": [
+        "ssts-029"
+      ],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-031",
@@ -497,7 +560,8 @@
       "targetPI": null,
       "dependencies": [],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-032",
@@ -511,9 +575,12 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-031"],
+      "dependencies": [
+        "ssts-031"
+      ],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-033",
@@ -527,9 +594,12 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-031"],
+      "dependencies": [
+        "ssts-031"
+      ],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-034",
@@ -543,9 +613,12 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-033"],
+      "dependencies": [
+        "ssts-033"
+      ],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-035",
@@ -559,9 +632,12 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-034"],
+      "dependencies": [
+        "ssts-034"
+      ],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-036",
@@ -575,9 +651,12 @@
       "status": "backlog",
       "assignedTeam": null,
       "targetPI": null,
-      "dependencies": ["ssts-035"],
+      "dependencies": [
+        "ssts-035"
+      ],
       "createdAt": "2026-01-19T08:00:00Z",
-      "updatedAt": "2026-01-19T08:00:00Z"
+      "updatedAt": "2026-01-19T08:00:00Z",
+      "version": "0.1"
     },
     {
       "id": "ssts-037",
@@ -593,7 +672,8 @@
       "targetPI": "pi-003",
       "dependencies": [],
       "createdAt": "2026-01-19T10:00:00Z",
-      "updatedAt": "2026-01-19T10:00:00Z"
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "version": "0.9"
     },
     {
       "id": "ssts-038",
@@ -607,9 +687,12 @@
       "status": "committed",
       "assignedTeam": "team-001",
       "targetPI": "pi-003",
-      "dependencies": ["ssts-037"],
+      "dependencies": [
+        "ssts-037"
+      ],
       "createdAt": "2026-01-19T10:00:00Z",
-      "updatedAt": "2026-01-19T10:00:00Z"
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "version": "0.9"
     },
     {
       "id": "ssts-039",
@@ -623,9 +706,12 @@
       "status": "planning",
       "assignedTeam": "team-001",
       "targetPI": "pi-003",
-      "dependencies": ["ssts-038"],
+      "dependencies": [
+        "ssts-038"
+      ],
       "createdAt": "2026-01-19T10:00:00Z",
-      "updatedAt": "2026-01-19T10:00:00Z"
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "version": "0.5"
     },
     {
       "id": "ssts-040",
@@ -641,7 +727,8 @@
       "targetPI": "pi-004",
       "dependencies": [],
       "createdAt": "2026-01-19T10:00:00Z",
-      "updatedAt": "2026-01-19T10:00:00Z"
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "version": "0.5"
     },
     {
       "id": "ssts-041",
@@ -655,9 +742,12 @@
       "status": "planning",
       "assignedTeam": "team-006",
       "targetPI": "pi-004",
-      "dependencies": ["ssts-040"],
+      "dependencies": [
+        "ssts-040"
+      ],
       "createdAt": "2026-01-19T10:00:00Z",
-      "updatedAt": "2026-01-19T10:00:00Z"
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "version": "0.5"
     },
     {
       "id": "ssts-042",
@@ -671,9 +761,12 @@
       "status": "planning",
       "assignedTeam": "team-006",
       "targetPI": "pi-004",
-      "dependencies": ["ssts-040"],
+      "dependencies": [
+        "ssts-040"
+      ],
       "createdAt": "2026-01-19T10:00:00Z",
-      "updatedAt": "2026-01-19T10:00:00Z"
+      "updatedAt": "2026-01-19T10:00:00Z",
+      "version": "0.5"
     }
   ]
 }

@@ -11,6 +11,7 @@ import featuresData from './features.json'
 import sstsData from './ssts.json'
 import sprintsData from './sprints.json'
 import tasksData from './tasks.json'
+import productsData from './products.json'
 
 export {
   usersData,
@@ -21,5 +22,6 @@ export {
   featuresData,
   sstsData,
   sprintsData,
-  tasksData
+  tasksData,
+  productsData
 }

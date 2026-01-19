@@ -13,7 +13,8 @@ import {
   featuresData,
   sstsData,
   sprintsData,
-  tasksData
+  tasksData,
+  productsData
 } from './datasets'
 
 import { useUserStore } from '@/stores/modules/user'
@@ -25,6 +26,7 @@ import { useFeatureStore } from '@/stores/modules/feature'
 import { useSSTSStore } from '@/stores/modules/ssts'
 import { useSprintStore } from '@/stores/modules/sprint'
 import { useTaskStore } from '@/stores/modules/task'
+import { useAssetStore } from '@/stores/modules/asset'
 
 /**
  * 初始化所有JSON数据集
@@ -43,6 +45,7 @@ export async function initializeJSONDatasets() {
     dataLoader.registerDataset('ssts', sstsData)
     dataLoader.registerDataset('sprints', sprintsData)
     dataLoader.registerDataset('tasks', tasksData)
+    dataLoader.registerDataset('products', productsData)
 
     // 2. 加载数据到各个Store
     await loadUsersToStore()
@@ -54,6 +57,7 @@ export async function initializeJSONDatasets() {
     await loadSSTSToStore()
     await loadSprintsToStore()
     await loadTasksToStore()
+    await loadProductsToStore()
 
     // 3. 建立数据关联
     await establishDataRelations()
@@ -199,6 +203,16 @@ async function loadTasksToStore() {
 }
 
 /**
+ * 加载产品数据
+ */
+async function loadProductsToStore() {
+  const assetStore = useAssetStore()
+  const products = dataLoader.getDataset('products')
+  assetStore.products = products
+  console.log(`✓ 加载了 ${products.length} 个产品`)
+}
+
+/**
  * 建立数据关联关系
  * 自动填充关联字段
  */
@@ -324,6 +338,17 @@ async function establishDataRelations() {
         sprint.mrIds.push(task.mrId)
       }
     })
+  })
+
+  // 13. 关联产品 -> Feature
+  const assetStore = useAssetStore()
+  featureStore.features.forEach(feature => {
+    if (feature.productId) {
+      const product = assetStore.products.find(p => p.id === feature.productId)
+      if (product && !product.featureIds.includes(feature.id)) {
+        product.featureIds.push(feature.id)
+      }
+    }
   })
 
   console.log('✓ 数据关联建立完成')
