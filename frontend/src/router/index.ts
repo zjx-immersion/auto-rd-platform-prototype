@@ -305,12 +305,6 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'PI Planning', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI Planning'] }
               },
               {
-                path: 'pi/capacity-management',
-                name: 'PICapacityManagement',
-                component: () => import('@/views/C3-Planning/PICapacityManagement.vue'),
-                meta: { title: 'PI容量管理', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI容量管理'] }
-              },
-              {
                 path: 'dependency-matrix',
                 name: 'DependencyMatrix',
                 component: () => import('@/views/C3-Planning/DependencyMatrix.vue'),
@@ -333,6 +327,12 @@ const routes: RouteRecordRaw[] = [
                 name: 'PIProgress',
                 component: () => import('@/views/C3-Planning/PIProgress.vue'),
                 meta: { title: 'PI进度跟踪', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI进度跟踪'] }
+              },
+              {
+                path: 'pi/capacity',
+                name: 'PICapacityManagement',
+                component: () => import('@/views/C3-Planning/PICapacityManagement.vue'),
+                meta: { title: 'PI容量管理', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI容量管理'] }
               }
             ]
           },
