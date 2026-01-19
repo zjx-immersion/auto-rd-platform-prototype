@@ -315,7 +315,7 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/variables.scss';
+@use '@/assets/styles/variables.scss' as *;
 
 .project-detail-container {
   height: 100%;

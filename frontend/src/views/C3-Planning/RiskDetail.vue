@@ -3,12 +3,9 @@
     <div class="page-header">
       <div class="header-left">
         <el-button :icon="ArrowLeft" @click="goBack">返回</el-button>
-        <div class="title-section">
-          <h2>风险详情</h2>
-          <el-tag :type="getStatusColor(risk?.status)" size="large">
-            {{ getStatusText(risk?.status) }}
-          </el-tag>
-        </div>
+        <el-tag :type="getStatusColor(risk?.status)" size="large">
+          {{ getStatusText(risk?.status) }}
+        </el-tag>
       </div>
       <div class="header-right">
         <el-button :icon="Edit" @click="handleEdit">编辑</el-button>

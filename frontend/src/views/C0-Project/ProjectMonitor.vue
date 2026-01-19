@@ -1,11 +1,15 @@
 <template>
   <PageContainer v-loading="projectStore.loading">
-    <PageHeader title="项目监控看板" :description="`项目: ${project?.name || ''}`">
-      <template #actions>
+    <!-- 操作栏 -->
+    <div class="action-bar">
+      <div class="project-info" v-if="project?.name">
+        <el-tag size="large">{{ project.name }}</el-tag>
+      </div>
+      <div class="actions">
         <el-button @click="goBack">返回</el-button>
         <el-button type="primary" @click="handleRefresh">刷新</el-button>
-      </template>
-    </PageHeader>
+      </div>
+    </div>
 
     <!-- 关键指标卡片 -->
     <el-row :gutter="20" style="margin-bottom: 20px;">
@@ -490,6 +494,22 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  .project-info {
+    flex: 1;
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+}
+
 .metric-card {
   height: 140px;
 

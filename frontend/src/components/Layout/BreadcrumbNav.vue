@@ -39,7 +39,7 @@ const breadcrumbItems = computed<BreadcrumbItem[]>(() => {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/variables.scss';
+@use '@/assets/styles/variables.scss' as *;
 
 .breadcrumb-nav {
   :deep(.el-breadcrumb) {

@@ -1,12 +1,11 @@
 <template>
   <PageContainer>
-    <PageHeader title="风险管理" description="识别、评估和跟踪项目风险">
-      <template #actions>
-        <el-button type="primary" :icon="Plus" @click="handleCreate">
-          创建风险
-        </el-button>
-      </template>
-    </PageHeader>
+    <!-- 操作栏 -->
+    <div class="action-bar">
+      <el-button type="primary" :icon="Plus" @click="handleCreate">
+        创建风险
+      </el-button>
+    </div>
 
     <!-- 风险统计卡片 -->
     <el-row :gutter="20" style="margin-bottom: 20px;">
@@ -542,6 +541,12 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
+.action-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
 .risk-column {
   min-height: 600px;
 

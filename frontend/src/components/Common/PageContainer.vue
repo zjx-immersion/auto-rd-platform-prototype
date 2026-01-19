@@ -14,7 +14,7 @@ const pageType = computed(() => route.meta.pageType || 'default')
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/variables.scss';
+@use '@/assets/styles/variables.scss' as *;
 
 .page-container {
   width: 100%;

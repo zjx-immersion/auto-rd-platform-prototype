@@ -1,11 +1,15 @@
 <template>
   <PageContainer v-loading="piStore.loading">
-    <PageHeader title="PI进度跟踪" :description="`PI: ${pi?.name || ''}`">
-      <template #actions>
+    <!-- 操作栏 -->
+    <div class="action-bar">
+      <div class="pi-info" v-if="pi?.name">
+        <el-tag size="large">{{ pi.name }}</el-tag>
+      </div>
+      <div class="actions">
         <el-button @click="goBack">返回</el-button>
         <el-button type="primary" @click="handleReview">PI回顾</el-button>
-      </template>
-    </PageHeader>
+      </div>
+    </div>
 
     <!-- 关键指标 -->
     <el-row :gutter="20" style="margin-bottom: 20px;">
@@ -357,6 +361,22 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  .pi-info {
+    flex: 1;
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+}
+
 .card-header {
   display: flex;
   justify-content: space-between;

@@ -467,7 +467,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/variables.scss';
+@use '@/assets/styles/variables.scss' as *;
 
 .project-list-container {
   display: flex;

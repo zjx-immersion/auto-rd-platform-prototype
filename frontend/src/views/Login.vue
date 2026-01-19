@@ -96,7 +96,7 @@ async function handleLogin() {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/variables.scss';
+@use '@/assets/styles/variables.scss' as *;
 
 .login-page {
   display: flex;

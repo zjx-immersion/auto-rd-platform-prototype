@@ -204,7 +204,7 @@ function formatTime(timestamp: number) {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/styles/variables.scss';
+@use '@/assets/styles/variables.scss' as *;
 
 .my-workspace {
   height: 100%;
