@@ -18,6 +18,13 @@ export default defineConfig({
       dts: 'src/types/components.d.ts'
     })
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler' // 使用现代 Sass API，消除 legacy-js-api 警告
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src')
