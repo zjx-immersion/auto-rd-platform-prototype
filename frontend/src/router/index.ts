@@ -365,6 +365,12 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'Sprint管理', breadcrumb: ['固有功能', 'C4: 迭代执行', 'Sprint管理'] }
               },
               {
+                path: 'sprint/:id',
+                name: 'SprintDetail',
+                component: () => import('@/views/C4-Iteration/SprintDetail.vue'),
+                meta: { title: 'Sprint详情', breadcrumb: ['固有功能', 'C4: 迭代执行', 'Sprint详情'] }
+              },
+              {
                 path: 'sprint/board/:sprintId',
                 name: 'SprintBoard',
                 component: () => import('@/views/C4-Iteration/SprintBoard.vue'),
