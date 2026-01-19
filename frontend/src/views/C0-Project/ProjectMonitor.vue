@@ -1,592 +1,561 @@
 <template>
-  <PageContainer>
-    <PageHeader title="项目监控" description="实时监控项目进度、里程碑、资源和风险">
+  <PageContainer v-loading="projectStore.loading">
+    <PageHeader title="项目监控看板" :description="`项目: ${project?.name || ''}`">
       <template #actions>
-        <el-button @click="handleRefresh">
-          <el-icon><Refresh /></el-icon>
-          刷新
-        </el-button>
-        <el-button @click="handleExport">
-          <el-icon><Download /></el-icon>
-          导出
-        </el-button>
+        <el-button @click="goBack">返回</el-button>
+        <el-button type="primary" @click="handleRefresh">刷新</el-button>
       </template>
     </PageHeader>
 
-    <!-- 项目选择 -->
-    <el-card style="margin-bottom: 16px;">
-      <el-select v-model="selectedProjectId" placeholder="选择项目" style="width: 400px;" @change="loadProjectData">
-        <el-option
-          v-for="project in projects"
-          :key="project.id"
-          :label="`${project.name} (${project.domain})`"
-          :value="project.id"
-        />
-      </el-select>
-    </el-card>
-
-    <div v-if="selectedProject" v-loading="loading">
-      <!-- 关键指标 -->
-      <el-row :gutter="16" style="margin-bottom: 16px;">
-        <el-col :span="6">
-          <el-card class="metric-card">
-            <div class="metric-header">
-              <el-icon :size="24" color="#409eff"><TrendCharts /></el-icon>
-              <span>项目进度</span>
-            </div>
-            <div class="metric-body">
-              <div class="metric-value">{{ projectProgress }}%</div>
-              <el-progress
-                :percentage="projectProgress"
-                :color="getProgressColor(projectProgress)"
-                style="margin-top: 8px;"
-              />
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card class="metric-card">
-            <div class="metric-header">
-              <el-icon :size="24" color="#67c23a"><Timer /></el-icon>
-              <span>健康度</span>
-            </div>
-            <div class="metric-body">
-              <el-rate
-                v-model="healthScore"
-                disabled
-                :colors="['#f56c6c', '#e6a23c', '#67c23a']"
-                show-score
-                score-template="{value}/5"
-              />
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card class="metric-card">
-            <div class="metric-header">
-              <el-icon :size="24" color="#e6a23c"><User /></el-icon>
-              <span>团队资源</span>
-            </div>
-            <div class="metric-body">
-              <div class="metric-value">{{ teamMemberCount }}</div>
-              <div class="metric-sub">{{ activeTeamCount }} 个团队</div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card class="metric-card">
-            <div class="metric-header">
-              <el-icon :size="24" color="#f56c6c"><WarningFilled /></el-icon>
-              <span>风险数量</span>
-            </div>
-            <div class="metric-body">
-              <div class="metric-value critical">{{ riskCount }}</div>
-              <div class="metric-sub">{{ criticalRiskCount }} 个严重</div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-
-      <!-- 里程碑和Epic进度 -->
-      <el-row :gutter="16" style="margin-bottom: 16px;">
-        <el-col :span="16">
-          <el-card>
-            <template #header>
-              <span>里程碑时间线</span>
+    <!-- 关键指标卡片 -->
+    <el-row :gutter="20" style="margin-bottom: 20px;">
+      <el-col :span="6">
+        <el-card shadow="hover" class="metric-card">
+          <el-statistic title="项目进度" :value="projectMetrics.progress" suffix="%">
+            <template #prefix>
+              <el-icon color="#409eff"><TrendCharts /></el-icon>
             </template>
-            <el-timeline>
-              <el-timeline-item
-                v-for="milestone in milestones"
-                :key="milestone.id"
-                :timestamp="milestone.date"
-                :color="getMilestoneColor(milestone)"
-                :hollow="!milestone.completed"
-              >
-                <div class="milestone-item">
-                  <div class="milestone-name">{{ milestone.name }}</div>
-                  <el-tag :type="milestone.completed ? 'success' : getDeadlineType(milestone.date)">
-                    {{ milestone.completed ? '已完成' : getMilestoneStatus(milestone.date) }}
-                  </el-tag>
-                </div>
-                <div class="milestone-deliverables" v-if="milestone.deliverables">
-                  交付物：{{ milestone.deliverables.join('、') }}
-                </div>
-              </el-timeline-item>
-            </el-timeline>
-          </el-card>
-        </el-col>
-        <el-col :span="8">
-          <el-card>
-            <template #header>
-              <span>Epic完成情况</span>
+          </el-statistic>
+          <el-progress
+            :percentage="projectMetrics.progress"
+            :stroke-width="8"
+            style="margin-top: 12px;"
+          />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover" class="metric-card">
+          <el-statistic title="活跃风险" :value="projectMetrics.activeRisks">
+            <template #prefix>
+              <el-icon :color="projectMetrics.activeRisks > 0 ? '#f56c6c' : '#67c23a'">
+                <Warning />
+              </el-icon>
             </template>
-            <div class="epic-list">
-              <div v-for="epic in epics" :key="epic.id" class="epic-item">
-                <div class="epic-header">
-                  <span class="epic-name">{{ epic.code }}</span>
-                  <el-tag size="small" :type="getEpicStatusType(epic.status)">
-                    {{ epic.status }}
-                  </el-tag>
-                </div>
-                <el-progress
-                  :percentage="epic.progress"
-                  :color="getProgressColor(epic.progress)"
-                  :stroke-width="6"
-                />
+          </el-statistic>
+          <div class="metric-desc">
+            {{ projectMetrics.activeRisks > 0 ? '需要关注' : '风险可控' }}
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover" class="metric-card">
+          <el-statistic title="团队负载" :value="projectMetrics.teamLoad" suffix="%">
+            <template #prefix>
+              <el-icon :color="getLoadColor(projectMetrics.teamLoad)">
+                <User />
+              </el-icon>
+            </template>
+          </el-statistic>
+          <div class="metric-desc">
+            {{ getLoadDesc(projectMetrics.teamLoad) }}
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover" class="metric-card">
+          <el-statistic title="预算使用" :value="projectMetrics.budgetUsage" suffix="%">
+            <template #prefix>
+              <el-icon color="#e6a23c"><Money /></el-icon>
+            </template>
+          </el-statistic>
+          <div class="metric-desc">
+            {{ projectMetrics.remainingBudget }}万元 剩余
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <!-- Epic完成率 -->
+        <el-card shadow="never" style="margin-bottom: 20px;">
+          <template #header>
+            <div class="card-header">
+              <span>Epic完成率</span>
+            </div>
+          </template>
+          <div style="height: 300px;">
+            <v-chart :option="epicChartOption" autoresize />
+          </div>
+        </el-card>
+
+        <!-- Feature完成率 -->
+        <el-card shadow="never" style="margin-bottom: 20px;">
+          <template #header>
+            <div class="card-header">
+              <span>Feature完成率</span>
+              <el-tag>{{ featureCompletion.completed }} / {{ featureCompletion.total }}</el-tag>
+            </div>
+          </template>
+          <el-progress
+            :percentage="featureCompletion.percentage"
+            :stroke-width="24"
+            :text-inside="true"
+          />
+          <el-row :gutter="12" style="margin-top: 16px;">
+            <el-col :span="8">
+              <div class="status-item">
+                <el-tag type="info">待开始: {{ featureCompletion.backlog }}</el-tag>
               </div>
-            </div>
-            <el-empty v-if="epics.length === 0" description="暂无Epic" :image-size="80" />
-          </el-card>
-        </el-col>
-      </el-row>
+            </el-col>
+            <el-col :span="8">
+              <div class="status-item">
+                <el-tag type="warning">进行中: {{ featureCompletion.inProgress }}</el-tag>
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <div class="status-item">
+                <el-tag type="success">已完成: {{ featureCompletion.completed }}</el-tag>
+              </div>
+            </el-col>
+          </el-row>
+        </el-card>
 
-      <!-- Feature和版本 -->
-      <el-row :gutter="16" style="margin-bottom: 16px;">
-        <el-col :span="12">
-          <el-card>
-            <template #header>
-              <span>Feature状态分布</span>
-            </template>
-            <div class="chart-container" ref="featureChartRef"></div>
-          </el-card>
-        </el-col>
-        <el-col :span="12">
-          <el-card>
-            <template #header>
-              <span>版本规划</span>
-            </template>
-            <el-table :data="versions" style="width: 100%;">
-              <el-table-column prop="name" label="版本" width="120" />
-              <el-table-column label="时间范围" min-width="200">
-                <template #default="{ row }">
-                  {{ row.startDate }} ~ {{ row.endDate }}
-                </template>
-              </el-table-column>
-              <el-table-column label="Feature" width="80" align="center">
-                <template #default="{ row }">
-                  {{ row.featureCount }}
-                </template>
-              </el-table-column>
-              <el-table-column label="状态" width="100">
-                <template #default="{ row }">
-                  <el-tag :type="getVersionStatusType(row.status)">
-                    {{ row.status }}
-                  </el-tag>
-                </template>
-              </el-table-column>
-            </el-table>
-          </el-card>
-        </el-col>
-      </el-row>
-
-      <!-- 团队效能和质量 -->
-      <el-row :gutter="16">
-        <el-col :span="12">
-          <el-card>
-            <template #header>
+        <!-- 团队效能 -->
+        <el-card shadow="never">
+          <template #header>
+            <div class="card-header">
               <span>团队效能</span>
-            </template>
-            <div class="chart-container" ref="velocityChartRef"></div>
-          </el-card>
-        </el-col>
-        <el-col :span="12">
-          <el-card>
-            <template #header>
-              <span>质量指标</span>
-            </template>
-            <el-row :gutter="16">
-              <el-col :span="12">
-                <div class="quality-metric">
-                  <div class="quality-label">缺陷密度</div>
-                  <div class="quality-value">{{ defectDensity }}</div>
-                  <div class="quality-unit">个/KLOC</div>
-                </div>
-              </el-col>
-              <el-col :span="12">
-                <div class="quality-metric">
-                  <div class="quality-label">测试覆盖率</div>
-                  <div class="quality-value">{{ testCoverage }}%</div>
-                  <el-progress
-                    :percentage="testCoverage"
-                    :color="getProgressColor(testCoverage)"
-                    :show-text="false"
-                  />
-                </div>
-              </el-col>
-              <el-col :span="12">
-                <div class="quality-metric">
-                  <div class="quality-label">代码评审率</div>
-                  <div class="quality-value">{{ codeReviewRate }}%</div>
-                  <el-progress
-                    :percentage="codeReviewRate"
-                    :color="getProgressColor(codeReviewRate)"
-                    :show-text="false"
-                  />
-                </div>
-              </el-col>
-              <el-col :span="12">
-                <div class="quality-metric">
-                  <div class="quality-label">CI成功率</div>
-                  <div class="quality-value">{{ ciSuccessRate }}%</div>
-                  <el-progress
-                    :percentage="ciSuccessRate"
-                    :color="getProgressColor(ciSuccessRate)"
-                    :show-text="false"
-                  />
-                </div>
-              </el-col>
-            </el-row>
-          </el-card>
-        </el-col>
-      </el-row>
-    </div>
+            </div>
+          </template>
+          <el-table :data="teamEfficiency" stripe>
+            <el-table-column prop="teamName" label="团队" width="150" />
+            <el-table-column label="负载" width="120">
+              <template #default="{ row }">
+                <el-progress
+                  :percentage="row.load"
+                  :stroke-width="8"
+                  :color="getLoadProgressColor(row.load)"
+                />
+              </template>
+            </el-table-column>
+            <el-table-column label="速率" width="120">
+              <template #default="{ row }">
+                {{ row.velocity }} SP/周
+              </template>
+            </el-table-column>
+            <el-table-column label="完成率" width="120">
+              <template #default="{ row }">
+                {{ row.completion }}%
+              </template>
+            </el-table-column>
+            <el-table-column label="状态" width="100">
+              <template #default="{ row }">
+                <el-tag :type="getTeamStatusType(row.status)" size="small">
+                  {{ row.status }}
+                </el-tag>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </el-col>
 
-    <el-empty v-else description="请选择项目" />
+      <el-col :span="12">
+        <!-- 里程碑达成情况 -->
+        <el-card shadow="never" style="margin-bottom: 20px;">
+          <template #header>
+            <div class="card-header">
+              <span>里程碑达成情况</span>
+              <el-tag type="success">{{ completedMilestones }} / {{ totalMilestones }}</el-tag>
+            </div>
+          </template>
+          <el-timeline>
+            <el-timeline-item
+              v-for="milestone in milestones"
+              :key="milestone.id"
+              :timestamp="milestone.date"
+              :type="getMilestoneType(milestone.status)"
+              :hollow="milestone.status !== 'completed'"
+            >
+              <div class="milestone-item">
+                <div class="milestone-name">{{ milestone.name }}</div>
+                <el-tag :type="getMilestoneTagType(milestone.status)" size="small">
+                  {{ milestone.status }}
+                </el-tag>
+              </div>
+              <div v-if="milestone.description" class="milestone-desc">
+                {{ milestone.description }}
+              </div>
+            </el-timeline-item>
+          </el-timeline>
+        </el-card>
+
+        <!-- 资源分配 -->
+        <el-card shadow="never" style="margin-bottom: 20px;">
+          <template #header>
+            <div class="card-header">
+              <span>资源分配</span>
+            </div>
+          </template>
+          <div style="height: 200px;">
+            <v-chart :option="resourceChartOption" autoresize />
+          </div>
+        </el-card>
+
+        <!-- 风险汇总 -->
+        <el-card shadow="never">
+          <template #header>
+            <div class="card-header">
+              <span>风险汇总</span>
+              <el-link type="primary" @click="viewAllRisks">查看全部</el-link>
+            </div>
+          </template>
+          <el-row :gutter="12">
+            <el-col :span="8">
+              <div class="risk-stat">
+                <div class="risk-count high">{{ riskSummary.high }}</div>
+                <div class="risk-label">高风险</div>
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <div class="risk-stat">
+                <div class="risk-count medium">{{ riskSummary.medium }}</div>
+                <div class="risk-label">中风险</div>
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <div class="risk-stat">
+                <div class="risk-count low">{{ riskSummary.low }}</div>
+                <div class="risk-label">低风险</div>
+              </div>
+            </el-col>
+          </el-row>
+        </el-card>
+      </el-col>
+    </el-row>
   </PageContainer>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick } from 'vue'
-import { useRouter } from 'vue-router'
-import {
-  Refresh,
-  Download,
-  TrendCharts,
-  Timer,
-  User,
-  WarningFilled
-} from '@element-plus/icons-vue'
+import { ref, computed, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '@/stores/modules/project'
-import { useEpicStore } from '@/stores/modules/epic'
-import type { Project } from '@/types'
-import { ElMessage } from 'element-plus'
-import * as echarts from 'echarts'
+import PageContainer from '@/components/Common/PageContainer.vue'
+import PageHeader from '@/components/Common/PageHeader.vue'
+import VChart from 'vue-echarts'
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { PieChart, BarChart } from 'echarts/charts'
+import {
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent,
+} from 'echarts/components'
+import {
+  TrendCharts,
+  Warning,
+  User,
+  Money,
+} from '@element-plus/icons-vue'
 
+use([
+  CanvasRenderer,
+  PieChart,
+  BarChart,
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent,
+])
+
+const route = useRoute()
 const router = useRouter()
 const projectStore = useProjectStore()
-const epicStore = useEpicStore()
 
-const loading = ref(false)
-const selectedProjectId = ref('')
+const projectId = computed(() => route.params.id as string)
+const project = computed(() => projectStore.currentProject)
 
-const featureChartRef = ref()
-const velocityChartRef = ref()
+// 模拟项目指标数据
+const projectMetrics = ref({
+  progress: 68,
+  activeRisks: 3,
+  teamLoad: 85,
+  budgetUsage: 62,
+  remainingBudget: 380,
+})
 
-let featureChart: echarts.ECharts | null = null
-let velocityChart: echarts.ECharts | null = null
+// 模拟Epic数据
+const epicChartOption = computed(() => ({
+  tooltip: {
+    trigger: 'item',
+    formatter: '{a} <br/>{b}: {c} ({d}%)',
+  },
+  legend: {
+    orient: 'vertical',
+    right: 10,
+    top: 'center',
+  },
+  series: [
+    {
+      name: 'Epic状态',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      avoidLabelOverlap: false,
+      itemStyle: {
+        borderRadius: 10,
+        borderColor: '#fff',
+        borderWidth: 2,
+      },
+      label: {
+        show: false,
+        position: 'center',
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: 20,
+          fontWeight: 'bold',
+        },
+      },
+      labelLine: {
+        show: false,
+      },
+      data: [
+        { value: 8, name: '已完成', itemStyle: { color: '#67c23a' } },
+        { value: 4, name: '进行中', itemStyle: { color: '#409eff' } },
+        { value: 2, name: '待开始', itemStyle: { color: '#909399' } },
+      ],
+    },
+  ],
+}))
 
-const projects = computed(() => projectStore.projects)
-const selectedProject = computed(() => projects.value.find(p => p.id === selectedProjectId.value))
+// Feature完成率数据
+const featureCompletion = ref({
+  total: 45,
+  completed: 28,
+  inProgress: 12,
+  backlog: 5,
+  percentage: 62,
+})
 
-// 模拟数据
-const projectProgress = ref(68)
-const healthScore = ref(4)
-const teamMemberCount = ref(45)
-const activeTeamCount = ref(6)
-const riskCount = ref(12)
-const criticalRiskCount = ref(3)
+// 团队效能数据
+const teamEfficiency = ref([
+  { teamName: '前端团队', load: 85, velocity: 45, completion: 72, status: '正常' },
+  { teamName: '后端团队', load: 92, velocity: 42, completion: 68, status: '超载' },
+  { teamName: '测试团队', load: 65, velocity: 38, completion: 55, status: '正常' },
+  { teamName: 'DevOps团队', load: 75, velocity: 40, completion: 65, status: '正常' },
+])
 
-const defectDensity = ref(2.3)
-const testCoverage = ref(85)
-const codeReviewRate = ref(92)
-const ciSuccessRate = ref(94)
-
+// 里程碑数据
 const milestones = ref([
-  { id: 'm1', name: 'Kickoff', date: '2026-01-06', deliverables: ['项目计划', '团队组建'], completed: true },
-  { id: 'm2', name: 'Alpha', date: '2026-02-28', deliverables: ['核心功能完成', 'Alpha版本'], completed: true },
-  { id: 'm3', name: 'Beta', date: '2026-04-30', deliverables: ['功能冻结', 'Beta版本'], completed: false },
-  { id: 'm4', name: 'RC', date: '2026-06-15', deliverables: ['代码冻结', 'RC版本'], completed: false },
-  { id: 'm5', name: 'SOP', date: '2026-07-31', deliverables: ['量产版本', 'SOP'], completed: false }
+  {
+    id: '1',
+    name: '项目启动',
+    date: '2025-12-01',
+    status: 'completed',
+    description: '项目正式启动',
+  },
+  {
+    id: '2',
+    name: '需求分析完成',
+    date: '2025-12-15',
+    status: 'completed',
+    description: '所有Epic和Feature已完成分析',
+  },
+  {
+    id: '3',
+    name: 'PI 1完成',
+    date: '2026-01-31',
+    status: 'in-progress',
+    description: '第一个PI即将完成',
+  },
+  {
+    id: '4',
+    name: '系统集成测试',
+    date: '2026-03-15',
+    status: 'upcoming',
+    description: '开始系统集成测试',
+  },
+  {
+    id: '5',
+    name: '项目上线',
+    date: '2026-04-30',
+    status: 'upcoming',
+    description: '项目计划上线',
+  },
 ])
 
-const epics = ref([
-  { id: 'e1', code: 'EPIC-001', progress: 85, status: '进行中' },
-  { id: 'e2', code: 'EPIC-002', progress: 72, status: '进行中' },
-  { id: 'e3', code: 'EPIC-003', progress: 45, status: '进行中' },
-  { id: 'e4', code: 'EPIC-004', progress: 20, status: '待开始' }
-])
+const completedMilestones = computed(() =>
+  milestones.value.filter(m => m.status === 'completed').length
+)
+const totalMilestones = computed(() => milestones.value.length)
 
-const versions = ref([
-  { id: 'v1', name: 'V1.0', startDate: '2026-01-01', endDate: '2026-03-31', featureCount: 25, status: '进行中' },
-  { id: 'v2', name: 'V2.0', startDate: '2026-04-01', endDate: '2026-06-30', featureCount: 30, status: '规划中' },
-  { id: 'v3', name: 'V3.0', startDate: '2026-07-01', endDate: '2026-09-30', featureCount: 20, status: '规划中' }
-])
+// 资源分配图表
+const resourceChartOption = computed(() => ({
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow',
+    },
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true,
+  },
+  xAxis: {
+    type: 'value',
+    max: 100,
+  },
+  yAxis: {
+    type: 'category',
+    data: ['开发', '测试', '设计', '管理'],
+  },
+  series: [
+    {
+      name: '资源占比',
+      type: 'bar',
+      data: [50, 25, 15, 10],
+      itemStyle: {
+        color: '#409eff',
+      },
+      label: {
+        show: true,
+        position: 'right',
+        formatter: '{c}%',
+      },
+    },
+  ],
+}))
 
-const getProgressColor = (percentage: number) => {
-  if (percentage < 50) return '#f56c6c'
-  if (percentage < 80) return '#e6a23c'
+// 风险汇总
+const riskSummary = ref({
+  high: 2,
+  medium: 3,
+  low: 5,
+})
+
+const getLoadColor = (load: number) => {
+  if (load >= 90) return '#f56c6c'
+  if (load >= 75) return '#e6a23c'
   return '#67c23a'
 }
 
-const getMilestoneColor = (milestone: any) => {
-  if (milestone.completed) return '#67c23a'
-  const today = new Date()
-  const milestoneDate = new Date(milestone.date)
-  if (milestoneDate < today) return '#f56c6c'
-  return '#409eff'
+const getLoadDesc = (load: number) => {
+  if (load >= 90) return '负载过高'
+  if (load >= 75) return '负载正常'
+  return '负载较低'
 }
 
-const getMilestoneStatus = (date: string) => {
-  const today = new Date()
-  const milestoneDate = new Date(date)
-  const diffDays = Math.ceil((milestoneDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-  
-  if (diffDays < 0) return '已逾期'
-  if (diffDays === 0) return '今天'
-  if (diffDays <= 7) return `${diffDays}天后`
-  return `剩余${diffDays}天`
+const getLoadProgressColor = (load: number) => {
+  if (load >= 90) return '#f56c6c'
+  if (load >= 75) return '#e6a23c'
+  return '#67c23a'
 }
 
-const getDeadlineType = (date: string) => {
-  const today = new Date()
-  const milestoneDate = new Date(date)
-  const diffDays = Math.ceil((milestoneDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-  
-  if (diffDays < 0) return 'danger'
-  if (diffDays <= 7) return 'warning'
-  return 'info'
+const getTeamStatusType = (status: string): any => {
+  const map: Record<string, string> = {
+    '正常': 'success',
+    '超载': 'danger',
+    '闲置': 'info',
+  }
+  return map[status] || ''
 }
 
-const getEpicStatusType = (status: string) => {
-  const map: Record<string, any> = {
-    '进行中': 'primary',
-    '待开始': 'info',
-    '已完成': 'success'
+const getMilestoneType = (status: string): any => {
+  const map: Record<string, string> = {
+    completed: 'success',
+    'in-progress': 'primary',
+    upcoming: 'info',
   }
   return map[status] || 'info'
 }
 
-const getVersionStatusType = (status: string) => {
-  const map: Record<string, any> = {
-    '进行中': 'primary',
-    '规划中': 'info',
-    '已完成': 'success'
+const getMilestoneTagType = (status: string): any => {
+  const map: Record<string, string> = {
+    completed: 'success',
+    'in-progress': 'warning',
+    upcoming: 'info',
   }
   return map[status] || 'info'
 }
 
-const initFeatureChart = () => {
-  if (!featureChartRef.value) return
-  
-  featureChart = echarts.init(featureChartRef.value)
-  const option = {
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      orient: 'vertical',
-      right: 10,
-      top: 'center'
-    },
-    series: [
-      {
-        type: 'pie',
-        radius: '70%',
-        center: ['40%', '50%'],
-        data: [
-          { value: 35, name: '已完成', itemStyle: { color: '#67c23a' } },
-          { value: 28, name: '开发中', itemStyle: { color: '#409eff' } },
-          { value: 15, name: '测试中', itemStyle: { color: '#e6a23c' } },
-          { value: 12, name: '待开始', itemStyle: { color: '#909399' } },
-          { value: 5, name: '阻塞', itemStyle: { color: '#f56c6c' } }
-        ],
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
-          }
-        }
-      }
-    ]
-  }
-  featureChart.setOption(option)
-}
-
-const initVelocityChart = () => {
-  if (!velocityChartRef.value) return
-  
-  velocityChart = echarts.init(velocityChartRef.value)
-  const option = {
-    tooltip: {
-      trigger: 'axis'
-    },
-    legend: {
-      data: ['计划速率', '实际速率']
-    },
-    xAxis: {
-      type: 'category',
-      data: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4', 'Sprint 5', 'Sprint 6']
-    },
-    yAxis: {
-      type: 'value',
-      name: 'Story Points'
-    },
-    series: [
-      {
-        name: '计划速率',
-        type: 'line',
-        data: [40, 40, 40, 40, 40, 40],
-        lineStyle: {
-          type: 'dashed',
-          color: '#909399'
-        },
-        itemStyle: {
-          color: '#909399'
-        }
-      },
-      {
-        name: '实际速率',
-        type: 'bar',
-        data: [42, 38, 41, 37, 0, 0],
-        itemStyle: {
-          color: '#409eff'
-        }
-      }
-    ]
-  }
-  velocityChart.setOption(option)
-}
-
-const loadProjectData = async () => {
-  if (!selectedProjectId.value) return
-  
-  loading.value = true
-  try {
-    await nextTick()
-    initCharts()
-  } finally {
-    loading.value = false
-  }
-}
-
-const initCharts = () => {
-  initFeatureChart()
-  initVelocityChart()
+const goBack = () => {
+  router.back()
 }
 
 const handleRefresh = () => {
-  loadProjectData()
+  window.location.reload()
 }
 
-const handleExport = () => {
-  ElMessage.info('导出功能待实现')
+const viewAllRisks = () => {
+  router.push('/function/c3/risk/management')
 }
 
 onMounted(async () => {
-  loading.value = true
-  try {
-    await Promise.all([
-      projectStore.fetchProjects(),
-      epicStore.fetchEpics()
-    ])
-    
-    // 默认选择第一个项目
-    if (projects.value.length > 0) {
-      selectedProjectId.value = projects.value[0].id
-      await loadProjectData()
-    }
-  } finally {
-    loading.value = false
-  }
+  await projectStore.fetchProjectById(projectId.value)
 })
 </script>
 
 <style scoped lang="scss">
 .metric-card {
-  .metric-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
+  height: 140px;
+
+  .metric-desc {
+    margin-top: 8px;
     font-size: 14px;
-    color: #606266;
+    color: #909399;
+    text-align: center;
   }
+}
 
-  .metric-body {
-    .metric-value {
-      font-size: 32px;
-      font-weight: 600;
-      color: #303133;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
 
-      &.critical {
-        color: #f56c6c;
-      }
-    }
-
-    .metric-sub {
-      font-size: 13px;
-      color: #909399;
-      margin-top: 8px;
-    }
-  }
+.status-item {
+  text-align: center;
+  padding: 8px;
 }
 
 .milestone-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 
   .milestone-name {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 14px;
   }
 }
 
-.milestone-deliverables {
+.milestone-desc {
   font-size: 12px;
   color: #909399;
   margin-top: 4px;
 }
 
-.epic-list {
-  .epic-item {
-    padding: 12px 0;
-    border-bottom: 1px solid #f0f0f0;
-
-    &:last-child {
-      border-bottom: none;
-    }
-
-    .epic-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-
-      .epic-name {
-        font-weight: 500;
-        font-size: 14px;
-      }
-    }
-  }
-}
-
-.chart-container {
-  height: 300px;
-}
-
-.quality-metric {
+.risk-stat {
   text-align: center;
-  padding: 16px;
+  padding: 20px;
 
-  .quality-label {
-    font-size: 13px;
-    color: #909399;
+  .risk-count {
+    font-size: 32px;
+    font-weight: 700;
     margin-bottom: 8px;
+
+    &.high {
+      color: #f56c6c;
+    }
+
+    &.medium {
+      color: #e6a23c;
+    }
+
+    &.low {
+      color: #67c23a;
+    }
   }
 
-  .quality-value {
-    font-size: 24px;
-    font-weight: 600;
-    color: #303133;
-    margin-bottom: 4px;
-  }
-
-  .quality-unit {
-    font-size: 12px;
-    color: #c0c4cc;
+  .risk-label {
+    font-size: 14px;
+    color: #606266;
   }
 }
 </style>

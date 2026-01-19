@@ -1,706 +1,392 @@
 <template>
-  <PageContainer>
-    <PageHeader title="PI进度跟踪" description="监控PI执行进度、燃尽图和关键指标">
+  <PageContainer v-loading="piStore.loading">
+    <PageHeader title="PI进度跟踪" :description="`PI: ${pi?.name || ''}`">
       <template #actions>
-        <el-button @click="handleRefresh">
-          <el-icon><Refresh /></el-icon>
-          刷新
-        </el-button>
-        <el-button @click="handleExport">
-          <el-icon><Download /></el-icon>
-          导出报告
-        </el-button>
+        <el-button @click="goBack">返回</el-button>
+        <el-button type="primary" @click="handleReview">PI回顾</el-button>
       </template>
     </PageHeader>
 
-    <!-- PI选择 -->
-    <el-card style="margin-bottom: 16px;">
-      <el-select v-model="selectedPIId" placeholder="选择PI" style="width: 300px;" @change="loadPIData">
-        <el-option
-          v-for="pi in pis"
-          :key="pi.id"
-          :label="`${pi.name} (${pi.startDate} ~ ${pi.endDate})`"
-          :value="pi.id"
-        />
-      </el-select>
-    </el-card>
-
-    <div v-if="selectedPI" v-loading="loading">
-      <!-- PI关键指标 -->
-      <el-row :gutter="16" style="margin-bottom: 16px;">
-        <el-col :span="6">
-          <el-card class="metric-card">
-            <div class="metric-content">
-              <div class="metric-icon" style="background-color: #ecf5ff;">
-                <el-icon color="#409eff" :size="32"><TrendCharts /></el-icon>
-              </div>
-              <div class="metric-info">
-                <div class="metric-value">{{ progressPercentage }}%</div>
-                <div class="metric-label">整体进度</div>
-                <el-progress
-                  :percentage="progressPercentage"
-                  :color="getProgressColor(progressPercentage)"
-                  :show-text="false"
-                  style="margin-top: 8px;"
-                />
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card class="metric-card">
-            <div class="metric-content">
-              <div class="metric-icon" style="background-color: #f0f9ff;">
-                <el-icon color="#67c23a" :size="32"><Timer /></el-icon>
-              </div>
-              <div class="metric-info">
-                <div class="metric-value">{{ remainingDays }}</div>
-                <div class="metric-label">剩余天数</div>
-                <div class="metric-sub">总计 {{ totalDays }} 天</div>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card class="metric-card">
-            <div class="metric-content">
-              <div class="metric-icon" style="background-color: #fdf6ec;">
-                <el-icon color="#e6a23c" :size="32"><DataLine /></el-icon>
-              </div>
-              <div class="metric-info">
-                <div class="metric-value">{{ completedSP }}/{{ totalSP }}</div>
-                <div class="metric-label">Story Points</div>
-                <div class="metric-sub">速率: {{ velocity }} SP/Sprint</div>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card class="metric-card">
-            <div class="metric-content">
-              <div class="metric-icon" style="background-color: #fef0f0;">
-                <el-icon color="#f56c6c" :size="32"><WarningFilled /></el-icon>
-              </div>
-              <div class="metric-info">
-                <div class="metric-value">{{ riskCount }}</div>
-                <div class="metric-label">活跃风险</div>
-                <div class="metric-sub">{{ blockerCount }} 个阻塞</div>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-
-      <!-- Feature完成情况 -->
-      <el-row :gutter="16" style="margin-bottom: 16px;">
-        <el-col :span="12">
-          <el-card>
-            <template #header>
-              <span>Feature完成情况</span>
+    <!-- 关键指标 -->
+    <el-row :gutter="20" style="margin-bottom: 20px;">
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic title="总体完成率" :value="progressData.overallCompletion" suffix="%">
+            <template #prefix>
+              <el-icon color="#409eff"><TrendCharts /></el-icon>
             </template>
-            <div class="chart-container" ref="featureChartRef"></div>
-            <el-divider />
-            <el-row :gutter="16">
-              <el-col :span="6" v-for="status in featureStatuses" :key="status.key">
-                <div class="status-stat">
-                  <div class="status-count" :style="{ color: status.color }">
-                    {{ getFeatureCountByStatus(status.key) }}
-                  </div>
-                  <div class="status-label">{{ status.label }}</div>
-                </div>
-              </el-col>
-            </el-row>
-          </el-card>
-        </el-col>
-        <el-col :span="12">
-          <el-card>
-            <template #header>
-              <span>团队负载分布</span>
+          </el-statistic>
+          <el-progress :percentage="progressData.overallCompletion" :stroke-width="8" style="margin-top: 12px;" />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic title="Feature完成率" :value="progressData.featureCompletion" suffix="%">
+            <template #prefix>
+              <el-icon color="#67c23a"><CircleCheck /></el-icon>
             </template>
-            <div class="chart-container" ref="teamChartRef"></div>
-          </el-card>
-        </el-col>
-      </el-row>
-
-      <!-- 燃尽图 -->
-      <el-card style="margin-bottom: 16px;">
-        <template #header>
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span>PI燃尽图</span>
-            <el-radio-group v-model="burndownType" size="small">
-              <el-radio-button label="storyPoints">Story Points</el-radio-button>
-              <el-radio-button label="featureCount">Feature数量</el-radio-button>
-            </el-radio-group>
+          </el-statistic>
+          <div class="stat-detail">
+            {{ progressData.completedFeatures }} / {{ progressData.totalFeatures }}
           </div>
-        </template>
-        <div class="chart-container large" ref="burndownChartRef"></div>
-      </el-card>
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic title="Story Points完成" :value="progressData.spCompletion" suffix="%">
+            <template #prefix>
+              <el-icon color="#e6a23c"><DataLine /></el-icon>
+            </template>
+          </el-statistic>
+          <div class="stat-detail">
+            {{ progressData.completedSP }} / {{ progressData.totalSP }} SP
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic title="速率" :value="progressData.velocity" suffix="SP/周">
+            <template #prefix>
+              <el-icon color="#909399"><Odometer /></el-icon>
+            </template>
+          </el-statistic>
+          <div class="stat-detail">
+            平均速率
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
 
-      <!-- Sprint执行情况 -->
-      <el-card style="margin-bottom: 16px;">
-        <template #header>
-          <span>Sprint执行情况</span>
-        </template>
-        <el-table :data="sprintData" style="width: 100%;">
-          <el-table-column prop="name" label="Sprint" width="150" />
-          <el-table-column label="时间" width="220">
-            <template #default="{ row }">
-              {{ row.startDate }} ~ {{ row.endDate }}
-            </template>
-          </el-table-column>
-          <el-table-column label="计划SP" width="100" align="center">
-            <template #default="{ row }">
-              {{ row.plannedSP }}
-            </template>
-          </el-table-column>
-          <el-table-column label="完成SP" width="100" align="center">
-            <template #default="{ row }">
-              {{ row.completedSP }}
-            </template>
-          </el-table-column>
-          <el-table-column label="完成率" width="150">
-            <template #default="{ row }">
-              <el-progress
-                :percentage="Math.round((row.completedSP / row.plannedSP) * 100)"
-                :color="getProgressColor((row.completedSP / row.plannedSP) * 100)"
-              />
-            </template>
-          </el-table-column>
-          <el-table-column label="状态" width="100">
-            <template #default="{ row }">
-              <el-tag :type="getSprintStatusType(row.status)">
-                {{ getSprintStatusText(row.status) }}
+    <el-row :gutter="20">
+      <el-col :span="16">
+        <!-- 燃尽图 -->
+        <el-card shadow="never" style="margin-bottom: 20px;">
+          <template #header>
+            <div class="card-header">
+              <span>PI燃尽图</span>
+              <el-radio-group v-model="burndownType" size="small">
+                <el-radio-button label="sp">Story Points</el-radio-button>
+                <el-radio-button label="feature">Feature Count</el-radio-button>
+              </el-radio-group>
+            </div>
+          </template>
+          <div style="height: 400px;">
+            <v-chart :option="burndownChartOption" autoresize />
+          </div>
+        </el-card>
+
+        <!-- 团队进度 -->
+        <el-card shadow="never">
+          <template #header>
+            <div class="card-header">
+              <span>团队进度</span>
+            </div>
+          </template>
+          <el-table :data="teamProgress" stripe>
+            <el-table-column prop="teamName" label="团队" width="150" />
+            <el-table-column label="完成率" width="150">
+              <template #default="{ row }">
+                <el-progress :percentage="row.completion" :stroke-width="8" />
+              </template>
+            </el-table-column>
+            <el-table-column label="Story Points" width="150">
+              <template #default="{ row }">
+                {{ row.completedSP }} / {{ row.totalSP }}
+              </template>
+            </el-table-column>
+            <el-table-column label="速率" width="120">
+              <template #default="{ row }">
+                {{ row.velocity }} SP/周
+              </template>
+            </el-table-column>
+            <el-table-column label="状态" width="120">
+              <template #default="{ row }">
+                <el-tag :type="getTeamStatusType(row.status)">
+                  {{ row.status }}
+                </el-tag>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </el-col>
+
+      <el-col :span="8">
+        <!-- 风险与依赖 -->
+        <el-card shadow="never" style="margin-bottom: 20px;">
+          <template #header>
+            <div class="card-header">
+              <span>风险</span>
+              <el-badge :value="riskCount" :type="riskCount > 0 ? 'danger' : 'success'" />
+            </div>
+          </template>
+          <el-alert
+            v-if="riskCount === 0"
+            title="无活跃风险"
+            type="success"
+            :closable="false"
+          />
+          <div v-else class="risk-list">
+            <div v-for="risk in activeRisks" :key="risk.id" class="risk-item">
+              <el-tag :type="getRiskTypeColor(risk.type)" size="small">
+                {{ risk.type }}
               </el-tag>
-            </template>
-          </el-table-column>
-          <el-table-column label="Feature" width="100" align="center">
-            <template #default="{ row }">
-              {{ row.featureCount }}个
-            </template>
-          </el-table-column>
-          <el-table-column label="操作" fixed="right">
-            <template #default="{ row }">
-              <el-button link size="small" @click="viewSprintDetail(row)">
-                详情
-              </el-button>
-              <el-button link size="small" @click="viewSprintBurndown(row)">
-                燃尽图
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-card>
+              <div class="risk-desc">{{ risk.description }}</div>
+            </div>
+          </div>
+        </el-card>
 
-      <!-- 依赖和风险 -->
-      <el-row :gutter="16">
-        <el-col :span="12">
-          <el-card>
-            <template #header>
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span>依赖跟踪 ({{ dependencies.length }})</span>
-                <el-button link size="small" @click="goToDependencyManagement">
-                  查看全部
-                </el-button>
-              </div>
-            </template>
-            <el-table :data="dependencies.slice(0, 5)" style="width: 100%;" :show-header="false">
-              <el-table-column label="依赖">
-                <template #default="{ row }">
-                  <div class="dependency-item">
-                    <el-tag size="small" :type="getDependencyStatusType(row.status)">
-                      {{ getDependencyStatusText(row.status) }}
-                    </el-tag>
-                    <span class="dependency-desc">{{ row.sourceFeature }} 依赖 {{ row.targetFeature }}</span>
-                  </div>
-                </template>
-              </el-table-column>
-            </el-table>
-            <el-empty v-if="dependencies.length === 0" description="暂无依赖" />
-          </el-card>
-        </el-col>
-        <el-col :span="12">
-          <el-card>
-            <template #header>
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span>风险跟踪 ({{ risks.length }})</span>
-                <el-button link size="small" @click="goToRiskManagement">
-                  查看全部
-                </el-button>
-              </div>
-            </template>
-            <el-table :data="risks.slice(0, 5)" style="width: 100%;" :show-header="false">
-              <el-table-column label="风险">
-                <template #default="{ row }">
-                  <div class="risk-item">
-                    <el-tag size="small" :type="getRiskLevelType(row.level)">
-                      {{ getRiskLevelText(row.level) }}
-                    </el-tag>
-                    <span class="risk-desc">{{ row.description }}</span>
-                  </div>
-                </template>
-              </el-table-column>
-            </el-table>
-            <el-empty v-if="risks.length === 0" description="暂无风险" />
-          </el-card>
-        </el-col>
-      </el-row>
-    </div>
+        <!-- 依赖 -->
+        <el-card shadow="never" style="margin-bottom: 20px;">
+          <template #header>
+            <div class="card-header">
+              <span>依赖</span>
+              <el-badge :value="dependencyCount" :type="dependencyCount > 0 ? 'warning' : 'success'" />
+            </div>
+          </template>
+          <el-alert
+            v-if="dependencyCount === 0"
+            title="无待解决依赖"
+            type="success"
+            :closable="false"
+          />
+          <div v-else class="dependency-list">
+            <div v-for="dep in activeDependencies" :key="dep.id" class="dependency-item">
+              <el-tag size="small">{{ dep.type }}</el-tag>
+              <div class="dependency-desc">{{ dep.description }}</div>
+            </div>
+          </div>
+        </el-card>
 
-    <el-empty v-else description="请选择PI" />
+        <!-- 里程碑 -->
+        <el-card shadow="never">
+          <template #header>
+            <div class="card-header">
+              <span>里程碑</span>
+            </div>
+          </template>
+          <el-timeline>
+            <el-timeline-item
+              v-for="milestone in milestones"
+              :key="milestone.id"
+              :timestamp="milestone.date"
+              :type="milestone.status === 'completed' ? 'success' : 'primary'"
+              :hollow="milestone.status !== 'completed'"
+            >
+              {{ milestone.name }}
+            </el-timeline-item>
+          </el-timeline>
+        </el-card>
+      </el-col>
+    </el-row>
   </PageContainer>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { usePIStore } from '@/stores/modules/pi'
+import PageContainer from '@/components/Common/PageContainer.vue'
+import PageHeader from '@/components/Common/PageHeader.vue'
+import VChart from 'vue-echarts'
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { LineChart } from 'echarts/charts'
 import {
-  Refresh,
-  Download,
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent,
+} from 'echarts/components'
+import {
   TrendCharts,
-  Timer,
+  CircleCheck,
   DataLine,
-  WarningFilled
+  Odometer,
 } from '@element-plus/icons-vue'
-import { useProjectStore } from '@/stores/modules/project'
-import { usePlanningStore } from '@/stores/modules/planning'
-import { useFeatureStore } from '@/stores/modules/feature'
-import type { PI } from '@/types'
-import { ElMessage } from 'element-plus'
-import * as echarts from 'echarts'
 
+use([
+  CanvasRenderer,
+  LineChart,
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent,
+])
+
+const route = useRoute()
 const router = useRouter()
-const projectStore = useProjectStore()
-const planningStore = usePlanningStore()
-const featureStore = useFeatureStore()
+const piStore = usePIStore()
 
-const loading = ref(false)
-const selectedPIId = ref('')
-const burndownType = ref<'storyPoints' | 'featureCount'>('storyPoints')
+const piId = computed(() => route.params.id as string)
+const pi = computed(() => piStore.currentPI)
+const burndownType = ref('sp')
 
-const featureChartRef = ref()
-const teamChartRef = ref()
-const burndownChartRef = ref()
-
-let featureChart: echarts.ECharts | null = null
-let teamChart: echarts.ECharts | null = null
-let burndownChart: echarts.ECharts | null = null
-
-const pis = computed(() => {
-  const allPIs: PI[] = []
-  projectStore.projects.forEach(project => {
-    project.versions.forEach(version => {
-      allPIs.push(...version.pis)
-    })
-  })
-  return allPIs
+// 模拟进度数据
+const progressData = ref({
+  overallCompletion: 65,
+  featureCompletion: 70,
+  completedFeatures: 14,
+  totalFeatures: 20,
+  spCompletion: 68,
+  completedSP: 340,
+  totalSP: 500,
+  velocity: 42,
 })
 
-const selectedPI = computed(() => pis.value.find(pi => pi.id === selectedPIId.value))
+// 模拟燃尽图数据
+const burndownChartOption = computed(() => {
+  const dates = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6']
+  const idealData = [500, 417, 333, 250, 167, 83]
+  const actualData = [500, 440, 380, 310, 220, 160]
 
-const featureStatuses = [
-  { key: 'completed', label: '已完成', color: '#67c23a' },
-  { key: 'inProgress', label: '进行中', color: '#409eff' },
-  { key: 'pending', label: '待开始', color: '#909399' },
-  { key: 'blocked', label: '阻塞', color: '#f56c6c' }
-]
-
-// 模拟数据
-const progressPercentage = ref(65)
-const remainingDays = ref(28)
-const totalDays = ref(84)
-const completedSP = ref(156)
-const totalSP = ref(240)
-const velocity = ref(26)
-const riskCount = ref(8)
-const blockerCount = ref(2)
-
-const sprintData = ref([
-  { id: 's1', name: 'Sprint 1', startDate: '2026-01-06', endDate: '2026-01-19', plannedSP: 40, completedSP: 42, status: 'completed', featureCount: 8 },
-  { id: 's2', name: 'Sprint 2', startDate: '2026-01-20', endDate: '2026-02-02', plannedSP: 40, completedSP: 38, status: 'completed', featureCount: 7 },
-  { id: 's3', name: 'Sprint 3', startDate: '2026-02-03', endDate: '2026-02-16', plannedSP: 40, completedSP: 35, status: 'active', featureCount: 9 },
-  { id: 's4', name: 'Sprint 4', startDate: '2026-02-17', endDate: '2026-03-02', plannedSP: 40, completedSP: 0, status: 'planned', featureCount: 8 },
-  { id: 's5', name: 'Sprint 5', startDate: '2026-03-03', endDate: '2026-03-16', plannedSP: 40, completedSP: 0, status: 'planned', featureCount: 10 },
-  { id: 's6', name: 'Sprint 6', startDate: '2026-03-17', endDate: '2026-03-30', plannedSP: 40, completedSP: 0, status: 'planned', featureCount: 8 }
-])
-
-const dependencies = ref([
-  { id: 'd1', sourceFeature: 'FEAT-001', targetFeature: 'FEAT-005', status: 'resolved' },
-  { id: 'd2', sourceFeature: 'FEAT-003', targetFeature: 'FEAT-007', status: 'pending' },
-  { id: 'd3', sourceFeature: 'FEAT-004', targetFeature: 'FEAT-006', status: 'blocked' }
-])
-
-const risks = ref([
-  { id: 'r1', level: 'high', description: '第三方API接口不稳定', status: 'mitigating' },
-  { id: 'r2', level: 'medium', description: '测试资源不足', status: 'identified' },
-  { id: 'r3', level: 'critical', description: '关键技术人员请假', status: 'mitigating' }
-])
-
-const getFeatureCountByStatus = (status: string) => {
-  // 模拟数据
-  const counts: Record<string, number> = {
-    completed: 18,
-    inProgress: 12,
-    pending: 8,
-    blocked: 2
-  }
-  return counts[status] || 0
-}
-
-const getProgressColor = (percentage: number) => {
-  if (percentage < 50) return '#f56c6c'
-  if (percentage < 80) return '#e6a23c'
-  return '#67c23a'
-}
-
-const getSprintStatusType = (status: string) => {
-  const map: Record<string, any> = {
-    completed: 'success',
-    active: 'primary',
-    planned: 'info'
-  }
-  return map[status] || 'info'
-}
-
-const getSprintStatusText = (status: string) => {
-  const map: Record<string, string> = {
-    completed: '已完成',
-    active: '进行中',
-    planned: '计划中'
-  }
-  return map[status] || status
-}
-
-const getDependencyStatusType = (status: string) => {
-  const map: Record<string, any> = {
-    resolved: 'success',
-    pending: 'warning',
-    blocked: 'danger'
-  }
-  return map[status] || 'info'
-}
-
-const getDependencyStatusText = (status: string) => {
-  const map: Record<string, string> = {
-    resolved: '已解决',
-    pending: '待解决',
-    blocked: '阻塞'
-  }
-  return map[status] || status
-}
-
-const getRiskLevelType = (level: string) => {
-  const map: Record<string, any> = {
-    critical: 'danger',
-    high: 'warning',
-    medium: 'info',
-    low: 'success'
-  }
-  return map[level] || 'info'
-}
-
-const getRiskLevelText = (level: string) => {
-  const map: Record<string, string> = {
-    critical: '严重',
-    high: '高',
-    medium: '中',
-    low: '低'
-  }
-  return map[level] || level
-}
-
-const initFeatureChart = () => {
-  if (!featureChartRef.value) return
-  
-  featureChart = echarts.init(featureChartRef.value)
-  const option = {
-    tooltip: {
-      trigger: 'item'
-    },
-    series: [
-      {
-        type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
-        itemStyle: {
-          borderRadius: 10,
-          borderColor: '#fff',
-          borderWidth: 2
-        },
-        label: {
-          show: false
-        },
-        labelLine: {
-          show: false
-        },
-        data: [
-          { value: 18, name: '已完成', itemStyle: { color: '#67c23a' } },
-          { value: 12, name: '进行中', itemStyle: { color: '#409eff' } },
-          { value: 8, name: '待开始', itemStyle: { color: '#909399' } },
-          { value: 2, name: '阻塞', itemStyle: { color: '#f56c6c' } }
-        ]
-      }
-    ]
-  }
-  featureChart.setOption(option)
-}
-
-const initTeamChart = () => {
-  if (!teamChartRef.value) return
-  
-  teamChart = echarts.init(teamChartRef.value)
-  const option = {
+  return {
     tooltip: {
       trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    xAxis: {
-      type: 'value',
-      max: 100
-    },
-    yAxis: {
-      type: 'category',
-      data: ['Team A', 'Team B', 'Team C', 'Team D']
-    },
-    series: [
-      {
-        name: '负载',
-        type: 'bar',
-        data: [85, 92, 78, 88],
-        itemStyle: {
-          color: (params: any) => {
-            const value = params.value
-            if (value > 90) return '#f56c6c'
-            if (value > 80) return '#e6a23c'
-            return '#67c23a'
-          }
-        },
-        label: {
-          show: true,
-          position: 'right',
-          formatter: '{c}%'
-        }
-      }
-    ]
-  }
-  teamChart.setOption(option)
-}
-
-const initBurndownChart = () => {
-  if (!burndownChartRef.value) return
-  
-  burndownChart = echarts.init(burndownChartRef.value)
-  updateBurndownChart()
-}
-
-const updateBurndownChart = () => {
-  if (!burndownChart) return
-  
-  const dates = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8', 'Week 9', 'Week 10', 'Week 11', 'Week 12']
-  const idealLine = [240, 220, 200, 180, 160, 140, 120, 100, 80, 60, 40, 20, 0]
-  const actualLine = [240, 215, 195, 182, 165, 156, null, null, null, null, null, null, null]
-  
-  const option = {
-    tooltip: {
-      trigger: 'axis'
     },
     legend: {
-      data: ['理想燃尽', '实际燃尽']
+      data: ['理想燃尽', '实际燃尽'],
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true,
     },
     xAxis: {
       type: 'category',
-      data: dates
+      boundaryGap: false,
+      data: dates,
     },
     yAxis: {
       type: 'value',
-      name: burndownType.value === 'storyPoints' ? 'Story Points' : 'Feature数量'
+      name: burndownType.value === 'sp' ? 'Story Points' : 'Feature Count',
     },
     series: [
       {
         name: '理想燃尽',
         type: 'line',
-        data: idealLine,
+        data: idealData,
+        smooth: true,
         lineStyle: {
           type: 'dashed',
-          color: '#909399'
+          color: '#909399',
         },
         itemStyle: {
-          color: '#909399'
-        }
+          color: '#909399',
+        },
       },
       {
         name: '实际燃尽',
         type: 'line',
-        data: actualLine,
+        data: actualData,
+        smooth: true,
         lineStyle: {
-          width: 3,
-          color: '#409eff'
+          color: '#409eff',
         },
         itemStyle: {
-          color: '#409eff'
+          color: '#409eff',
         },
         areaStyle: {
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [{
-              offset: 0, color: 'rgba(64, 158, 255, 0.3)'
-            }, {
-              offset: 1, color: 'rgba(64, 158, 255, 0.05)'
-            }]
-          }
-        }
-      }
-    ]
+          color: 'rgba(64, 158, 255, 0.1)',
+        },
+      },
+    ],
   }
-  burndownChart.setOption(option)
-}
-
-const loadPIData = async () => {
-  if (!selectedPIId.value) return
-  
-  loading.value = true
-  try {
-    // 加载PI数据
-    await nextTick()
-    initCharts()
-  } finally {
-    loading.value = false
-  }
-}
-
-const initCharts = () => {
-  initFeatureChart()
-  initTeamChart()
-  initBurndownChart()
-}
-
-const handleRefresh = () => {
-  loadPIData()
-}
-
-const handleExport = () => {
-  ElMessage.info('导出功能待实现')
-}
-
-const viewSprintDetail = (sprint: any) => {
-  router.push(`/function/c4/sprint/board?sprintId=${sprint.id}`)
-}
-
-const viewSprintBurndown = (sprint: any) => {
-  ElMessage.info('Sprint燃尽图功能待实现')
-}
-
-const goToDependencyManagement = () => {
-  router.push('/function/c3/dependency')
-}
-
-const goToRiskManagement = () => {
-  router.push('/function/c3/risk')
-}
-
-watch(burndownType, () => {
-  updateBurndownChart()
 })
 
-onMounted(async () => {
-  loading.value = true
-  try {
-    await Promise.all([
-      projectStore.fetchProjects(),
-      featureStore.fetchFeatures()
-    ])
-    
-    // 默认选择第一个PI
-    if (pis.value.length > 0) {
-      selectedPIId.value = pis.value[0].id
-      await loadPIData()
-    }
-  } finally {
-    loading.value = false
+// 模拟团队进度数据
+const teamProgress = ref([
+  { teamName: '前端团队', completion: 75, completedSP: 150, totalSP: 200, velocity: 45, status: '正常' },
+  { teamName: '后端团队', completion: 68, completedSP: 170, totalSP: 250, velocity: 40, status: '正常' },
+  { teamName: '测试团队', completion: 50, completedSP: 20, totalSP: 50, velocity: 38, status: '滞后' },
+])
+
+// 模拟风险数据
+const activeRisks = ref([
+  { id: '1', type: 'technical', description: '第三方API稳定性问题' },
+  { id: '2', type: 'resource', description: '测试资源不足' },
+])
+
+const riskCount = computed(() => activeRisks.value.length)
+
+// 模拟依赖数据
+const activeDependencies = ref([
+  { id: '1', type: 'external', description: '等待后端API完成' },
+])
+
+const dependencyCount = computed(() => activeDependencies.value.length)
+
+// 模拟里程碑数据
+const milestones = ref([
+  { id: '1', name: 'PI Planning', date: '2026-01-01', status: 'completed' },
+  { id: '2', name: 'Sprint 1 完成', date: '2026-01-15', status: 'completed' },
+  { id: '3', name: 'Sprint 2 完成', date: '2026-02-01', status: 'in-progress' },
+  { id: '4', name: 'PI Review', date: '2026-02-15', status: 'upcoming' },
+])
+
+const getTeamStatusType = (status: string): any => {
+  const map: Record<string, string> = {
+    '正常': 'success',
+    '滞后': 'warning',
+    '风险': 'danger',
   }
+  return map[status] || ''
+}
+
+const getRiskTypeColor = (type: string): any => {
+  const map: Record<string, string> = {
+    technical: 'primary',
+    resource: 'warning',
+    dependency: 'danger',
+    external: 'info',
+  }
+  return map[type] || ''
+}
+
+const goBack = () => {
+  router.back()
+}
+
+const handleReview = () => {
+  router.push(`/function/c3/pi/review/${piId.value}`)
+}
+
+onMounted(async () => {
+  await piStore.fetchPIById(piId.value)
 })
 </script>
 
 <style scoped lang="scss">
-.metric-card {
-  .metric-content {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
-    .metric-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .metric-info {
-      flex: 1;
-
-      .metric-value {
-        font-size: 28px;
-        font-weight: 600;
-        color: #303133;
-      }
-
-      .metric-label {
-        font-size: 14px;
-        color: #909399;
-        margin-top: 4px;
-      }
-
-      .metric-sub {
-        font-size: 12px;
-        color: #c0c4cc;
-        margin-top: 4px;
-      }
-    }
-  }
-}
-
-.chart-container {
-  height: 300px;
-
-  &.large {
-    height: 400px;
-  }
-}
-
-.status-stat {
-  text-align: center;
-  padding: 12px;
-
-  .status-count {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .status-label {
-    font-size: 13px;
-    color: #909399;
-  }
-}
-
-.dependency-item,
-.risk-item {
+.card-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  padding: 8px 0;
+  font-weight: 600;
+}
 
-  .dependency-desc,
-  .risk-desc {
-    flex: 1;
-    font-size: 13px;
+.stat-detail {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #909399;
+}
+
+.risk-list,
+.dependency-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.risk-item,
+.dependency-item {
+  padding: 12px;
+  background: #f5f7fa;
+  border-radius: 4px;
+
+  .risk-desc,
+  .dependency-desc {
+    margin-top: 8px;
+    font-size: 14px;
     color: #606266;
   }
 }

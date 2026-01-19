@@ -112,6 +112,12 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: '项目详情', breadcrumb: ['固有功能', 'C0: 领域项目管理', '项目详情'] }
               },
               {
+                path: 'monitor/:id',
+                name: 'ProjectMonitor',
+                component: () => import('@/views/C0-Project/ProjectMonitor.vue'),
+                meta: { title: '项目监控', breadcrumb: ['固有功能', 'C0: 领域项目管理', '项目监控'] }
+              },
+              {
                 path: 'create',
                 name: 'ProjectCreate',
                 component: () => import('@/views/C0-Project/ProjectCreate.vue'),
@@ -323,10 +329,22 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: '风险管理', breadcrumb: ['固有功能', 'C3: 规划协调', '风险管理'] }
               },
               {
+                path: 'risk/detail/:id',
+                name: 'RiskDetail',
+                component: () => import('@/views/C3-Planning/RiskDetail.vue'),
+                meta: { title: '风险详情', breadcrumb: ['固有功能', 'C3: 规划协调', '风险管理', '风险详情'] }
+              },
+              {
                 path: 'pi/progress/:id',
                 name: 'PIProgress',
                 component: () => import('@/views/C3-Planning/PIProgress.vue'),
                 meta: { title: 'PI进度跟踪', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI进度跟踪'] }
+              },
+              {
+                path: 'pi/review/:id',
+                name: 'PIReview',
+                component: () => import('@/views/C3-Planning/PIReview.vue'),
+                meta: { title: 'PI回顾会议', breadcrumb: ['固有功能', 'C3: 规划协调', 'PI回顾会议'] }
               },
               {
                 path: 'pi/capacity',
