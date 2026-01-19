@@ -176,7 +176,8 @@ const pis = computed(() => {
 const milestones = computed(() => project.value?.metadata?.milestones || [])
 const projectTeams = computed(() => {
   const teamIds = project.value?.teamIds || []
-  return projectStore.teams.filter(t => teamIds.includes(t.id))
+  const teams = projectStore.teams || []
+  return teams.filter(t => teamIds.includes(t.id))
 })
 
 // 辅助函数
