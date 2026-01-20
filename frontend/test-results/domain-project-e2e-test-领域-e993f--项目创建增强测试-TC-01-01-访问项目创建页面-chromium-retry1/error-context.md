@@ -1,0 +1,208 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6] [cursor=pointer]:
+        - img [ref=e8]
+        - generic [ref=e10]: 整车软件研发平台
+      - button [ref=e11] [cursor=pointer]:
+        - img [ref=e13]
+      - radiogroup "segmented" [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18] [cursor=pointer]:
+            - radio "流程驱动"
+            - generic [ref=e19]: 流程驱动
+          - generic [ref=e20] [cursor=pointer]:
+            - radio "固有功能" [checked]
+            - generic [ref=e21]: 固有功能
+          - generic [ref=e22] [cursor=pointer]:
+            - radio "工作台"
+            - generic [ref=e23]: 工作台
+    - generic [ref=e27]:
+      - img [ref=e30]
+      - textbox "搜索功能、需求、任务... (Ctrl+K)" [ref=e32]
+      - generic [ref=e34]: Ctrl+K
+    - generic [ref=e35]:
+      - button "创建" [ref=e37] [cursor=pointer]:
+        - img [ref=e39]
+        - generic [ref=e41]: 创建
+      - generic [ref=e42]:
+        - button [ref=e43] [cursor=pointer]:
+          - img [ref=e45]
+        - superscript [ref=e49]: "5"
+      - button [ref=e50] [cursor=pointer]:
+        - img [ref=e52]
+      - button "U" [ref=e55] [cursor=pointer]:
+        - generic [ref=e56]: U
+  - generic [ref=e57]:
+    - menubar [ref=e61]:
+      - menuitem "我的收藏" [ref=e62]:
+        - generic [ref=e63] [cursor=pointer]:
+          - img [ref=e65]
+          - generic [ref=e67]: 我的收藏
+          - img [ref=e69]
+      - menuitem "最近使用" [ref=e71]:
+        - generic [ref=e72] [cursor=pointer]:
+          - img [ref=e74]
+          - generic [ref=e78]: 最近使用
+          - img [ref=e80]
+      - separator [ref=e82]
+      - 'menuitem "C0: 领域项目管理" [expanded] [ref=e83]':
+        - generic [ref=e84] [cursor=pointer]:
+          - img [ref=e86]
+          - generic [ref=e88]: "C0: 领域项目管理"
+          - img [ref=e90]
+        - menu [ref=e92]:
+          - menuitem "项目列表" [ref=e93] [cursor=pointer]
+          - menuitem "版本管理" [ref=e94] [cursor=pointer]
+          - menuitem "Feature分配" [ref=e95] [cursor=pointer]
+      - 'menuitem "C1: 需求管理" [expanded] [ref=e96]':
+        - generic [ref=e97] [cursor=pointer]:
+          - img [ref=e99]
+          - generic [ref=e101]: "C1: 需求管理"
+          - img [ref=e103]
+        - menu [ref=e105]:
+          - menuitem "Epic管理" [ref=e106]:
+            - generic [ref=e107] [cursor=pointer]:
+              - text: Epic管理
+              - img [ref=e109]
+          - menuitem "Feature管理" [ref=e111]:
+            - generic [ref=e112] [cursor=pointer]:
+              - text: Feature管理
+              - img [ref=e114]
+          - menuitem "SSTS管理" [ref=e116]:
+            - generic [ref=e117] [cursor=pointer]:
+              - text: SSTS管理
+              - img [ref=e119]
+          - menuitem "MR管理" [ref=e121]:
+            - generic [ref=e122] [cursor=pointer]:
+              - text: MR管理
+              - img [ref=e124]
+          - menuitem "需求池" [ref=e126] [cursor=pointer]
+      - 'menuitem "C2: 资产管理" [ref=e127]':
+        - generic [ref=e128] [cursor=pointer]:
+          - img [ref=e130]
+          - generic [ref=e134]: "C2: 资产管理"
+          - img [ref=e136]
+      - 'menuitem "C3: 规划协调" [ref=e138]':
+        - generic [ref=e139] [cursor=pointer]:
+          - img [ref=e141]
+          - generic [ref=e143]: "C3: 规划协调"
+          - img [ref=e145]
+      - 'menuitem "C4: 迭代执行" [expanded] [ref=e147]':
+        - generic [ref=e148] [cursor=pointer]:
+          - img [ref=e150]
+          - generic [ref=e152]: "C4: 迭代执行"
+          - img [ref=e154]
+        - menu [ref=e156]:
+          - menuitem "Sprint列表" [ref=e157] [cursor=pointer]
+          - menuitem "任务列表" [ref=e158] [cursor=pointer]
+      - 'menuitem "C5: 测试管理" [ref=e159]':
+        - generic [ref=e160] [cursor=pointer]:
+          - img [ref=e162]
+          - generic [ref=e165]: "C5: 测试管理"
+          - img [ref=e167]
+      - 'menuitem "C6: DevOps" [ref=e169]':
+        - generic [ref=e170] [cursor=pointer]:
+          - img [ref=e172]
+          - generic [ref=e174]: "C6: DevOps"
+          - img [ref=e176]
+      - 'menuitem "C7: 分析治理" [ref=e178]':
+        - generic [ref=e179] [cursor=pointer]:
+          - img [ref=e181]
+          - generic [ref=e183]: "C7: 分析治理"
+          - img [ref=e185]
+    - main [ref=e187]:
+      - navigation "面包屑" [ref=e189]:
+        - generic [ref=e190]:
+          - link "首页" [ref=e191]:
+            - img [ref=e193]
+            - text: 首页
+          - text: /
+        - generic [ref=e195]:
+          - link "工作台" [ref=e196]
+          - text: /
+        - link "我的工作台" [ref=e198]
+      - generic [ref=e200]:
+        - generic [ref=e201]:
+          - heading "我的工作台" [level=1] [ref=e202]
+          - paragraph [ref=e203]: 晚上好, !
+        - generic [ref=e204]:
+          - generic [ref=e205]:
+            - generic [ref=e207]:
+              - generic [ref=e209]:
+                - generic [ref=e210]: 我的待办
+                - generic [ref=e212] [cursor=pointer]: 查看全部
+              - generic [ref=e214]:
+                - generic [ref=e215] [cursor=pointer]:
+                  - generic [ref=e217]:
+                    - checkbox
+                  - generic [ref=e219]:
+                    - generic [ref=e220]: EPIC-1001 需求评审
+                    - generic [ref=e221]:
+                      - generic [ref=e223]: P0
+                      - generic [ref=e224]: 今天 17:00
+                - generic [ref=e225] [cursor=pointer]:
+                  - generic [ref=e227]:
+                    - checkbox
+                  - generic [ref=e229]:
+                    - generic [ref=e230]: Feature-2001 设计方案评审
+                    - generic [ref=e231]:
+                      - generic [ref=e233]: P1
+                      - generic [ref=e234]: 明天 10:00
+                - generic [ref=e235] [cursor=pointer]:
+                  - generic [ref=e237]:
+                    - checkbox
+                  - generic [ref=e239]:
+                    - generic [ref=e240]: TASK-3001 代码评审
+                    - generic [ref=e241]:
+                      - generic [ref=e243]: P2
+                      - generic [ref=e244]: 后天 14:00
+            - generic [ref=e246]:
+              - generic [ref=e248]:
+                - generic [ref=e249]: 今日日程
+                - generic [ref=e251] [cursor=pointer]: 查看日历
+              - list [ref=e253]:
+                - listitem [ref=e254]:
+                  - generic [ref=e257]:
+                    - generic [ref=e258]: 09:00
+                    - generic [ref=e259]: 每日站会
+                - listitem [ref=e260]:
+                  - generic [ref=e263]:
+                    - generic [ref=e264]: 14:00
+                    - generic [ref=e265]: 需求评审会
+                - listitem [ref=e266]:
+                  - generic [ref=e268]:
+                    - generic [ref=e269]: 16:00
+                    - generic [ref=e270]: Sprint规划会
+          - generic [ref=e271]:
+            - generic [ref=e273]:
+              - generic [ref=e275]:
+                - generic [ref=e276]: Sprint燃尽图
+                - generic [ref=e278] [cursor=pointer]: 查看详情
+              - generic [ref=e281]:
+                - img [ref=e283]
+                - paragraph [ref=e300]: 图表加载中...
+            - generic [ref=e302]:
+              - generic [ref=e305]: 我的任务统计
+              - generic [ref=e307]:
+                - generic [ref=e308]:
+                  - generic [ref=e309]: "8"
+                  - generic [ref=e310]: 进行中
+                - generic [ref=e311]:
+                  - generic [ref=e312]: "3"
+                  - generic [ref=e313]: 待评审
+                - generic [ref=e314]:
+                  - generic [ref=e315]: "15"
+                  - generic [ref=e316]: 已完成
+                - generic [ref=e317]:
+                  - generic [ref=e318]: "2"
+                  - generic [ref=e319]: 已阻塞
+          - generic [ref=e322]:
+            - generic [ref=e325]: 最近访问
+            - generic [ref=e328]:
+              - img [ref=e330]
+              - paragraph [ref=e347]: 暂无访问记录
+```

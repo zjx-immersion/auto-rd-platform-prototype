@@ -1,0 +1,413 @@
+{
+  "config": {
+    "configFile": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/playwright.config.ts",
+    "rootDir": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests",
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 2,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "domain-project-e2e-test.spec.ts",
+      "file": "domain-project-e2e-test.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "领域项目管理 - Phase 1 基础设施验证",
+          "file": "domain-project-e2e-test.spec.ts",
+          "line": 21,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "TC-01: 项目创建增强测试",
+              "file": "domain-project-e2e-test.spec.ts",
+              "line": 31,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "TC-01-01: 访问项目创建页面",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 60000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 17000,
+                          "error": {
+                            "message": "TimeoutError: page.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=创建项目')\u001b[22m\n\u001b[2m    - locator resolved to <li tabindex=\"-1\" role=\"menuitem\" aria-disabled=\"false\" data-el-collection-item=\"\" class=\"el-dropdown-menu__item\">…</li>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+                            "stack": "TimeoutError: page.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=创建项目')\u001b[22m\n\u001b[2m    - locator resolved to <li tabindex=\"-1\" role=\"menuitem\" aria-disabled=\"false\" data-el-collection-item=\"\" class=\"el-dropdown-menu__item\">…</li>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts:35:18",
+                            "location": {
+                              "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts",
+                              "column": 18,
+                              "line": 35
+                            },
+                            "snippet": "  33 |       // 1. 导航到项目创建页面\n  34 |       await page.click('text=领域项目管理')\n> 35 |       await page.click('text=创建项目')\n     |                  ^\n  36 |       \n  37 |       // 2. 验证页面加载\n  38 |       await expect(page.locator('h1, .page-title')).toContainText(/创建项目|项目创建/)"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts",
+                                "column": 18,
+                                "line": 35
+                              },
+                              "message": "TimeoutError: page.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=创建项目')\u001b[22m\n\u001b[2m    - locator resolved to <li tabindex=\"-1\" role=\"menuitem\" aria-disabled=\"false\" data-el-collection-item=\"\" class=\"el-dropdown-menu__item\">…</li>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n\n  33 |       // 1. 导航到项目创建页面\n  34 |       await page.click('text=领域项目管理')\n> 35 |       await page.click('text=创建项目')\n     |                  ^\n  36 |       \n  37 |       // 2. 验证页面加载\n  38 |       await expect(page.locator('h1, .page-title')).toContainText(/创建项目|项目创建/)\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts:35:18"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-20T14:24:56.194Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/domain-project-e2e-test-领域-e993f--项目创建增强测试-TC-01-01-访问项目创建页面-chromium/video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/domain-project-e2e-test-领域-e993f--项目创建增强测试-TC-01-01-访问项目创建页面-chromium/error-context.md"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/domain-project-e2e-test-领域-e993f--项目创建增强测试-TC-01-01-访问项目创建页面-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts",
+                            "column": 18,
+                            "line": 35
+                          }
+                        },
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 16301,
+                          "error": {
+                            "message": "TimeoutError: page.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=创建项目')\u001b[22m\n\u001b[2m    - locator resolved to <li tabindex=\"-1\" role=\"menuitem\" aria-disabled=\"false\" data-el-collection-item=\"\" class=\"el-dropdown-menu__item\">…</li>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+                            "stack": "TimeoutError: page.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=创建项目')\u001b[22m\n\u001b[2m    - locator resolved to <li tabindex=\"-1\" role=\"menuitem\" aria-disabled=\"false\" data-el-collection-item=\"\" class=\"el-dropdown-menu__item\">…</li>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts:35:18",
+                            "location": {
+                              "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts",
+                              "column": 18,
+                              "line": 35
+                            },
+                            "snippet": "  33 |       // 1. 导航到项目创建页面\n  34 |       await page.click('text=领域项目管理')\n> 35 |       await page.click('text=创建项目')\n     |                  ^\n  36 |       \n  37 |       // 2. 验证页面加载\n  38 |       await expect(page.locator('h1, .page-title')).toContainText(/创建项目|项目创建/)"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts",
+                                "column": 18,
+                                "line": 35
+                              },
+                              "message": "TimeoutError: page.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=创建项目')\u001b[22m\n\u001b[2m    - locator resolved to <li tabindex=\"-1\" role=\"menuitem\" aria-disabled=\"false\" data-el-collection-item=\"\" class=\"el-dropdown-menu__item\">…</li>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n\n  33 |       // 1. 导航到项目创建页面\n  34 |       await page.click('text=领域项目管理')\n> 35 |       await page.click('text=创建项目')\n     |                  ^\n  36 |       \n  37 |       // 2. 验证页面加载\n  38 |       await expect(page.locator('h1, .page-title')).toContainText(/创建项目|项目创建/)\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts:35:18"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2026-01-20T14:25:14.402Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/domain-project-e2e-test-领域-e993f--项目创建增强测试-TC-01-01-访问项目创建页面-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/domain-project-e2e-test-领域-e993f--项目创建增强测试-TC-01-01-访问项目创建页面-chromium-retry1/error-context.md"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/domain-project-e2e-test-领域-e993f--项目创建增强测试-TC-01-01-访问项目创建页面-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts",
+                            "column": 18,
+                            "line": 35
+                          }
+                        },
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 16228,
+                          "error": {
+                            "message": "TimeoutError: page.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=创建项目')\u001b[22m\n\u001b[2m    - locator resolved to <li tabindex=\"-1\" role=\"menuitem\" aria-disabled=\"false\" data-el-collection-item=\"\" class=\"el-dropdown-menu__item\">…</li>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+                            "stack": "TimeoutError: page.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=创建项目')\u001b[22m\n\u001b[2m    - locator resolved to <li tabindex=\"-1\" role=\"menuitem\" aria-disabled=\"false\" data-el-collection-item=\"\" class=\"el-dropdown-menu__item\">…</li>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts:35:18",
+                            "location": {
+                              "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts",
+                              "column": 18,
+                              "line": 35
+                            },
+                            "snippet": "  33 |       // 1. 导航到项目创建页面\n  34 |       await page.click('text=领域项目管理')\n> 35 |       await page.click('text=创建项目')\n     |                  ^\n  36 |       \n  37 |       // 2. 验证页面加载\n  38 |       await expect(page.locator('h1, .page-title')).toContainText(/创建项目|项目创建/)"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts",
+                                "column": 18,
+                                "line": 35
+                              },
+                              "message": "TimeoutError: page.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=创建项目')\u001b[22m\n\u001b[2m    - locator resolved to <li tabindex=\"-1\" role=\"menuitem\" aria-disabled=\"false\" data-el-collection-item=\"\" class=\"el-dropdown-menu__item\">…</li>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    29 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n\n  33 |       // 1. 导航到项目创建页面\n  34 |       await page.click('text=领域项目管理')\n> 35 |       await page.click('text=创建项目')\n     |                  ^\n  36 |       \n  37 |       // 2. 验证页面加载\n  38 |       await expect(page.locator('h1, .page-title')).toContainText(/创建项目|项目创建/)\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts:35:18"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 2,
+                          "startTime": "2026-01-20T14:25:31.397Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/domain-project-e2e-test-领域-e993f--项目创建增强测试-TC-01-01-访问项目创建页面-chromium-retry2/video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/domain-project-e2e-test-领域-e993f--项目创建增强测试-TC-01-01-访问项目创建页面-chromium-retry2/error-context.md"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/domain-project-e2e-test-领域-e993f--项目创建增强测试-TC-01-01-访问项目创建页面-chromium-retry2/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/domain-project-e2e-test.spec.ts",
+                            "column": 18,
+                            "line": 35
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "b4df3b7fbd9736aa5e59-46d4bdf40d1748b2d2e7",
+                  "file": "domain-project-e2e-test.spec.ts",
+                  "line": 32,
+                  "column": 5
+                }
+              ]
+            },
+            {
+              "title": "TC-02: 项目详情增强测试",
+              "file": "domain-project-e2e-test.spec.ts",
+              "line": 158,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "TC-02-01: 访问项目详情页",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 60000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 3908,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-20T14:25:48.308Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "b4df3b7fbd9736aa5e59-fe09427ec5acb939ee94",
+                  "file": "domain-project-e2e-test.spec.ts",
+                  "line": 159,
+                  "column": 5
+                }
+              ]
+            },
+            {
+              "title": "TC-03: 版本规划V2测试",
+              "file": "domain-project-e2e-test.spec.ts",
+              "line": 239,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "TC-03-01: 访问版本规划V2页面",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 60000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1428,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "版本规划页面存在: false\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-20T14:25:52.361Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "b4df3b7fbd9736aa5e59-147bc0110230f552e8ea",
+                  "file": "domain-project-e2e-test.spec.ts",
+                  "line": 240,
+                  "column": 5
+                }
+              ]
+            },
+            {
+              "title": "TC-04: PI规划测试",
+              "file": "domain-project-e2e-test.spec.ts",
+              "line": 327,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "TC-04-01: 访问PI规划页面",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 60000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1415,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2026-01-20T14:25:53.794Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "b4df3b7fbd9736aa5e59-c24a5298f9c5b0847751",
+                  "file": "domain-project-e2e-test.spec.ts",
+                  "line": 328,
+                  "column": 5
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-01-20T14:24:55.651Z",
+    "duration": 59602.114,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}
