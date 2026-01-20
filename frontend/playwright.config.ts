@@ -32,7 +32,7 @@ export default defineConfig({
     // 基础URL
     baseURL: 'http://localhost:6060',
     
-    // 截图设置
+    // 截图设置 - 全页面截图
     screenshot: 'always',  // 总是截图，用于测试报告
     
     // 视频设置
@@ -41,13 +41,14 @@ export default defineConfig({
     // 追踪设置
     trace: 'retain-on-failure',
     
-    // 浏览器设置 - 全屏模式
-    viewport: null,  // 使用全屏模式（跟随浏览器窗口大小）
+    // 浏览器设置 - 全屏模式 ⭐
+    headless: false,  // 显示浏览器界面，方便观察测试过程
+    viewport: null,   // 使用浏览器原生窗口大小（跟随全屏）
     ignoreHTTPSErrors: true,
     
     // 等待设置
-    actionTimeout: 15000, // 15秒
-    navigationTimeout: 45000 // 45秒
+    actionTimeout: 15000,     // 15秒
+    navigationTimeout: 45000  // 45秒
   },
 
   // 项目配置
@@ -56,13 +57,18 @@ export default defineConfig({
       name: 'chromium',
       use: { 
         ...devices['Desktop Chrome'],
-        // 全屏浏览器配置
-        viewport: { width: 1920, height: 1080 },
+        // 全屏浏览器配置 ⭐⭐⭐
+        headless: false,   // 显示浏览器
+        viewport: null,    // 使用浏览器原生窗口大小
         launchOptions: {
           args: [
-            '--start-maximized',  // 最大化窗口
-            '--window-size=1920,1080'  // 固定窗口大小
-          ]
+            '--start-maximized',       // 启动时最大化窗口
+            '--start-fullscreen',      // 启动时全屏
+            '--window-size=1920,1080', // 设置窗口大小（作为后备）
+            '--disable-blink-features=AutomationControlled', // 隐藏自动化标识
+          ],
+          // 确保浏览器以最大化窗口启动
+          ignoreDefaultArgs: ['--enable-automation'],
         }
       },
     }
