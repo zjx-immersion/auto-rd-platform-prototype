@@ -148,6 +148,18 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'Epic分配', breadcrumb: ['固有功能', 'C0: 领域项目管理', 'Epic分配'] }
               },
               {
+                path: 'version/planning-v2',
+                name: 'VersionPlanningV2',
+                component: () => import('@/views/C0-Project/VersionPlanningV2.vue'),
+                meta: { title: '版本规划V2（完成度管理）', breadcrumb: ['固有功能', 'C0: 领域项目管理', '版本规划V2'] }
+              },
+              {
+                path: 'version/planning-v2/:id',
+                name: 'VersionPlanningV2Detail',
+                component: () => import('@/views/C0-Project/VersionPlanningV2.vue'),
+                meta: { title: '版本规划V2', breadcrumb: ['固有功能', 'C0: 领域项目管理', '版本规划V2'] }
+              },
+              {
                 path: 'version/plan-board',
                 name: 'VersionPlanBoard',
                 component: () => import('@/views/C0-Project/VersionPlanBoard.vue'),
