@@ -88,6 +88,66 @@ export const useProjectStore = defineStore('project', () => {
   // Actions
   // ============================================================================
 
+  // ============================================================================
+  // Phase 1: PI时间线生成增强 ⭐
+  // ============================================================================
+
+  /**
+   * 生成PI时间线 ⭐
+   * @param projectStart 项目开始日期
+   * @param projectEnd 项目结束日期
+   * @param piCycle PI周期（周数，默认12周）
+   * @returns PI时间线列表
+   */
+  function generatePITimeline(
+    projectStart: string,
+    projectEnd: string,
+    piCycle: number = 12
+  ) {
+    const timeline: Array<{
+      piNumber: string
+      startDate: string
+      endDate: string
+      duration: number
+      weeks: number
+    }> = []
+
+    let currentStart = new Date(projectStart)
+    const projectEndDate = new Date(projectEnd)
+    let piNumber = 1
+
+    while (currentStart < projectEndDate) {
+      // 计算PI结束日期（固定周期）
+      const piEndDate = new Date(currentStart)
+      piEndDate.setDate(piEndDate.getDate() + (piCycle * 7) - 1)
+
+      // 如果超出项目结束日期，使用项目结束日期
+      const actualEnd = piEndDate > projectEndDate ? projectEndDate : piEndDate
+
+      // 计算实际周数
+      const actualDays = Math.ceil((actualEnd.getTime() - currentStart.getTime()) / (1000 * 60 * 60 * 24))
+      const actualWeeks = Math.ceil(actualDays / 7)
+
+      timeline.push({
+        piNumber: `PI-${piNumber}`,
+        startDate: currentStart.toISOString().split('T')[0],
+        endDate: actualEnd.toISOString().split('T')[0],
+        duration: piCycle,
+        weeks: actualWeeks
+      })
+
+      console.log(`生成PI-${piNumber}: ${currentStart.toISOString().split('T')[0]} ~ ${actualEnd.toISOString().split('T')[0]} (${actualWeeks}周)`)
+
+      // 下一个PI的开始日期（无间隙）
+      currentStart = new Date(actualEnd)
+      currentStart.setDate(currentStart.getDate() + 1)
+      piNumber++
+    }
+
+    console.log(`✅ 共生成${timeline.length}个PI（固定${piCycle}周节奏）`)
+    return timeline
+  }
+
   /**
    * 获取项目列表
    */
@@ -432,6 +492,9 @@ export const useProjectStore = defineStore('project', () => {
     // Helper methods
     getVersionsByProject,
     getPIsByProject,
+
+    // Phase 1: PI时间线生成 ⭐
+    generatePITimeline,
     createVersion,
     createPI,
   }

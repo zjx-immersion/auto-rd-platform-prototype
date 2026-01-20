@@ -55,6 +55,166 @@ export const usePIStore = defineStore('pi', () => {
     }
   }
 
+  // ============================================================================
+  // Phase 1: 里程碑对齐增强 ⭐⭐⭐⭐⭐
+  // ============================================================================
+
+  /**
+   * 里程碑对齐检查 ⭐⭐⭐⭐⭐
+   * @param piEndDate PI结束日期
+   * @param milestones 里程碑列表
+   * @returns 对齐结果
+   */
+  function checkMilestoneAlignment(
+    piEndDate: string,
+    milestones: Array<{ milestoneId: string, milestoneName: string, targetDate: string }>
+  ) {
+    const results = milestones.map(milestone => {
+      // 计算日期差
+      const piEnd = new Date(piEndDate)
+      const milestoneTarget = new Date(milestone.targetDate)
+      const diffTime = milestoneTarget.getTime() - piEnd.getTime()
+      const daysDiff = Math.round(diffTime / (1000 * 60 * 60 * 24))
+      const absDiff = Math.abs(daysDiff)
+
+      // 判断对齐程度
+      let level: 'PERFECT' | 'ACCEPTABLE' | 'MISALIGNED'
+      let recommendation: string
+
+      if (absDiff <= 7) {
+        level = 'PERFECT'
+        recommendation = '✓ 完美对齐（≤7天），强烈建议关联'
+      } else if (absDiff <= 14) {
+        level = 'ACCEPTABLE'
+        recommendation = '✓ 可接受对齐（8-14天），建议关联'
+      } else {
+        level = 'MISALIGNED'
+        recommendation = '⚠️ 不对齐（>14天），建议作为中间PI或调整日期'
+      }
+
+      console.log(`里程碑 ${milestone.milestoneName}: 相差${daysDiff}天, 判断=${level}`)
+
+      return {
+        milestone,
+        daysDiff,
+        absDiff,
+        level,
+        recommendation,
+        suggestions: generateSuggestions(daysDiff, piEndDate, milestone.targetDate)
+      }
+    })
+
+    // 按对齐程度排序
+    return results.sort((a, b) => a.absDiff - b.absDiff)
+  }
+
+  /**
+   * 生成调整建议 ⭐
+   * @param daysDiff 日期差
+   * @param piEndDate PI结束日期
+   * @param milestoneDate 里程碑日期
+   * @returns 3种调整方案
+   */
+  function generateSuggestions(
+    daysDiff: number,
+    piEndDate: string,
+    milestoneDate: string
+  ) {
+    const absDiff = Math.abs(daysDiff)
+
+    return [
+      {
+        type: 'ADJUST_PI',
+        description: `调整PI结束日期到${milestoneDate}`,
+        impact: '失去固定12周节奏',
+        risk: 'MEDIUM' as const,
+        recommended: false,
+        details: [
+          `PI结束日期从${piEndDate}调整到${milestoneDate}`,
+          `所有后续PI都需要调整`,
+          `团队节奏被打乱`,
+          `资源规划困难`
+        ]
+      },
+      {
+        type: 'ADJUST_MILESTONE',
+        description: `调整里程碑日期到${piEndDate}`,
+        impact: '需协调整车项目组',
+        risk: 'HIGH' as const,
+        recommended: false,
+        details: [
+          `需要整车项目经理批准`,
+          `可能影响其他模块交付`,
+          `需要重新评估资源`,
+          `协调成本高`
+        ]
+      },
+      {
+        type: 'NO_LINK',
+        description: '不关联，作为中间PI',
+        impact: '无',
+        risk: 'LOW' as const,
+        recommended: absDiff > 14,
+        details: [
+          `保持固定12周节奏`,
+          `${absDiff}天缓冲用于优化`,
+          `PI结束时完成初步集成`,
+          `里程碑日期前交付核心功能`
+        ]
+      }
+    ]
+  }
+
+  /**
+   * 计算团队负载率 ⭐
+   * @param team 团队信息
+   * @param allocatedSP 分配的Story Points
+   * @param piDuration PI持续周数（默认12周）
+   * @returns 负载计算结果
+   */
+  function calculateTeamLoad(
+    team: { teamId: string, teamName: string, memberCount: number, velocity: number, workDaysPerWeek: number },
+    allocatedSP: number,
+    piDuration: number = 12
+  ) {
+    // 计算团队容量（人数 × 周数 × 工作日/周）
+    const capacity = team.memberCount * piDuration * team.workDaysPerWeek
+
+    // 计算负载率
+    const loadRate = Math.round((allocatedSP / team.velocity) * 100)
+
+    // 判断负载状态
+    let status: 'LOW' | 'OPTIMAL' | 'HIGH' | 'OVERLOAD'
+    let recommendation: string
+
+    if (loadRate < 70) {
+      status = 'LOW'
+      recommendation = '负载偏低，可增加工作量'
+    } else if (loadRate <= 85) {
+      status = 'OPTIMAL'
+      recommendation = '✓ 负载合理，处于最优范围（70%-85%）'
+    } else if (loadRate <= 100) {
+      status = 'HIGH'
+      recommendation = '⚠️ 负载偏高，需关注风险'
+    } else {
+      status = 'OVERLOAD'
+      recommendation = '❌ 严重超载，必须调整'
+    }
+
+    console.log(`团队 ${team.teamName} 负载率: ${loadRate}% (${status})`)
+
+    return {
+      teamId: team.teamId,
+      teamName: team.teamName,
+      capacity,
+      velocity: team.velocity,
+      allocatedSP,
+      loadRate,
+      status,
+      recommendation
+    }
+  }
+
   async function fetchPIById(id: string) {
     loading.value = true
     try {
@@ -352,5 +512,10 @@ export const usePIStore = defineStore('pi', () => {
     canAllocateFeature,
     resetCurrentPI,
     getPIsByProject,
+
+    // Phase 1: 里程碑对齐 ⭐⭐⭐⭐⭐
+    checkMilestoneAlignment,
+    generateSuggestions,
+    calculateTeamLoad,
   }
 })
