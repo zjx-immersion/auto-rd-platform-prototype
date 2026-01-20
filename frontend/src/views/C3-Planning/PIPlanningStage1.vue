@@ -3,9 +3,9 @@
     <!-- 页面头部 -->
     <div class="action-bar">
       <div class="action-bar-left">
-        <el-button @click="$router.back()">
+        <el-button @click="handleBackToBoard">
           <el-icon><ArrowLeft /></el-icon>
-          返回
+          返回PI看板
         </el-button>
         <span class="page-title">PI Planning - 全局视角: Feature/SSTS排布</span>
         <el-text size="small" type="info" style="margin-left: 16px;">
@@ -16,6 +16,10 @@
         </el-tag>
       </div>
       <div class="action-bar-right">
+        <el-button @click="handleSaveDraft">
+          <el-icon><Document /></el-icon>
+          保存
+        </el-button>
         <el-button type="primary" plain @click="handleGoToStage2">
           <el-icon><UserFilled /></el-icon>
           切换到团队视角
@@ -1344,6 +1348,11 @@ function handleSaveDraft() {
 }
 
 // 移除handleCompleteStage1函数，不再有阶段完成的概念
+
+function handleBackToBoard() {
+  // 返回到PI Planning看板
+  router.push('/function/c3/pi-planning-board')
+}
 
 function handleGoToStage2() {
   // 不需要检查完成状态，允许随时切换

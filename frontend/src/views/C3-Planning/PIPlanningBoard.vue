@@ -334,7 +334,11 @@ const handleStartPlanning = async () => {
   }
   try {
     await planningStore.startPlanning(selectedPIId.value)
-    ElMessage.success('已开始PI Planning')
+    // 导航到全局视角页面
+    router.push({
+      path: `/function/c3/planning/pi/${selectedPIId.value}/stage1`
+    })
+    ElMessage.success('已进入规划工作台（全局视角）')
   } catch (error) {
     ElMessage.error('启动失败')
   }

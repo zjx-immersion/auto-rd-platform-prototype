@@ -3,9 +3,9 @@
     <!-- 页面头部 -->
     <div class="action-bar">
       <div class="action-bar-left">
-        <el-button @click="$router.back()">
+        <el-button @click="handleBackToBoard">
           <el-icon><ArrowLeft /></el-icon>
-          返回
+          返回PI看板
         </el-button>
         <span class="page-title">PI Planning - 团队视角: 模块需求排布</span>
         <el-tag v-if="currentPI" :type="getPIStatusType(currentPI.status)" size="large" style="margin-left: 12px;">
@@ -13,7 +13,14 @@
         </el-tag>
       </div>
       <div class="action-bar-right">
-        <el-button @click="handleSaveDraft">保存草稿</el-button>
+        <el-button @click="handleSaveDraft">
+          <el-icon><Document /></el-icon>
+          保存
+        </el-button>
+        <el-button type="primary" plain @click="$router.push(`/function/c3/planning/pi/${piId}/stage1`)">
+          <el-icon><FolderOpened /></el-icon>
+          切换到全局视角
+        </el-button>
       </div>
     </div>
 
@@ -45,8 +52,8 @@
               单团队视角：选择一个团队，查看该团队管理模块相关的特性需求，并将模块需求分配到不同迭代
             </el-text>
           </div>
-          <el-button type="primary" plain @click="$router.push(`/function/c3/planning/pi/${piId.value}/stage1`)">
-            <el-icon><ArrowLeft /></el-icon>
+          <el-button type="primary" plain @click="$router.push(`/function/c3/planning/pi/${piId}/stage1`)">
+            <el-icon><FolderOpened /></el-icon>
             切换到全局视角
           </el-button>
         </div>
@@ -699,6 +706,11 @@ function filterNode(value: string, data: any) {
   return data.code?.toLowerCase().includes(value.toLowerCase()) ||
          data.name?.toLowerCase().includes(value.toLowerCase()) ||
          data.title?.toLowerCase().includes(value.toLowerCase())
+}
+
+function handleBackToBoard() {
+  // 返回到PI Planning看板
+  router.push('/function/c3/pi-planning-board')
 }
 
 function handleSaveDraft() {
