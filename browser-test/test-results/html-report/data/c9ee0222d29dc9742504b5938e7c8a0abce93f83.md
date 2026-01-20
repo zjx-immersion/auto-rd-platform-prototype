@@ -1,0 +1,542 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6] [cursor=pointer]:
+        - img [ref=e8]
+        - generic [ref=e10]: 整车软件研发平台
+      - button [ref=e11] [cursor=pointer]:
+        - img [ref=e13]
+      - radiogroup "segmented" [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18] [cursor=pointer]:
+            - radio "流程驱动"
+            - generic [ref=e19]: 流程驱动
+          - generic [ref=e20] [cursor=pointer]:
+            - radio "固有功能" [checked]
+            - generic [ref=e21]: 固有功能
+          - generic [ref=e22] [cursor=pointer]:
+            - radio "工作台"
+            - generic [ref=e23]: 工作台
+    - generic [ref=e27]:
+      - img [ref=e30]
+      - textbox "搜索功能、需求、任务... (Ctrl+K)" [ref=e32]
+      - generic [ref=e34]: Ctrl+K
+    - generic [ref=e35]:
+      - button "创建" [ref=e37] [cursor=pointer]:
+        - img [ref=e39]
+        - generic [ref=e41]: 创建
+      - generic [ref=e42]:
+        - button [ref=e43] [cursor=pointer]:
+          - img [ref=e45]
+        - superscript [ref=e49]: "5"
+      - button [ref=e50] [cursor=pointer]:
+        - img [ref=e52]
+      - button "U" [ref=e55] [cursor=pointer]:
+        - generic [ref=e56]: U
+  - generic [ref=e57]:
+    - menubar [ref=e61]:
+      - menuitem "我的收藏" [ref=e62]:
+        - generic [ref=e63] [cursor=pointer]:
+          - img [ref=e65]
+          - generic [ref=e67]: 我的收藏
+          - img [ref=e69]
+      - menuitem "最近使用" [ref=e71]:
+        - generic [ref=e72] [cursor=pointer]:
+          - img [ref=e74]
+          - generic [ref=e78]: 最近使用
+          - img [ref=e80]
+      - separator [ref=e82]
+      - 'menuitem "C0: 领域项目管理" [ref=e83]':
+        - generic [ref=e84] [cursor=pointer]:
+          - img [ref=e86]
+          - generic [ref=e88]: "C0: 领域项目管理"
+          - img [ref=e90]
+      - 'menuitem "C1: 需求管理" [expanded] [ref=e92]':
+        - generic [ref=e93] [cursor=pointer]:
+          - img [ref=e95]
+          - generic [ref=e97]: "C1: 需求管理"
+          - img [ref=e99]
+        - menu [ref=e101]:
+          - menuitem "Epic管理" [expanded] [ref=e102]:
+            - generic [ref=e103] [cursor=pointer]:
+              - text: Epic管理
+              - img [ref=e105]
+            - menu [ref=e107]:
+              - menuitem "Epic列表" [ref=e108] [cursor=pointer]
+          - menuitem "Feature管理" [ref=e109]:
+            - generic [ref=e110] [cursor=pointer]:
+              - text: Feature管理
+              - img [ref=e112]
+          - menuitem "SSTS管理" [ref=e114]:
+            - generic [ref=e115] [cursor=pointer]:
+              - text: SSTS管理
+              - img [ref=e117]
+          - menuitem "MR管理" [ref=e119]:
+            - generic [ref=e120] [cursor=pointer]:
+              - text: MR管理
+              - img [ref=e122]
+          - menuitem "需求池" [ref=e124] [cursor=pointer]
+      - 'menuitem "C2: 资产管理" [ref=e125]':
+        - generic [ref=e126] [cursor=pointer]:
+          - img [ref=e128]
+          - generic [ref=e132]: "C2: 资产管理"
+          - img [ref=e134]
+      - 'menuitem "C3: 规划协调" [ref=e136]':
+        - generic [ref=e137] [cursor=pointer]:
+          - img [ref=e139]
+          - generic [ref=e141]: "C3: 规划协调"
+          - img [ref=e143]
+      - 'menuitem "C4: 迭代执行" [expanded] [ref=e145]':
+        - generic [ref=e146] [cursor=pointer]:
+          - img [ref=e148]
+          - generic [ref=e150]: "C4: 迭代执行"
+          - img [ref=e152]
+        - menu [ref=e154]:
+          - menuitem "Sprint列表" [ref=e155] [cursor=pointer]
+          - menuitem "任务列表" [ref=e156] [cursor=pointer]
+      - 'menuitem "C5: 测试管理" [ref=e157]':
+        - generic [ref=e158] [cursor=pointer]:
+          - img [ref=e160]
+          - generic [ref=e163]: "C5: 测试管理"
+          - img [ref=e165]
+      - 'menuitem "C6: DevOps" [ref=e167]':
+        - generic [ref=e168] [cursor=pointer]:
+          - img [ref=e170]
+          - generic [ref=e172]: "C6: DevOps"
+          - img [ref=e174]
+      - 'menuitem "C7: 分析治理" [ref=e176]':
+        - generic [ref=e177] [cursor=pointer]:
+          - img [ref=e179]
+          - generic [ref=e181]: "C7: 分析治理"
+          - img [ref=e183]
+    - main [ref=e185]:
+      - navigation "面包屑" [ref=e187]:
+        - generic [ref=e188]:
+          - link "首页" [ref=e189]:
+            - img [ref=e191]
+            - text: 首页
+          - text: /
+        - generic [ref=e193]:
+          - link "固有功能" [ref=e194]
+          - text: /
+        - generic [ref=e195]:
+          - 'link "C1: 需求管理" [ref=e196]'
+          - text: /
+        - link "Epic列表" [ref=e198]
+      - generic [ref=e200]:
+        - generic [ref=e201]:
+          - generic [ref=e204]: 10 个Epic
+          - button "创建Epic" [ref=e206] [cursor=pointer]:
+            - img [ref=e208]
+            - generic [ref=e210]: 创建Epic
+        - generic [ref=e213]:
+          - generic [ref=e214]:
+            - generic [ref=e215]: 项目
+            - generic [ref=e218] [cursor=pointer]:
+              - generic:
+                - combobox "项目" [ref=e220]
+                - generic [ref=e221]: 全部项目
+              - img [ref=e224]
+          - generic [ref=e226]:
+            - generic [ref=e227]: 状态
+            - generic [ref=e230] [cursor=pointer]:
+              - generic:
+                - combobox "状态" [ref=e232]
+                - generic [ref=e233]: 全部状态
+              - img [ref=e236]
+          - generic [ref=e238]:
+            - generic [ref=e239]: 优先级
+            - generic [ref=e242] [cursor=pointer]:
+              - generic:
+                - combobox "优先级" [ref=e244]
+                - generic [ref=e245]: 全部优先级
+              - img [ref=e248]
+          - generic [ref=e250]:
+            - generic [ref=e251]: 搜索
+            - generic [ref=e254]:
+              - img [ref=e257]
+              - textbox "搜索" [ref=e259]:
+                - /placeholder: 搜索标题或编码
+          - generic [ref=e261]:
+            - button "搜索" [ref=e262] [cursor=pointer]:
+              - img [ref=e264]
+              - generic [ref=e266]: 搜索
+            - button "重置" [ref=e267] [cursor=pointer]:
+              - img [ref=e269]
+              - generic [ref=e271]: 重置
+        - generic [ref=e273]:
+          - generic [ref=e275] [cursor=pointer]:
+            - table [ref=e277]:
+              - rowgroup [ref=e290]:
+                - row "编码 按 编码 排序 标题 项目 状态 优先级 按 优先级 排序 故事点 按 故事点 排序 进度 Features 负责人 更新时间 按 更新时间 排序 操作" [ref=e291]:
+                  - columnheader "编码 按 编码 排序" [ref=e292]:
+                    - generic [ref=e293]:
+                      - text: 编码
+                      - button "按 编码 排序" [ref=e294]
+                  - columnheader "标题" [ref=e297]:
+                    - generic [ref=e298]: 标题
+                  - columnheader "项目" [ref=e299]:
+                    - generic [ref=e300]: 项目
+                  - columnheader "状态" [ref=e301]:
+                    - generic [ref=e302]: 状态
+                  - columnheader "优先级 按 优先级 排序" [ref=e303]:
+                    - generic [ref=e304]:
+                      - text: 优先级
+                      - button "按 优先级 排序" [ref=e305]
+                  - columnheader "故事点 按 故事点 排序" [ref=e308]:
+                    - generic [ref=e309]:
+                      - text: 故事点
+                      - button "按 故事点 排序" [ref=e310]
+                  - columnheader "进度" [ref=e313]:
+                    - generic [ref=e314]: 进度
+                  - columnheader "Features" [ref=e315]:
+                    - generic [ref=e316]: Features
+                  - columnheader "负责人" [ref=e317]:
+                    - generic [ref=e318]: 负责人
+                  - columnheader "更新时间 按 更新时间 排序" [ref=e319]:
+                    - generic [ref=e320]:
+                      - text: 更新时间
+                      - button "按 更新时间 排序" [ref=e321]
+                  - columnheader "操作" [ref=e324]:
+                    - generic [ref=e325]: 操作
+            - table [ref=e330]:
+              - rowgroup [ref=e343]:
+                - row "EPIC-001 高速公路自动驾驶(NOA) 智能驾驶L3级功能开发 进行中 high 120 / 180 67 3 张三 2026-01-17 20:00 查看 编辑 分解Feature 删除" [ref=e344]:
+                  - cell "EPIC-001" [ref=e345]:
+                    - generic [ref=e346]: EPIC-001
+                  - cell "高速公路自动驾驶(NOA)" [ref=e347]:
+                    - generic [ref=e348]: 高速公路自动驾驶(NOA)
+                  - cell "智能驾驶L3级功能开发" [ref=e349]:
+                    - generic [ref=e350]: 智能驾驶L3级功能开发
+                  - cell "进行中" [ref=e351]:
+                    - generic [ref=e354]: 进行中
+                  - cell "high" [ref=e355]:
+                    - generic [ref=e358]: high
+                  - cell "120 / 180" [ref=e359]:
+                    - generic [ref=e360]: 120 / 180
+                  - cell "67" [ref=e361]:
+                    - progressbar [ref=e363]:
+                      - generic [ref=e367]: 67%
+                  - cell "3" [ref=e368]:
+                    - generic [ref=e371]: "3"
+                  - cell "张三" [ref=e372]:
+                    - generic [ref=e373]: 张三
+                  - cell "2026-01-17 20:00" [ref=e374]:
+                    - generic [ref=e375]: 2026-01-17 20:00
+                  - cell "查看 编辑 分解Feature 删除" [ref=e376]:
+                    - generic [ref=e377]:
+                      - button "查看" [ref=e378]:
+                        - generic [ref=e379]: 查看
+                      - button "编辑" [ref=e380]:
+                        - generic [ref=e381]: 编辑
+                      - button "分解Feature" [ref=e382]:
+                        - generic [ref=e383]: 分解Feature
+                      - button "删除" [ref=e384]:
+                        - generic [ref=e385]: 删除
+                - row "EPIC-002 城市自动驾驶(NGP) 智能驾驶L3级功能开发 committed high 30 / 200 15 2 张三 2026-01-17 20:00 查看 编辑 分解Feature 删除" [ref=e386]:
+                  - cell "EPIC-002" [ref=e387]:
+                    - generic [ref=e388]: EPIC-002
+                  - cell "城市自动驾驶(NGP)" [ref=e389]:
+                    - generic [ref=e390]: 城市自动驾驶(NGP)
+                  - cell "智能驾驶L3级功能开发" [ref=e391]:
+                    - generic [ref=e392]: 智能驾驶L3级功能开发
+                  - cell "committed" [ref=e393]:
+                    - generic [ref=e396]: committed
+                  - cell "high" [ref=e397]:
+                    - generic [ref=e400]: high
+                  - cell "30 / 200" [ref=e401]:
+                    - generic [ref=e402]: 30 / 200
+                  - cell "15" [ref=e403]:
+                    - progressbar [ref=e405]:
+                      - generic [ref=e409]: 15%
+                  - cell "2" [ref=e410]:
+                    - generic [ref=e413]: "2"
+                  - cell "张三" [ref=e414]:
+                    - generic [ref=e415]: 张三
+                  - cell "2026-01-17 20:00" [ref=e416]:
+                    - generic [ref=e417]: 2026-01-17 20:00
+                  - cell "查看 编辑 分解Feature 删除" [ref=e418]:
+                    - generic [ref=e419]:
+                      - button "查看" [ref=e420]:
+                        - generic [ref=e421]: 查看
+                      - button "编辑" [ref=e422]:
+                        - generic [ref=e423]: 编辑
+                      - button "分解Feature" [ref=e424]:
+                        - generic [ref=e425]: 分解Feature
+                      - button "删除" [ref=e426]:
+                        - generic [ref=e427]: 删除
+                - row "EPIC-003 智能泊车系统 智能驾驶L3级功能开发 进行中 medium 80 / 150 53 3 李四 2026-01-17 20:00 查看 编辑 分解Feature 删除" [ref=e428]:
+                  - cell "EPIC-003" [ref=e429]:
+                    - generic [ref=e430]: EPIC-003
+                  - cell "智能泊车系统" [ref=e431]:
+                    - generic [ref=e432]: 智能泊车系统
+                  - cell "智能驾驶L3级功能开发" [ref=e433]:
+                    - generic [ref=e434]: 智能驾驶L3级功能开发
+                  - cell "进行中" [ref=e435]:
+                    - generic [ref=e438]: 进行中
+                  - cell "medium" [ref=e439]:
+                    - generic [ref=e442]: medium
+                  - cell "80 / 150" [ref=e443]:
+                    - generic [ref=e444]: 80 / 150
+                  - cell "53" [ref=e445]:
+                    - progressbar [ref=e447]:
+                      - generic [ref=e451]: 53%
+                  - cell "3" [ref=e452]:
+                    - generic [ref=e455]: "3"
+                  - cell "李四" [ref=e456]:
+                    - generic [ref=e457]: 李四
+                  - cell "2026-01-17 20:00" [ref=e458]:
+                    - generic [ref=e459]: 2026-01-17 20:00
+                  - cell "查看 编辑 分解Feature 删除" [ref=e460]:
+                    - generic [ref=e461]:
+                      - button "查看" [ref=e462]:
+                        - generic [ref=e463]: 查看
+                      - button "编辑" [ref=e464]:
+                        - generic [ref=e465]: 编辑
+                      - button "分解Feature" [ref=e466]:
+                        - generic [ref=e467]: 分解Feature
+                      - button "删除" [ref=e468]:
+                        - generic [ref=e469]: 删除
+                - row "EPIC-004 语音助手3.0 智能座舱3.0升级 进行中 high 100 / 160 63 4 赵六 2026-01-17 20:00 查看 编辑 分解Feature 删除" [ref=e470]:
+                  - cell "EPIC-004" [ref=e471]:
+                    - generic [ref=e472]: EPIC-004
+                  - cell "语音助手3.0" [ref=e473]:
+                    - generic [ref=e474]: 语音助手3.0
+                  - cell "智能座舱3.0升级" [ref=e475]:
+                    - generic [ref=e476]: 智能座舱3.0升级
+                  - cell "进行中" [ref=e477]:
+                    - generic [ref=e480]: 进行中
+                  - cell "high" [ref=e481]:
+                    - generic [ref=e484]: high
+                  - cell "100 / 160" [ref=e485]:
+                    - generic [ref=e486]: 100 / 160
+                  - cell "63" [ref=e487]:
+                    - progressbar [ref=e489]:
+                      - generic [ref=e493]: 63%
+                  - cell "4" [ref=e494]:
+                    - generic [ref=e497]: "4"
+                  - cell "赵六" [ref=e498]:
+                    - generic [ref=e499]: 赵六
+                  - cell "2026-01-17 20:00" [ref=e500]:
+                    - generic [ref=e501]: 2026-01-17 20:00
+                  - cell "查看 编辑 分解Feature 删除" [ref=e502]:
+                    - generic [ref=e503]:
+                      - button "查看" [ref=e504]:
+                        - generic [ref=e505]: 查看
+                      - button "编辑" [ref=e506]:
+                        - generic [ref=e507]: 编辑
+                      - button "分解Feature" [ref=e508]:
+                        - generic [ref=e509]: 分解Feature
+                      - button "删除" [ref=e510]:
+                        - generic [ref=e511]: 删除
+                - row "EPIC-005 AR-HUD增强显示 智能座舱3.0升级 committed medium 40 / 140 29 3 赵六 2026-01-17 20:00 查看 编辑 分解Feature 删除" [ref=e512]:
+                  - cell "EPIC-005" [ref=e513]:
+                    - generic [ref=e514]: EPIC-005
+                  - cell "AR-HUD增强显示" [ref=e515]:
+                    - generic [ref=e516]: AR-HUD增强显示
+                  - cell "智能座舱3.0升级" [ref=e517]:
+                    - generic [ref=e518]: 智能座舱3.0升级
+                  - cell "committed" [ref=e519]:
+                    - generic [ref=e522]: committed
+                  - cell "medium" [ref=e523]:
+                    - generic [ref=e526]: medium
+                  - cell "40 / 140" [ref=e527]:
+                    - generic [ref=e528]: 40 / 140
+                  - cell "29" [ref=e529]:
+                    - progressbar [ref=e531]:
+                      - generic [ref=e535]: 29%
+                  - cell "3" [ref=e536]:
+                    - generic [ref=e539]: "3"
+                  - cell "赵六" [ref=e540]:
+                    - generic [ref=e541]: 赵六
+                  - cell "2026-01-17 20:00" [ref=e542]:
+                    - generic [ref=e543]: 2026-01-17 20:00
+                  - cell "查看 编辑 分解Feature 删除" [ref=e544]:
+                    - generic [ref=e545]:
+                      - button "查看" [ref=e546]:
+                        - generic [ref=e547]: 查看
+                      - button "编辑" [ref=e548]:
+                        - generic [ref=e549]: 编辑
+                      - button "分解Feature" [ref=e550]:
+                        - generic [ref=e551]: 分解Feature
+                      - button "删除" [ref=e552]:
+                        - generic [ref=e553]: 删除
+                - row "EPIC-006 中央计算平台 电子电器架构E/E 3.0 planning high 0 / 220 0 1 钱七 2026-01-17 20:00 查看 编辑 分解Feature 删除" [ref=e554]:
+                  - cell "EPIC-006" [ref=e555]:
+                    - generic [ref=e556]: EPIC-006
+                  - cell "中央计算平台" [ref=e557]:
+                    - generic [ref=e558]: 中央计算平台
+                  - cell "电子电器架构E/E 3.0" [ref=e559]:
+                    - generic [ref=e560]: 电子电器架构E/E 3.0
+                  - cell "planning" [ref=e561]:
+                    - generic [ref=e564]: planning
+                  - cell "high" [ref=e565]:
+                    - generic [ref=e568]: high
+                  - cell "0 / 220" [ref=e569]:
+                    - generic [ref=e570]: 0 / 220
+                  - cell "0" [ref=e571]:
+                    - progressbar [ref=e573]:
+                      - generic [ref=e576]: 0%
+                  - cell "1" [ref=e577]:
+                    - generic [ref=e580]: "1"
+                  - cell "钱七" [ref=e581]:
+                    - generic [ref=e582]: 钱七
+                  - cell "2026-01-17 20:00" [ref=e583]:
+                    - generic [ref=e584]: 2026-01-17 20:00
+                  - cell "查看 编辑 分解Feature 删除" [ref=e585]:
+                    - generic [ref=e586]:
+                      - button "查看" [ref=e587]:
+                        - generic [ref=e588]: 查看
+                      - button "编辑" [ref=e589]:
+                        - generic [ref=e590]: 编辑
+                      - button "分解Feature" [ref=e591]:
+                        - generic [ref=e592]: 分解Feature
+                      - button "删除" [ref=e593]:
+                        - generic [ref=e594]: 删除
+                - row "EPIC-007 自动驾驶高精地图服务 draft high 0 / 180 0 3 张三 2026-01-18 16:00 查看 编辑 分解Feature 删除" [ref=e595]:
+                  - cell "EPIC-007" [ref=e596]:
+                    - generic [ref=e597]: EPIC-007
+                  - cell "自动驾驶高精地图服务" [ref=e598]:
+                    - generic [ref=e599]: 自动驾驶高精地图服务
+                  - cell [ref=e600]
+                  - cell "draft" [ref=e601]:
+                    - generic [ref=e604]: draft
+                  - cell "high" [ref=e605]:
+                    - generic [ref=e608]: high
+                  - cell "0 / 180" [ref=e609]:
+                    - generic [ref=e610]: 0 / 180
+                  - cell "0" [ref=e611]:
+                    - progressbar [ref=e613]:
+                      - generic [ref=e616]: 0%
+                  - cell "3" [ref=e617]:
+                    - generic [ref=e620]: "3"
+                  - cell "张三" [ref=e621]:
+                    - generic [ref=e622]: 张三
+                  - cell "2026-01-18 16:00" [ref=e623]:
+                    - generic [ref=e624]: 2026-01-18 16:00
+                  - cell "查看 编辑 分解Feature 删除" [ref=e625]:
+                    - generic [ref=e626]:
+                      - button "查看" [ref=e627]:
+                        - generic [ref=e628]: 查看
+                      - button "编辑" [ref=e629]:
+                        - generic [ref=e630]: 编辑
+                      - button "分解Feature" [ref=e631]:
+                        - generic [ref=e632]: 分解Feature
+                      - button "删除" [ref=e633]:
+                        - generic [ref=e634]: 删除
+                - row "EPIC-008 智能座舱多模交互 draft medium 0 / 140 0 5 赵六 2026-01-18 16:00 查看 编辑 分解Feature 删除" [ref=e635]:
+                  - cell "EPIC-008" [ref=e636]:
+                    - generic [ref=e637]: EPIC-008
+                  - cell "智能座舱多模交互" [ref=e638]:
+                    - generic [ref=e639]: 智能座舱多模交互
+                  - cell [ref=e640]
+                  - cell "draft" [ref=e641]:
+                    - generic [ref=e644]: draft
+                  - cell "medium" [ref=e645]:
+                    - generic [ref=e648]: medium
+                  - cell "0 / 140" [ref=e649]:
+                    - generic [ref=e650]: 0 / 140
+                  - cell "0" [ref=e651]:
+                    - progressbar [ref=e653]:
+                      - generic [ref=e656]: 0%
+                  - cell "5" [ref=e657]:
+                    - generic [ref=e660]: "5"
+                  - cell "赵六" [ref=e661]:
+                    - generic [ref=e662]: 赵六
+                  - cell "2026-01-18 16:00" [ref=e663]:
+                    - generic [ref=e664]: 2026-01-18 16:00
+                  - cell "查看 编辑 分解Feature 删除" [ref=e665]:
+                    - generic [ref=e666]:
+                      - button "查看" [ref=e667]:
+                        - generic [ref=e668]: 查看
+                      - button "编辑" [ref=e669]:
+                        - generic [ref=e670]: 编辑
+                      - button "分解Feature" [ref=e671]:
+                        - generic [ref=e672]: 分解Feature
+                      - button "删除" [ref=e673]:
+                        - generic [ref=e674]: 删除
+                - row "EPIC-009 整车OTA升级平台 draft high 0 / 200 0 3 钱七 2026-01-18 16:00 查看 编辑 分解Feature 删除" [ref=e675]:
+                  - cell "EPIC-009" [ref=e676]:
+                    - generic [ref=e677]: EPIC-009
+                  - cell "整车OTA升级平台" [ref=e678]:
+                    - generic [ref=e679]: 整车OTA升级平台
+                  - cell [ref=e680]
+                  - cell "draft" [ref=e681]:
+                    - generic [ref=e684]: draft
+                  - cell "high" [ref=e685]:
+                    - generic [ref=e688]: high
+                  - cell "0 / 200" [ref=e689]:
+                    - generic [ref=e690]: 0 / 200
+                  - cell "0" [ref=e691]:
+                    - progressbar [ref=e693]:
+                      - generic [ref=e696]: 0%
+                  - cell "3" [ref=e697]:
+                    - generic [ref=e700]: "3"
+                  - cell "钱七" [ref=e701]:
+                    - generic [ref=e702]: 钱七
+                  - cell "2026-01-18 16:00" [ref=e703]:
+                    - generic [ref=e704]: 2026-01-18 16:00
+                  - cell "查看 编辑 分解Feature 删除" [ref=e705]:
+                    - generic [ref=e706]:
+                      - button "查看" [ref=e707]:
+                        - generic [ref=e708]: 查看
+                      - button "编辑" [ref=e709]:
+                        - generic [ref=e710]: 编辑
+                      - button "分解Feature" [ref=e711]:
+                        - generic [ref=e712]: 分解Feature
+                      - button "删除" [ref=e713]:
+                        - generic [ref=e714]: 删除
+                - row "EPIC-010 车路协同V2X pending-review medium 0 / 160 0 3 张三 2026-01-18 16:00 查看 编辑 分解Feature 删除" [ref=e715]:
+                  - cell "EPIC-010" [ref=e716]:
+                    - generic [ref=e717]: EPIC-010
+                  - cell "车路协同V2X" [ref=e718]:
+                    - generic [ref=e719]: 车路协同V2X
+                  - cell [ref=e720]
+                  - cell "pending-review" [ref=e721]:
+                    - generic [ref=e724]: pending-review
+                  - cell "medium" [ref=e725]:
+                    - generic [ref=e728]: medium
+                  - cell "0 / 160" [ref=e729]:
+                    - generic [ref=e730]: 0 / 160
+                  - cell "0" [ref=e731]:
+                    - progressbar [ref=e733]:
+                      - generic [ref=e736]: 0%
+                  - cell "3" [ref=e737]:
+                    - generic [ref=e740]: "3"
+                  - cell "张三" [ref=e741]:
+                    - generic [ref=e742]: 张三
+                  - cell "2026-01-18 16:00" [ref=e743]:
+                    - generic [ref=e744]: 2026-01-18 16:00
+                  - cell "查看 编辑 分解Feature 删除" [ref=e745]:
+                    - generic [ref=e746]:
+                      - button "查看" [ref=e747]:
+                        - generic [ref=e748]: 查看
+                      - button "编辑" [ref=e749]:
+                        - generic [ref=e750]: 编辑
+                      - button "分解Feature" [ref=e751]:
+                        - generic [ref=e752]: 分解Feature
+                      - button "删除" [ref=e753]:
+                        - generic [ref=e754]: 删除
+          - generic [ref=e756]:
+            - generic [ref=e757]: 共 10 条
+            - generic [ref=e760] [cursor=pointer]:
+              - generic:
+                - combobox [ref=e762]
+                - generic [ref=e763]: 20条/页
+              - img [ref=e766]
+            - button "上一页" [disabled] [ref=e768]:
+              - generic:
+                - img
+            - list [ref=e769]:
+              - listitem "第 1 页" [ref=e770]: "1"
+            - button "下一页" [disabled] [ref=e771]:
+              - generic:
+                - img
+            - generic [ref=e772]:
+              - generic [ref=e773]: 前往
+              - spinbutton "页" [ref=e776]: "1"
+              - generic [ref=e777]: 页
+```

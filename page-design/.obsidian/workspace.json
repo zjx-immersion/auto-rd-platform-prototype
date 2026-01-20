@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C3-规划协调/01-版本规划/C3-F02-Feature分配.md",
+                "file": "C3-规划协调/02-PI-Planning/C3-F07-MR分配到Team.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "C3-F02-Feature分配"
+              "title": "C3-F07-MR分配到Team"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "C3-规划协调/01-版本规划/C3-F02-Feature分配.md",
+                "file": "C3-规划协调/02-PI-Planning/C3-F07-MR分配到Team.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "C3-F02-Feature分配 的反向链接列表"
+              "title": "C3-F07-MR分配到Team 的反向链接列表"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "C3-规划协调/01-版本规划/C3-F02-Feature分配.md",
+                "file": "C3-规划协调/02-PI-Planning/C3-F07-MR分配到Team.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "C3-F02-Feature分配 的出链列表"
+              "title": "C3-F07-MR分配到Team 的出链列表"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "C3-规划协调/01-版本规划/C3-F02-Feature分配.md",
+                "file": "C3-规划协调/02-PI-Planning/C3-F07-MR分配到Team.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "C3-F02-Feature分配 的大纲"
+              "title": "C3-F07-MR分配到Team 的大纲"
             }
           }
         ],
@@ -185,6 +185,10 @@
   },
   "active": "b88a173e41b395d1",
   "lastOpenFiles": [
+    "C3-规划协调/02-PI-Planning/C3-F05-Team容量规划.md",
+    "C3-规划协调/02-PI-Planning/C3-F04-PI目标设定.md",
+    "C3-规划协调/02-PI-Planning/C3-F03-PI-Planning创建.md",
+    "C3-规划协调/01-版本规划/C3-F02-Feature分配.md",
     "C3-规划协调/02-PI-Planning/C3-F18-PI-Planning-2阶段规划工作台-V1.0-archived.md",
     "C3-规划协调/02-PI-Planning/C3-F18-PI-Planning-双视角工作台-V3.0.md",
     "C3-规划协调/02-PI-Planning/C3-F18-PI-Planning-2阶段规划工作台.md",
@@ -208,10 +212,6 @@
     "剩余任务设计完成总结.md",
     "设计任务分析总览.md",
     "设计方案对比与最终确认.md",
-    "平台完整设计方案V2.0-基于价值流.md",
-    "平台设计评估标准和原则.md",
-    "平台设计差距分析与调整方案.md",
-    "工作总结-2026-01-17-完整设计方案V2.0.md",
     "C3-规划协调/04-风险管理",
     "C3-规划协调/01-版本规划",
     "C6-发布管理/00-代码管理",
