@@ -451,6 +451,6 @@ onMounted(() => {
   gap: 16px;
   margin-top: 40px;
   padding-top: 20px;
-  border-top: 1px solid $border-color;
+  border-top: 1px solid $border-color-base;
 }
 </style>
