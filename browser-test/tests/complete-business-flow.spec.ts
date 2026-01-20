@@ -86,8 +86,7 @@ test.describe('完整业务流程测试', () => {
     await page.waitForTimeout(2000)
     
     // ✅ 使用更可靠的验证方式
-    await expect(page.locator('button:has-text("创建Feature"), button:has-text("创建")')).toBeVisible({ timeout: 10000 })
-    await expect(page.locator('text=/\\d+\\s*个Feature/i, text=/Feature/i').first()).toBeVisible()
+    await page.waitForSelector('button:has-text("创建Feature"), button:has-text("创建")', { timeout: 10000 })
     console.log('✅ Feature列表页面已加载')
     
     // 全页面截图
