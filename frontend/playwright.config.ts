@@ -56,8 +56,8 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { 
-        ...devices['Desktop Chrome'],
         // 全屏浏览器配置 ⭐⭐⭐
+        // 注意：当使用 viewport: null 时，不能使用 devices 预设（会冲突）
         headless: false,   // 显示浏览器
         viewport: null,    // 使用浏览器原生窗口大小
         launchOptions: {
