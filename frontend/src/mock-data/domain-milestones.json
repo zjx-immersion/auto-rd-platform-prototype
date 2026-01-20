@@ -1,0 +1,322 @@
+[
+  {
+    "milestoneId": "MILE-2025-001",
+    "milestoneName": "H56样车交付",
+    "milestoneType": "sample_vehicle",
+    "description": "完成第一批样车交付，用于早期功能验证和测试",
+    "projectId": "PRJ-2025-001",
+    "targetDate": "2025-04-30",
+    "actualDate": "2025-04-28",
+    "deliverables": [
+      {
+        "deliverableId": "DEL-001",
+        "name": "样车软件基础版本",
+        "type": "software",
+        "description": "包含基础ADAS功能的软件版本",
+        "status": "completed",
+        "owner": {
+          "userId": "U003",
+          "userName": "王强",
+          "userEmail": "wangqiang@voyah.com",
+          "userRole": ["architect"]
+        },
+        "dueDate": "2025-04-25"
+      }
+    ],
+    "requirements": [
+      "基础AEB功能",
+      "车道保持辅助",
+      "自适应巡航控制"
+    ],
+    "linkedVersionId": null,
+    "linkedPIId": "PI-2025-001",
+    "dependencies": [],
+    "status": "completed",
+    "completionRate": 100,
+    "createdAt": "2025-01-15T08:00:00Z",
+    "updatedAt": "2025-04-28T16:00:00Z"
+  },
+  {
+    "milestoneId": "MILE-2025-002",
+    "milestoneName": "H56工程样车交付",
+    "milestoneType": "engineering_vehicle",
+    "description": "完成工程样车交付，包含核心功能的80%实现",
+    "projectId": "PRJ-2025-001",
+    "targetDate": "2025-06-30",
+    "actualDate": null,
+    "deliverables": [
+      {
+        "deliverableId": "DEL-002",
+        "name": "V1.0软件版本",
+        "type": "software",
+        "description": "包含核心ADAS和座舱功能",
+        "status": "in_progress",
+        "owner": {
+          "userId": "U002",
+          "userName": "李娜",
+          "userEmail": "lina@voyah.com",
+          "userRole": ["product_owner"]
+        },
+        "dueDate": "2025-06-25"
+      },
+      {
+        "deliverableId": "DEL-003",
+        "name": "功能验证报告",
+        "type": "test_report",
+        "description": "核心功能测试验证报告",
+        "status": "not_started",
+        "owner": {
+          "userId": "U004",
+          "userName": "赵敏",
+          "userEmail": "zhaomin@voyah.com",
+          "userRole": ["quality_lead"]
+        },
+        "dueDate": "2025-06-28"
+      }
+    ],
+    "requirements": [
+      "L2+自动驾驶核心功能80%",
+      "智能座舱基础交互100%",
+      "底盘控制基础功能100%"
+    ],
+    "linkedVersionId": "VER-2025-001",
+    "linkedPIId": "PI-2025-002",
+    "dependencies": ["MILE-2025-001"],
+    "status": "in_progress",
+    "completionRate": 65,
+    "createdAt": "2025-01-15T08:00:00Z",
+    "updatedAt": "2025-01-20T10:30:00Z"
+  },
+  {
+    "milestoneId": "MILE-2025-003",
+    "milestoneName": "H56 PP车交付",
+    "milestoneType": "pp_vehicle",
+    "description": "完成PP车交付，功能完整度达到95%以上",
+    "projectId": "PRJ-2025-001",
+    "targetDate": "2025-09-30",
+    "actualDate": null,
+    "deliverables": [
+      {
+        "deliverableId": "DEL-004",
+        "name": "V2.0软件版本",
+        "type": "software",
+        "description": "包含完整ADAS和座舱功能",
+        "status": "not_started",
+        "owner": {
+          "userId": "U002",
+          "userName": "李娜",
+          "userEmail": "lina@voyah.com",
+          "userRole": ["product_owner"]
+        },
+        "dueDate": "2025-09-25"
+      }
+    ],
+    "requirements": [
+      "L2+自动驾驶完整功能100%",
+      "智能座舱高级功能100%",
+      "性能优化完成"
+    ],
+    "linkedVersionId": "VER-2025-002",
+    "linkedPIId": "PI-2025-003",
+    "dependencies": ["MILE-2025-002"],
+    "status": "not_started",
+    "completionRate": 0,
+    "createdAt": "2025-01-15T08:00:00Z",
+    "updatedAt": "2025-01-15T08:00:00Z"
+  },
+  {
+    "milestoneId": "MILE-2025-004",
+    "milestoneName": "H56量产车SOP",
+    "milestoneType": "sop",
+    "description": "完成量产车SOP，正式投产",
+    "projectId": "PRJ-2025-001",
+    "targetDate": "2025-12-31",
+    "actualDate": null,
+    "deliverables": [
+      {
+        "deliverableId": "DEL-005",
+        "name": "V3.0量产软件版本",
+        "type": "software",
+        "description": "量产稳定版本",
+        "status": "not_started",
+        "owner": {
+          "userId": "U002",
+          "userName": "李娜",
+          "userEmail": "lina@voyah.com",
+          "userRole": ["product_owner"]
+        },
+        "dueDate": "2025-12-20"
+      },
+      {
+        "deliverableId": "DEL-006",
+        "name": "安全认证证书",
+        "type": "certification",
+        "description": "ISO 26262安全认证",
+        "status": "not_started",
+        "owner": {
+          "userId": "U004",
+          "userName": "赵敏",
+          "userEmail": "zhaomin@voyah.com",
+          "userRole": ["quality_lead"]
+        },
+        "dueDate": "2025-12-15"
+      }
+    ],
+    "requirements": [
+      "全部功能稳定",
+      "通过安全认证",
+      "性能达标"
+    ],
+    "linkedVersionId": "VER-2025-003",
+    "linkedPIId": "PI-2025-004",
+    "dependencies": ["MILE-2025-003"],
+    "status": "not_started",
+    "completionRate": 0,
+    "createdAt": "2025-01-15T08:00:00Z",
+    "updatedAt": "2025-01-15T08:00:00Z"
+  },
+  {
+    "milestoneId": "MILE-2025-005",
+    "milestoneName": "H57样车交付",
+    "milestoneType": "sample_vehicle",
+    "description": "H57车型样车交付",
+    "projectId": "PRJ-2025-002",
+    "targetDate": "2025-06-30",
+    "actualDate": null,
+    "deliverables": [],
+    "requirements": ["智能座舱基础功能"],
+    "linkedVersionId": null,
+    "linkedPIId": "PI-2025-005",
+    "dependencies": [],
+    "status": "not_started",
+    "completionRate": 0,
+    "createdAt": "2025-01-20T09:00:00Z",
+    "updatedAt": "2025-01-20T09:00:00Z"
+  },
+  {
+    "milestoneId": "MILE-2025-006",
+    "milestoneName": "H57工程样车交付",
+    "milestoneType": "engineering_vehicle",
+    "description": "H57工程样车交付",
+    "projectId": "PRJ-2025-002",
+    "targetDate": "2025-09-30",
+    "actualDate": null,
+    "deliverables": [],
+    "requirements": ["智能座舱核心功能80%"],
+    "linkedVersionId": "VER-2025-004",
+    "linkedPIId": "PI-2025-006",
+    "dependencies": ["MILE-2025-005"],
+    "status": "not_started",
+    "completionRate": 0,
+    "createdAt": "2025-01-20T09:00:00Z",
+    "updatedAt": "2025-01-20T09:00:00Z"
+  },
+  {
+    "milestoneId": "MILE-2025-007",
+    "milestoneName": "H57 PP车交付",
+    "milestoneType": "pp_vehicle",
+    "description": "H57 PP车交付",
+    "projectId": "PRJ-2025-002",
+    "targetDate": "2025-12-31",
+    "actualDate": null,
+    "deliverables": [],
+    "requirements": ["智能座舱完整功能100%"],
+    "linkedVersionId": "VER-2025-005",
+    "linkedPIId": "PI-2025-007",
+    "dependencies": ["MILE-2025-006"],
+    "status": "not_started",
+    "completionRate": 0,
+    "createdAt": "2025-01-20T09:00:00Z",
+    "updatedAt": "2025-01-20T09:00:00Z"
+  },
+  {
+    "milestoneId": "MILE-2025-008",
+    "milestoneName": "H57量产车SOP",
+    "milestoneType": "sop",
+    "description": "H57量产车SOP",
+    "projectId": "PRJ-2025-002",
+    "targetDate": "2026-02-28",
+    "actualDate": null,
+    "deliverables": [],
+    "requirements": ["量产稳定版本"],
+    "linkedVersionId": "VER-2025-006",
+    "linkedPIId": "PI-2025-008",
+    "dependencies": ["MILE-2025-007"],
+    "status": "not_started",
+    "completionRate": 0,
+    "createdAt": "2025-01-20T09:00:00Z",
+    "updatedAt": "2025-01-20T09:00:00Z"
+  },
+  {
+    "milestoneId": "MILE-2025-009",
+    "milestoneName": "H58样车交付",
+    "milestoneType": "sample_vehicle",
+    "description": "H58车型样车交付",
+    "projectId": "PRJ-2025-003",
+    "targetDate": "2025-07-31",
+    "actualDate": null,
+    "deliverables": [],
+    "requirements": ["电驱控制基础功能"],
+    "linkedVersionId": null,
+    "linkedPIId": "PI-2025-009",
+    "dependencies": [],
+    "status": "not_started",
+    "completionRate": 0,
+    "createdAt": "2025-01-20T10:00:00Z",
+    "updatedAt": "2025-01-20T10:00:00Z"
+  },
+  {
+    "milestoneId": "MILE-2025-010",
+    "milestoneName": "H58工程样车交付",
+    "milestoneType": "engineering_vehicle",
+    "description": "H58工程样车交付",
+    "projectId": "PRJ-2025-003",
+    "targetDate": "2025-10-31",
+    "actualDate": null,
+    "deliverables": [],
+    "requirements": ["电驱控制核心功能80%"],
+    "linkedVersionId": "VER-2025-007",
+    "linkedPIId": "PI-2025-010",
+    "dependencies": ["MILE-2025-009"],
+    "status": "not_started",
+    "completionRate": 0,
+    "createdAt": "2025-01-20T10:00:00Z",
+    "updatedAt": "2025-01-20T10:00:00Z"
+  },
+  {
+    "milestoneId": "MILE-2025-011",
+    "milestoneName": "H58 PP车交付",
+    "milestoneType": "pp_vehicle",
+    "description": "H58 PP车交付",
+    "projectId": "PRJ-2025-003",
+    "targetDate": "2026-01-31",
+    "actualDate": null,
+    "deliverables": [],
+    "requirements": ["电驱控制完整功能100%"],
+    "linkedVersionId": "VER-2025-008",
+    "linkedPIId": "PI-2025-011",
+    "dependencies": ["MILE-2025-010"],
+    "status": "not_started",
+    "completionRate": 0,
+    "createdAt": "2025-01-20T10:00:00Z",
+    "updatedAt": "2025-01-20T10:00:00Z"
+  },
+  {
+    "milestoneId": "MILE-2025-012",
+    "milestoneName": "H58量产车SOP",
+    "milestoneType": "sop",
+    "description": "H58量产车SOP",
+    "projectId": "PRJ-2025-003",
+    "targetDate": "2026-03-31",
+    "actualDate": null,
+    "deliverables": [],
+    "requirements": ["量产稳定版本"],
+    "linkedVersionId": "VER-2025-009",
+    "linkedPIId": "PI-2025-012",
+    "dependencies": ["MILE-2025-011"],
+    "status": "not_started",
+    "completionRate": 0,
+    "createdAt": "2025-01-20T10:00:00Z",
+    "updatedAt": "2025-01-20T10:00:00Z"
+  }
+]

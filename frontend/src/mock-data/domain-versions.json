@@ -1,0 +1,595 @@
+[
+  {
+    "versionId": "VER-2025-001",
+    "versionNumber": "V1.0",
+    "versionName": "H56工程样车版本",
+    "versionType": "major",
+    "description": "工程样车交付版本，包含核心ADAS和座舱功能，完成度目标80%",
+    "projectId": "PRJ-2025-001",
+    "targetDate": "2025-06-30",
+    "actualDate": null,
+    "linkedMilestoneId": "MILE-2025-002",
+    "scope": {
+      "epics": [
+        {
+          "allocationId": "ALLOC-001",
+          "epicId": "ADAS-E001",
+          "epicName": "L2+自动驾驶核心功能",
+          "epicPriority": "P0",
+          "totalStoryPoints": 100,
+          "completionTarget": 80,
+          "targetStoryPoints": 80,
+          "features": [
+            {
+              "featureId": "ADAS-F001",
+              "featureName": "AEB自动紧急制动",
+              "priority": "P0",
+              "totalStoryPoints": 30,
+              "completionTarget": 100,
+              "targetStoryPoints": 30,
+              "status": "in_progress",
+              "actualProgress": 85,
+              "sstss": ["ADAS-S001", "ADAS-S002", "ADAS-S003"]
+            },
+            {
+              "featureId": "ADAS-F002",
+              "featureName": "ACC自适应巡航",
+              "priority": "P0",
+              "totalStoryPoints": 40,
+              "completionTarget": 100,
+              "targetStoryPoints": 40,
+              "status": "in_progress",
+              "actualProgress": 70,
+              "sstss": ["ADAS-S004", "ADAS-S005"]
+            },
+            {
+              "featureId": "ADAS-F003",
+              "featureName": "LKA车道保持辅助",
+              "priority": "P1",
+              "totalStoryPoints": 30,
+              "completionTarget": 33,
+              "targetStoryPoints": 10,
+              "status": "not_started",
+              "actualProgress": 0,
+              "sstss": ["ADAS-S006"]
+            }
+          ],
+          "selectedFeatureCount": 3,
+          "status": "in_progress",
+          "actualProgress": 52,
+          "createdAt": "2025-02-01T08:00:00Z"
+        },
+        {
+          "allocationId": "ALLOC-002",
+          "epicId": "CABIN-E001",
+          "epicName": "智能座舱基础交互",
+          "epicPriority": "P0",
+          "totalStoryPoints": 80,
+          "completionTarget": 60,
+          "targetStoryPoints": 48,
+          "features": [
+            {
+              "featureId": "CABIN-F001",
+              "featureName": "HMI主界面交互",
+              "priority": "P0",
+              "totalStoryPoints": 40,
+              "completionTarget": 100,
+              "targetStoryPoints": 40,
+              "status": "in_progress",
+              "actualProgress": 60,
+              "sstss": ["CABIN-S001", "CABIN-S002"]
+            },
+            {
+              "featureId": "CABIN-F002",
+              "featureName": "语音控制基础命令",
+              "priority": "P1",
+              "totalStoryPoints": 40,
+              "completionTarget": 20,
+              "targetStoryPoints": 8,
+              "status": "not_started",
+              "actualProgress": 0,
+              "sstss": ["CABIN-S003"]
+            }
+          ],
+          "selectedFeatureCount": 2,
+          "status": "in_progress",
+          "actualProgress": 30,
+          "createdAt": "2025-02-01T08:00:00Z"
+        }
+      ],
+      "totalEpics": 2,
+      "totalFeatures": 5,
+      "totalStoryPoints": 128,
+      "completionTarget": 71
+    },
+    "owner": {
+      "userId": "U002",
+      "userName": "李娜",
+      "userEmail": "lina@voyah.com",
+      "userRole": ["product_owner"]
+    },
+    "status": "development",
+    "progress": {
+      "overallProgress": 44,
+      "completedEpics": 0,
+      "totalEpics": 2,
+      "epicProgress": 0,
+      "completedFeatures": 0,
+      "totalFeatures": 5,
+      "featureProgress": 0,
+      "completedStoryPoints": 56,
+      "targetStoryPoints": 128,
+      "storyPointProgress": 44
+    },
+    "createdAt": "2025-02-01T08:00:00Z",
+    "updatedAt": "2025-01-20T10:30:00Z"
+  },
+  {
+    "versionId": "VER-2025-002",
+    "versionNumber": "V2.0",
+    "versionName": "H56 PP车完整版本",
+    "versionType": "major",
+    "description": "PP车交付版本，完成V1.0剩余20%功能，达到100%完整度",
+    "projectId": "PRJ-2025-001",
+    "targetDate": "2025-09-30",
+    "actualDate": null,
+    "linkedMilestoneId": "MILE-2025-003",
+    "scope": {
+      "epics": [
+        {
+          "allocationId": "ALLOC-003",
+          "epicId": "ADAS-E001",
+          "epicName": "L2+自动驾驶核心功能",
+          "epicPriority": "P0",
+          "totalStoryPoints": 100,
+          "completionTarget": 20,
+          "targetStoryPoints": 20,
+          "features": [
+            {
+              "featureId": "ADAS-F003",
+              "featureName": "LKA车道保持辅助",
+              "priority": "P1",
+              "totalStoryPoints": 30,
+              "completionTarget": 67,
+              "targetStoryPoints": 20,
+              "status": "planned",
+              "actualProgress": 0,
+              "sstss": ["ADAS-S007", "ADAS-S008"]
+            }
+          ],
+          "selectedFeatureCount": 1,
+          "status": "planned",
+          "actualProgress": 0,
+          "createdAt": "2025-02-01T08:00:00Z"
+        },
+        {
+          "allocationId": "ALLOC-004",
+          "epicId": "CABIN-E001",
+          "epicName": "智能座舱基础交互",
+          "epicPriority": "P0",
+          "totalStoryPoints": 80,
+          "completionTarget": 40,
+          "targetStoryPoints": 32,
+          "features": [
+            {
+              "featureId": "CABIN-F002",
+              "featureName": "语音控制基础命令",
+              "priority": "P1",
+              "totalStoryPoints": 40,
+              "completionTarget": 80,
+              "targetStoryPoints": 32,
+              "status": "planned",
+              "actualProgress": 0,
+              "sstss": ["CABIN-S004", "CABIN-S005"]
+            }
+          ],
+          "selectedFeatureCount": 1,
+          "status": "planned",
+          "actualProgress": 0,
+          "createdAt": "2025-02-01T08:00:00Z"
+        }
+      ],
+      "totalEpics": 2,
+      "totalFeatures": 2,
+      "totalStoryPoints": 52,
+      "completionTarget": 29
+    },
+    "owner": {
+      "userId": "U002",
+      "userName": "李娜",
+      "userEmail": "lina@voyah.com",
+      "userRole": ["product_owner"]
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedEpics": 0,
+      "totalEpics": 2,
+      "epicProgress": 0,
+      "completedFeatures": 0,
+      "totalFeatures": 2,
+      "featureProgress": 0,
+      "completedStoryPoints": 0,
+      "targetStoryPoints": 52,
+      "storyPointProgress": 0
+    },
+    "createdAt": "2025-02-01T08:00:00Z",
+    "updatedAt": "2025-02-01T08:00:00Z"
+  },
+  {
+    "versionId": "VER-2025-003",
+    "versionNumber": "V3.0",
+    "versionName": "H56量产稳定版本",
+    "versionType": "major",
+    "description": "量产SOP版本，性能优化和稳定性增强",
+    "projectId": "PRJ-2025-001",
+    "targetDate": "2025-12-31",
+    "actualDate": null,
+    "linkedMilestoneId": "MILE-2025-004",
+    "scope": {
+      "epics": [
+        {
+          "allocationId": "ALLOC-005",
+          "epicId": "ADAS-E002",
+          "epicName": "性能优化和稳定性",
+          "epicPriority": "P1",
+          "totalStoryPoints": 60,
+          "completionTarget": 100,
+          "targetStoryPoints": 60,
+          "features": [
+            {
+              "featureId": "ADAS-F004",
+              "featureName": "性能优化",
+              "priority": "P1",
+              "totalStoryPoints": 30,
+              "completionTarget": 100,
+              "targetStoryPoints": 30,
+              "status": "planned",
+              "actualProgress": 0,
+              "sstss": ["ADAS-S009"]
+            },
+            {
+              "featureId": "ADAS-F005",
+              "featureName": "稳定性增强",
+              "priority": "P1",
+              "totalStoryPoints": 30,
+              "completionTarget": 100,
+              "targetStoryPoints": 30,
+              "status": "planned",
+              "actualProgress": 0,
+              "sstss": ["ADAS-S010"]
+            }
+          ],
+          "selectedFeatureCount": 2,
+          "status": "planned",
+          "actualProgress": 0,
+          "createdAt": "2025-02-01T08:00:00Z"
+        }
+      ],
+      "totalEpics": 1,
+      "totalFeatures": 2,
+      "totalStoryPoints": 60,
+      "completionTarget": 100
+    },
+    "owner": {
+      "userId": "U002",
+      "userName": "李娜",
+      "userEmail": "lina@voyah.com",
+      "userRole": ["product_owner"]
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedEpics": 0,
+      "totalEpics": 1,
+      "epicProgress": 0,
+      "completedFeatures": 0,
+      "totalFeatures": 2,
+      "featureProgress": 0,
+      "completedStoryPoints": 0,
+      "targetStoryPoints": 60,
+      "storyPointProgress": 0
+    },
+    "createdAt": "2025-02-01T08:00:00Z",
+    "updatedAt": "2025-02-01T08:00:00Z"
+  },
+  {
+    "versionId": "VER-2025-004",
+    "versionNumber": "V1.0",
+    "versionName": "H57工程样车版本",
+    "versionType": "major",
+    "description": "H57工程样车版本，智能座舱核心功能80%",
+    "projectId": "PRJ-2025-002",
+    "targetDate": "2025-09-30",
+    "actualDate": null,
+    "linkedMilestoneId": "MILE-2025-006",
+    "scope": {
+      "epics": [
+        {
+          "allocationId": "ALLOC-006",
+          "epicId": "CABIN-E002",
+          "epicName": "智能座舱交互系统",
+          "epicPriority": "P0",
+          "totalStoryPoints": 120,
+          "completionTarget": 80,
+          "targetStoryPoints": 96,
+          "features": [
+            {
+              "featureId": "CABIN-F003",
+              "featureName": "3D UI渲染",
+              "priority": "P0",
+              "totalStoryPoints": 60,
+              "completionTarget": 100,
+              "targetStoryPoints": 60,
+              "status": "planned",
+              "actualProgress": 0,
+              "sstss": []
+            },
+            {
+              "featureId": "CABIN-F004",
+              "featureName": "多屏联动",
+              "priority": "P1",
+              "totalStoryPoints": 60,
+              "completionTarget": 60,
+              "targetStoryPoints": 36,
+              "status": "planned",
+              "actualProgress": 0,
+              "sstss": []
+            }
+          ],
+          "selectedFeatureCount": 2,
+          "status": "planned",
+          "actualProgress": 0,
+          "createdAt": "2025-01-20T09:00:00Z"
+        }
+      ],
+      "totalEpics": 1,
+      "totalFeatures": 2,
+      "totalStoryPoints": 96,
+      "completionTarget": 80
+    },
+    "owner": {
+      "userId": "U007",
+      "userName": "杨梅",
+      "userEmail": "yangmei@voyah.com",
+      "userRole": ["product_owner"]
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedEpics": 0,
+      "totalEpics": 1,
+      "epicProgress": 0,
+      "completedFeatures": 0,
+      "totalFeatures": 2,
+      "featureProgress": 0,
+      "completedStoryPoints": 0,
+      "targetStoryPoints": 96,
+      "storyPointProgress": 0
+    },
+    "createdAt": "2025-01-20T09:00:00Z",
+    "updatedAt": "2025-01-20T09:00:00Z"
+  },
+  {
+    "versionId": "VER-2025-005",
+    "versionNumber": "V2.0",
+    "versionName": "H57 PP车完整版本",
+    "versionType": "major",
+    "description": "H57 PP车版本，智能座舱完整功能100%",
+    "projectId": "PRJ-2025-002",
+    "targetDate": "2025-12-31",
+    "actualDate": null,
+    "linkedMilestoneId": "MILE-2025-007",
+    "scope": {
+      "epics": [
+        {
+          "allocationId": "ALLOC-007",
+          "epicId": "CABIN-E002",
+          "epicName": "智能座舱交互系统",
+          "epicPriority": "P0",
+          "totalStoryPoints": 120,
+          "completionTarget": 20,
+          "targetStoryPoints": 24,
+          "features": [
+            {
+              "featureId": "CABIN-F004",
+              "featureName": "多屏联动",
+              "priority": "P1",
+              "totalStoryPoints": 60,
+              "completionTarget": 40,
+              "targetStoryPoints": 24,
+              "status": "planned",
+              "actualProgress": 0,
+              "sstss": []
+            }
+          ],
+          "selectedFeatureCount": 1,
+          "status": "planned",
+          "actualProgress": 0,
+          "createdAt": "2025-01-20T09:00:00Z"
+        }
+      ],
+      "totalEpics": 1,
+      "totalFeatures": 1,
+      "totalStoryPoints": 24,
+      "completionTarget": 20
+    },
+    "owner": {
+      "userId": "U007",
+      "userName": "杨梅",
+      "userEmail": "yangmei@voyah.com",
+      "userRole": ["product_owner"]
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedEpics": 0,
+      "totalEpics": 1,
+      "epicProgress": 0,
+      "completedFeatures": 0,
+      "totalFeatures": 1,
+      "featureProgress": 0,
+      "completedStoryPoints": 0,
+      "targetStoryPoints": 24,
+      "storyPointProgress": 0
+    },
+    "createdAt": "2025-01-20T09:00:00Z",
+    "updatedAt": "2025-01-20T09:00:00Z"
+  },
+  {
+    "versionId": "VER-2025-006",
+    "versionNumber": "V3.0",
+    "versionName": "H57量产稳定版本",
+    "versionType": "major",
+    "description": "H57量产SOP版本",
+    "projectId": "PRJ-2025-002",
+    "targetDate": "2026-02-28",
+    "actualDate": null,
+    "linkedMilestoneId": "MILE-2025-008",
+    "scope": {
+      "epics": [],
+      "totalEpics": 0,
+      "totalFeatures": 0,
+      "totalStoryPoints": 0,
+      "completionTarget": 0
+    },
+    "owner": {
+      "userId": "U007",
+      "userName": "杨梅",
+      "userEmail": "yangmei@voyah.com",
+      "userRole": ["product_owner"]
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedEpics": 0,
+      "totalEpics": 0,
+      "epicProgress": 0,
+      "completedFeatures": 0,
+      "totalFeatures": 0,
+      "featureProgress": 0,
+      "completedStoryPoints": 0,
+      "targetStoryPoints": 0,
+      "storyPointProgress": 0
+    },
+    "createdAt": "2025-01-20T09:00:00Z",
+    "updatedAt": "2025-01-20T09:00:00Z"
+  },
+  {
+    "versionId": "VER-2025-007",
+    "versionNumber": "V1.0",
+    "versionName": "H58工程样车版本",
+    "versionType": "major",
+    "description": "H58工程样车版本，电驱控制核心功能80%",
+    "projectId": "PRJ-2025-003",
+    "targetDate": "2025-10-31",
+    "actualDate": null,
+    "linkedMilestoneId": "MILE-2025-010",
+    "scope": {
+      "epics": [],
+      "totalEpics": 0,
+      "totalFeatures": 0,
+      "totalStoryPoints": 0,
+      "completionTarget": 0
+    },
+    "owner": {
+      "userId": "U010",
+      "userName": "黄芳",
+      "userEmail": "huangfang@voyah.com",
+      "userRole": ["product_owner"]
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedEpics": 0,
+      "totalEpics": 0,
+      "epicProgress": 0,
+      "completedFeatures": 0,
+      "totalFeatures": 0,
+      "featureProgress": 0,
+      "completedStoryPoints": 0,
+      "targetStoryPoints": 0,
+      "storyPointProgress": 0
+    },
+    "createdAt": "2025-01-20T10:00:00Z",
+    "updatedAt": "2025-01-20T10:00:00Z"
+  },
+  {
+    "versionId": "VER-2025-008",
+    "versionNumber": "V2.0",
+    "versionName": "H58 PP车完整版本",
+    "versionType": "major",
+    "description": "H58 PP车版本",
+    "projectId": "PRJ-2025-003",
+    "targetDate": "2026-01-31",
+    "actualDate": null,
+    "linkedMilestoneId": "MILE-2025-011",
+    "scope": {
+      "epics": [],
+      "totalEpics": 0,
+      "totalFeatures": 0,
+      "totalStoryPoints": 0,
+      "completionTarget": 0
+    },
+    "owner": {
+      "userId": "U010",
+      "userName": "黄芳",
+      "userEmail": "huangfang@voyah.com",
+      "userRole": ["product_owner"]
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedEpics": 0,
+      "totalEpics": 0,
+      "epicProgress": 0,
+      "completedFeatures": 0,
+      "totalFeatures": 0,
+      "featureProgress": 0,
+      "completedStoryPoints": 0,
+      "targetStoryPoints": 0,
+      "storyPointProgress": 0
+    },
+    "createdAt": "2025-01-20T10:00:00Z",
+    "updatedAt": "2025-01-20T10:00:00Z"
+  },
+  {
+    "versionId": "VER-2025-009",
+    "versionNumber": "V3.0",
+    "versionName": "H58量产稳定版本",
+    "versionType": "major",
+    "description": "H58量产SOP版本",
+    "projectId": "PRJ-2025-003",
+    "targetDate": "2026-03-31",
+    "actualDate": null,
+    "linkedMilestoneId": "MILE-2025-012",
+    "scope": {
+      "epics": [],
+      "totalEpics": 0,
+      "totalFeatures": 0,
+      "totalStoryPoints": 0,
+      "completionTarget": 0
+    },
+    "owner": {
+      "userId": "U010",
+      "userName": "黄芳",
+      "userEmail": "huangfang@voyah.com",
+      "userRole": ["product_owner"]
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedEpics": 0,
+      "totalEpics": 0,
+      "epicProgress": 0,
+      "completedFeatures": 0,
+      "totalFeatures": 0,
+      "featureProgress": 0,
+      "completedStoryPoints": 0,
+      "targetStoryPoints": 0,
+      "storyPointProgress": 0
+    },
+    "createdAt": "2025-01-20T10:00:00Z",
+    "updatedAt": "2025-01-20T10:00:00Z"
+  }
+]

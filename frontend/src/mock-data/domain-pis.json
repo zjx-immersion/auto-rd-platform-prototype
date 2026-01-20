@@ -1,0 +1,770 @@
+[
+  {
+    "piId": "PI-2025-001",
+    "piNumber": "PI-1",
+    "piName": "H56基础功能开发",
+    "description": "第一个PI，聚焦ADAS和座舱基础功能开发",
+    "projectId": "PRJ-2025-001",
+    "startDate": "2025-02-01",
+    "endDate": "2025-04-27",
+    "duration": 12,
+    "sprintCount": 6,
+    "sprintDuration": 2,
+    "linkedVersionId": null,
+    "linkedMilestoneId": "MILE-2025-001",
+    "previousPIId": null,
+    "nextPIId": "PI-2025-002",
+    "objectives": [
+      {
+        "objectiveId": "OBJ-001",
+        "description": "完成AEB功能基础开发",
+        "businessValue": 9,
+        "linkedEpics": ["ADAS-E001"],
+        "confidence": 4,
+        "status": "achieved",
+        "actualValue": 9,
+        "owner": {
+          "userId": "U003",
+          "userName": "王强",
+          "userEmail": "wangqiang@voyah.com",
+          "userRole": ["architect"]
+        },
+        "acceptanceCriteria": [
+          "AEB基础算法实现",
+          "单元测试通过率90%"
+        ]
+      },
+      {
+        "objectiveId": "OBJ-002",
+        "description": "完成ACC功能基础开发",
+        "businessValue": 8,
+        "linkedEpics": ["ADAS-E001"],
+        "confidence": 4,
+        "status": "achieved",
+        "actualValue": 8,
+        "owner": {
+          "userId": "U003",
+          "userName": "王强",
+          "userEmail": "wangqiang@voyah.com",
+          "userRole": ["architect"]
+        },
+        "acceptanceCriteria": [
+          "ACC基础算法实现",
+          "功能验证完成"
+        ]
+      }
+    ],
+    "scope": {
+      "epics": ["ADAS-E001", "CABIN-E001"],
+      "features": ["ADAS-F001", "ADAS-F002", "CABIN-F001"],
+      "sstss": [],
+      "totalStoryPoints": 110,
+      "allocatedStoryPoints": 110,
+      "teamAllocations": [
+        {
+          "teamId": "team-001",
+          "teamName": "ADAS团队",
+          "domain": "adas",
+          "capacity": 480,
+          "velocity": 70,
+          "allocation": 420,
+          "storyPoints": 70,
+          "loadRate": 87.5,
+          "loadStatus": "high",
+          "assignedFeatures": ["ADAS-F001", "ADAS-F002"],
+          "assignedSSTSs": []
+        },
+        {
+          "teamId": "team-002",
+          "teamName": "座舱团队",
+          "domain": "cabin",
+          "capacity": 400,
+          "velocity": 40,
+          "allocation": 320,
+          "storyPoints": 40,
+          "loadRate": 80,
+          "loadStatus": "optimal",
+          "assignedFeatures": ["CABIN-F001"],
+          "assignedSSTSs": []
+        }
+      ]
+    },
+    "status": "completed",
+    "progress": {
+      "overallProgress": 100,
+      "completedSprints": 6,
+      "totalSprints": 6,
+      "completedObjectives": 2,
+      "totalObjectives": 2,
+      "objectiveProgress": 100,
+      "completedStoryPoints": 110,
+      "totalStoryPoints": 110,
+      "storyPointProgress": 100,
+      "teamProgress": [
+        {
+          "teamId": "team-001",
+          "teamName": "ADAS团队",
+          "progress": 100,
+          "velocity": 70,
+          "loadRate": 87.5
+        },
+        {
+          "teamId": "team-002",
+          "teamName": "座舱团队",
+          "progress": 100,
+          "velocity": 40,
+          "loadRate": 80
+        }
+      ]
+    },
+    "createdAt": "2025-01-15T08:00:00Z",
+    "updatedAt": "2025-04-27T18:00:00Z"
+  },
+  {
+    "piId": "PI-2025-002",
+    "piNumber": "PI-2",
+    "piName": "H56工程样车功能完成",
+    "description": "第二个PI，完成工程样车交付所需的核心功能（V1.0: 80%完成度）",
+    "projectId": "PRJ-2025-001",
+    "startDate": "2025-04-28",
+    "endDate": "2025-07-20",
+    "duration": 12,
+    "sprintCount": 6,
+    "sprintDuration": 2,
+    "linkedVersionId": "VER-2025-001",
+    "linkedMilestoneId": "MILE-2025-002",
+    "previousPIId": "PI-2025-001",
+    "nextPIId": "PI-2025-003",
+    "objectives": [
+      {
+        "objectiveId": "OBJ-003",
+        "description": "完成ADAS核心功能80%",
+        "businessValue": 10,
+        "linkedEpics": ["ADAS-E001"],
+        "confidence": 3,
+        "status": "committed",
+        "actualValue": null,
+        "owner": {
+          "userId": "U002",
+          "userName": "李娜",
+          "userEmail": "lina@voyah.com",
+          "userRole": ["product_owner"]
+        },
+        "acceptanceCriteria": [
+          "AEB功能100%完成",
+          "ACC功能100%完成",
+          "LKA功能33%完成",
+          "集成测试通过"
+        ]
+      },
+      {
+        "objectiveId": "OBJ-004",
+        "description": "完成座舱交互60%",
+        "businessValue": 8,
+        "linkedEpics": ["CABIN-E001"],
+        "confidence": 4,
+        "status": "committed",
+        "actualValue": null,
+        "owner": {
+          "userId": "U002",
+          "userName": "李娜",
+          "userEmail": "lina@voyah.com",
+          "userRole": ["product_owner"]
+        },
+        "acceptanceCriteria": [
+          "HMI主界面100%完成",
+          "语音控制基础命令20%完成"
+        ]
+      }
+    ],
+    "scope": {
+      "epics": ["ADAS-E001", "CABIN-E001"],
+      "features": ["ADAS-F001", "ADAS-F002", "ADAS-F003", "CABIN-F001", "CABIN-F002"],
+      "sstss": [],
+      "totalStoryPoints": 128,
+      "allocatedStoryPoints": 128,
+      "teamAllocations": [
+        {
+          "teamId": "team-001",
+          "teamName": "ADAS团队",
+          "domain": "adas",
+          "capacity": 480,
+          "velocity": 80,
+          "allocation": 384,
+          "storyPoints": 80,
+          "loadRate": 80,
+          "loadStatus": "optimal",
+          "assignedFeatures": ["ADAS-F001", "ADAS-F002", "ADAS-F003"],
+          "assignedSSTSs": []
+        },
+        {
+          "teamId": "team-002",
+          "teamName": "座舱团队",
+          "domain": "cabin",
+          "capacity": 400,
+          "velocity": 48,
+          "allocation": 384,
+          "storyPoints": 48,
+          "loadRate": 96,
+          "loadStatus": "high",
+          "assignedFeatures": ["CABIN-F001", "CABIN-F002"],
+          "assignedSSTSs": []
+        }
+      ]
+    },
+    "status": "active",
+    "progress": {
+      "overallProgress": 44,
+      "completedSprints": 3,
+      "totalSprints": 6,
+      "completedObjectives": 0,
+      "totalObjectives": 2,
+      "objectiveProgress": 0,
+      "completedStoryPoints": 56,
+      "totalStoryPoints": 128,
+      "storyPointProgress": 44,
+      "teamProgress": [
+        {
+          "teamId": "team-001",
+          "teamName": "ADAS团队",
+          "progress": 52,
+          "velocity": 80,
+          "loadRate": 80
+        },
+        {
+          "teamId": "team-002",
+          "teamName": "座舱团队",
+          "progress": 30,
+          "velocity": 48,
+          "loadRate": 96
+        }
+      ]
+    },
+    "createdAt": "2025-02-01T08:00:00Z",
+    "updatedAt": "2025-01-20T10:30:00Z"
+  },
+  {
+    "piId": "PI-2025-003",
+    "piNumber": "PI-3",
+    "piName": "H56 PP车完整功能",
+    "description": "第三个PI，完成V1.0剩余20%功能和V2.0功能，达到100%完整度",
+    "projectId": "PRJ-2025-001",
+    "startDate": "2025-07-21",
+    "endDate": "2025-10-12",
+    "duration": 12,
+    "sprintCount": 6,
+    "sprintDuration": 2,
+    "linkedVersionId": "VER-2025-002",
+    "linkedMilestoneId": "MILE-2025-003",
+    "previousPIId": "PI-2025-002",
+    "nextPIId": "PI-2025-004",
+    "objectives": [
+      {
+        "objectiveId": "OBJ-005",
+        "description": "完成ADAS剩余20%功能",
+        "businessValue": 7,
+        "linkedEpics": ["ADAS-E001"],
+        "confidence": 3,
+        "status": "planned",
+        "actualValue": null,
+        "owner": {
+          "userId": "U002",
+          "userName": "李娜",
+          "userEmail": "lina@voyah.com",
+          "userRole": ["product_owner"]
+        },
+        "acceptanceCriteria": [
+          "LKA功能67%完成",
+          "累计Epic完成度达100%"
+        ]
+      },
+      {
+        "objectiveId": "OBJ-006",
+        "description": "完成座舱剩余40%功能",
+        "businessValue": 6,
+        "linkedEpics": ["CABIN-E001"],
+        "confidence": 3,
+        "status": "planned",
+        "actualValue": null,
+        "owner": {
+          "userId": "U002",
+          "userName": "李娜",
+          "userEmail": "lina@voyah.com",
+          "userRole": ["product_owner"]
+        },
+        "acceptanceCriteria": [
+          "语音控制80%完成",
+          "累计Epic完成度达100%"
+        ]
+      }
+    ],
+    "scope": {
+      "epics": ["ADAS-E001", "CABIN-E001"],
+      "features": ["ADAS-F003", "CABIN-F002"],
+      "sstss": [],
+      "totalStoryPoints": 52,
+      "allocatedStoryPoints": 52,
+      "teamAllocations": [
+        {
+          "teamId": "team-001",
+          "teamName": "ADAS团队",
+          "domain": "adas",
+          "capacity": 480,
+          "velocity": 20,
+          "allocation": 160,
+          "storyPoints": 20,
+          "loadRate": 33.3,
+          "loadStatus": "low",
+          "assignedFeatures": ["ADAS-F003"],
+          "assignedSSTSs": []
+        },
+        {
+          "teamId": "team-002",
+          "teamName": "座舱团队",
+          "domain": "cabin",
+          "capacity": 400,
+          "velocity": 32,
+          "allocation": 256,
+          "storyPoints": 32,
+          "loadRate": 64,
+          "loadStatus": "low",
+          "assignedFeatures": ["CABIN-F002"],
+          "assignedSSTSs": []
+        }
+      ]
+    },
+    "status": "ready",
+    "progress": {
+      "overallProgress": 0,
+      "completedSprints": 0,
+      "totalSprints": 6,
+      "completedObjectives": 0,
+      "totalObjectives": 2,
+      "objectiveProgress": 0,
+      "completedStoryPoints": 0,
+      "totalStoryPoints": 52,
+      "storyPointProgress": 0,
+      "teamProgress": [
+        {
+          "teamId": "team-001",
+          "teamName": "ADAS团队",
+          "progress": 0,
+          "velocity": 20,
+          "loadRate": 33.3
+        },
+        {
+          "teamId": "team-002",
+          "teamName": "座舱团队",
+          "progress": 0,
+          "velocity": 32,
+          "loadRate": 64
+        }
+      ]
+    },
+    "createdAt": "2025-02-01T08:00:00Z",
+    "updatedAt": "2025-02-01T08:00:00Z"
+  },
+  {
+    "piId": "PI-2025-004",
+    "piNumber": "PI-4",
+    "piName": "H56量产优化",
+    "description": "第四个PI，性能优化和稳定性增强，准备SOP",
+    "projectId": "PRJ-2025-001",
+    "startDate": "2025-10-13",
+    "endDate": "2026-01-04",
+    "duration": 12,
+    "sprintCount": 6,
+    "sprintDuration": 2,
+    "linkedVersionId": "VER-2025-003",
+    "linkedMilestoneId": "MILE-2025-004",
+    "previousPIId": "PI-2025-003",
+    "nextPIId": null,
+    "objectives": [
+      {
+        "objectiveId": "OBJ-007",
+        "description": "性能优化和稳定性增强",
+        "businessValue": 9,
+        "linkedEpics": ["ADAS-E002"],
+        "confidence": 4,
+        "status": "planned",
+        "actualValue": null,
+        "owner": {
+          "userId": "U002",
+          "userName": "李娜",
+          "userEmail": "lina@voyah.com",
+          "userRole": ["product_owner"]
+        },
+        "acceptanceCriteria": [
+          "性能优化100%完成",
+          "稳定性增强100%完成",
+          "通过安全认证"
+        ]
+      }
+    ],
+    "scope": {
+      "epics": ["ADAS-E002"],
+      "features": ["ADAS-F004", "ADAS-F005"],
+      "sstss": [],
+      "totalStoryPoints": 60,
+      "allocatedStoryPoints": 60,
+      "teamAllocations": [
+        {
+          "teamId": "team-001",
+          "teamName": "ADAS团队",
+          "domain": "adas",
+          "capacity": 480,
+          "velocity": 60,
+          "allocation": 480,
+          "storyPoints": 60,
+          "loadRate": 100,
+          "loadStatus": "high",
+          "assignedFeatures": ["ADAS-F004", "ADAS-F005"],
+          "assignedSSTSs": []
+        }
+      ]
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedSprints": 0,
+      "totalSprints": 6,
+      "completedObjectives": 0,
+      "totalObjectives": 1,
+      "objectiveProgress": 0,
+      "completedStoryPoints": 0,
+      "totalStoryPoints": 60,
+      "storyPointProgress": 0,
+      "teamProgress": [
+        {
+          "teamId": "team-001",
+          "teamName": "ADAS团队",
+          "progress": 0,
+          "velocity": 60,
+          "loadRate": 100
+        }
+      ]
+    },
+    "createdAt": "2025-02-01T08:00:00Z",
+    "updatedAt": "2025-02-01T08:00:00Z"
+  },
+  {
+    "piId": "PI-2025-005",
+    "piNumber": "PI-1",
+    "piName": "H57基础功能开发",
+    "description": "H57项目第一个PI",
+    "projectId": "PRJ-2025-002",
+    "startDate": "2025-03-01",
+    "endDate": "2025-05-25",
+    "duration": 12,
+    "sprintCount": 6,
+    "sprintDuration": 2,
+    "linkedVersionId": null,
+    "linkedMilestoneId": "MILE-2025-005",
+    "previousPIId": null,
+    "nextPIId": "PI-2025-006",
+    "objectives": [],
+    "scope": {
+      "epics": [],
+      "features": [],
+      "sstss": [],
+      "totalStoryPoints": 0,
+      "allocatedStoryPoints": 0,
+      "teamAllocations": []
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedSprints": 0,
+      "totalSprints": 6,
+      "completedObjectives": 0,
+      "totalObjectives": 0,
+      "objectiveProgress": 0,
+      "completedStoryPoints": 0,
+      "totalStoryPoints": 0,
+      "storyPointProgress": 0,
+      "teamProgress": []
+    },
+    "createdAt": "2025-01-20T09:00:00Z",
+    "updatedAt": "2025-01-20T09:00:00Z"
+  },
+  {
+    "piId": "PI-2025-006",
+    "piNumber": "PI-2",
+    "piName": "H57工程样车功能",
+    "description": "H57项目第二个PI，工程样车交付",
+    "projectId": "PRJ-2025-002",
+    "startDate": "2025-05-26",
+    "endDate": "2025-08-17",
+    "duration": 12,
+    "sprintCount": 6,
+    "sprintDuration": 2,
+    "linkedVersionId": "VER-2025-004",
+    "linkedMilestoneId": "MILE-2025-006",
+    "previousPIId": "PI-2025-005",
+    "nextPIId": "PI-2025-007",
+    "objectives": [],
+    "scope": {
+      "epics": ["CABIN-E002"],
+      "features": ["CABIN-F003", "CABIN-F004"],
+      "sstss": [],
+      "totalStoryPoints": 96,
+      "allocatedStoryPoints": 96,
+      "teamAllocations": []
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedSprints": 0,
+      "totalSprints": 6,
+      "completedObjectives": 0,
+      "totalObjectives": 0,
+      "objectiveProgress": 0,
+      "completedStoryPoints": 0,
+      "totalStoryPoints": 96,
+      "storyPointProgress": 0,
+      "teamProgress": []
+    },
+    "createdAt": "2025-01-20T09:00:00Z",
+    "updatedAt": "2025-01-20T09:00:00Z"
+  },
+  {
+    "piId": "PI-2025-007",
+    "piNumber": "PI-3",
+    "piName": "H57 PP车完整功能",
+    "description": "H57项目第三个PI，PP车交付",
+    "projectId": "PRJ-2025-002",
+    "startDate": "2025-08-18",
+    "endDate": "2025-11-09",
+    "duration": 12,
+    "sprintCount": 6,
+    "sprintDuration": 2,
+    "linkedVersionId": "VER-2025-005",
+    "linkedMilestoneId": "MILE-2025-007",
+    "previousPIId": "PI-2025-006",
+    "nextPIId": "PI-2025-008",
+    "objectives": [],
+    "scope": {
+      "epics": ["CABIN-E002"],
+      "features": ["CABIN-F004"],
+      "sstss": [],
+      "totalStoryPoints": 24,
+      "allocatedStoryPoints": 24,
+      "teamAllocations": []
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedSprints": 0,
+      "totalSprints": 6,
+      "completedObjectives": 0,
+      "totalObjectives": 0,
+      "objectiveProgress": 0,
+      "completedStoryPoints": 0,
+      "totalStoryPoints": 24,
+      "storyPointProgress": 0,
+      "teamProgress": []
+    },
+    "createdAt": "2025-01-20T09:00:00Z",
+    "updatedAt": "2025-01-20T09:00:00Z"
+  },
+  {
+    "piId": "PI-2025-008",
+    "piNumber": "PI-4",
+    "piName": "H57量产优化",
+    "description": "H57项目第四个PI，量产SOP",
+    "projectId": "PRJ-2025-002",
+    "startDate": "2025-11-10",
+    "endDate": "2026-02-01",
+    "duration": 12,
+    "sprintCount": 6,
+    "sprintDuration": 2,
+    "linkedVersionId": "VER-2025-006",
+    "linkedMilestoneId": "MILE-2025-008",
+    "previousPIId": "PI-2025-007",
+    "nextPIId": null,
+    "objectives": [],
+    "scope": {
+      "epics": [],
+      "features": [],
+      "sstss": [],
+      "totalStoryPoints": 0,
+      "allocatedStoryPoints": 0,
+      "teamAllocations": []
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedSprints": 0,
+      "totalSprints": 6,
+      "completedObjectives": 0,
+      "totalObjectives": 0,
+      "objectiveProgress": 0,
+      "completedStoryPoints": 0,
+      "totalStoryPoints": 0,
+      "storyPointProgress": 0,
+      "teamProgress": []
+    },
+    "createdAt": "2025-01-20T09:00:00Z",
+    "updatedAt": "2025-01-20T09:00:00Z"
+  },
+  {
+    "piId": "PI-2025-009",
+    "piNumber": "PI-1",
+    "piName": "H58基础功能开发",
+    "description": "H58项目第一个PI",
+    "projectId": "PRJ-2025-003",
+    "startDate": "2025-04-01",
+    "endDate": "2025-06-23",
+    "duration": 12,
+    "sprintCount": 6,
+    "sprintDuration": 2,
+    "linkedVersionId": null,
+    "linkedMilestoneId": "MILE-2025-009",
+    "previousPIId": null,
+    "nextPIId": "PI-2025-010",
+    "objectives": [],
+    "scope": {
+      "epics": [],
+      "features": [],
+      "sstss": [],
+      "totalStoryPoints": 0,
+      "allocatedStoryPoints": 0,
+      "teamAllocations": []
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedSprints": 0,
+      "totalSprints": 6,
+      "completedObjectives": 0,
+      "totalObjectives": 0,
+      "objectiveProgress": 0,
+      "completedStoryPoints": 0,
+      "totalStoryPoints": 0,
+      "storyPointProgress": 0,
+      "teamProgress": []
+    },
+    "createdAt": "2025-01-20T10:00:00Z",
+    "updatedAt": "2025-01-20T10:00:00Z"
+  },
+  {
+    "piId": "PI-2025-010",
+    "piNumber": "PI-2",
+    "piName": "H58工程样车功能",
+    "description": "H58项目第二个PI",
+    "projectId": "PRJ-2025-003",
+    "startDate": "2025-06-24",
+    "endDate": "2025-09-15",
+    "duration": 12,
+    "sprintCount": 6,
+    "sprintDuration": 2,
+    "linkedVersionId": "VER-2025-007",
+    "linkedMilestoneId": "MILE-2025-010",
+    "previousPIId": "PI-2025-009",
+    "nextPIId": "PI-2025-011",
+    "objectives": [],
+    "scope": {
+      "epics": [],
+      "features": [],
+      "sstss": [],
+      "totalStoryPoints": 0,
+      "allocatedStoryPoints": 0,
+      "teamAllocations": []
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedSprints": 0,
+      "totalSprints": 6,
+      "completedObjectives": 0,
+      "totalObjectives": 0,
+      "objectiveProgress": 0,
+      "completedStoryPoints": 0,
+      "totalStoryPoints": 0,
+      "storyPointProgress": 0,
+      "teamProgress": []
+    },
+    "createdAt": "2025-01-20T10:00:00Z",
+    "updatedAt": "2025-01-20T10:00:00Z"
+  },
+  {
+    "piId": "PI-2025-011",
+    "piNumber": "PI-3",
+    "piName": "H58 PP车完整功能",
+    "description": "H58项目第三个PI",
+    "projectId": "PRJ-2025-003",
+    "startDate": "2025-09-16",
+    "endDate": "2025-12-08",
+    "duration": 12,
+    "sprintCount": 6,
+    "sprintDuration": 2,
+    "linkedVersionId": "VER-2025-008",
+    "linkedMilestoneId": "MILE-2025-011",
+    "previousPIId": "PI-2025-010",
+    "nextPIId": "PI-2025-012",
+    "objectives": [],
+    "scope": {
+      "epics": [],
+      "features": [],
+      "sstss": [],
+      "totalStoryPoints": 0,
+      "allocatedStoryPoints": 0,
+      "teamAllocations": []
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedSprints": 0,
+      "totalSprints": 6,
+      "completedObjectives": 0,
+      "totalObjectives": 0,
+      "objectiveProgress": 0,
+      "completedStoryPoints": 0,
+      "totalStoryPoints": 0,
+      "storyPointProgress": 0,
+      "teamProgress": []
+    },
+    "createdAt": "2025-01-20T10:00:00Z",
+    "updatedAt": "2025-01-20T10:00:00Z"
+  },
+  {
+    "piId": "PI-2025-012",
+    "piNumber": "PI-4",
+    "piName": "H58量产优化",
+    "description": "H58项目第四个PI",
+    "projectId": "PRJ-2025-003",
+    "startDate": "2025-12-09",
+    "endDate": "2026-03-02",
+    "duration": 12,
+    "sprintCount": 6,
+    "sprintDuration": 2,
+    "linkedVersionId": "VER-2025-009",
+    "linkedMilestoneId": "MILE-2025-012",
+    "previousPIId": "PI-2025-011",
+    "nextPIId": null,
+    "objectives": [],
+    "scope": {
+      "epics": [],
+      "features": [],
+      "sstss": [],
+      "totalStoryPoints": 0,
+      "allocatedStoryPoints": 0,
+      "teamAllocations": []
+    },
+    "status": "planning",
+    "progress": {
+      "overallProgress": 0,
+      "completedSprints": 0,
+      "totalSprints": 6,
+      "completedObjectives": 0,
+      "totalObjectives": 0,
+      "objectiveProgress": 0,
+      "completedStoryPoints": 0,
+      "totalStoryPoints": 0,
+      "storyPointProgress": 0,
+      "teamProgress": []
+    },
+    "createdAt": "2025-01-20T10:00:00Z",
+    "updatedAt": "2025-01-20T10:00:00Z"
+  }
+]
