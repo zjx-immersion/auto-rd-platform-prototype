@@ -191,11 +191,14 @@
                   可用: {{ sprint.capacity - getMRLoad(sprint) }} SP
                 </el-text>
                 <el-progress 
-                  :percentage="getSprintLoadRate(sprint)"
+                  :percentage="Math.min(getSprintLoadRate(sprint), 100)"
                   :status="getSprintLoadRate(sprint) > 100 ? 'exception' : undefined"
                   :stroke-width="8"
                   style="margin-top: 8px;"
                 />
+                <el-text v-if="getSprintLoadRate(sprint) > 100" size="small" type="danger" style="margin-top: 4px;">
+                  ⚠️ 超载 {{ getSprintLoadRate(sprint) - 100 }}%
+                </el-text>
               </div>
 
               <!-- MR分配列表 -->
