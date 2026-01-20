@@ -3,12 +3,49 @@
     <!-- Action Bar -->
     <div class="action-bar">
       <div class="left">
-        <el-tag type="info" size="large">{{ filteredFeatures.length }} 个Feature</el-tag>
+        <h2 class="page-title">Feature列表</h2>
+        <el-text size="small" type="info" style="margin-left: 16px;">{{ features.length }} 个Feature</el-text>
       </div>
       <div class="right">
         <el-button type="primary" :icon="Plus" @click="handleCreate">创建Feature</el-button>
       </div>
     </div>
+
+    <!-- 统计卡片 -->
+    <el-row :gutter="16" style="margin-bottom: 16px;">
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic title="全部Feature" :value="features.length" />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic 
+            title="进行中" 
+            :value="statusCounts.inProgress" 
+            :value-style="{ color: '#67c23a' }"
+          />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic 
+            title="已完成" 
+            :value="statusCounts.done" 
+            :value-style="{ color: '#409eff' }"
+          />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic 
+            title="待开始" 
+            :value="statusCounts.backlog" 
+            :value-style="{ color: '#909399' }"
+          />
+        </el-card>
+      </el-col>
+    </el-row>
 
     <el-card class="filter-card" shadow="never">
       <el-form :inline="true">
@@ -107,6 +144,16 @@ const filters = ref({
 const pagination = ref({
   page: 1,
   pageSize: 20,
+})
+
+// 状态统计
+const statusCounts = computed(() => {
+  return {
+    backlog: features.value.filter(f => f.status === 'backlog').length,
+    inProgress: features.value.filter(f => f.status === 'in-progress').length,
+    done: features.value.filter(f => f.status === 'done').length,
+    cancelled: features.value.filter(f => f.status === 'cancelled').length,
+  }
 })
 
 const filteredFeatures = computed(() => {

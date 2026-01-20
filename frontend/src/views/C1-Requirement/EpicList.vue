@@ -3,7 +3,8 @@
     <!-- Action Bar -->
     <div class="action-bar">
       <div class="left">
-        <el-tag type="info" size="large">{{ epics.length }} 个Epic</el-tag>
+        <h2 class="page-title">Epic列表</h2>
+        <el-text size="small" type="info" style="margin-left: 16px;">{{ epics.length }} 个Epic</el-text>
       </div>
       <div class="right">
         <el-button type="primary" :icon="Plus" @click="handleCreate">
@@ -11,6 +12,42 @@
         </el-button>
       </div>
     </div>
+
+    <!-- 统计卡片 -->
+    <el-row :gutter="16" style="margin-bottom: 16px;">
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic title="全部Epic" :value="epics.length" />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic 
+            title="进行中" 
+            :value="statusCounts.inProgress" 
+            :value-style="{ color: '#67c23a' }"
+          />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic 
+            title="已完成" 
+            :value="statusCounts.done" 
+            :value-style="{ color: '#409eff' }"
+          />
+        </el-card>
+      </el-col>
+      <el-col :span="6">
+        <el-card shadow="hover">
+          <el-statistic 
+            title="待开始" 
+            :value="statusCounts.backlog" 
+            :value-style="{ color: '#909399' }"
+          />
+        </el-card>
+      </el-col>
+    </el-row>
 
     <!-- 筛选和搜索 -->
     <el-card class="filter-card" shadow="never">
@@ -354,6 +391,16 @@ const formRules = {
   priority: [{ required: true, message: '请选择优先级', trigger: 'change' }],
   owner: [{ required: true, message: '请选择负责人', trigger: 'change' }],
 }
+
+// 状态统计
+const statusCounts = computed(() => {
+  return {
+    backlog: epics.value.filter(e => e.status === 'backlog').length,
+    inProgress: epics.value.filter(e => e.status === 'in-progress').length,
+    done: epics.value.filter(e => e.status === 'done').length,
+    cancelled: epics.value.filter(e => e.status === 'cancelled').length,
+  }
+})
 
 // 筛选后的Epic
 const filteredEpics = computed(() => {
