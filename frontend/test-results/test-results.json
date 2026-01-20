@@ -1,0 +1,939 @@
+{
+  "config": {
+    "configFile": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/playwright.config.ts",
+    "rootDir": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests",
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 2,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "phase1-business-flow-test.spec.ts",
+      "file": "phase1-business-flow-test.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Phase 1: 完整业务流程测试",
+          "file": "phase1-business-flow-test.spec.ts",
+          "line": 17,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-FLOW-01: 需求池管理流程",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 10629,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "🧪 开始测试: TC-FLOW-01 需求池管理流程\n"
+                        },
+                        {
+                          "text": "  ✓ 展开C1导航菜单\n"
+                        },
+                        {
+                          "text": "  ✓ 点击需求池菜单\n"
+                        },
+                        {
+                          "text": "  ✓ 页面容器已加载\n"
+                        },
+                        {
+                          "text": "  ✓ 页面标题验证通过\n"
+                        },
+                        {
+                          "text": "  ✓ 统计信息已显示\n"
+                        },
+                        {
+                          "text": "  ✓ 截图已保存\n"
+                        },
+                        {
+                          "text": "✅ TC-FLOW-01: 需求池管理页面加载成功\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-20T23:05:02.256Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11714bbb49d5cf01c2d1-6f6414b1fdc1ccb928e0",
+              "file": "phase1-business-flow-test.spec.ts",
+              "line": 24,
+              "column": 3
+            },
+            {
+              "title": "TC-FLOW-02: Epic列表和筛选",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 8763,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "🧪 开始测试: TC-FLOW-02 Epic列表和筛选\n"
+                        },
+                        {
+                          "text": "  ✓ 进入需求池页面\n"
+                        },
+                        {
+                          "text": "  ✓ 表格已显示\n"
+                        },
+                        {
+                          "text": "  ✓ 找到 8 条Epic记录\n"
+                        },
+                        {
+                          "text": "  ✓ 截图已保存（列表初始状态）\n"
+                        },
+                        {
+                          "text": "✅ TC-FLOW-02: Epic列表和筛选功能正常\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-20T23:05:15.521Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11714bbb49d5cf01c2d1-129801d286992213d4e4",
+              "file": "phase1-business-flow-test.spec.ts",
+              "line": 62,
+              "column": 3
+            },
+            {
+              "title": "TC-FLOW-03: 分配Epic到项目",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 11792,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "🧪 开始测试: TC-FLOW-03 分配Epic到项目\n"
+                        },
+                        {
+                          "text": "  ✓ 进入需求池页面\n"
+                        },
+                        {
+                          "text": "  ✓ 表格数据已加载\n"
+                        },
+                        {
+                          "text": "  ✓ 点击分配按钮\n"
+                        },
+                        {
+                          "text": "  ✓ 对话框已打开\n"
+                        },
+                        {
+                          "text": "  ✓ 截图已保存\n"
+                        },
+                        {
+                          "text": "  ✓ 对话框已关闭\n"
+                        },
+                        {
+                          "text": "✅ TC-FLOW-03: Epic分配对话框正常\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-20T23:05:24.293Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11714bbb49d5cf01c2d1-dd6746c73692106fea13",
+              "file": "phase1-business-flow-test.spec.ts",
+              "line": 94,
+              "column": 3
+            },
+            {
+              "title": "TC-FLOW-04: 项目列表和详情",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5592,
+                      "error": {
+                        "message": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '项目管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '项目管理', exact: true })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '项目管理' })\u001b[22m\n",
+                        "stack": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '项目管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '项目管理', exact: true })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '项目管理' })\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:147:23",
+                        "location": {
+                          "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                          "column": 23,
+                          "line": 147
+                        },
+                        "snippet": "  145 |     \n  146 |     const projectMgmt = page.locator('.el-sub-menu').filter({ hasText: '项目管理' })\n> 147 |     await projectMgmt.click()\n      |                       ^\n  148 |     await page.waitForTimeout(800)\n  149 |     console.log('  ✓ 展开项目管理子菜单')\n  150 |     "
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                            "column": 23,
+                            "line": 147
+                          },
+                          "message": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '项目管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '项目管理', exact: true })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '项目管理' })\u001b[22m\n\n\n  145 |     \n  146 |     const projectMgmt = page.locator('.el-sub-menu').filter({ hasText: '项目管理' })\n> 147 |     await projectMgmt.click()\n      |                       ^\n  148 |     await page.waitForTimeout(800)\n  149 |     console.log('  ✓ 展开项目管理子菜单')\n  150 |     \n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:147:23"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🧪 开始测试: TC-FLOW-04 项目列表和详情\n"
+                        },
+                        {
+                          "text": "  ✓ 展开C0导航菜单\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-20T23:05:36.093Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--eb16a-完整业务流程测试-TC-FLOW-04-项目列表和详情-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--eb16a-完整业务流程测试-TC-FLOW-04-项目列表和详情-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--eb16a-完整业务流程测试-TC-FLOW-04-项目列表和详情-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                        "column": 23,
+                        "line": 147
+                      }
+                    },
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5875,
+                      "error": {
+                        "message": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '项目管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '项目管理', exact: true })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '项目管理' })\u001b[22m\n",
+                        "stack": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '项目管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '项目管理', exact: true })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '项目管理' })\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:147:23",
+                        "location": {
+                          "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                          "column": 23,
+                          "line": 147
+                        },
+                        "snippet": "  145 |     \n  146 |     const projectMgmt = page.locator('.el-sub-menu').filter({ hasText: '项目管理' })\n> 147 |     await projectMgmt.click()\n      |                       ^\n  148 |     await page.waitForTimeout(800)\n  149 |     console.log('  ✓ 展开项目管理子菜单')\n  150 |     "
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                            "column": 23,
+                            "line": 147
+                          },
+                          "message": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '项目管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '项目管理', exact: true })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '项目管理' })\u001b[22m\n\n\n  145 |     \n  146 |     const projectMgmt = page.locator('.el-sub-menu').filter({ hasText: '项目管理' })\n> 147 |     await projectMgmt.click()\n      |                       ^\n  148 |     await page.waitForTimeout(800)\n  149 |     console.log('  ✓ 展开项目管理子菜单')\n  150 |     \n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:147:23"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🧪 开始测试: TC-FLOW-04 项目列表和详情\n"
+                        },
+                        {
+                          "text": "  ✓ 展开C0导航菜单\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-01-20T23:05:42.464Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--eb16a-完整业务流程测试-TC-FLOW-04-项目列表和详情-chromium-retry1/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--eb16a-完整业务流程测试-TC-FLOW-04-项目列表和详情-chromium-retry1/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--eb16a-完整业务流程测试-TC-FLOW-04-项目列表和详情-chromium-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                        "column": 23,
+                        "line": 147
+                      }
+                    },
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5973,
+                      "error": {
+                        "message": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '项目管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '项目管理', exact: true })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '项目管理' })\u001b[22m\n",
+                        "stack": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '项目管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '项目管理', exact: true })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '项目管理' })\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:147:23",
+                        "location": {
+                          "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                          "column": 23,
+                          "line": 147
+                        },
+                        "snippet": "  145 |     \n  146 |     const projectMgmt = page.locator('.el-sub-menu').filter({ hasText: '项目管理' })\n> 147 |     await projectMgmt.click()\n      |                       ^\n  148 |     await page.waitForTimeout(800)\n  149 |     console.log('  ✓ 展开项目管理子菜单')\n  150 |     "
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                            "column": 23,
+                            "line": 147
+                          },
+                          "message": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '项目管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '项目管理', exact: true })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '项目管理' })\u001b[22m\n\n\n  145 |     \n  146 |     const projectMgmt = page.locator('.el-sub-menu').filter({ hasText: '项目管理' })\n> 147 |     await projectMgmt.click()\n      |                       ^\n  148 |     await page.waitForTimeout(800)\n  149 |     console.log('  ✓ 展开项目管理子菜单')\n  150 |     \n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:147:23"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🧪 开始测试: TC-FLOW-04 项目列表和详情\n"
+                        },
+                        {
+                          "text": "  ✓ 展开C0导航菜单\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 2,
+                      "startTime": "2026-01-20T23:05:49.623Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--eb16a-完整业务流程测试-TC-FLOW-04-项目列表和详情-chromium-retry2/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--eb16a-完整业务流程测试-TC-FLOW-04-项目列表和详情-chromium-retry2/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--eb16a-完整业务流程测试-TC-FLOW-04-项目列表和详情-chromium-retry2/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                        "column": 23,
+                        "line": 147
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "11714bbb49d5cf01c2d1-5e88adecfe741158ab77",
+              "file": "phase1-business-flow-test.spec.ts",
+              "line": 137,
+              "column": 3
+            },
+            {
+              "title": "TC-FLOW-05: 产品管理",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 18895,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.product-management-container') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.product-management-container') to be visible\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:181:16",
+                        "location": {
+                          "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                          "column": 16,
+                          "line": 181
+                        },
+                        "snippet": "  179 |\n  180 |     // 等待页面容器加载\n> 181 |     await page.waitForSelector('.product-management-container', { timeout: 10000 })\n      |                ^\n  182 |     console.log('  ✓ 页面容器已加载')\n  183 |\n  184 |     // 验证页面标题"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                            "column": 16,
+                            "line": 181
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.product-management-container') to be visible\u001b[22m\n\n\n  179 |\n  180 |     // 等待页面容器加载\n> 181 |     await page.waitForSelector('.product-management-container', { timeout: 10000 })\n      |                ^\n  182 |     console.log('  ✓ 页面容器已加载')\n  183 |\n  184 |     // 验证页面标题\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:181:16"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🧪 开始测试: TC-FLOW-05 产品管理\n"
+                        },
+                        {
+                          "text": "  ✓ 访问产品管理页面\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-20T23:05:56.623Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test-Phase-1-完整业务流程测试-TC-FLOW-05-产品管理-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test-Phase-1-完整业务流程测试-TC-FLOW-05-产品管理-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test-Phase-1-完整业务流程测试-TC-FLOW-05-产品管理-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                        "column": 16,
+                        "line": 181
+                      }
+                    },
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 19256,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.product-management-container') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.product-management-container') to be visible\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:181:16",
+                        "location": {
+                          "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                          "column": 16,
+                          "line": 181
+                        },
+                        "snippet": "  179 |\n  180 |     // 等待页面容器加载\n> 181 |     await page.waitForSelector('.product-management-container', { timeout: 10000 })\n      |                ^\n  182 |     console.log('  ✓ 页面容器已加载')\n  183 |\n  184 |     // 验证页面标题"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                            "column": 16,
+                            "line": 181
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.product-management-container') to be visible\u001b[22m\n\n\n  179 |\n  180 |     // 等待页面容器加载\n> 181 |     await page.waitForSelector('.product-management-container', { timeout: 10000 })\n      |                ^\n  182 |     console.log('  ✓ 页面容器已加载')\n  183 |\n  184 |     // 验证页面标题\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:181:16"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🧪 开始测试: TC-FLOW-05 产品管理\n"
+                        },
+                        {
+                          "text": "  ✓ 访问产品管理页面\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-01-20T23:06:16.451Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test-Phase-1-完整业务流程测试-TC-FLOW-05-产品管理-chromium-retry1/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test-Phase-1-完整业务流程测试-TC-FLOW-05-产品管理-chromium-retry1/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test-Phase-1-完整业务流程测试-TC-FLOW-05-产品管理-chromium-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                        "column": 16,
+                        "line": 181
+                      }
+                    },
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 19385,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.product-management-container') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.product-management-container') to be visible\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:181:16",
+                        "location": {
+                          "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                          "column": 16,
+                          "line": 181
+                        },
+                        "snippet": "  179 |\n  180 |     // 等待页面容器加载\n> 181 |     await page.waitForSelector('.product-management-container', { timeout: 10000 })\n      |                ^\n  182 |     console.log('  ✓ 页面容器已加载')\n  183 |\n  184 |     // 验证页面标题"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                            "column": 16,
+                            "line": 181
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.product-management-container') to be visible\u001b[22m\n\n\n  179 |\n  180 |     // 等待页面容器加载\n> 181 |     await page.waitForSelector('.product-management-container', { timeout: 10000 })\n      |                ^\n  182 |     console.log('  ✓ 页面容器已加载')\n  183 |\n  184 |     // 验证页面标题\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:181:16"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🧪 开始测试: TC-FLOW-05 产品管理\n"
+                        },
+                        {
+                          "text": "  ✓ 访问产品管理页面\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 2,
+                      "startTime": "2026-01-20T23:06:36.998Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test-Phase-1-完整业务流程测试-TC-FLOW-05-产品管理-chromium-retry2/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test-Phase-1-完整业务流程测试-TC-FLOW-05-产品管理-chromium-retry2/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test-Phase-1-完整业务流程测试-TC-FLOW-05-产品管理-chromium-retry2/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                        "column": 16,
+                        "line": 181
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "11714bbb49d5cf01c2d1-49c05781f2a4d9316507",
+              "file": "phase1-business-flow-test.spec.ts",
+              "line": 169,
+              "column": 3
+            },
+            {
+              "title": "TC-FLOW-06: 版本规划V2 - 完成度管理",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5868,
+                      "error": {
+                        "message": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '版本管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '版本管理' })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '版本管理' })\u001b[22m\n",
+                        "stack": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '版本管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '版本管理' })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '版本管理' })\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:206:23",
+                        "location": {
+                          "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                          "column": 23,
+                          "line": 206
+                        },
+                        "snippet": "  204 |     \n  205 |     const versionMgmt = page.locator('.el-sub-menu').filter({ hasText: '版本管理' })\n> 206 |     await versionMgmt.click()\n      |                       ^\n  207 |     await page.waitForTimeout(800)\n  208 |     console.log('  ✓ 展开版本管理子菜单')\n  209 |     "
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                            "column": 23,
+                            "line": 206
+                          },
+                          "message": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '版本管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '版本管理' })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '版本管理' })\u001b[22m\n\n\n  204 |     \n  205 |     const versionMgmt = page.locator('.el-sub-menu').filter({ hasText: '版本管理' })\n> 206 |     await versionMgmt.click()\n      |                       ^\n  207 |     await page.waitForTimeout(800)\n  208 |     console.log('  ✓ 展开版本管理子菜单')\n  209 |     \n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:206:23"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🧪 开始测试: TC-FLOW-06 版本规划V2 - 完成度管理\n"
+                        },
+                        {
+                          "text": "  ✓ 展开C0导航菜单\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-20T23:06:57.491Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--9f40d-试-TC-FLOW-06-版本规划V2---完成度管理-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--9f40d-试-TC-FLOW-06-版本规划V2---完成度管理-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--9f40d-试-TC-FLOW-06-版本规划V2---完成度管理-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                        "column": 23,
+                        "line": 206
+                      }
+                    },
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5712,
+                      "error": {
+                        "message": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '版本管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '版本管理' })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '版本管理' })\u001b[22m\n",
+                        "stack": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '版本管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '版本管理' })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '版本管理' })\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:206:23",
+                        "location": {
+                          "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                          "column": 23,
+                          "line": 206
+                        },
+                        "snippet": "  204 |     \n  205 |     const versionMgmt = page.locator('.el-sub-menu').filter({ hasText: '版本管理' })\n> 206 |     await versionMgmt.click()\n      |                       ^\n  207 |     await page.waitForTimeout(800)\n  208 |     console.log('  ✓ 展开版本管理子菜单')\n  209 |     "
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                            "column": 23,
+                            "line": 206
+                          },
+                          "message": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '版本管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '版本管理' })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '版本管理' })\u001b[22m\n\n\n  204 |     \n  205 |     const versionMgmt = page.locator('.el-sub-menu').filter({ hasText: '版本管理' })\n> 206 |     await versionMgmt.click()\n      |                       ^\n  207 |     await page.waitForTimeout(800)\n  208 |     console.log('  ✓ 展开版本管理子菜单')\n  209 |     \n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:206:23"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🧪 开始测试: TC-FLOW-06 版本规划V2 - 完成度管理\n"
+                        },
+                        {
+                          "text": "  ✓ 展开C0导航菜单\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-01-20T23:07:04.635Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--9f40d-试-TC-FLOW-06-版本规划V2---完成度管理-chromium-retry1/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--9f40d-试-TC-FLOW-06-版本规划V2---完成度管理-chromium-retry1/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--9f40d-试-TC-FLOW-06-版本规划V2---完成度管理-chromium-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                        "column": 23,
+                        "line": 206
+                      }
+                    },
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5885,
+                      "error": {
+                        "message": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '版本管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '版本管理' })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '版本管理' })\u001b[22m\n",
+                        "stack": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '版本管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '版本管理' })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '版本管理' })\u001b[22m\n\n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:206:23",
+                        "location": {
+                          "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                          "column": 23,
+                          "line": 206
+                        },
+                        "snippet": "  204 |     \n  205 |     const versionMgmt = page.locator('.el-sub-menu').filter({ hasText: '版本管理' })\n> 206 |     await versionMgmt.click()\n      |                       ^\n  207 |     await page.waitForTimeout(800)\n  208 |     console.log('  ✓ 展开版本管理子菜单')\n  209 |     "
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                            "column": 23,
+                            "line": 206
+                          },
+                          "message": "Error: locator.click: Error: strict mode violation: locator('.el-sub-menu').filter({ hasText: '版本管理' }) resolved to 2 elements:\n    1) <li role=\"menuitem\" data-v-3a7217b5=\"\" ariahaspopup=\"true\" aria-expanded=\"true\" class=\"el-sub-menu is-opened\">…</li> aka getByRole('menuitem', { name: 'C0: 领域项目管理' })\n    2) <li role=\"menuitem\" data-v-3a7217b5=\"\" class=\"el-sub-menu\" ariahaspopup=\"true\" aria-expanded=\"false\">…</li> aka getByRole('menuitem', { name: '版本管理' })\n\nCall log:\n\u001b[2m  - waiting for locator('.el-sub-menu').filter({ hasText: '版本管理' })\u001b[22m\n\n\n  204 |     \n  205 |     const versionMgmt = page.locator('.el-sub-menu').filter({ hasText: '版本管理' })\n> 206 |     await versionMgmt.click()\n      |                       ^\n  207 |     await page.waitForTimeout(800)\n  208 |     console.log('  ✓ 展开版本管理子菜单')\n  209 |     \n    at /Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts:206:23"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🧪 开始测试: TC-FLOW-06 版本规划V2 - 完成度管理\n"
+                        },
+                        {
+                          "text": "  ✓ 展开C0导航菜单\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 2,
+                      "startTime": "2026-01-20T23:07:11.336Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--9f40d-试-TC-FLOW-06-版本规划V2---完成度管理-chromium-retry2/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--9f40d-试-TC-FLOW-06-版本规划V2---完成度管理-chromium-retry2/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/test-results/phase1-business-flow-test--9f40d-试-TC-FLOW-06-版本规划V2---完成度管理-chromium-retry2/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/jxzhong/workspace/voyah-devops-solution/auto-rd-platform-prototype/frontend/tests/phase1-business-flow-test.spec.ts",
+                        "column": 23,
+                        "line": 206
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "11714bbb49d5cf01c2d1-afc9c9d6b3bc25dd949b",
+              "file": "phase1-business-flow-test.spec.ts",
+              "line": 196,
+              "column": 3
+            },
+            {
+              "title": "TC-FLOW-07: 完整流程概览",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7559,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\n========================================\n"
+                        },
+                        {
+                          "text": "🎉 Phase 1 完整业务流程测试总结\n"
+                        },
+                        {
+                          "text": "========================================\n"
+                        },
+                        {
+                          "text": "✅ 需求池管理: 正常\n"
+                        },
+                        {
+                          "text": "✅ Epic筛选和分配: 正常\n"
+                        },
+                        {
+                          "text": "✅ 项目管理: 正常\n"
+                        },
+                        {
+                          "text": "✅ 产品管理: 正常\n"
+                        },
+                        {
+                          "text": "✅ 版本规划V2(完成度管理): 正常\n"
+                        },
+                        {
+                          "text": "========================================\n"
+                        },
+                        {
+                          "text": "🎊 Phase 1 核心功能验证通过！\n"
+                        },
+                        {
+                          "text": "========================================\n\n"
+                        },
+                        {
+                          "text": "✓ 首页截图已保存\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-01-20T23:07:18.425Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "11714bbb49d5cf01c2d1-79e416bd00712700fa6b",
+              "file": "phase1-business-flow-test.spec.ts",
+              "line": 233,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-01-20T23:05:01.611Z",
+    "duration": 145294.00699999998,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}
