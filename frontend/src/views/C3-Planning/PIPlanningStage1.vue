@@ -20,7 +20,6 @@
           <el-icon><UserFilled /></el-icon>
           切换到团队视角
         </el-button>
-        <el-button @click="handleSaveDraft">保存草稿</el-button>
         <el-button type="success" @click="handleDetectConflicts">
           <el-icon><Warning /></el-icon>
           检测冲突
@@ -249,10 +248,17 @@
                     {{ getSprintTeamLoad(team.id, sprint.id) }}/{{ team.capacity }} SP
                   </el-text>
                   <el-progress 
-                    :percentage="getLoadRate(team.id, sprint.id)" 
+                    :percentage="Math.min(getLoadRate(team.id, sprint.id), 100)" 
                     :status="getLoadRate(team.id, sprint.id) > 100 ? 'exception' : undefined"
                     :stroke-width="4"
                   />
+                  <el-text 
+                    v-if="getLoadRate(team.id, sprint.id) > 100" 
+                    size="small" 
+                    type="danger"
+                  >
+                    超{{ getLoadRate(team.id, sprint.id) - 100 }}%
+                  </el-text>
                 </div>
 
                 <!-- 已分配的Feature/SSTS卡片 -->

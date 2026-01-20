@@ -9,12 +9,8 @@
         </el-select>
       </div>
       <div class="header-right">
-        <el-button type="primary" size="large" @click="handleGoToNewPlanning" style="margin-right: 16px;">
-          <el-icon style="margin-right: 4px;"><Promotion /></el-icon>
-          进入2阶段规划工作台（新版）
-        </el-button>
         <el-button :icon="Refresh" @click="handleRefresh">刷新</el-button>
-        <el-button type="primary" @click="handleStartPlanning" v-if="!currentPlanning">开始规划</el-button>
+        <el-button type="primary" @click="handleStartPlanning" v-if="!currentPlanning">进入规划工作台</el-button>
         <el-button type="success" @click="handleCommitPlanning" v-if="currentPlanning && currentPlanning.status === 'draft'">
           提交规划
         </el-button>
