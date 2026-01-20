@@ -1280,9 +1280,9 @@ function handleRemoveSprint() {
   const lastSprint = sprints.value[sprints.value.length - 1]
   
   // 检查该Sprint是否有分配的Feature或SSTS
-  const hasAllocations = stage1Allocations.value.some(
-    alloc => alloc.sprintId === lastSprint.id
-  )
+  const hasAllocations = 
+    stage1Allocations.value.features.some(alloc => alloc.sprintId === lastSprint.id) ||
+    stage1Allocations.value.sstss.some(alloc => alloc.sprintId === lastSprint.id)
 
   if (hasAllocations) {
     ElMessageBox.confirm(
@@ -1295,7 +1295,10 @@ function handleRemoveSprint() {
       }
     ).then(() => {
       // 删除该Sprint的所有分配
-      stage1Allocations.value = stage1Allocations.value.filter(
+      stage1Allocations.value.features = stage1Allocations.value.features.filter(
+        alloc => alloc.sprintId !== lastSprint.id
+      )
+      stage1Allocations.value.sstss = stage1Allocations.value.sstss.filter(
         alloc => alloc.sprintId !== lastSprint.id
       )
       
