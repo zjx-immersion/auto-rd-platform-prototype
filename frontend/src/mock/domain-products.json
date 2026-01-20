@@ -1,0 +1,79 @@
+{
+  "products": [
+    {
+      "productId": "PROD-001",
+      "productName": "ADAS ECU",
+      "productCode": "ADAS-ECU-V1",
+      "productLine": "adas",
+      "projectId": "PRJ-2025-001",
+      "projectName": "岚图H56智能驾驶系统研发",
+      "allocatedEpicIds": ["ADAS-E001", "ADAS-E002", "ADAS-E003"],
+      "versions": [],
+      "productOwner": {
+        "userId": "USER-001",
+        "userName": "李娜",
+        "userEmail": "lina@voyah.com",
+        "userRole": ["PO"],
+        "avatar": ""
+      },
+      "description": "ADAS电子控制单元,实现L2+自动驾驶核心功能",
+      "stats": {
+        "totalEpics": 3,
+        "totalSP": 220,
+        "totalVersions": 3
+      },
+      "createdAt": "2025-01-10T00:00:00Z",
+      "updatedAt": "2025-01-15T00:00:00Z"
+    },
+    {
+      "productId": "PROD-002",
+      "productName": "座舱HMI系统",
+      "productCode": "CABIN-HMI-V1",
+      "productLine": "cabin",
+      "projectId": "PRJ-2025-001",
+      "projectName": "岚图H56智能驾驶系统研发",
+      "allocatedEpicIds": ["CABIN-E001", "CABIN-E002", "CABIN-E003"],
+      "versions": [],
+      "productOwner": {
+        "userId": "USER-002",
+        "userName": "王强",
+        "userEmail": "wangqiang@voyah.com",
+        "userRole": ["PO"],
+        "avatar": ""
+      },
+      "description": "智能座舱人机交互系统,包括多屏显示和语音控制",
+      "stats": {
+        "totalEpics": 3,
+        "totalSP": 180,
+        "totalVersions": 2
+      },
+      "createdAt": "2025-01-10T00:00:00Z",
+      "updatedAt": "2025-01-15T00:00:00Z"
+    },
+    {
+      "productId": "PROD-003",
+      "productName": "车载以太网网关",
+      "productCode": "EEA-GATEWAY-V1",
+      "productLine": "eea",
+      "projectId": "PRJ-2025-001",
+      "projectName": "岚图H56智能驾驶系统研发",
+      "allocatedEpicIds": ["EEA-E001"],
+      "versions": [],
+      "productOwner": {
+        "userId": "USER-003",
+        "userName": "张敏",
+        "userEmail": "zhangmin@voyah.com",
+        "userRole": ["Architect"],
+        "avatar": ""
+      },
+      "description": "车载以太网中央网关,负责域间通信和数据路由",
+      "stats": {
+        "totalEpics": 1,
+        "totalSP": 120,
+        "totalVersions": 2
+      },
+      "createdAt": "2025-01-12T00:00:00Z",
+      "updatedAt": "2025-01-15T00:00:00Z"
+    }
+  ]
+}

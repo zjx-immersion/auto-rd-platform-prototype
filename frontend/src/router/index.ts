@@ -170,6 +170,13 @@ const routes: RouteRecordRaw[] = [
                 name: 'ProjectMonitor',
                 component: () => import('@/views/C0-Project/ProjectMonitor.vue'),
                 meta: { title: '项目监控', breadcrumb: ['固有功能', 'C0: 领域项目管理', '项目监控'] }
+              },
+              // 产品管理 ⭐新增
+              {
+                path: 'project/:projectId/products',
+                name: 'ProductManagement',
+                component: () => import('@/views/C0-Project/ProductManagement.vue'),
+                meta: { title: '产品管理', breadcrumb: ['固有功能', 'C0: 领域项目管理', '产品管理'] }
               }
             ]
           },
@@ -178,6 +185,13 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'c1-requirement',
             children: [
+              // 需求池 ⭐新增
+              {
+                path: 'pool',
+                name: 'RequirementPool',
+                component: () => import('@/views/C1-Requirement/RequirementPool.vue'),
+                meta: { title: '需求池', breadcrumb: ['固有功能', 'C1: 需求管理', '需求池'] }
+              },
               // Epic管理
               {
                 path: 'epic',

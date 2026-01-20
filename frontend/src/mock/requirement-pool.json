@@ -1,0 +1,208 @@
+{
+  "poolId": "POOL-001",
+  "poolName": "岚图需求池",
+  "organizationId": "ORG-VOYAH",
+  "epics": [
+    {
+      "id": "ADAS-E001",
+      "code": "ADAS-E001",
+      "name": "L2+自动驾驶核心功能",
+      "description": "实现高速公路L2+自动驾驶核心功能,包括AEB、ACC、LKA等",
+      "domain": "智能驾驶",
+      "priority": "P0",
+      "status": "approved",
+      "totalStoryPoints": 100,
+      "completedStoryPoints": 0,
+      "progress": 0,
+      "owner": {
+        "userId": "USER-001",
+        "userName": "李娜",
+        "userEmail": "lina@voyah.com",
+        "userRole": ["PO"],
+        "avatar": ""
+      },
+      "allocationStatus": "allocated",
+      "allocations": [
+        {
+          "allocationId": "ALLOC-001",
+          "epicId": "ADAS-E001",
+          "projectId": "PRJ-2025-001",
+          "projectName": "岚图H56智能驾驶系统研发",
+          "allocatedAt": "2025-01-10T00:00:00Z",
+          "allocatedBy": "USER-PM"
+        }
+      ],
+      "createdAt": "2024-12-01T00:00:00Z",
+      "updatedAt": "2025-01-10T00:00:00Z"
+    },
+    {
+      "id": "CABIN-E001",
+      "code": "CABIN-E001",
+      "name": "智能座舱基础交互",
+      "description": "实现智能座舱基础HMI交互和语音控制功能",
+      "domain": "智能座舱",
+      "priority": "P1",
+      "status": "approved",
+      "totalStoryPoints": 80,
+      "completedStoryPoints": 0,
+      "progress": 0,
+      "owner": {
+        "userId": "USER-002",
+        "userName": "王强",
+        "userEmail": "wangqiang@voyah.com",
+        "userRole": ["PO"],
+        "avatar": ""
+      },
+      "allocationStatus": "unallocated",
+      "allocations": [],
+      "createdAt": "2024-12-05T00:00:00Z",
+      "updatedAt": "2024-12-05T00:00:00Z"
+    },
+    {
+      "id": "ADAS-E002",
+      "code": "ADAS-E002",
+      "name": "AEB功能增强",
+      "description": "增强AEB功能,支持更多场景识别和制动优化",
+      "domain": "智能驾驶",
+      "priority": "P0",
+      "status": "approved",
+      "totalStoryPoints": 50,
+      "completedStoryPoints": 0,
+      "progress": 0,
+      "owner": {
+        "userId": "USER-001",
+        "userName": "李娜",
+        "userEmail": "lina@voyah.com",
+        "userRole": ["PO"],
+        "avatar": ""
+      },
+      "allocationStatus": "unallocated",
+      "allocations": [],
+      "createdAt": "2024-12-10T00:00:00Z",
+      "updatedAt": "2024-12-10T00:00:00Z"
+    },
+    {
+      "id": "CABIN-E002",
+      "code": "CABIN-E002",
+      "name": "语音控制高级功能",
+      "description": "实现连续对话、场景理解、多轮交互等高级语音控制功能",
+      "domain": "智能座舱",
+      "priority": "P2",
+      "status": "approved",
+      "totalStoryPoints": 40,
+      "completedStoryPoints": 0,
+      "progress": 0,
+      "owner": {
+        "userId": "USER-002",
+        "userName": "王强",
+        "userEmail": "wangqiang@voyah.com",
+        "userRole": ["PO"],
+        "avatar": ""
+      },
+      "allocationStatus": "unallocated",
+      "allocations": [],
+      "createdAt": "2024-12-15T00:00:00Z",
+      "updatedAt": "2024-12-15T00:00:00Z"
+    },
+    {
+      "id": "EEA-E001",
+      "code": "EEA-E001",
+      "name": "车载以太网架构升级",
+      "description": "升级车载以太网架构,提升通信带宽和稳定性",
+      "domain": "电子电器架构",
+      "priority": "P0",
+      "status": "approved",
+      "totalStoryPoints": 120,
+      "completedStoryPoints": 0,
+      "progress": 0,
+      "owner": {
+        "userId": "USER-003",
+        "userName": "张敏",
+        "userEmail": "zhangmin@voyah.com",
+        "userRole": ["Architect"],
+        "avatar": ""
+      },
+      "allocationStatus": "unallocated",
+      "allocations": [],
+      "createdAt": "2024-12-20T00:00:00Z",
+      "updatedAt": "2024-12-20T00:00:00Z"
+    },
+    {
+      "id": "ADAS-E003",
+      "code": "ADAS-E003",
+      "name": "泊车辅助系统",
+      "description": "实现自动泊车辅助功能,支持垂直、平行、斜列泊车",
+      "domain": "智能驾驶",
+      "priority": "P1",
+      "status": "pending-review",
+      "totalStoryPoints": 70,
+      "completedStoryPoints": 0,
+      "progress": 0,
+      "owner": {
+        "userId": "USER-001",
+        "userName": "李娜",
+        "userEmail": "lina@voyah.com",
+        "userRole": ["PO"],
+        "avatar": ""
+      },
+      "allocationStatus": "unallocated",
+      "allocations": [],
+      "createdAt": "2024-12-25T00:00:00Z",
+      "updatedAt": "2024-12-25T00:00:00Z"
+    },
+    {
+      "id": "CABIN-E003",
+      "code": "CABIN-E003",
+      "name": "多屏联动显示",
+      "description": "实现仪表、中控、后排屏幕的联动显示和内容共享",
+      "domain": "智能座舱",
+      "priority": "P1",
+      "status": "approved",
+      "totalStoryPoints": 60,
+      "completedStoryPoints": 0,
+      "progress": 0,
+      "owner": {
+        "userId": "USER-002",
+        "userName": "王强",
+        "userEmail": "wangqiang@voyah.com",
+        "userRole": ["PO"],
+        "avatar": ""
+      },
+      "allocationStatus": "unallocated",
+      "allocations": [],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": "CHASSIS-E001",
+      "code": "CHASSIS-E001",
+      "name": "底盘域控制器集成",
+      "description": "集成底盘域控制器,实现转向、制动、悬架的协同控制",
+      "domain": "底盘域",
+      "priority": "P0",
+      "status": "approved",
+      "totalStoryPoints": 90,
+      "completedStoryPoints": 0,
+      "progress": 0,
+      "owner": {
+        "userId": "USER-004",
+        "userName": "刘涛",
+        "userEmail": "liutao@voyah.com",
+        "userRole": ["TPM"],
+        "avatar": ""
+      },
+      "allocationStatus": "unallocated",
+      "allocations": [],
+      "createdAt": "2025-01-05T00:00:00Z",
+      "updatedAt": "2025-01-05T00:00:00Z"
+    }
+  ],
+  "stats": {
+    "totalEpics": 8,
+    "unallocated": 7,
+    "allocated": 1,
+    "completed": 0
+  },
+  "createdAt": "2024-12-01T00:00:00Z",
+  "updatedAt": "2025-01-10T00:00:00Z"
+}
