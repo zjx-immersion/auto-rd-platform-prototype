@@ -41,8 +41,8 @@ export default defineConfig({
     // 追踪设置
     trace: 'retain-on-failure',
     
-    // 浏览器设置
-    viewport: { width: 1920, height: 1080 },
+    // 浏览器设置 - 全屏模式
+    viewport: null,  // 使用全屏模式（跟随浏览器窗口大小）
     ignoreHTTPSErrors: true,
     
     // 等待设置
@@ -54,7 +54,17 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        ...devices['Desktop Chrome'],
+        // 全屏浏览器配置
+        viewport: { width: 1920, height: 1080 },
+        launchOptions: {
+          args: [
+            '--start-maximized',  // 最大化窗口
+            '--window-size=1920,1080'  // 固定窗口大小
+          ]
+        }
+      },
     }
   ],
 
