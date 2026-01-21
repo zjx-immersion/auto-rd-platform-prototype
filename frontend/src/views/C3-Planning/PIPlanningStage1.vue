@@ -1720,13 +1720,20 @@ onMounted(async () => {
   margin-bottom: 8px;
   border: 1px solid #e4e7ed;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: move; /* 改为move，提示可拖拽 */
   transition: all 0.3s;
 }
 
 .item-card:hover {
   border-color: #409eff;
   background-color: #f5f7fa;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(64, 158, 255, 0.3);
+}
+
+.item-card:active {
+  cursor: grabbing;
+  opacity: 0.7;
 }
 
 .item-card.selected {
@@ -1844,6 +1851,17 @@ onMounted(async () => {
 .sprint-cell.drop-target {
   background-color: #e1f3d8;
   border: 2px dashed #67c23a;
+  box-shadow: inset 0 0 10px rgba(103, 194, 58, 0.3);
+}
+
+.sprint-cell.drop-target::before {
+  content: '📥 拖放到此处';
+  display: block;
+  text-align: center;
+  color: #67c23a;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 12px;
 }
 
 .sprint-cell.overload {
