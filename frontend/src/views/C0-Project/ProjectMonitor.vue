@@ -13,21 +13,21 @@
 
     <!-- 关键指标卡片 -->
     <el-row :gutter="20" style="margin-bottom: 20px;">
-      <el-col :span="6">
+        <el-col :span="6">
         <el-card shadow="hover" class="metric-card">
           <el-statistic title="项目进度" :value="projectMetrics.progress" suffix="%">
             <template #prefix>
               <el-icon color="#409eff"><TrendCharts /></el-icon>
             </template>
           </el-statistic>
-          <el-progress
+              <el-progress
             :percentage="projectMetrics.progress"
             :stroke-width="8"
             style="margin-top: 12px;"
           />
-        </el-card>
-      </el-col>
-      <el-col :span="6">
+          </el-card>
+        </el-col>
+        <el-col :span="6">
         <el-card shadow="hover" class="metric-card">
           <el-statistic title="活跃风险" :value="projectMetrics.activeRisks">
             <template #prefix>
@@ -38,10 +38,10 @@
           </el-statistic>
           <div class="metric-desc">
             {{ projectMetrics.activeRisks > 0 ? '需要关注' : '风险可控' }}
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
         <el-card shadow="hover" class="metric-card">
           <el-statistic title="团队负载" :value="projectMetrics.teamLoad" suffix="%">
             <template #prefix>
@@ -52,10 +52,10 @@
           </el-statistic>
           <div class="metric-desc">
             {{ getLoadDesc(projectMetrics.teamLoad) }}
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
         <el-card shadow="hover" class="metric-card">
           <el-statistic title="预算使用" :value="projectMetrics.budgetUsage" suffix="%">
             <template #prefix>
@@ -64,34 +64,34 @@
           </el-statistic>
           <div class="metric-desc">
             {{ projectMetrics.remainingBudget }}万元 剩余
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
 
     <el-row :gutter="20">
       <el-col :span="12">
         <!-- Epic完成率 -->
         <el-card shadow="never" style="margin-bottom: 20px;">
-          <template #header>
+            <template #header>
             <div class="card-header">
               <span>Epic完成率</span>
             </div>
-          </template>
+            </template>
           <div style="height: 300px;">
             <v-chart :option="epicChartOption" autoresize />
-          </div>
-        </el-card>
+                </div>
+          </el-card>
 
         <!-- Feature完成率 -->
         <el-card shadow="never" style="margin-bottom: 20px;">
-          <template #header>
+            <template #header>
             <div class="card-header">
               <span>Feature完成率</span>
               <el-tag>{{ featureCompletion.completed }} / {{ featureCompletion.total }}</el-tag>
             </div>
-          </template>
-          <el-progress
+            </template>
+                <el-progress
             :percentage="featureCompletion.percentage"
             :stroke-width="24"
             :text-inside="true"
@@ -110,18 +110,18 @@
             <el-col :span="8">
               <div class="status-item">
                 <el-tag type="success">已完成: {{ featureCompletion.completed }}</el-tag>
-              </div>
-            </el-col>
-          </el-row>
+            </div>
+        </el-col>
+      </el-row>
         </el-card>
 
         <!-- 团队效能 -->
         <el-card shadow="never">
-          <template #header>
+            <template #header>
             <div class="card-header">
               <span>团队效能</span>
             </div>
-          </template>
+            </template>
           <el-table :data="teamEfficiency" stripe>
             <el-table-column prop="teamName" label="团队" width="150" />
             <el-table-column label="负载" width="120">
@@ -131,38 +131,38 @@
                   :stroke-width="8"
                   :color="getLoadProgressColor(row.load)"
                 />
-              </template>
+            </template>
             </el-table-column>
             <el-table-column label="速率" width="120">
-              <template #default="{ row }">
+                <template #default="{ row }">
                 {{ row.velocity }} SP/周
-              </template>
-            </el-table-column>
+                </template>
+              </el-table-column>
             <el-table-column label="完成率" width="120">
-              <template #default="{ row }">
+                <template #default="{ row }">
                 {{ row.completion }}%
-              </template>
-            </el-table-column>
-            <el-table-column label="状态" width="100">
-              <template #default="{ row }">
+                </template>
+              </el-table-column>
+              <el-table-column label="状态" width="100">
+                <template #default="{ row }">
                 <el-tag :type="getTeamStatusType(row.status)" size="small">
-                  {{ row.status }}
-                </el-tag>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-card>
-      </el-col>
+                    {{ row.status }}
+                  </el-tag>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-card>
+        </el-col>
 
-      <el-col :span="12">
+        <el-col :span="12">
         <!-- 里程碑达成情况 -->
         <el-card shadow="never" style="margin-bottom: 20px;">
-          <template #header>
+            <template #header>
             <div class="card-header">
               <span>里程碑达成情况</span>
               <el-tag type="success">{{ completedMilestones }} / {{ totalMilestones }}</el-tag>
             </div>
-          </template>
+            </template>
           <el-timeline>
             <el-timeline-item
               v-for="milestone in milestones"
@@ -182,15 +182,15 @@
               </div>
             </el-timeline-item>
           </el-timeline>
-        </el-card>
+          </el-card>
 
         <!-- 资源分配 -->
         <el-card shadow="never" style="margin-bottom: 20px;">
-          <template #header>
+            <template #header>
             <div class="card-header">
               <span>资源分配</span>
             </div>
-          </template>
+            </template>
           <div style="height: 200px;">
             <v-chart :option="resourceChartOption" autoresize />
           </div>
@@ -202,31 +202,31 @@
             <div class="card-header">
               <span>风险汇总</span>
               <el-link type="primary" @click="viewAllRisks">查看全部</el-link>
-            </div>
+                </div>
           </template>
           <el-row :gutter="12">
             <el-col :span="8">
               <div class="risk-stat">
                 <div class="risk-count high">{{ riskSummary.high }}</div>
                 <div class="risk-label">高风险</div>
-              </div>
-            </el-col>
+                </div>
+              </el-col>
             <el-col :span="8">
               <div class="risk-stat">
                 <div class="risk-count medium">{{ riskSummary.medium }}</div>
                 <div class="risk-label">中风险</div>
-              </div>
-            </el-col>
+                </div>
+              </el-col>
             <el-col :span="8">
               <div class="risk-stat">
                 <div class="risk-count low">{{ riskSummary.low }}</div>
                 <div class="risk-label">低风险</div>
-              </div>
-            </el-col>
-          </el-row>
-        </el-card>
-      </el-col>
-    </el-row>
+                </div>
+              </el-col>
+            </el-row>
+          </el-card>
+        </el-col>
+      </el-row>
   </PageContainer>
 </template>
 
@@ -281,19 +281,19 @@ const projectMetrics = ref({
 
 // 模拟Epic数据
 const epicChartOption = computed(() => ({
-  tooltip: {
+    tooltip: {
     trigger: 'item',
     formatter: '{a} <br/>{b}: {c} ({d}%)',
-  },
-  legend: {
-    orient: 'vertical',
-    right: 10,
+    },
+    legend: {
+      orient: 'vertical',
+      right: 10,
     top: 'center',
-  },
-  series: [
-    {
+    },
+    series: [
+      {
       name: 'Epic状态',
-      type: 'pie',
+        type: 'pie',
       radius: ['40%', '70%'],
       avoidLabelOverlap: false,
       itemStyle: {
@@ -315,7 +315,7 @@ const epicChartOption = computed(() => ({
       labelLine: {
         show: false,
       },
-      data: [
+        data: [
         { value: 8, name: '已完成', itemStyle: { color: '#67c23a' } },
         { value: 4, name: '进行中', itemStyle: { color: '#409eff' } },
         { value: 2, name: '待开始', itemStyle: { color: '#909399' } },
@@ -387,7 +387,7 @@ const totalMilestones = computed(() => milestones.value.length)
 
 // 资源分配图表
 const resourceChartOption = computed(() => ({
-  tooltip: {
+    tooltip: {
     trigger: 'axis',
     axisPointer: {
       type: 'shadow',
@@ -398,17 +398,17 @@ const resourceChartOption = computed(() => ({
     right: '4%',
     bottom: '3%',
     containLabel: true,
-  },
-  xAxis: {
+    },
+    xAxis: {
     type: 'value',
     max: 100,
-  },
-  yAxis: {
+    },
+    yAxis: {
     type: 'category',
     data: ['开发', '测试', '设计', '管理'],
-  },
-  series: [
-    {
+    },
+    series: [
+      {
       name: '资源占比',
       type: 'bar',
       data: [50, 25, 15, 10],
@@ -516,7 +516,7 @@ onMounted(async () => {
   .metric-desc {
     margin-top: 8px;
     font-size: 14px;
-    color: #909399;
+      color: #909399;
     text-align: center;
   }
 }

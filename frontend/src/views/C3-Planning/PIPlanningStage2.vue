@@ -62,7 +62,7 @@
         <el-radio-button 
           v-for="team in teams" 
           :key="team.id"
-          :label="team.id"
+          :value="team.id"
         >
           {{ team.name }}
         </el-radio-button>
@@ -390,7 +390,14 @@ const teamSprints = computed(() => {
 // 该团队相关的MR（该团队管理的模块）
 const teamMRs = computed(() => {
   if (!selectedTeamId.value) return []
-  return (allMRs.value || []).filter(mr => mr.teamId === selectedTeamId.value)
+  const filtered = (allMRs.value || []).filter(mr => mr.teamId === selectedTeamId.value)
+  console.log('🔍 Stage2 TeamMRs:', {
+    selectedTeamId: selectedTeamId.value,
+    totalMRs: allMRs.value?.length || 0,
+    matchedCount: filtered.length,
+    sampleMRs: allMRs.value?.slice(0, 3).map(mr => ({ id: mr.id, teamId: mr.teamId }))
+  })
+  return filtered
 })
 
 // 该团队相关的SSTS（通过MR反向查找）
@@ -398,6 +405,10 @@ const teamSSTSIds = computed(() => {
   const sstsIds = new Set<string>()
   teamMRs.value.forEach(mr => {
     sstsIds.add(mr.sstsId)
+  })
+  console.log('🔍 Stage2 TeamSSTSIds:', {
+    teamMRCount: teamMRs.value.length,
+    sstsIdsCount: sstsIds.size
   })
   return Array.from(sstsIds)
 })
@@ -410,6 +421,10 @@ const teamFeatureIds = computed(() => {
     if (ssts) {
       featureIds.add(ssts.featureId)
     }
+  })
+  console.log('🔍 Stage2 TeamFeatureIds:', {
+    sstsIdsCount: teamSSTSIds.value.length,
+    featureIdsCount: featureIds.size
   })
   return Array.from(featureIds)
 })

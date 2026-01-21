@@ -203,7 +203,7 @@
             <el-button link type="primary" @click.stop="handleView(row.id)">查看</el-button>
             <el-button link @click.stop="handleEdit(row.id)">编辑</el-button>
             <el-button link type="danger" @click.stop="handleDelete(row.id)">删除</el-button>
-          </template>
+        </template>
         </el-table-column>
       </el-table>
       
@@ -217,7 +217,7 @@
           :total="filteredTasks.length"
           layout="sizes, prev, pager, next, jumper"
         />
-      </div>
+  </div>
     </el-card>
   </PageContainer>
 </template>

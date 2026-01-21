@@ -70,9 +70,9 @@ export const useProjectStore = defineStore('project', {
   },
 
   actions: {
-    /**
-     * 获取项目列表
-     */
+  /**
+   * 获取项目列表
+   */
     async fetchProjects() {
       this.loading = true
       this.error = null
@@ -89,20 +89,20 @@ export const useProjectStore = defineStore('project', {
       }
     },
 
-    /**
-     * 根据ID获取项目详情
-     */
+  /**
+   * 根据ID获取项目详情
+   */
     async fetchProjectById(projectId: string) {
       this.loading = true
       this.error = null
       
       try {
         const project = this.projects.find(p => p.id === projectId)
-        if (project) {
+      if (project) {
           this.currentProject = project
           // 同时加载该项目的里程碑
           await this.fetchMilestones(projectId)
-        } else {
+      } else {
           this.error = '项目不存在'
         }
         this.loading = false
@@ -135,15 +135,15 @@ export const useProjectStore = defineStore('project', {
       }
     },
 
-    /**
-     * 创建项目
-     */
+  /**
+   * 创建项目
+   */
     async createProject(projectData: CreateProjectInput) {
       this.loading = true
       this.error = null
       
       try {
-        const newProject: DomainProject = {
+      const newProject: DomainProject = {
           id: `PROJ-${Date.now()}`,
           ...projectData,
           status: projectData.status || 'planning',
@@ -154,7 +154,7 @@ export const useProjectStore = defineStore('project', {
             (7 * 24 * 60 * 60 * 1000) /
             (projectData.iterationWeeks || 2)
           ),
-          milestones: projectData.milestones || [],
+        milestones: projectData.milestones || [],
           teamIds: projectData.teamIds || [],
           tags: projectData.tags || [],
           statistics: {
@@ -165,14 +165,14 @@ export const useProjectStore = defineStore('project', {
             totalPIs: 0
           },
           createdBy: 'USER',
-          createdAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString()
         }
         
         this.projects.push(newProject)
         console.log('✅ Project Store: 项目创建成功', newProject.id)
         this.loading = false
-        return newProject
+      return newProject
       } catch (error) {
         this.error = '创建项目失败'
         this.loading = false
@@ -180,16 +180,16 @@ export const useProjectStore = defineStore('project', {
       }
     },
 
-    /**
-     * 更新项目
-     */
+  /**
+   * 更新项目
+   */
     async updateProject(projectData: UpdateProjectInput) {
       this.loading = true
       this.error = null
       
       try {
         const index = this.projects.findIndex(p => p.id === projectData.id)
-        if (index !== -1) {
+      if (index !== -1) {
           this.projects[index] = {
             ...this.projects[index],
             ...projectData,
@@ -205,16 +205,16 @@ export const useProjectStore = defineStore('project', {
       }
     },
 
-    /**
-     * 删除项目
-     */
+  /**
+   * 删除项目
+   */
     async deleteProject(projectId: string) {
       this.loading = true
       this.error = null
       
       try {
         const index = this.projects.findIndex(p => p.id === projectId)
-        if (index !== -1) {
+      if (index !== -1) {
           this.projects.splice(index, 1)
           console.log('✅ Project Store: 项目删除成功', projectId)
         }

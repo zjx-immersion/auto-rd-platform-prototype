@@ -4,7 +4,7 @@
     <div class="action-bar">
       <el-button type="primary" :icon="Plus" @click="handleCreate">
         创建风险
-      </el-button>
+        </el-button>
     </div>
 
     <!-- 风险统计卡片 -->
@@ -226,30 +226,30 @@
         <el-table :data="filteredRisks" stripe v-loading="riskStore.loading">
           <el-table-column prop="id" label="ID" width="120" />
           <el-table-column label="描述" min-width="250">
-            <template #default="{ row }">
+          <template #default="{ row }">
               <el-link type="primary" @click="handleViewRisk(row)">
-                {{ row.description }}
-              </el-link>
-            </template>
-          </el-table-column>
+              {{ row.description }}
+            </el-link>
+          </template>
+        </el-table-column>
           <el-table-column label="类型" width="120">
-            <template #default="{ row }">
+          <template #default="{ row }">
               <el-tag :type="getTypeColor(row.type)" size="small">
                 {{ getTypeText(row.type) }}
-              </el-tag>
-            </template>
-          </el-table-column>
+            </el-tag>
+          </template>
+        </el-table-column>
           <el-table-column label="概率" width="100">
-            <template #default="{ row }">
+          <template #default="{ row }">
               <el-tag :type="getProbabilityColor(row.probability)" size="small">
-                {{ row.probability }}
+            {{ row.probability }}
               </el-tag>
-            </template>
-          </el-table-column>
+          </template>
+        </el-table-column>
           <el-table-column label="影响" width="100">
-            <template #default="{ row }">
+          <template #default="{ row }">
               <el-tag :type="getImpactColor(row.impact)" size="small">
-                {{ row.impact }}
+            {{ row.impact }}
               </el-tag>
             </template>
           </el-table-column>
@@ -258,24 +258,24 @@
               <el-text :type="getScoreType(riskStore.calculateRiskScore(row))">
                 {{ riskStore.calculateRiskScore(row) }}
               </el-text>
-            </template>
-          </el-table-column>
-          <el-table-column label="状态" width="100">
-            <template #default="{ row }">
+          </template>
+        </el-table-column>
+        <el-table-column label="状态" width="100">
+          <template #default="{ row }">
               <el-tag :type="getStatusColor(row.status)" size="small">
-                {{ getStatusText(row.status) }}
-              </el-tag>
-            </template>
-          </el-table-column>
+              {{ getStatusText(row.status) }}
+            </el-tag>
+          </template>
+        </el-table-column>
           <el-table-column prop="owner" label="负责人" width="120" />
           <el-table-column label="操作" width="200" fixed="right">
-            <template #default="{ row }">
+          <template #default="{ row }">
               <el-button link size="small" @click="handleViewRisk(row)">查看</el-button>
-              <el-button link size="small" @click="handleEdit(row)">编辑</el-button>
+            <el-button link size="small" @click="handleEdit(row)">编辑</el-button>
               <el-button link size="small" type="danger" @click="handleDelete(row)">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+          </template>
+        </el-table-column>
+      </el-table>
       </el-tab-pane>
     </el-tabs>
 
@@ -554,7 +554,7 @@ onMounted(async () => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: 600;
+      font-weight: 600;
 
     .badge {
       margin-left: 8px;
@@ -570,34 +570,34 @@ onMounted(async () => {
   overflow-y: auto;
 }
 
-.risk-card {
-  cursor: pointer;
+      .risk-card {
+        cursor: pointer;
   transition: transform 0.2s;
 
-  &:hover {
+        &:hover {
     transform: translateY(-2px);
-  }
+        }
 
-  .risk-description {
+        .risk-description {
     font-size: 14px;
-    margin-bottom: 12px;
-    line-height: 1.5;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+          margin-bottom: 12px;
+          line-height: 1.5;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
 
   .risk-meta {
-    display: flex;
-    gap: 8px;
+          display: flex;
+          gap: 8px;
     margin-bottom: 8px;
     flex-wrap: wrap;
   }
 
-  .risk-owner {
-    font-size: 12px;
-    color: #909399;
+          .risk-owner {
+            font-size: 12px;
+            color: #909399;
   }
 }
 </style>

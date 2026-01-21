@@ -120,7 +120,7 @@
                 :value="product.id"
               />
             </el-select>
-            <el-button size="small" @click="handleDetectConflicts">检测冲突</el-button>
+          <el-button size="small" @click="handleDetectConflicts">检测冲突</el-button>
           </div>
         </div>
       </template>
@@ -148,8 +148,8 @@
                 style="margin-right: 4px;"
               >
                 {{ milestone.name }}
-              </el-tag>
-            </div>
+                </el-tag>
+              </div>
           </div>
 
           <!-- 按产品分组显示Feature -->
@@ -174,10 +174,10 @@
                     <el-text class="feature-code" size="small" type="info">{{ feature.code }}</el-text>
                     <el-text class="feature-name-compact">{{ feature.name }}</el-text>
                     <el-tag size="small" type="primary">{{ feature.storyPoints }} SP</el-tag>
-                  </div>
+            </div>
                   <div class="feature-version" v-if="feature.version">
                     <el-tag size="small" type="success">v{{ feature.version }}</el-tag>
-                  </div>
+              </div>
                 </div>
                 <el-empty 
                   v-if="getFeaturesByProductAndSprint(product.id, sprint.id).length === 0" 

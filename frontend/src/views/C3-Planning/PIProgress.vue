@@ -4,12 +4,12 @@
     <div class="action-bar">
       <div class="pi-info" v-if="pi?.name">
         <el-tag size="large">{{ pi.name }}</el-tag>
-      </div>
+              </div>
       <div class="actions">
         <el-button @click="goBack">返回</el-button>
         <el-button type="primary" @click="handleReview">PI回顾</el-button>
-      </div>
-    </div>
+              </div>
+            </div>
 
     <!-- 关键指标 -->
     <el-row :gutter="20" style="margin-bottom: 20px;">
@@ -21,9 +21,9 @@
             </template>
           </el-statistic>
           <el-progress :percentage="progressData.overallCompletion" :stroke-width="8" style="margin-top: 12px;" />
-        </el-card>
-      </el-col>
-      <el-col :span="6">
+          </el-card>
+        </el-col>
+        <el-col :span="6">
         <el-card shadow="hover">
           <el-statistic title="Feature完成率" :value="progressData.featureCompletion" suffix="%">
             <template #prefix>
@@ -32,10 +32,10 @@
           </el-statistic>
           <div class="stat-detail">
             {{ progressData.completedFeatures }} / {{ progressData.totalFeatures }}
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
         <el-card shadow="hover">
           <el-statistic title="Story Points完成" :value="progressData.spCompletion" suffix="%">
             <template #prefix>
@@ -44,10 +44,10 @@
           </el-statistic>
           <div class="stat-detail">
             {{ progressData.completedSP }} / {{ progressData.totalSP }} SP
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :span="6">
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
         <el-card shadow="hover">
           <el-statistic title="速率" :value="progressData.velocity" suffix="SP/周">
             <template #prefix>
@@ -56,73 +56,73 @@
           </el-statistic>
           <div class="stat-detail">
             平均速率
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
+                </div>
+          </el-card>
+        </el-col>
+      </el-row>
 
     <el-row :gutter="20">
       <el-col :span="16">
-        <!-- 燃尽图 -->
+      <!-- 燃尽图 -->
         <el-card shadow="never" style="margin-bottom: 20px;">
-          <template #header>
+        <template #header>
             <div class="card-header">
-              <span>PI燃尽图</span>
-              <el-radio-group v-model="burndownType" size="small">
+            <span>PI燃尽图</span>
+            <el-radio-group v-model="burndownType" size="small">
                 <el-radio-button label="sp">Story Points</el-radio-button>
                 <el-radio-button label="feature">Feature Count</el-radio-button>
-              </el-radio-group>
-            </div>
-          </template>
+            </el-radio-group>
+          </div>
+        </template>
           <div style="height: 400px;">
             <v-chart :option="burndownChartOption" autoresize />
           </div>
-        </el-card>
+      </el-card>
 
         <!-- 团队进度 -->
         <el-card shadow="never">
-          <template #header>
+        <template #header>
             <div class="card-header">
               <span>团队进度</span>
             </div>
-          </template>
+        </template>
           <el-table :data="teamProgress" stripe>
             <el-table-column prop="teamName" label="团队" width="150" />
             <el-table-column label="完成率" width="150">
-              <template #default="{ row }">
+            <template #default="{ row }">
                 <el-progress :percentage="row.completion" :stroke-width="8" />
-              </template>
-            </el-table-column>
+            </template>
+          </el-table-column>
             <el-table-column label="Story Points" width="150">
-              <template #default="{ row }">
+            <template #default="{ row }">
                 {{ row.completedSP }} / {{ row.totalSP }}
-              </template>
-            </el-table-column>
+            </template>
+          </el-table-column>
             <el-table-column label="速率" width="120">
-              <template #default="{ row }">
+            <template #default="{ row }">
                 {{ row.velocity }} SP/周
-              </template>
-            </el-table-column>
+            </template>
+          </el-table-column>
             <el-table-column label="状态" width="120">
-              <template #default="{ row }">
+            <template #default="{ row }">
                 <el-tag :type="getTeamStatusType(row.status)">
                   {{ row.status }}
-                </el-tag>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-card>
+              </el-tag>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-card>
       </el-col>
 
       <el-col :span="8">
         <!-- 风险与依赖 -->
         <el-card shadow="never" style="margin-bottom: 20px;">
-          <template #header>
+            <template #header>
             <div class="card-header">
               <span>风险</span>
               <el-badge :value="riskCount" :type="riskCount > 0 ? 'danger' : 'success'" />
-            </div>
-          </template>
+              </div>
+            </template>
           <el-alert
             v-if="riskCount === 0"
             title="无活跃风险"
@@ -133,20 +133,20 @@
             <div v-for="risk in activeRisks" :key="risk.id" class="risk-item">
               <el-tag :type="getRiskTypeColor(risk.type)" size="small">
                 {{ risk.type }}
-              </el-tag>
+                    </el-tag>
               <div class="risk-desc">{{ risk.description }}</div>
             </div>
-          </div>
-        </el-card>
+                  </div>
+          </el-card>
 
         <!-- 依赖 -->
         <el-card shadow="never" style="margin-bottom: 20px;">
-          <template #header>
+            <template #header>
             <div class="card-header">
               <span>依赖</span>
               <el-badge :value="dependencyCount" :type="dependencyCount > 0 ? 'warning' : 'success'" />
-            </div>
-          </template>
+              </div>
+            </template>
           <el-alert
             v-if="dependencyCount === 0"
             title="无待解决依赖"
@@ -166,8 +166,8 @@
           <template #header>
             <div class="card-header">
               <span>里程碑</span>
-            </div>
-          </template>
+                  </div>
+                </template>
           <el-timeline>
             <el-timeline-item
               v-for="milestone in milestones"
@@ -179,9 +179,9 @@
               {{ milestone.name }}
             </el-timeline-item>
           </el-timeline>
-        </el-card>
-      </el-col>
-    </el-row>
+          </el-card>
+        </el-col>
+      </el-row>
   </PageContainer>
 </template>
 
@@ -362,13 +362,13 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .action-bar {
-  display: flex;
+    display: flex;
   justify-content: space-between;
-  align-items: center;
+    align-items: center;
   margin-bottom: 16px;
 
   .pi-info {
-    flex: 1;
+      flex: 1;
   }
 
   .actions {
@@ -381,13 +381,13 @@ onMounted(async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: 600;
-}
+    font-weight: 600;
+  }
 
 .stat-detail {
   margin-top: 8px;
   font-size: 14px;
-  color: #909399;
+    color: #909399;
 }
 
 .risk-list,

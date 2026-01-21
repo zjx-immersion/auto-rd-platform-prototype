@@ -4,7 +4,7 @@
       <!-- 页面标题和统计 -->
       <div class="page-header">
         <div class="title-section">
-          <h2>需求池管理</h2>
+        <h2>需求池管理</h2>
           <p class="description">管理和分配Epic到项目</p>
         </div>
         <div class="stats-section">
@@ -102,7 +102,7 @@
           style="width: 100%"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55" />
+              <el-table-column type="selection" width="55" />
           
           <el-table-column prop="code" label="Epic编码" width="140" />
           
@@ -129,29 +129,29 @@
           </el-table-column>
 
           <el-table-column label="优先级" width="90" align="center">
-            <template #default="{ row }">
+                <template #default="{ row }">
               <el-tag :type="getPriorityType(row.priority)" size="small">
                 {{ row.priority }}
               </el-tag>
-            </template>
-          </el-table-column>
+                </template>
+              </el-table-column>
 
-          <el-table-column label="状态" width="100">
-            <template #default="{ row }">
+              <el-table-column label="状态" width="100">
+                <template #default="{ row }">
               <el-tag :type="getStatusType(row.status)" size="small">
                 {{ getStatusText(row.status) }}
               </el-tag>
-            </template>
-          </el-table-column>
+                </template>
+              </el-table-column>
 
           <el-table-column label="Story Points" width="110" align="center">
-            <template #default="{ row }">
+                <template #default="{ row }">
               <el-tag size="small">{{ row.totalStoryPoints }} SP</el-tag>
-            </template>
-          </el-table-column>
+                </template>
+              </el-table-column>
 
           <el-table-column label="分配状态" width="200">
-            <template #default="{ row }">
+                <template #default="{ row }">
               <div v-if="row.allocations.length === 0" class="allocation-empty">
                 <el-text type="info" size="small">未分配</el-text>
               </div>
@@ -166,11 +166,11 @@
                   {{ alloc.projectName }}
                 </el-tag>
               </div>
-            </template>
-          </el-table-column>
+                </template>
+              </el-table-column>
 
           <el-table-column label="操作" width="180" fixed="right">
-            <template #default="{ row }">
+                <template #default="{ row }">
               <el-button
                 link
                 type="primary"
@@ -183,9 +183,9 @@
               <el-button link type="primary" size="small" @click="handleViewDetail(row)">
                 查看详情
               </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+                </template>
+              </el-table-column>
+            </el-table>
       </div>
     </PageContainer>
 
@@ -483,18 +483,18 @@ onMounted(async () => {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 
   .title-section {
-    h2 {
-      margin: 0 0 8px 0;
+  h2 {
+    margin: 0 0 8px 0;
       font-size: 20px;
-      font-weight: 600;
+    font-weight: 600;
       color: $text-color-primary;
-    }
+  }
 
-    .description {
-      margin: 0;
-      font-size: 14px;
-      color: $text-color-secondary;
-    }
+  .description {
+    margin: 0;
+    font-size: 14px;
+    color: $text-color-secondary;
+  }
   }
 
   .stats-section {
