@@ -279,11 +279,14 @@ async function establishDataRelations() {
   })
 
   // 2. 关联项目 -> PI
-  piStore.piVersions.forEach(pi => {
-    pi.projectIds.forEach(projectId => {
+  // 注意：使用pis而不是piVersions，因为piVersions是简化的转换对象
+  piStore.pis.forEach((pi: any) => {
+    const projectIds = pi.projectIds || []
+    projectIds.forEach((projectId: string) => {
       const project = projectStore.projects.find(p => p.id === projectId)
-      if (project && !project.piVersionIds.includes(pi.id)) {
-        project.piVersionIds.push(pi.id)
+      const piId = pi.piId || pi.id
+      if (project && !project.piVersionIds.includes(piId)) {
+        project.piVersionIds.push(piId)
       }
     })
   })
