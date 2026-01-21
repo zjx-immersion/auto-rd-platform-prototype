@@ -269,9 +269,12 @@
                         class="allocated-card feature-card"
                         :class="{
                           'highlight-dependency': highlightedSSTS.includes(item.id),
+                          'highlight-feature': highlightedFeatures.has(item.id),
                           'multi-sprint': item.duration && item.duration > 1,
                           'expanded': expandedFeatures.has(item.id)
                         }"
+                        draggable="true"
+                        @dragstart="handleDragStart($event, item, 'feature')"
                       >
                         <div class="card-header" @click="toggleFeatureExpand(item.id)" style="cursor: pointer;">
                           <div style="display: flex; align-items: center; gap: 8px;">
@@ -305,6 +308,10 @@
                             v-for="ssts in getFeatureSSTSs(item.id, product.id, sprint.id)"
                             :key="ssts.id"
                             class="ssts-sub-card"
+                            draggable="true"
+                            @dragstart="handleDragStart($event, ssts, 'ssts')"
+                            @click.stop="handleClickSSTS(ssts)"
+                            style="cursor: pointer;"
                           >
                             <div class="ssts-sub-header">
                               <el-tag size="small" type="success">{{ ssts.code }}</el-tag>
@@ -322,7 +329,9 @@
                         :class="{
                           'highlight-dependency': highlightedSSTS.includes(item.id)
                         }"
-                        @click.stop="handleSelectItem(item, item.type)"
+                        draggable="true"
+                        @dragstart="handleDragStart($event, item, 'ssts')"
+                        @click.stop="handleClickSSTS(item)"
                       >
                         <div class="card-header">
                           <el-tag size="small" type="success">
@@ -648,6 +657,7 @@ const searchKeyword = ref('')
 const filterType = ref<'feature' | 'ssts' | ''>('')
 const selectedItem = ref<any>(null)
 const highlightedSSTS = ref<string[]>([])
+const highlightedFeatures = ref<Set<string>>(new Set()) // 🎯 新增：高亮的Feature ID集合
 const dragTarget = ref<{ productId: string; sprintId: string } | null>(null)
 const draggedItem = ref<any>(null)
 
@@ -942,21 +952,29 @@ function getSSTSStoryPoints(ssts: any) {
 function getAllocatedItems(productId: string, sprintId: string) {
   const items: any[] = []
   
-  // Feature (包含duration信息)
+  // 1. 收集所有已分配的Feature ID
+  const allocatedFeatureIds = new Set<string>()
   stage1Allocations.value.features.forEach(alloc => {
     if (alloc.productId === productId && alloc.sprintId === sprintId) {
       const feature = features.value.find(f => f.id === alloc.featureId)
       if (feature) {
         items.push({ ...feature, type: 'feature', duration: alloc.duration })
+        allocatedFeatureIds.add(feature.id)
       }
     }
   })
 
-  // SSTS (独立分配的，不通过Feature)
+  // 2. 只返回"孤儿"SSTS（父Feature未分配到同一位置的SSTS）
   stage1Allocations.value.sstss.forEach(alloc => {
     if (alloc.productId === productId && alloc.sprintId === sprintId) {
       const ssts = sstss.value.find(s => s.id === alloc.sstsId)
       if (ssts) {
+        // 🎯 如果该SSTS的父Feature也被分配到同一位置，则不显示为独立卡片
+        // 该SSTS会在Feature展开时显示
+        if (ssts.featureId && allocatedFeatureIds.has(ssts.featureId)) {
+          return // 跳过，避免重复显示
+        }
+        // 只显示"孤儿"SSTS（没有父Feature或父Feature未分配到同一位置）
         items.push({ ...ssts, type: 'ssts', duration: alloc.duration })
       }
     }
@@ -1026,6 +1044,30 @@ function handleSelectItem(item: any, type: 'feature' | 'ssts') {
   } else {
     highlightedSSTS.value = []
   }
+}
+
+// 🎯 新增：点击SSTS时，高亮其所属的Feature
+function handleClickSSTS(ssts: any) {
+  // 清除之前的高亮
+  highlightedFeatures.value.clear()
+  
+  // 如果该SSTS有父Feature，高亮所有看板中该Feature的实例
+  if (ssts.featureId) {
+    // 查找该SSTS所属的Feature
+    const feature = features.value.find(f => f.id === ssts.featureId)
+    if (feature) {
+      highlightedFeatures.value.add(feature.id)
+      ElMessage.info(`已高亮Feature: ${feature.code} - ${feature.name}`)
+    }
+  }
+  
+  // 设置选中项
+  selectedItem.value = { ...ssts, type: 'ssts' }
+  
+  // 3秒后取消高亮
+  setTimeout(() => {
+    highlightedFeatures.value.clear()
+  }, 3000)
 }
 
 function handleDragStart(event: DragEvent, item: any, type: 'feature' | 'ssts') {
@@ -1924,6 +1966,24 @@ onMounted(async () => {
   border-left: 4px solid #409eff;
 }
 
+/* 🎯 Feature高亮样式（点击SSTS时） */
+.allocated-card.highlight-feature {
+  background: #fef9e7 !important;
+  border: 2px solid #f59e0b !important;
+  border-left: 4px solid #f59e0b !important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.4) !important;
+  animation: pulse-highlight 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-highlight {
+  0%, 100% {
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(245, 158, 11, 0.6);
+  }
+}
+
 .feature-ssts-list {
   margin-top: 8px;
   padding-top: 8px;
@@ -1937,6 +1997,19 @@ onMounted(async () => {
   border: 1px solid #e4e7ed;
   border-radius: 4px;
   font-size: 12px;
+  transition: all 0.3s;
+}
+
+/* 🎯 SSTS子卡片hover和active样式 */
+.ssts-sub-card:hover {
+  border-color: #67c23a;
+  box-shadow: 0 2px 4px rgba(103, 194, 58, 0.3);
+  transform: translateX(4px);
+}
+
+.ssts-sub-card:active {
+  cursor: grabbing;
+  opacity: 0.7;
 }
 
 .ssts-sub-header {
