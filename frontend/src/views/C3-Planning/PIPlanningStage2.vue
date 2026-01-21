@@ -62,7 +62,7 @@
         <el-radio-button 
           v-for="team in teams" 
           :key="team.id"
-          :value="team.id"
+          :label="team.id"
         >
           {{ team.name }}
         </el-radio-button>
@@ -350,7 +350,18 @@ const teams = computed(() => teamStore.teams || [])
 
 const sprints = computed(() => {
   const allSprints = sprintStore.sprints || []
-  return allSprints.filter(s => s.piId === piId.value)
+  // 兼容ID大小写不匹配（sprint.piId可能是小写pi-001，而piId是大写PI-001）
+  const piIdLower = piId.value.toLowerCase()
+  const filtered = allSprints.filter(s => {
+    const sprintPiIdLower = (s.piId || '').toLowerCase()
+    return sprintPiIdLower === piIdLower
+  })
+  console.log('🔍 Stage2 Sprint过滤:', {
+    piId: piId.value,
+    totalSprints: allSprints.length,
+    matchedCount: filtered.length
+  })
+  return filtered
 })
 
 const features = computed(() => {

@@ -670,9 +670,20 @@ const currentPI = computed(() => {
 })
 
 const sprints = computed(() => {
-  return sprintStore.sprints.filter(s => s.piId === piId).sort((a, b) => 
+  // 兼容ID大小写不匹配（sprint.piId可能是小写pi-001，而piId是大写PI-001）
+  const piIdLower = piId.toLowerCase()
+  const filteredSprints = sprintStore.sprints.filter(s => {
+    const sprintPiIdLower = (s.piId || '').toLowerCase()
+    return sprintPiIdLower === piIdLower
+  }).sort((a, b) => 
     new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
   )
+  console.log('🔍 Sprint过滤:', {
+    piId,
+    totalSprints: sprintStore.sprints.length,
+    matchedCount: filteredSprints.length
+  })
+  return filteredSprints
 })
 
 const teams = computed(() => teamStore.teams)
