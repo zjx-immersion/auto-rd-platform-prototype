@@ -67,15 +67,15 @@ export const usePIStore = defineStore('pi', {
     piVersions: (state) => {
       // 将新的PI格式转换为旧的piVersion格式
       return state.pis.map(pi => ({
-        id: pi.piId,
-        name: pi.piName,
-        number: pi.piNumber,
+        id: pi.piId || (pi as any).id,
+        name: pi.piName || (pi as any).name,
+        number: pi.piNumber || (pi as any).code,
         startDate: pi.startDate,
         endDate: pi.endDate,
-        startIteration: pi.startIterationNumber,
-        endIteration: pi.endIterationNumber,
-        status: pi.status.planningStatus,
-        milestone: pi.alignedMilestone.milestoneName
+        startIteration: pi.startIterationNumber || (pi as any).sprintCount || 1,
+        endIteration: pi.endIterationNumber || (pi as any).sprintCount || 1,
+        status: pi.status?.planningStatus || (pi as any).status || 'draft',
+        milestone: pi.alignedMilestone?.milestoneName || ''
       }))
     }
   },
