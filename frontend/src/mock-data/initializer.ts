@@ -318,9 +318,12 @@ async function establishDataRelations() {
   // 6. 关联PI -> Epic
   epicStore.epics.forEach(epic => {
     if (epic.targetPI) {
-      const pi = piStore.piVersions.find(p => p.id === epic.targetPI)
-      if (pi && !pi.epicIds.includes(epic.id)) {
-        pi.epicIds.push(epic.id)
+      const pi: any = piStore.pis.find((p: any) => (p.piId || p.id) === epic.targetPI)
+      if (pi) {
+        if (!pi.epicIds) pi.epicIds = []
+        if (!pi.epicIds.includes(epic.id)) {
+          pi.epicIds.push(epic.id)
+        }
       }
     }
   })
@@ -328,9 +331,12 @@ async function establishDataRelations() {
   // 7. 关联PI -> Feature
   featureStore.features.forEach(feature => {
     if (feature.targetPI) {
-      const pi = piStore.piVersions.find(p => p.id === feature.targetPI)
-      if (pi && !pi.featureIds.includes(feature.id)) {
-        pi.featureIds.push(feature.id)
+      const pi: any = piStore.pis.find((p: any) => (p.piId || p.id) === feature.targetPI)
+      if (pi) {
+        if (!pi.featureIds) pi.featureIds = []
+        if (!pi.featureIds.includes(feature.id)) {
+          pi.featureIds.push(feature.id)
+        }
       }
     }
   })
@@ -347,11 +353,13 @@ async function establishDataRelations() {
 
   // 9. 关联PI -> Sprint
   sprintStore.sprints.forEach(sprint => {
-    const pi = piStore.piVersions.find(p => p.id === sprint.piId)
+    const pi: any = piStore.pis.find((p: any) => (p.piId || p.id) === sprint.piId)
     if (pi) {
       // PI的sprintCount应该等于关联的Sprint数量
-      const piSprints = sprintStore.sprints.filter(s => s.piId === pi.id)
-      if (pi.sprintCount !== piSprints.length) {
+      const piId = pi.piId || pi.id
+      const piSprints = sprintStore.sprints.filter(s => s.piId === piId)
+      const sprintCount = pi.sprintCount || pi.iterationCount
+      if (sprintCount !== piSprints.length) {
         // 更新PI的sprintCount（如果需要）
       }
     }
