@@ -1,0 +1,167 @@
+{
+  "projects": [
+    {
+      "id": "PROJ-H56-001",
+      "name": "岚图H56整车软件研发项目",
+      "code": "H56-SW",
+      "domain": "整车软件",
+      "vehicleModel": "岚图H56",
+      "description": "岚图H56车型整车软件研发项目，包含智能驾驶、智能座舱、电子电器架构等多个领域",
+      "owner": "USER-001",
+      "ownerName": "李娜",
+      "startDate": "2025-02-01",
+      "endDate": "2026-01-30",
+      "status": "in-progress",
+      "progress": 45,
+      "iterationWeeks": 2,
+      "totalIterations": 26,
+      "milestones": [
+        { "name": "EP", "date": "2025-06-30", "description": "工程样车" },
+        { "name": "PP", "date": "2025-09-30", "description": "PP车" },
+        { "name": "SOP", "date": "2025-12-31", "description": "量产车" }
+      ],
+      "teamIds": ["TEAM-001", "TEAM-002", "TEAM-003", "TEAM-004"],
+      "tags": ["整车软件", "智能驾驶", "智能座舱"],
+      "statistics": {
+        "totalVersions": 8,
+        "totalEpics": 15,
+        "totalStoryPoints": 1200,
+        "completedStoryPoints": 540,
+        "totalPIs": 3
+      },
+      "createdBy": "ADMIN",
+      "createdAt": "2025-01-15T00:00:00Z",
+      "updatedAt": "2025-01-19T10:00:00Z"
+    },
+    {
+      "id": "PROJ-ET9-001",
+      "name": "NIO ET9智能驾驶项目",
+      "code": "ET9-AD",
+      "domain": "智能驾驶",
+      "vehicleModel": "NIO ET9",
+      "description": "NIO ET9车型L3级自动驾驶功能开发",
+      "owner": "USER-002",
+      "ownerName": "王强",
+      "startDate": "2025-03-01",
+      "endDate": "2025-12-31",
+      "status": "planning",
+      "progress": 15,
+      "iterationWeeks": 2,
+      "totalIterations": 22,
+      "milestones": [
+        { "name": "Alpha", "date": "2025-07-31", "description": "Alpha版本" },
+        { "name": "Beta", "date": "2025-10-31", "description": "Beta版本" },
+        { "name": "SOP", "date": "2025-12-31", "description": "量产" }
+      ],
+      "teamIds": ["TEAM-001"],
+      "tags": ["智能驾驶", "L3"],
+      "statistics": {
+        "totalVersions": 3,
+        "totalEpics": 8,
+        "totalStoryPoints": 600,
+        "completedStoryPoints": 90,
+        "totalPIs": 2
+      },
+      "createdBy": "ADMIN",
+      "createdAt": "2025-02-01T00:00:00Z",
+      "updatedAt": "2025-01-19T10:00:00Z"
+    },
+    {
+      "id": "PROJ-FREE-001",
+      "name": "岚图FREE座舱升级项目",
+      "code": "FREE-CABIN",
+      "domain": "智能座舱",
+      "vehicleModel": "岚图FREE",
+      "description": "岚图FREE车型智能座舱OTA升级项目",
+      "owner": "USER-011",
+      "ownerName": "刘涛",
+      "startDate": "2025-04-01",
+      "endDate": "2025-08-31",
+      "status": "in-progress",
+      "progress": 60,
+      "iterationWeeks": 2,
+      "totalIterations": 11,
+      "milestones": [
+        { "name": "Alpha", "date": "2025-06-30", "description": "内测版本" },
+        { "name": "Release", "date": "2025-08-31", "description": "正式发布" }
+      ],
+      "teamIds": ["TEAM-002"],
+      "tags": ["智能座舱", "OTA"],
+      "statistics": {
+        "totalVersions": 2,
+        "totalEpics": 5,
+        "totalStoryPoints": 300,
+        "completedStoryPoints": 180,
+        "totalPIs": 2
+      },
+      "createdBy": "ADMIN",
+      "createdAt": "2025-03-01T00:00:00Z",
+      "updatedAt": "2025-01-19T10:00:00Z"
+    },
+    {
+      "id": "PROJ-OTA-PLATFORM-001",
+      "name": "OTA平台升级项目",
+      "code": "OTA-PLAT",
+      "domain": "云服务",
+      "vehicleModel": "全车系",
+      "description": "OTA升级平台2.0版本开发",
+      "owner": "USER-031",
+      "ownerName": "张伟",
+      "startDate": "2025-05-01",
+      "endDate": "2025-11-30",
+      "status": "planning",
+      "progress": 20,
+      "iterationWeeks": 2,
+      "totalIterations": 15,
+      "milestones": [
+        { "name": "Beta", "date": "2025-09-30", "description": "Beta测试" },
+        { "name": "Release", "date": "2025-11-30", "description": "正式上线" }
+      ],
+      "teamIds": ["TEAM-004"],
+      "tags": ["云服务", "OTA", "平台"],
+      "statistics": {
+        "totalVersions": 2,
+        "totalEpics": 6,
+        "totalStoryPoints": 450,
+        "completedStoryPoints": 90,
+        "totalPIs": 2
+      },
+      "createdBy": "ADMIN",
+      "createdAt": "2025-04-01T00:00:00Z",
+      "updatedAt": "2025-01-19T10:00:00Z"
+    },
+    {
+      "id": "PROJ-ARCH-001",
+      "name": "平台架构升级项目",
+      "code": "ARCH-UPGRADE",
+      "domain": "平台架构",
+      "vehicleModel": "全车系",
+      "description": "整车软件平台架构2.0升级",
+      "owner": "USER-041",
+      "ownerName": "刘强",
+      "startDate": "2025-01-01",
+      "endDate": "2025-12-31",
+      "status": "in-progress",
+      "progress": 35,
+      "iterationWeeks": 2,
+      "totalIterations": 26,
+      "milestones": [
+        { "name": "Phase1", "date": "2025-04-30", "description": "第一阶段" },
+        { "name": "Phase2", "date": "2025-08-31", "description": "第二阶段" },
+        { "name": "Phase3", "date": "2025-12-31", "description": "全面上线" }
+      ],
+      "teamIds": ["TEAM-005"],
+      "tags": ["平台架构", "基础设施"],
+      "statistics": {
+        "totalVersions": 4,
+        "totalEpics": 10,
+        "totalStoryPoints": 800,
+        "completedStoryPoints": 280,
+        "totalPIs": 3
+      },
+      "createdBy": "ADMIN",
+      "createdAt": "2024-12-15T00:00:00Z",
+      "updatedAt": "2025-01-19T10:00:00Z"
+    }
+  ]
+}

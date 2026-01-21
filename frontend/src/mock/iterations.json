@@ -1,0 +1,31 @@
+{
+  "projectId": "PROJ-H56-001",
+  "iterations": [
+    { "iterationNumber": 1, "startDate": "2025-02-01", "endDate": "2025-02-14", "durationWeeks": 2 },
+    { "iterationNumber": 2, "startDate": "2025-02-15", "endDate": "2025-02-28", "durationWeeks": 2 },
+    { "iterationNumber": 3, "startDate": "2025-03-01", "endDate": "2025-03-14", "durationWeeks": 2 },
+    { "iterationNumber": 4, "startDate": "2025-03-15", "endDate": "2025-03-28", "durationWeeks": 2 },
+    { "iterationNumber": 5, "startDate": "2025-03-29", "endDate": "2025-04-11", "durationWeeks": 2 },
+    { "iterationNumber": 6, "startDate": "2025-04-12", "endDate": "2025-04-25", "durationWeeks": 2 },
+    { "iterationNumber": 7, "startDate": "2025-04-26", "endDate": "2025-05-09", "durationWeeks": 2 },
+    { "iterationNumber": 8, "startDate": "2025-05-10", "endDate": "2025-05-23", "durationWeeks": 2 },
+    { "iterationNumber": 9, "startDate": "2025-05-24", "endDate": "2025-06-06", "durationWeeks": 2 },
+    { "iterationNumber": 10, "startDate": "2025-06-07", "endDate": "2025-06-20", "durationWeeks": 2 },
+    { "iterationNumber": 11, "startDate": "2025-06-21", "endDate": "2025-07-04", "durationWeeks": 2 },
+    { "iterationNumber": 12, "startDate": "2025-07-05", "endDate": "2025-07-18", "durationWeeks": 2 },
+    { "iterationNumber": 13, "startDate": "2025-07-19", "endDate": "2025-08-01", "durationWeeks": 2 },
+    { "iterationNumber": 14, "startDate": "2025-08-02", "endDate": "2025-08-15", "durationWeeks": 2 },
+    { "iterationNumber": 15, "startDate": "2025-08-16", "endDate": "2025-08-29", "durationWeeks": 2 },
+    { "iterationNumber": 16, "startDate": "2025-08-30", "endDate": "2025-09-12", "durationWeeks": 2 },
+    { "iterationNumber": 17, "startDate": "2025-09-13", "endDate": "2025-09-26", "durationWeeks": 2 },
+    { "iterationNumber": 18, "startDate": "2025-09-27", "endDate": "2025-10-10", "durationWeeks": 2 },
+    { "iterationNumber": 19, "startDate": "2025-10-11", "endDate": "2025-10-24", "durationWeeks": 2 },
+    { "iterationNumber": 20, "startDate": "2025-10-25", "endDate": "2025-11-07", "durationWeeks": 2 },
+    { "iterationNumber": 21, "startDate": "2025-11-08", "endDate": "2025-11-21", "durationWeeks": 2 },
+    { "iterationNumber": 22, "startDate": "2025-11-22", "endDate": "2025-12-05", "durationWeeks": 2 },
+    { "iterationNumber": 23, "startDate": "2025-12-06", "endDate": "2025-12-19", "durationWeeks": 2 },
+    { "iterationNumber": 24, "startDate": "2025-12-20", "endDate": "2026-01-02", "durationWeeks": 2 },
+    { "iterationNumber": 25, "startDate": "2026-01-03", "endDate": "2026-01-16", "durationWeeks": 2 },
+    { "iterationNumber": 26, "startDate": "2026-01-17", "endDate": "2026-01-30", "durationWeeks": 2 }
+  ]
+}

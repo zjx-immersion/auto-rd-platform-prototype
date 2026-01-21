@@ -1,0 +1,41 @@
+{
+  "projectId": "PROJ-H56-001",
+  "milestones": [
+    {
+      "milestoneId": "M-EP-001",
+      "milestoneName": "工程样车",
+      "milestoneCode": "EP",
+      "milestoneType": "EP",
+      "targetDate": "2025-06-30",
+      "iterationNumber": 12,
+      "deliverableType": "Engineering Prototype",
+      "description": "工程样车交付，完成核心功能验证",
+      "status": "pending",
+      "createdAt": "2025-01-15T00:00:00Z"
+    },
+    {
+      "milestoneId": "M-PP-001",
+      "milestoneName": "PP车",
+      "milestoneCode": "PP",
+      "milestoneType": "PP",
+      "targetDate": "2025-09-30",
+      "iterationNumber": 18,
+      "deliverableType": "Pre-Production",
+      "description": "PP车交付，完成功能冻结",
+      "status": "pending",
+      "createdAt": "2025-01-15T00:00:00Z"
+    },
+    {
+      "milestoneId": "M-SOP-001",
+      "milestoneName": "量产车",
+      "milestoneCode": "SOP",
+      "milestoneType": "SOP",
+      "targetDate": "2025-12-31",
+      "iterationNumber": 26,
+      "deliverableType": "Start of Production",
+      "description": "量产车交付，正式上市",
+      "status": "pending",
+      "createdAt": "2025-01-15T00:00:00Z"
+    }
+  ]
+}
