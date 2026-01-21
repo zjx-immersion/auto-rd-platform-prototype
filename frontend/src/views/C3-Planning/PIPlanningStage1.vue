@@ -723,7 +723,13 @@ const sprints = computed(() => {
 const teams = computed(() => teamStore.teams)
 
 // 产品列表（按产品线分组）
-const products = computed(() => productStore.products)
+const products = computed(() => {
+  console.log('🔍 Products:', {
+    count: productStore.products.length,
+    products: productStore.products.slice(0, 3).map(p => ({ id: p.id, name: p.name, line: p.productLine }))
+  })
+  return productStore.products
+})
 
 // 按产品线分组的产品
 const productsByLine = computed(() => {
@@ -734,6 +740,11 @@ const productsByLine = computed(() => {
       grouped.set(line, [])
     }
     grouped.get(line)!.push(product)
+  })
+  console.log('🔍 ProductsByLine:', {
+    lineCount: grouped.size,
+    lines: Array.from(grouped.keys()),
+    totalProducts: Array.from(grouped.values()).reduce((sum, prods) => sum + prods.length, 0)
   })
   return grouped
 })
@@ -1660,6 +1671,14 @@ onMounted(async () => {
       piStore.fetchPIById(piId),
       productStore.fetchProducts()
     ])
+    
+    console.log('✅ Stage1 数据加载完成:', {
+      productsCount: productStore.products.length,
+      featuresCount: features.value.length,
+      sstsCount: sstss.value.length,
+      sprintsCount: sprints.value.length
+    })
+    
     // 加载草稿
     const draft = localStorage.getItem(`pi-planning-stage1-draft-${piId}`)
     if (draft) {

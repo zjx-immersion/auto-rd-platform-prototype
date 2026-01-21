@@ -29,6 +29,7 @@ import { useFeatureStore } from '@/stores/modules/feature'
 import { useSSTSStore } from '@/stores/modules/ssts'
 import { useSprintStore } from '@/stores/modules/sprint'
 import { useTaskStore } from '@/stores/modules/task'
+import { useProductStore } from '@/stores/modules/product'
 import { useAssetStore } from '@/stores/modules/asset'
 import { useMRStore } from '@/stores/modules/mr'
 import { useTeamStore } from '@/stores/modules/team'
@@ -219,9 +220,9 @@ async function loadTasksToStore() {
  * 加载产品数据
  */
 async function loadProductsToStore() {
-  const assetStore = useAssetStore()
+  const productStore = useProductStore()
   const products = dataLoader.getDataset('products')
-  assetStore.products = products
+  productStore.products = products
   console.log(`✓ 加载了 ${products.length} 个产品`)
 }
 
