@@ -677,11 +677,36 @@ const sprints = computed(() => {
 
 const teams = computed(() => teamStore.teams)
 
-const features = computed(() => featureStore.features.filter(f => f.targetPI === piId))
-const sstss = computed(() => sstsStore.sstsList.filter(s => {
-  const feature = features.value.find(f => f.id === s.featureId)
-  return feature && feature.targetPI === piId
-}))
+const features = computed(() => {
+  // 兼容ID大小写不匹配（targetPI可能是小写pi-001，而piId是大写PI-001）
+  const piIdLower = piId.toLowerCase()
+  const filteredFeatures = featureStore.features.filter(f => {
+    const targetPILower = (f.targetPI || '').toLowerCase()
+    return targetPILower === piIdLower
+  })
+  console.log('🔍 Feature过滤:', {
+    piId,
+    totalFeatures: featureStore.features.length,
+    matchedCount: filteredFeatures.length
+  })
+  return filteredFeatures
+})
+
+const sstss = computed(() => {
+  const piIdLower = piId.toLowerCase()
+  const result = sstsStore.sstsList.filter(s => {
+    const feature = features.value.find(f => f.id === s.featureId)
+    if (!feature) return false
+    const targetPILower = (feature.targetPI || '').toLowerCase()
+    return targetPILower === piIdLower
+  })
+  console.log('🔍 SSTS过滤:', {
+    piId,
+    totalSSTSs: sstsStore.sstsList.length,
+    matchedCount: result.length
+  })
+  return result
+})
 
 const filteredFeatures = computed(() => {
   let result = features.value.filter(f => {
