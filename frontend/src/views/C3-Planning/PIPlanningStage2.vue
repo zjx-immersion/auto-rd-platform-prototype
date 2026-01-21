@@ -508,6 +508,14 @@ const featureTreeData = computed(() => {
     treeNodesCount: treeData.length
   })
   
+  // 添加详细诊断：对比Feature ID
+  if (featureFoundCount === 0 && teamFeatureIds.value.length > 0) {
+    console.error('❌ Feature查找失败！详细诊断：')
+    console.log('  📋 需要查找的Feature ID (前5个):', teamFeatureIds.value.slice(0, 5))
+    console.log('  📋 features.value中的Feature ID (前5个):', features.value.slice(0, 5).map(f => f.id))
+    console.log('  📊 features.value总数:', features.value.length)
+  }
+  
   return treeData
 })
 
