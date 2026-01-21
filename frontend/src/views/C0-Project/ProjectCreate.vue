@@ -123,15 +123,20 @@
           </div>
 
           <el-table :data="teams" style="width: 100%; margin-top: 20px">
-            <el-table-column label="团队名称" prop="name" width="200">
+            <el-table-column label="团队名称" prop="name" width="250">
               <template #default="{ row }">
                 <el-select v-model="row.id" placeholder="选择团队" style="width: 100%">
                   <el-option
                     v-for="team in allTeams"
-                    :key="team.id"
-                    :label="team.name"
-                    :value="team.id"
-                  />
+                    :key="team.teamId"
+                    :label="`${team.teamName} (${team.domain})`"
+                    :value="team.teamId"
+                  >
+                    <div style="display: flex; justify-content: space-between;">
+                      <span>{{ team.teamName }}</span>
+                      <span style="color: #8492a6; font-size: 13px;">{{ team.capacityPerIteration }} SP/迭代</span>
+                    </div>
+                  </el-option>
                 </el-select>
               </template>
             </el-table-column>
@@ -211,16 +216,18 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, DocumentCopy } from '@element-plus/icons-vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useProjectStore } from '@/stores/modules/project'
 import { useUserStore } from '@/stores/modules/user'
+import { useTeamStore } from '@/stores/modules/team'
 import PageContainer from '@/components/Common/PageContainer.vue'
 
 const router = useRouter()
 const projectStore = useProjectStore()
 const userStore = useUserStore()
+const teamStore = useTeamStore()
 
 // 当前步骤
 const currentStep = ref(0)
@@ -260,7 +267,7 @@ const teams = ref<any[]>([])
 
 // 计算属性
 const allUsers = computed(() => userStore.users || [])
-const allTeams = computed(() => projectStore.teams || [])
+const allTeams = computed(() => teamStore.activeTeams || [])
 
 // 辅助函数
 const generateCode = () => {
@@ -275,18 +282,18 @@ const getUserName = (userId: string) => {
 }
 
 const getTeamName = (teamId: string) => {
-  const team = allTeams.value.find(t => t.id === teamId)
-  return team ? team.name : teamId
+  const team = teamStore.getTeamById(teamId)
+  return team ? team.teamName : teamId
 }
 
 const getTeamLeader = (teamId: string) => {
-  const team = allTeams.value.find(t => t.id === teamId)
-  return team ? team.leader : '-'
+  const team = teamStore.getTeamById(teamId)
+  return team ? team.teamLeadName : '-'
 }
 
 const getTeamSize = (teamId: string) => {
-  const team = allTeams.value.find(t => t.id === teamId)
-  return team ? team.memberIds.length : 0
+  const team = teamStore.getTeamById(teamId)
+  return team ? team.statistics.totalMembers : 0
 }
 
 const formatDateRange = (dateRange: any[]) => {
@@ -394,8 +401,28 @@ const submitForm = async () => {
     }
 
     const project = await projectStore.createProject(projectData as any)
-    ElMessage.success('项目创建成功')
-    router.push(`/function/c0-project/detail/${project.id}`)
+    ElMessage.success('项目创建成功！')
+    
+    // 创建成功后显示引导对话框
+    ElMessageBox.confirm(
+      '项目创建成功！下一步操作：',
+      '下一步',
+      {
+        confirmButtonText: '进入Timeline',
+        cancelButtonText: '返回项目列表',
+        type: 'success',
+        distinguishCancelAndClose: true,
+        closeOnClickModal: false
+      }
+    ).then(() => {
+      // 进入项目Timeline
+      router.push(`/function/c0-project/timeline/${project.id}`)
+    }).catch((action: string) => {
+      if (action === 'cancel') {
+        // 返回项目列表
+        router.push('/function/c0-project/list')
+      }
+    })
   } catch (error) {
     ElMessage.error('项目创建失败')
   } finally {
@@ -403,8 +430,11 @@ const submitForm = async () => {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   generateCode()
+  // 加载团队数据
+  await teamStore.fetchTeams()
+  console.log('✅ 已加载团队数据，可用团队数:', teamStore.activeTeams.length)
 })
 </script>
 
