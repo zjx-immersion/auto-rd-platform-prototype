@@ -797,6 +797,12 @@ onMounted(async () => {
     // 默认选择第一个团队
     if (teams.value && teams.value.length > 0) {
       selectedTeamId.value = teams.value[0].id
+      console.log('✅ Stage2: 默认选择第一个团队', {
+        teamId: selectedTeamId.value,
+        teamName: teams.value[0].name
+      })
+    } else {
+      console.warn('⚠️ Stage2: 没有可选择的团队')
     }
   } catch (error: any) {
     ElMessage.error('加载数据失败: ' + error.message)
