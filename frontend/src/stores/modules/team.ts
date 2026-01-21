@@ -69,9 +69,13 @@ export const useTeamStore = defineStore('team', {
       this.error = null
       
       try {
-        // 从Mock数据加载
-        this.teams = teamsData.teams as Team[]
-        console.log('✅ Team Store: 已加载团队数据', this.teams.length)
+        // ⚠️ 数据已经在initializer中加载，这里只是确认
+        // 不再重新加载，避免覆盖initializer加载的数据
+        if (this.teams.length === 0) {
+          console.warn('⚠️ Team Store: teams为空，可能initializer未执行')
+        } else {
+          console.log('✅ Team Store: 已有团队数据', this.teams.length)
+        }
         this.loading = false
       } catch (error) {
         this.error = '获取团队列表失败'

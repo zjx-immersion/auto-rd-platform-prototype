@@ -346,7 +346,14 @@ const mrAllocations = ref<Array<{
 }>>([])
 
 // Computed
-const teams = computed(() => teamStore.teams || [])
+const teams = computed(() => {
+  const allTeams = teamStore.teams || []
+  console.log('🔍 Stage2 Teams:', {
+    count: allTeams.length,
+    teams: allTeams.map(t => ({ id: t.id, name: t.name }))
+  })
+  return allTeams
+})
 
 const sprints = computed(() => {
   const allSprints = sprintStore.sprints || []
