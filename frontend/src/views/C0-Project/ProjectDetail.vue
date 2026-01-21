@@ -11,6 +11,12 @@
           </el-tag>
         </div>
         <div class="right">
+          <el-button type="primary" @click="viewTimeline">
+            查看Timeline ⭐
+          </el-button>
+          <el-button type="success" @click="enterVersionPlanning">
+            进入版本规划
+          </el-button>
           <el-button :icon="Edit" @click="handleEdit">编辑</el-button>
           <el-button :icon="Delete" type="danger" @click="handleDelete">删除</el-button>
         </div>
@@ -259,6 +265,15 @@ const handleDelete = async () => {
       ElMessage.error('删除失败')
     }
   }
+}
+
+// V3.0新增：快速跳转功能
+const viewTimeline = () => {
+  router.push(`/function/c0-project/timeline/${projectId}`)
+}
+
+const enterVersionPlanning = () => {
+  router.push(`/function/c0-project/version-planning-workspace/${projectId}`)
 }
 
 const handleCreateVersion = () => {

@@ -85,17 +85,29 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="200" fixed="right">
+          <el-table-column label="操作" width="260" fixed="right">
             <template #default="{ row }">
-              <el-button link type="primary" size="small" @click.stop="handleView(row)">
-                查看
+              <el-button link type="primary" size="small" @click.stop="viewTimeline(row)">
+                查看Timeline ⭐
               </el-button>
-              <el-button link type="primary" size="small" @click.stop="handleEdit(row)">
-                编辑
+              <el-button link type="success" size="small" @click.stop="enterVersionPlanning(row)">
+                版本规划
               </el-button>
-              <el-button link type="danger" size="small" @click.stop="handleDelete(row)">
-                删除
-              </el-button>
+              <el-dropdown @command="(cmd) => handleAction(cmd, row)">
+                <el-button link size="small">
+                  更多 <el-icon><ArrowDown /></el-icon>
+                </el-button>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item command="detail">查看详情</el-dropdown-item>
+                    <el-dropdown-item command="edit">编辑项目</el-dropdown-item>
+                    <el-dropdown-item command="piCollection">PI集合</el-dropdown-item>
+                    <el-dropdown-item divided command="delete" style="color: #f56c6c">
+                      删除项目
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
             </template>
           </el-table-column>
         </el-table>
@@ -199,7 +211,7 @@
 import { ref, computed, onMounted, nextTick, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Plus, Upload, Download, Search, RefreshLeft } from '@element-plus/icons-vue'
+import { Plus, Upload, Download, Search, RefreshLeft, ArrowDown } from '@element-plus/icons-vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useProjectStore } from '@/stores/modules/project'
 import { useUserStore } from '@/stores/modules/user'
@@ -405,6 +417,32 @@ const handleDelete = async (row: Project) => {
     if (error !== 'cancel') {
       ElMessage.error('删除失败')
     }
+  }
+}
+
+// V3.0新增：快速跳转功能
+const viewTimeline = (row: Project) => {
+  router.push(`/function/c0-project/timeline/${row.id}`)
+}
+
+const enterVersionPlanning = (row: Project) => {
+  router.push(`/function/c0-project/version-planning-workspace/${row.id}`)
+}
+
+const handleAction = (command: string, row: Project) => {
+  switch (command) {
+    case 'detail':
+      router.push(`/function/c0-project/detail/${row.id}`)
+      break
+    case 'edit':
+      handleEdit(row)
+      break
+    case 'piCollection':
+      router.push(`/function/c0-project/pi-collection/${row.id}`)
+      break
+    case 'delete':
+      handleDelete(row)
+      break
   }
 }
 
