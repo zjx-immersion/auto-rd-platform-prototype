@@ -56,6 +56,13 @@ export const usePlanningStore = defineStore('planning', () => {
       const planning = planningResults.value.find(p => p.piId === piId)
       if (planning) {
         currentPlanning.value = planning
+      } else {
+        // 如果没有planning数据，初始化为空状态（避免页面显示undefined）
+        currentPlanning.value = null
+        draftTeamPlannings.value = []
+        draftSprintPlannings.value = []
+        draftDependencies.value = []
+        console.log('ℹ️ Planning Store: PI', piId, '暂无planning数据，已初始化为空状态')
       }
     } catch (err: any) {
       error.value = err.message
