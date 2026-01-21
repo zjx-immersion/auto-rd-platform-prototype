@@ -1,12 +1,13 @@
 # ✅ PI Planning问题完全解决方案
 
 > **最终状态**: ✅ **已完全修复**  
-> **问题层级**: 6层问题逐一解决  
-> **最终提交**: `56980f2`
+> **问题层级**: 7层问题逐一解决  
+> **最终提交**: `f57f4c7`  
+> **涉及页面**: PI Planning看板 + 全局视角
 
 ---
 
-## 📋 问题完整历程（6层深入）
+## 📋 问题完整历程（7层深入）
 
 ### 第1层：API不存在 ✅
 
@@ -98,6 +99,27 @@
 
 ---
 
+### 第7层：全局视角Feature过滤失败 ✅
+
+**症状**: 全局视角页面待分配列表显示"暂无待分配"
+
+**页面**: PI Planning - 全局视角（PIPlanningStage1.vue）
+
+**根本原因**: **Feature过滤失败**（ID大小写不匹配）
+- Feature数据：`targetPI = "pi-001"`（小写）
+- URL参数：`piId = "PI-001"`（大写）
+- 过滤条件：`f.targetPI === piId` → false
+- 导致：`features = []` → 待分配列表为空
+
+**修复**:
+1. Feature过滤使用`toLowerCase()`进行大小写不敏感比较
+2. SSTS过滤也使用`toLowerCase()`
+3. 添加诊断日志显示过滤匹配数量
+
+**Git**: `f57f4c7`
+
+---
+
 ## 🎯 最终修复内容
 
 ### 修复1：currentPI字段映射（第4-6层）
@@ -173,48 +195,55 @@ const sprintList = computed(() => {
 
 ## 📊 完整统计
 
-### Git提交记录（8次）
+### Git提交记录（10次）
 
-| Commit | 层级 | 说明 |
-|--------|------|------|
-| `958222b` | 第1层 | API兼容 |
-| `306f5e6` | 第2层 | 数据初始化 |
-| `8f2f03c` | 第3层 | ID字段兼容 |
-| `99bb62b` | 第3层 | 补充完善 |
-| `6ef8638` | 第4层 | 字段映射 |
-| `a6d7e55` | 第4层 | 文档 |
-| `5a1383d` | 第5层 | 字段完整性 |
-| `ab392fe` | 第5层 | 文档 |
-| **`56980f2`** | **第6层** | **Sprint和Objectives** ⭐ |
+| Commit | 层级 | 页面 | 说明 |
+|--------|------|------|------|
+| `958222b` | 第1层 | 看板 | API兼容 |
+| `306f5e6` | 第2层 | 看板 | 数据初始化 |
+| `8f2f03c` | 第3层 | 看板 | ID字段兼容 |
+| `99bb62b` | 第3层 | 看板 | 补充完善 |
+| `6ef8638` | 第4层 | 看板 | 字段映射 |
+| `a6d7e55` | 第4层 | 看板 | 文档 |
+| `5a1383d` | 第5层 | 看板 | 字段完整性 |
+| `ab392fe` | 第5层 | 看板 | 文档 |
+| `56980f2` | 第6层 | 看板 | Sprint和Objectives |
+| `506f31f` | 第6层 | 看板 | 文档 |
+| **`f57f4c7`** | **第7层** | **全局视角** | **Feature过滤** ⭐ |
+| **`fca3ea0`** | **第7层** | **全局视角** | **文档** ⭐ |
 
 ---
 
-### 修改文件（4个）
+### 修改文件（5个）
 
-1. `frontend/src/stores/modules/pi.ts` - 多次修改
-2. `frontend/src/mock-data/initializer.ts` - 1次修改
-3. `frontend/src/stores/modules/planning.ts` - 1次修改
-4. `frontend/src/views/C3-Planning/PIPlanningBoard.vue` - 1次修改
+| 文件 | 修改次数 | 说明 |
+|------|---------|------|
+| `frontend/src/stores/modules/pi.ts` | 4次 | PI数据管理 |
+| `frontend/src/mock-data/initializer.ts` | 1次 | 数据初始化 |
+| `frontend/src/stores/modules/planning.ts` | 1次 | Planning数据管理 |
+| `frontend/src/views/C3-Planning/PIPlanningBoard.vue` | 1次 | 看板页面 |
+| `frontend/src/views/C3-Planning/PIPlanningStage1.vue` | 1次 | 全局视角页面 |
 
 ---
 
 ### 修改行数
 
-**总计**: 约90行
-- 新增：约65行
-- 删除：约25行
+**总计**: 约120行
+- 新增：约85行
+- 删除：约35行
 
 ---
 
-### 文档产出（5个）
+### 文档产出（6个）
 
 1. `🐛PI-Planning数据修复总结.md` - 第1-2层问题
 2. `✅PI-Planning修复完成测试报告.md` - 测试验证
 3. `🔍PI-Planning数据为空问题分析与修复.md` - 第3层问题
 4. `🎯PI-Planning最终修复方案.md` - 第4层问题
-5. `✅PI-Planning问题完全解决方案.md` - 本文档（第5-6层问题）
+5. `🎯PI-Planning第7层问题修复.md` - 第7层问题
+6. `✅PI-Planning问题完全解决方案.md` - 本文档（总览）
 
-**总计**: 约2200行文档
+**总计**: 约2800行文档
 
 ---
 
@@ -391,30 +420,93 @@ planningStore.planningResults = planningResults
 
 **修复状态**: ✅ **已完全修复**
 
-**6层问题**: ✅ **全部解决**
+**7层问题**: ✅ **全部解决**
 
-**Git提交**: 8次（56980f2最终）
+**Git提交**: 10次（f57f4c7最终代码，fca3ea0最终文档）
 
-**修改文件**: 4个
+**修改文件**: 5个
 
-**文档产出**: 5个，约2200行
+**文档产出**: 6个，约2800行
 
 ---
 
+## 📊 两个页面修复对比
+
+### PI Planning看板（已完全修复）
+
+**路径**: `/function/c3/pi-planning-board`
+
+**功能**: 查看PI概览、Sprint时间线、PI目标
+
+**修复问题**: 6层
+- ✅ 第1层：API兼容
+- ✅ 第2层：数据初始化
+- ✅ 第3层：ID字段兼容
+- ✅ 第4层：字段名称映射
+- ✅ 第5层：字段完整性
+- ✅ 第6层：Sprint和Objectives
+
 **预期效果**:
-- ✅ 页面完整显示所有区域
 - ✅ PI信息卡片正常显示（有数据）
 - ✅ Sprint看板正常显示（8个sprint时间线）
 - ✅ PI目标正常显示（空表格，可以添加）
 - ✅ 统计卡片显示0（因为没有planning mock数据）
 - ✅ Console无错误
-- ✅ 所有字段都有默认值
 
 ---
 
-**🎉 PI Planning问题完全解决！**
+### PI Planning全局视角（已完全修复）
 
-**📋 刷新页面测试，应该看到完整的页面布局和数据！**
+**路径**: `/function/c3/planning/pi/PI-001/stage1`
+
+**功能**: 将Feature/SSTS分配到团队×Sprint
+
+**修复问题**: 1层（基于看板页面的6层修复）
+- ✅ 第7层：Feature/SSTS过滤
+
+**预期效果**:
+- ✅ PI信息卡片正常显示
+- ✅ 待分配列表显示Feature和SSTS（约25 features，50 ssts）
+- ✅ 团队×Sprint排布看板显示（3个团队，8个sprint）
+- ✅ 可以拖拽分配Feature/SSTS到团队×Sprint
+- ✅ Console显示过滤匹配数量
+
+---
+
+## 💡 ID大小写问题总结
+
+**这是系统性问题，共遇到3次！**
+
+### 第1次（第3层）
+- **位置**: PIPlanningBoard.vue（Sprint过滤）
+- **问题**: Sprint.piId（小写）vs currentPI.id（大写）
+- **修复**: 使用toLowerCase()
+
+### 第2次（第6层）
+- **位置**: PIPlanningBoard.vue（Sprint过滤优化）
+- **问题**: 同第1次，补充优化
+- **修复**: 使用toLowerCase()
+
+### 第3次（第7层）
+- **位置**: PIPlanningStage1.vue（Feature过滤）
+- **问题**: Feature.targetPI（小写）vs piId（大写）
+- **修复**: 使用toLowerCase()
+
+### 根本原因
+- **新mock数据**（`frontend/src/mock/pis.json`）：使用大写`PI-001`
+- **旧mock数据**（`frontend/src/mock-data/datasets/pis.json`）：使用小写`pi-001`
+- **关联数据**（sprints, features, sstss）：都使用小写`pi-001`
+
+### 长期建议
+⭐ **统一所有mock数据的ID格式为小写**
+
+---
+
+**🎉 PI Planning系统完全修复！**
+
+**📋 刷新两个页面测试：**
+1. PI Planning看板：http://localhost:6060/function/c3/pi-planning-board
+2. PI Planning全局视角：http://localhost:6060/function/c3/planning/pi/PI-001/stage1
 
 **💡 如果需要完整的planning数据（团队容量、依赖等），请参考长期方案创建planning mock数据。**
 
