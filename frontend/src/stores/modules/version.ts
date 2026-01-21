@@ -1,492 +1,268 @@
 /**
- * 版本管理Store
- * 管理项目版本（产品版本/软件版本）
+ * 版本管理 Store
  */
 
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
-import type { Version } from '@/types'
+import type { ProductVersion, CreateVersionInput, UpdateVersionInput, VersionFilter } from '@/types/version'
+import versionsData from '@/mock/versions.json'
 
-export const useVersionStore = defineStore('version', () => {
-  // ============================================================================
-  // State
-  // ============================================================================
+interface VersionState {
+  versions: ProductVersion[]
+  currentVersion: ProductVersion | null
+  loading: boolean
+  error: string | null
+  filters: VersionFilter
+}
 
-  /** 版本列表 */
-  const versions = ref<Version[]>([])
+export const useVersionStore = defineStore('version', {
+  state: (): VersionState => ({
+    versions: [],
+    currentVersion: null,
+    loading: false,
+    error: null,
+    filters: {}
+  }),
 
-  /** 当前版本 */
-  const currentVersion = ref<Version | null>(null)
+  getters: {
+    /**
+     * 根据ID获取版本
+     */
+    getVersionById: (state) => (versionId: string): ProductVersion | undefined => {
+      return state.versions.find(v => v.versionId === versionId)
+    },
 
-  /** 加载状态 */
-  const loading = ref(false)
+    /**
+     * 根据产品ID获取版本列表
+     */
+    getVersionsByProductId: (state) => (productId: string): ProductVersion[] => {
+      return state.versions.filter(v => v.productId === productId)
+    },
 
-  /** 错误信息 */
-  const error = ref<string | null>(null)
+    /**
+     * 根据产品线获取版本列表
+     */
+    getVersionsByProductLine: (state) => (productLine: string): ProductVersion[] => {
+      return state.versions.filter(v => v.productLine === productLine)
+    },
 
-  // ============================================================================
-  // Getters
-  // ============================================================================
+    /**
+     * 根据里程碑ID获取版本列表
+     */
+    getVersionsByMilestoneId: (state) => (milestoneId: string): ProductVersion[] => {
+      return state.versions.filter(v => v.alignedMilestoneId === milestoneId)
+    },
 
-  /**
-   * 根据项目ID获取版本列表
-   */
-  const getVersionsByProject = computed(() => {
-    return (projectId: string) => {
-      return versions.value.filter(v => v.projectId === projectId)
-    }
-  })
+    /**
+     * 根据迭代范围获取版本列表
+     */
+    getVersionsByIterationRange: (state) => (startIter: number, endIter: number): ProductVersion[] => {
+      return state.versions.filter(v => 
+        v.startIterationNumber <= endIter && v.endIterationNumber >= startIter
+      )
+    },
 
-  /**
-   * 根据状态过滤版本
-   */
-  const getVersionsByStatus = computed(() => {
-    return (status: string) => {
-      return versions.value.filter(v => v.status === status)
-    }
-  })
-
-  /**
-   * 获取活跃版本
-   */
-  const activeVersions = computed(() => {
-    return versions.value.filter(v => 
-      v.status === 'in-progress' || v.status === 'planning'
-    )
-  })
-
-  // ============================================================================
-  // Actions
-  // ============================================================================
-
-  /**
-   * 获取版本列表
-   */
-  async function fetchVersions() {
-    loading.value = true
-    error.value = null
-
-    try {
-      // TODO: 替换为实际API调用
-      await new Promise(resolve => setTimeout(resolve, 300))
-      console.log('版本列表已加载')
-    } catch (err: any) {
-      error.value = err.message || '获取版本列表失败'
-      console.error('获取版本列表失败:', err)
-    } finally {
-      loading.value = false
-    }
-  }
-
-  // ============================================================================
-  // Phase 1: 完成度管理增强 ⭐⭐⭐⭐⭐
-  // ============================================================================
-
-  /**
-   * 更新Epic完成度 ⭐
-   * @param versionId 版本ID
-   * @param epicId Epic ID
-   * @param completionTarget 完成度目标（0-100）
-   */
-  async function updateEpicCompletion(
-    versionId: string,
-    epicId: string,
-    completionTarget: number
-  ) {
-    try {
-      // 验证输入
-      if (completionTarget < 0 || completionTarget > 100) {
-        throw new Error('完成度必须在0-100之间')
-      }
-
-      // 查找版本
-      const version = versions.value.find(v => v.id === versionId)
-      if (!version) {
-        throw new Error('版本不存在')
-      }
-
-      // 更新Epic完成度
-      const epicAllocation = (version as any).epicAllocations?.find((ea: any) => ea.epicId === epicId)
-      if (epicAllocation) {
-        epicAllocation.completionTarget = completionTarget
-        // 计算目标SP
-        epicAllocation.targetSP = Math.round((epicAllocation.totalSP || 0) * (completionTarget / 100))
-      }
-
-      console.log(`✅ Epic ${epicId} 完成度已更新为 ${completionTarget}%`)
-      return true
-    } catch (err: any) {
-      error.value = err.message
-      console.error('更新Epic完成度失败:', err)
-      return false
-    }
-  }
-
-  /**
-   * 更新Feature完成度（精细化设置）⭐
-   * @param versionId 版本ID
-   * @param epicId Epic ID
-   * @param features Feature完成度列表
-   */
-  async function updateFeatureCompletions(
-    versionId: string,
-    epicId: string,
-    features: Array<{ featureId: string, completionTarget: number }>
-  ) {
-    try {
-      const version = versions.value.find(v => v.id === versionId)
-      if (!version) {
-        throw new Error('版本不存在')
-      }
-
-      // 更新Feature完成度
-      features.forEach(f => {
-        console.log(`Feature ${f.featureId}: ${f.completionTarget}%`)
-      })
-
-      console.log(`✅ Epic ${epicId} 的Feature完成度已更新`)
-      return true
-    } catch (err: any) {
-      error.value = err.message
-      console.error('更新Feature完成度失败:', err)
-      return false
-    }
-  }
-
-  /**
-   * 计算Epic完成度（基于Feature）⭐
-   * @param epicId Epic ID
-   * @param features Feature列表
-   * @returns 计算出的Epic完成度
-   */
-  function calculateEpicCompletion(
-    epicId: string,
-    features: Array<{ featureId: string, storyPoints: number, completionTarget: number }>
-  ): number {
-    if (!features || features.length === 0) return 0
-
-    // 加权平均：Σ(Feature SP × Feature完成度) / Σ(Feature SP)
-    const totalWeightedSP = features.reduce((sum, f) => {
-      return sum + (f.storyPoints * f.completionTarget / 100)
-    }, 0)
-
-    const totalSP = features.reduce((sum, f) => sum + f.storyPoints, 0)
-
-    if (totalSP === 0) return 0
-
-    const epicCompletion = Math.round((totalWeightedSP / totalSP) * 100)
-    console.log(`计算Epic完成度: ${totalWeightedSP}SP / ${totalSP}SP = ${epicCompletion}%`)
-
-    return epicCompletion
-  }
-
-  /**
-   * 验证完成度一致性 ⭐
-   * @param versionId 版本ID
-   * @returns 验证结果
-   */
-  function validateCompletionConsistency(versionId: string) {
-    const version = versions.value.find(v => v.id === versionId)
-    if (!version) {
+    /**
+     * 获取版本统计
+     */
+    versionStatistics: (state) => {
       return {
-        isValid: false,
-        message: '版本不存在'
+        total: state.versions.length,
+        planning: state.versions.filter(v => v.status === 'planning').length,
+        inProgress: state.versions.filter(v => v.status === 'in-progress').length,
+        completed: state.versions.filter(v => v.status === 'completed').length,
+        released: state.versions.filter(v => v.status === 'released').length,
+        totalStoryPoints: state.versions.reduce((sum, v) => sum + v.totalStoryPoints, 0)
       }
     }
+  },
 
-    // TODO: 实现完整的一致性验证逻辑
-    // 1. 验证Epic完成度 = Feature完成度加权平均
-    // 2. 验证跨版本累计分配不超过100%
-
-    return {
-      isValid: true,
-      message: '✓ 完成度一致性验证通过'
-    }
-  }
-
-  /**
-   * 验证累计分配（跨版本）⭐
-   * @param epicId Epic ID
-   * @returns 累计分配验证结果
-   */
-  function validateCumulativeAllocation(epicId: string) {
-    // 查找所有版本中该Epic的分配
-    let totalAllocation = 0
-
-    versions.value.forEach(version => {
-      const epicAllocation = (version as any).epicAllocations?.find((ea: any) => ea.epicId === epicId)
-      if (epicAllocation) {
-        totalAllocation += epicAllocation.completionTarget || 0
-      }
-    })
-
-    const isValid = totalAllocation <= 100
-    const message = isValid 
-      ? `✓ 累计分配验证通过 (${totalAllocation}%)`
-      : `⚠️ 累计分配超出100% (当前${totalAllocation}%)`
-
-    console.log(message)
-
-    return {
-      isValid,
-      totalAllocation,
-      message
-    }
-  }
-
-  /**
-   * 根据ID获取版本详情
-   */
-  async function fetchVersionById(id: string) {
-    loading.value = true
-    error.value = null
-
-    try {
-      const version = versions.value.find(v => v.id === id)
-      if (version) {
-        currentVersion.value = version
-      } else {
-        throw new Error('版本不存在')
-      }
-    } catch (err: any) {
-      error.value = err.message || '获取版本详情失败'
-      console.error('获取版本详情失败:', err)
-    } finally {
-      loading.value = false
-    }
-  }
-
-  /**
-   * 创建版本
-   */
-  async function createVersion(versionData: Partial<Version>) {
-    loading.value = true
-    error.value = null
-
-    try {
-      const newVersion: Version = {
-        id: versionData.id || `ver-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        code: versionData.code || '',
-        name: versionData.name || '',
-        projectId: versionData.projectId || '',
-        description: versionData.description || '',
-        startDate: versionData.startDate || new Date().toISOString(),
-        releaseDate: versionData.releaseDate || new Date().toISOString(),
-        status: versionData.status || 'planning',
-        featureIds: versionData.featureIds || [],
-        metadata: versionData.metadata || {},
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        createdBy: versionData.createdBy || '',
-        updatedBy: versionData.updatedBy || '',
-      }
-
-      versions.value.push(newVersion)
-      currentVersion.value = newVersion
-
-      console.log(`✓ 创建版本: ${newVersion.code} - ${newVersion.name}`)
-      return newVersion
-    } catch (err: any) {
-      error.value = err.message || '创建版本失败'
-      console.error('创建版本失败:', err)
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
-
-  /**
-   * 更新版本
-   */
-  async function updateVersion(id: string, updates: Partial<Version>) {
-    loading.value = true
-    error.value = null
-
-    try {
-      const index = versions.value.findIndex(v => v.id === id)
-      if (index !== -1) {
-        versions.value[index] = {
-          ...versions.value[index],
-          ...updates,
-          updatedAt: new Date().toISOString(),
+  actions: {
+    /**
+     * 获取版本列表
+     */
+    async fetchVersions(projectId?: string) {
+      this.loading = true
+      this.error = null
+      
+      try {
+        // 从Mock数据加载
+        const allVersions = versionsData.versions as ProductVersion[]
+        
+        if (projectId) {
+          // 如果指定了项目ID，只加载该项目的版本
+          this.versions = allVersions.filter(v => 
+            versionsData.projectId === projectId
+          )
+        } else {
+          this.versions = allVersions
         }
+        
+        console.log('✅ Version Store: 已加载版本数据', this.versions.length)
+        this.loading = false
+      } catch (error) {
+        this.error = '获取版本列表失败'
+        this.loading = false
+        console.error('❌ Version Store: 加载失败', error)
+      }
+    },
 
-        if (currentVersion.value?.id === id) {
-          currentVersion.value = versions.value[index]
+    /**
+     * 根据ID获取版本详情
+     */
+    async fetchVersionById(versionId: string) {
+      this.loading = true
+      this.error = null
+      
+      try {
+        const version = this.versions.find(v => v.versionId === versionId)
+        if (version) {
+          this.currentVersion = version
+        } else {
+          this.error = '版本不存在'
         }
+        this.loading = false
+      } catch (error) {
+        this.error = '获取版本详情失败'
+        this.loading = false
       }
-    } catch (err: any) {
-      error.value = err.message || '更新版本失败'
-      console.error('更新版本失败:', err)
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
+    },
 
-  /**
-   * 删除版本
-   */
-  async function deleteVersion(id: string) {
-    loading.value = true
-    error.value = null
-
-    try {
-      const index = versions.value.findIndex(v => v.id === id)
-      if (index !== -1) {
-        versions.value.splice(index, 1)
-      }
-
-      if (currentVersion.value?.id === id) {
-        currentVersion.value = null
-      }
-    } catch (err: any) {
-      error.value = err.message || '删除版本失败'
-      console.error('删除版本失败:', err)
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
-
-  /**
-   * 关联Feature到版本
-   */
-  async function linkFeature(versionId: string, featureId: string) {
-    const version = versions.value.find(v => v.id === versionId)
-    if (version && !version.featureIds.includes(featureId)) {
-      version.featureIds.push(featureId)
-      version.updatedAt = new Date().toISOString()
-    }
-  }
-
-  /**
-   * 取消关联Feature
-   */
-  async function unlinkFeature(versionId: string, featureId: string) {
-    const version = versions.value.find(v => v.id === versionId)
-    if (version) {
-      version.featureIds = version.featureIds.filter(id => id !== featureId)
-      version.updatedAt = new Date().toISOString()
-    }
-  }
-
-  /**
-   * 批量关联Feature到版本
-   */
-  async function batchLinkFeatures(versionId: string, featureIds: string[]) {
-    const version = versions.value.find(v => v.id === versionId)
-    if (version) {
-      featureIds.forEach(featureId => {
-        if (!version.featureIds.includes(featureId)) {
-          version.featureIds.push(featureId)
+    /**
+     * 创建版本
+     */
+    async createVersion(versionData: CreateVersionInput) {
+      this.loading = true
+      this.error = null
+      
+      try {
+        // 计算迭代数量和持续周期
+        const iterationCount = versionData.endIterationNumber - versionData.startIterationNumber + 1
+        const durationWeeks = iterationCount * 2  // 假设每个迭代2周
+        
+        // 计算日期（简化版，实际应根据迭代轴计算）
+        const startDate = new Date()
+        const endDate = new Date(startDate.getTime() + durationWeeks * 7 * 24 * 60 * 60 * 1000)
+        
+        // 计算总Story Points
+        const totalStoryPoints = (versionData.epicAllocations || []).reduce(
+          (sum, epic) => sum + epic.allocatedSP, 0
+        )
+        
+        const newVersion: ProductVersion = {
+          versionId: `VER-${Date.now()}`,
+          ...versionData,
+          iterationCount,
+          durationWeeks,
+          startDate: startDate.toISOString().split('T')[0],
+          endDate: endDate.toISOString().split('T')[0],
+          alignedMilestoneName: '',  // 需要从milestone数据获取
+          milestoneDate: '',
+          milestoneGap: 0,
+          alignmentStatus: 'good',
+          epicAllocations: versionData.epicAllocations || [],
+          totalStoryPoints,
+          status: 'planning',
+          createdBy: 'USER',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
         }
-      })
-      version.updatedAt = new Date().toISOString()
-    }
-  }
-
-  /**
-   * 保存Feature分配到PI
-   */
-  async function saveFeatureAllocation(versionId: string, allocationMap: Record<string, string>) {
-    const version = versions.value.find(v => v.id === versionId)
-    if (version) {
-      // 保存分配映射到version的metadata
-      if (!version.metadata) {
-        version.metadata = {}
+        
+        this.versions.push(newVersion)
+        console.log('✅ Version Store: 版本创建成功', newVersion.versionId)
+        this.loading = false
+        return newVersion
+      } catch (error) {
+        this.error = '创建版本失败'
+        this.loading = false
+        throw error
       }
-      version.metadata.featureAllocation = allocationMap
-      version.updatedAt = new Date().toISOString()
-      return true
-    }
-    return false
-  }
+    },
 
-  /**
-   * 获取版本的Feature分配
-   */
-  function getFeatureAllocation(versionId: string): Record<string, string> {
-    const version = versions.value.find(v => v.id === versionId)
-    if (version?.metadata?.featureAllocation) {
-      return version.metadata.featureAllocation as Record<string, string>
-    }
-    return {}
-  }
-
-  /**
-   * 设置版本容量
-   */
-  async function setVersionCapacity(versionId: string, capacity: number) {
-    const version = versions.value.find(v => v.id === versionId)
-    if (version) {
-      if (!version.metadata) {
-        version.metadata = {}
+    /**
+     * 更新版本
+     */
+    async updateVersion(versionData: UpdateVersionInput) {
+      this.loading = true
+      this.error = null
+      
+      try {
+        const index = this.versions.findIndex(v => v.versionId === versionData.versionId)
+        if (index !== -1) {
+          // 重新计算迭代数量和Story Points
+          let updates: any = { ...versionData }
+          
+          if (versionData.startIterationNumber || versionData.endIterationNumber) {
+            const startIter = versionData.startIterationNumber || this.versions[index].startIterationNumber
+            const endIter = versionData.endIterationNumber || this.versions[index].endIterationNumber
+            updates.iterationCount = endIter - startIter + 1
+            updates.durationWeeks = updates.iterationCount * 2
+          }
+          
+          if (versionData.epicAllocations) {
+            updates.totalStoryPoints = versionData.epicAllocations.reduce(
+              (sum, epic) => sum + epic.allocatedSP, 0
+            )
+          }
+          
+          this.versions[index] = {
+            ...this.versions[index],
+            ...updates,
+            updatedAt: new Date().toISOString()
+          }
+          console.log('✅ Version Store: 版本更新成功', versionData.versionId)
+        }
+        this.loading = false
+      } catch (error) {
+        this.error = '更新版本失败'
+        this.loading = false
+        throw error
       }
-      version.metadata.capacity = capacity
-      version.updatedAt = new Date().toISOString()
+    },
+
+    /**
+     * 删除版本
+     */
+    async deleteVersion(versionId: string) {
+      this.loading = true
+      this.error = null
+      
+      try {
+        const index = this.versions.findIndex(v => v.versionId === versionId)
+        if (index !== -1) {
+          this.versions.splice(index, 1)
+          console.log('✅ Version Store: 版本删除成功', versionId)
+        }
+        this.loading = false
+      } catch (error) {
+        this.error = '删除版本失败'
+        this.loading = false
+        throw error
+      }
+    },
+
+    /**
+     * 设置筛选条件
+     */
+    setFilters(filters: VersionFilter) {
+      this.filters = { ...this.filters, ...filters }
+    },
+
+    /**
+     * 清除筛选条件
+     */
+    clearFilters() {
+      this.filters = {}
+    },
+
+    /**
+     * 重置Store
+     */
+    reset() {
+      this.versions = []
+      this.currentVersion = null
+      this.loading = false
+      this.error = null
+      this.filters = {}
     }
-  }
-
-  /**
-   * 获取版本容量
-   */
-  function getVersionCapacity(versionId: string): number {
-    const version = versions.value.find(v => v.id === versionId)
-    return (version?.metadata?.capacity as number) || 300 // 默认300SP
-  }
-
-  /**
-   * 重置当前版本
-   */
-  function resetCurrentVersion() {
-    currentVersion.value = null
-  }
-
-  /**
-   * 清除错误
-   */
-  function clearError() {
-    error.value = null
-  }
-
-  // ============================================================================
-  // Return
-  // ============================================================================
-
-  return {
-    // State
-    versions,
-    currentVersion,
-    loading,
-    error,
-
-    // Getters
-    getVersionsByProject,
-    getVersionsByStatus,
-    activeVersions,
-
-    // Actions
-    fetchVersions,
-    fetchVersionById,
-    createVersion,
-    updateVersion,
-    deleteVersion,
-    linkFeature,
-    unlinkFeature,
-    batchLinkFeatures,
-    saveFeatureAllocation,
-    getFeatureAllocation,
-    setVersionCapacity,
-    getVersionCapacity,
-    resetCurrentVersion,
-    clearError,
-
-    // Phase 1: 完成度管理 ⭐⭐⭐⭐⭐
-    updateEpicCompletion,
-    updateFeatureCompletions,
-    calculateEpicCompletion,
-    validateCompletionConsistency,
-    validateCumulativeAllocation,
   }
 })

@@ -1,501 +1,255 @@
 /**
- * 项目管理Store
- * C0能力域：领域项目管理
- * 覆盖价值流：S4-S9
+ * 项目管理 Store
  */
 
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
-import type { DomainProject, Milestone, TeamConfig } from '@/types'
-import { useVersionStore } from './version'
-import { usePIStore } from './pi'
+import type { DomainProject, CreateProjectInput, UpdateProjectInput, ProjectFilter, Milestone } from '@/types/project'
+import projectsData from '@/mock/projects.json'
+import milestonesData from '@/mock/milestones.json'
 
-export const useProjectStore = defineStore('project', () => {
-  // ============================================================================
-  // State
-  // ============================================================================
+interface ProjectState {
+  projects: DomainProject[]
+  currentProject: DomainProject | null
+  milestones: Milestone[]
+  loading: boolean
+  error: string | null
+  filters: ProjectFilter
+}
 
-  /** 项目列表 */
-  const projects = ref<DomainProject[]>([])
+export const useProjectStore = defineStore('project', {
+  state: (): ProjectState => ({
+    projects: [],
+    currentProject: null,
+    milestones: [],
+    loading: false,
+    error: null,
+    filters: {}
+  }),
 
-  /** 当前项目 */
-  const currentProject = ref<DomainProject | null>(null)
+  getters: {
+    /**
+     * 根据ID获取项目
+     */
+    getProjectById: (state) => (projectId: string): DomainProject | undefined => {
+      return state.projects.find(p => p.id === projectId)
+    },
 
-  /** 加载状态 */
-  const loading = ref(false)
+    /**
+     * 根据领域获取项目
+     */
+    getProjectsByDomain: (state) => (domain: string): DomainProject[] => {
+      return state.projects.filter(p => p.domain === domain)
+    },
 
-  /** 错误信息 */
-  const error = ref<string | null>(null)
+    /**
+     * 根据状态获取项目
+     */
+    getProjectsByStatus: (state) => (status: string): DomainProject[] => {
+      return state.projects.filter(p => p.status === status)
+    },
 
-  // ============================================================================
-  // Getters
-  // ============================================================================
-
-  /**
-   * 根据领域过滤项目
-   */
-  const projectsByDomain = computed(() => {
-    return (domain: string) => {
-      return projects.value.filter(p => p.domain === domain)
-    }
-  })
-
-  /**
-   * 获取活跃项目
-   */
-  const activeProjects = computed(() => {
-    return projects.value.filter(p => 
-      p.status === 'executing' || p.status === 'planning'
-    )
-  })
-
-  /**
-   * 获取项目健康度统计
-   */
-  const projectHealthStats = computed(() => {
-    const stats = {
-      green: 0,
-      yellow: 0,
-      red: 0,
-      total: projects.value.length
-    }
-
-    projects.value.forEach(p => {
-      stats[p.health]++
-    })
-
-    return stats
-  })
-
-  /**
-   * 获取即将到来的里程碑
-   */
-  const upcomingMilestones = computed(() => {
-    if (!currentProject.value) return []
-
-    const now = new Date()
-    const thirtyDaysLater = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000)
-
-    return currentProject.value.milestones
-      .filter(m => {
-        const milestoneDate = new Date(m.date)
-        return milestoneDate >= now && milestoneDate <= thirtyDaysLater
-      })
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-  })
-
-  // ============================================================================
-  // Actions
-  // ============================================================================
-
-  // ============================================================================
-  // Phase 1: PI时间线生成增强 ⭐
-  // ============================================================================
-
-  /**
-   * 生成PI时间线 ⭐
-   * @param projectStart 项目开始日期
-   * @param projectEnd 项目结束日期
-   * @param piCycle PI周期（周数，默认12周）
-   * @returns PI时间线列表
-   */
-  function generatePITimeline(
-    projectStart: string,
-    projectEnd: string,
-    piCycle: number = 12
-  ) {
-    const timeline: Array<{
-      piNumber: string
-      startDate: string
-      endDate: string
-      duration: number
-      weeks: number
-    }> = []
-
-    let currentStart = new Date(projectStart)
-    const projectEndDate = new Date(projectEnd)
-    let piNumber = 1
-
-    while (currentStart < projectEndDate) {
-      // 计算PI结束日期（固定周期）
-      const piEndDate = new Date(currentStart)
-      piEndDate.setDate(piEndDate.getDate() + (piCycle * 7) - 1)
-
-      // 如果超出项目结束日期，使用项目结束日期
-      const actualEnd = piEndDate > projectEndDate ? projectEndDate : piEndDate
-
-      // 计算实际周数
-      const actualDays = Math.ceil((actualEnd.getTime() - currentStart.getTime()) / (1000 * 60 * 60 * 24))
-      const actualWeeks = Math.ceil(actualDays / 7)
-
-      timeline.push({
-        piNumber: `PI-${piNumber}`,
-        startDate: currentStart.toISOString().split('T')[0],
-        endDate: actualEnd.toISOString().split('T')[0],
-        duration: piCycle,
-        weeks: actualWeeks
-      })
-
-      console.log(`生成PI-${piNumber}: ${currentStart.toISOString().split('T')[0]} ~ ${actualEnd.toISOString().split('T')[0]} (${actualWeeks}周)`)
-
-      // 下一个PI的开始日期（无间隙）
-      currentStart = new Date(actualEnd)
-      currentStart.setDate(currentStart.getDate() + 1)
-      piNumber++
-    }
-
-    console.log(`✅ 共生成${timeline.length}个PI（固定${piCycle}周节奏）`)
-    return timeline
-  }
-
-  /**
-   * 获取项目列表
-   */
-  async function fetchProjects() {
-    loading.value = true
-    error.value = null
-
-    try {
-      // TODO: 替换为实际API调用
-      // const response = await api.getProjects()
-      // projects.value = response.data
-      
-      // 暂时使用mock数据
-      await new Promise(resolve => setTimeout(resolve, 500))
-      
-      console.log('项目列表已加载')
-    } catch (err: any) {
-      error.value = err.message || '获取项目列表失败'
-      console.error('获取项目列表失败:', err)
-    } finally {
-      loading.value = false
-    }
-  }
-
-  /**
-   * 根据ID获取项目详情
-   */
-  async function fetchProjectById(id: string) {
-    loading.value = true
-    error.value = null
-
-    try {
-      // TODO: 替换为实际API调用
-      // const response = await api.getProjectById(id)
-      // currentProject.value = response.data
-      
-      // 暂时从列表中查找
-      const project = projects.value.find(p => p.id === id)
-      if (project) {
-        currentProject.value = project
-      } else {
-        throw new Error('项目不存在')
+    /**
+     * 获取项目统计
+     */
+    projectStatistics: (state) => {
+      return {
+        total: state.projects.length,
+        planning: state.projects.filter(p => p.status === 'planning').length,
+        inProgress: state.projects.filter(p => p.status === 'in-progress').length,
+        completed: state.projects.filter(p => p.status === 'completed').length,
+        paused: state.projects.filter(p => p.status === 'paused').length
       }
-    } catch (err: any) {
-      error.value = err.message || '获取项目详情失败'
-      console.error('获取项目详情失败:', err)
-    } finally {
-      loading.value = false
+    },
+
+    /**
+     * 根据项目ID获取里程碑
+     */
+    getMilestonesByProjectId: (state) => (projectId: string): Milestone[] => {
+      return state.milestones.filter(m => m.milestoneId.includes(projectId))
     }
-  }
+  },
 
-  /**
-   * 创建项目
-   */
-  async function createProject(projectData: Partial<DomainProject>) {
-    loading.value = true
-    error.value = null
-
-    try {
-      // TODO: 替换为实际API调用
-      // const response = await api.createProject(projectData)
-      // const newProject = response.data
+  actions: {
+    /**
+     * 获取项目列表
+     */
+    async fetchProjects() {
+      this.loading = true
+      this.error = null
       
-      // 暂时使用mock逻辑
-      const newProject: DomainProject = {
-        id: `proj-${Date.now()}`,
-        code: projectData.code || `PRJ-${Date.now()}`,
-        name: projectData.name || '',
-        vehicleModel: projectData.vehicleModel || '',
-        domain: projectData.domain || 'intelligent-driving',
-        startDate: projectData.startDate || new Date().toISOString(),
-        sopDate: projectData.sopDate || new Date().toISOString(),
-        milestones: projectData.milestones || [],
-        teams: projectData.teams || [],
-        epicIds: [],
-        piVersionIds: [],
-        status: 'planning',
-        health: 'green',
-        description: projectData.description || '',
-        objectives: projectData.objectives || [],
-        owner: projectData.owner || '',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        createdBy: projectData.owner || '',
-        updatedBy: projectData.owner || '',
+      try {
+        // 从Mock数据加载
+        this.projects = projectsData.projects as DomainProject[]
+        console.log('✅ Project Store: 已加载项目数据', this.projects.length)
+        this.loading = false
+      } catch (error) {
+        this.error = '获取项目列表失败'
+        this.loading = false
+        console.error('❌ Project Store: 加载失败', error)
       }
+    },
 
-      projects.value.push(newProject)
-      currentProject.value = newProject
-
-      return newProject
-    } catch (err: any) {
-      error.value = err.message || '创建项目失败'
-      console.error('创建项目失败:', err)
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
-
-  /**
-   * 更新项目
-   */
-  async function updateProject(id: string, updates: Partial<DomainProject>) {
-    loading.value = true
-    error.value = null
-
-    try {
-      // TODO: 替换为实际API调用
-      // const response = await api.updateProject(id, updates)
-      // const updatedProject = response.data
+    /**
+     * 根据ID获取项目详情
+     */
+    async fetchProjectById(projectId: string) {
+      this.loading = true
+      this.error = null
       
-      const index = projects.value.findIndex(p => p.id === id)
-      if (index !== -1) {
-        projects.value[index] = {
-          ...projects.value[index],
-          ...updates,
-          updatedAt: new Date().toISOString(),
+      try {
+        const project = this.projects.find(p => p.id === projectId)
+        if (project) {
+          this.currentProject = project
+          // 同时加载该项目的里程碑
+          await this.fetchMilestones(projectId)
+        } else {
+          this.error = '项目不存在'
         }
+        this.loading = false
+      } catch (error) {
+        this.error = '获取项目详情失败'
+        this.loading = false
+      }
+    },
 
-        if (currentProject.value?.id === id) {
-          currentProject.value = projects.value[index]
+    /**
+     * 获取里程碑数据
+     */
+    async fetchMilestones(projectId?: string) {
+      try {
+        // 从Mock数据加载里程碑
+        const allMilestones = milestonesData.milestones as Milestone[]
+        
+        if (projectId) {
+          // 如果指定了项目ID，只加载该项目的里程碑
+          this.milestones = allMilestones.filter(m => 
+            milestonesData.projectId === projectId
+          )
+        } else {
+          this.milestones = allMilestones
         }
+        
+        console.log('✅ Project Store: 已加载里程碑数据', this.milestones.length)
+      } catch (error) {
+        console.error('❌ Project Store: 加载里程碑失败', error)
       }
-    } catch (err: any) {
-      error.value = err.message || '更新项目失败'
-      console.error('更新项目失败:', err)
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
+    },
 
-  /**
-   * 添加里程碑
-   */
-  async function addMilestone(projectId: string, milestone: Milestone) {
-    if (!currentProject.value || currentProject.value.id !== projectId) {
-      await fetchProjectById(projectId)
-    }
-
-    if (currentProject.value) {
-      const milestones = [...currentProject.value.milestones, milestone]
-      await updateProject(projectId, { milestones })
-    }
-  }
-
-  /**
-   * 更新里程碑
-   */
-  async function updateMilestone(projectId: string, milestoneId: string, updates: Partial<Milestone>) {
-    if (!currentProject.value || currentProject.value.id !== projectId) {
-      await fetchProjectById(projectId)
-    }
-
-    if (currentProject.value) {
-      const milestones = currentProject.value.milestones.map(m =>
-        m.id === milestoneId ? { ...m, ...updates } : m
-      )
-      await updateProject(projectId, { milestones })
-    }
-  }
-
-  /**
-   * 更新团队配置
-   */
-  async function updateTeamConfig(projectId: string, teamConfig: TeamConfig[]) {
-    await updateProject(projectId, { teams: teamConfig })
-  }
-
-  /**
-   * 关联Epic到项目
-   */
-  async function linkEpic(projectId: string, epicId: string) {
-    if (!currentProject.value || currentProject.value.id !== projectId) {
-      await fetchProjectById(projectId)
-    }
-
-    if (currentProject.value) {
-      const epicIds = [...currentProject.value.epicIds, epicId]
-      await updateProject(projectId, { epicIds })
-    }
-  }
-
-  /**
-   * 关联PI版本到项目
-   */
-  async function linkPIVersion(projectId: string, piId: string) {
-    if (!currentProject.value || currentProject.value.id !== projectId) {
-      await fetchProjectById(projectId)
-    }
-
-    if (currentProject.value) {
-      const piVersionIds = [...currentProject.value.piVersionIds, piId]
-      await updateProject(projectId, { piVersionIds })
-    }
-  }
-
-  /**
-   * 计算项目进度
-   */
-  function calculateProjectProgress(projectId: string): number {
-    const project = projects.value.find(p => p.id === projectId)
-    if (!project) return 0
-
-    // 简化的进度计算：基于里程碑完成情况
-    const totalMilestones = project.milestones.length
-    if (totalMilestones === 0) return 0
-
-    const achievedMilestones = project.milestones.filter(m => m.status === 'achieved').length
-    return Math.round((achievedMilestones / totalMilestones) * 100)
-  }
-
-  /**
-   * 重置当前项目
-   */
-  function resetCurrentProject() {
-    currentProject.value = null
-  }
-
-  /**
-   * 清除错误
-   */
-  function clearError() {
-    error.value = null
-  }
-
-  /**
-   * 删除项目
-   */
-  async function deleteProject(id: string) {
-    loading.value = true
-    error.value = null
-
-    try {
-      const index = projects.value.findIndex(p => p.id === id)
-      if (index !== -1) {
-        projects.value.splice(index, 1)
-      }
-
-      if (currentProject.value?.id === id) {
-        currentProject.value = null
-      }
-    } catch (err: any) {
-      error.value = err.message || '删除项目失败'
-      console.error('删除项目失败:', err)
-      throw err
-    } finally {
-      loading.value = false
-    }
-  }
-
-  /**
-   * 获取项目的版本列表
-   */
-  function getVersionsByProject(projectId: string) {
-    const versionStore = useVersionStore()
-    // getVersionsByProject是computed属性，返回的是函数，直接调用即可
-    return versionStore.getVersionsByProject(projectId)
-  }
-
-  /**
-   * 获取项目的PI列表
-   */
-  function getPIsByProject(projectId: string) {
-    const piStore = usePIStore()
-    // pisByProject是computed属性，返回的是函数，直接调用即可
-    return piStore.pisByProject(projectId)
-  }
-
-  /**
-   * 创建版本
-   */
-  async function createVersion(versionData: any) {
-    const versionStore = useVersionStore()
-    const version = await versionStore.createVersion(versionData)
-    
-    // 关联到项目
-    if (version && versionData.projectId) {
-      const project = projects.value.find(p => p.id === versionData.projectId)
-      if (project && !project.piVersionIds.includes(version.id)) {
-        // 注意：这里暂时存储在piVersionIds中，后续可能需要单独的versionIds字段
-        project.piVersionIds.push(version.id)
-      }
-    }
-    
-    return version
-  }
-
-  /**
-   * 创建PI
-   */
-  async function createPI(piData: any) {
-    const piStore = usePIStore()
-    const pi = await piStore.createPIVersion(piData)
-    
-    // 关联到项目
-    if (pi && piData.projectIds) {
-      for (const projectId of piData.projectIds) {
-        const project = projects.value.find(p => p.id === projectId)
-        if (project && !project.piVersionIds.includes(pi.id)) {
-          project.piVersionIds.push(pi.id)
+    /**
+     * 创建项目
+     */
+    async createProject(projectData: CreateProjectInput) {
+      this.loading = true
+      this.error = null
+      
+      try {
+        const newProject: DomainProject = {
+          id: `PROJ-${Date.now()}`,
+          ...projectData,
+          status: projectData.status || 'planning',
+          progress: 0,
+          iterationWeeks: projectData.iterationWeeks || 2,
+          totalIterations: Math.ceil(
+            (new Date(projectData.endDate).getTime() - new Date(projectData.startDate).getTime()) /
+            (7 * 24 * 60 * 60 * 1000) /
+            (projectData.iterationWeeks || 2)
+          ),
+          milestones: projectData.milestones || [],
+          teamIds: projectData.teamIds || [],
+          tags: projectData.tags || [],
+          statistics: {
+            totalVersions: 0,
+            totalEpics: 0,
+            totalStoryPoints: 0,
+            completedStoryPoints: 0,
+            totalPIs: 0
+          },
+          createdBy: 'USER',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
         }
+        
+        this.projects.push(newProject)
+        console.log('✅ Project Store: 项目创建成功', newProject.id)
+        this.loading = false
+        return newProject
+      } catch (error) {
+        this.error = '创建项目失败'
+        this.loading = false
+        throw error
       }
+    },
+
+    /**
+     * 更新项目
+     */
+    async updateProject(projectData: UpdateProjectInput) {
+      this.loading = true
+      this.error = null
+      
+      try {
+        const index = this.projects.findIndex(p => p.id === projectData.id)
+        if (index !== -1) {
+          this.projects[index] = {
+            ...this.projects[index],
+            ...projectData,
+            updatedAt: new Date().toISOString()
+          }
+          console.log('✅ Project Store: 项目更新成功', projectData.id)
+        }
+        this.loading = false
+      } catch (error) {
+        this.error = '更新项目失败'
+        this.loading = false
+        throw error
+      }
+    },
+
+    /**
+     * 删除项目
+     */
+    async deleteProject(projectId: string) {
+      this.loading = true
+      this.error = null
+      
+      try {
+        const index = this.projects.findIndex(p => p.id === projectId)
+        if (index !== -1) {
+          this.projects.splice(index, 1)
+          console.log('✅ Project Store: 项目删除成功', projectId)
+        }
+        this.loading = false
+      } catch (error) {
+        this.error = '删除项目失败'
+        this.loading = false
+        throw error
+      }
+    },
+
+    /**
+     * 设置筛选条件
+     */
+    setFilters(filters: ProjectFilter) {
+      this.filters = { ...this.filters, ...filters }
+    },
+
+    /**
+     * 清除筛选条件
+     */
+    clearFilters() {
+      this.filters = {}
+    },
+
+    /**
+     * 重置Store
+     */
+    reset() {
+      this.projects = []
+      this.currentProject = null
+      this.milestones = []
+      this.loading = false
+      this.error = null
+      this.filters = {}
     }
-    
-    return pi
-  }
-
-  // ============================================================================
-  // Return
-  // ============================================================================
-
-  return {
-    // State
-    projects,
-    currentProject,
-    loading,
-    error,
-
-    // Getters
-    projectsByDomain,
-    activeProjects,
-    projectHealthStats,
-    upcomingMilestones,
-
-    // Actions
-    fetchProjects,
-    fetchProjectById,
-    createProject,
-    updateProject,
-    deleteProject,
-    addMilestone,
-    updateMilestone,
-    updateTeamConfig,
-    linkEpic,
-    linkPIVersion,
-    calculateProjectProgress,
-    resetCurrentProject,
-    clearError,
-    
-    // Helper methods
-    getVersionsByProject,
-    getPIsByProject,
-
-    // Phase 1: PI时间线生成 ⭐
-    generatePITimeline,
-    createVersion,
-    createPI,
   }
 })
