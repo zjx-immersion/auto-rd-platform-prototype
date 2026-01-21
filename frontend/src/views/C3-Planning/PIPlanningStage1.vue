@@ -922,8 +922,11 @@ function getSprintTotalLoad(sprint: any) {
 function getLoadRate(teamId: string, sprintId: string) {
   const team = teams.value.find(t => t.id === teamId)
   if (!team) return 0
+  const capacity = team.capacity || 100 // 默认容量100
   const load = getSprintTeamLoad(teamId, sprintId)
-  return team.capacity > 0 ? Math.round((load / team.capacity) * 100) : 0
+  const rate = capacity > 0 ? Math.round((load / capacity) * 100) : 0
+  // 确保返回有效数字（ElProgress要求0-100之间的数字）
+  return isNaN(rate) ? 0 : Math.max(0, rate)
 }
 
 function handleSelectItem(item: any, type: 'feature' | 'ssts') {
