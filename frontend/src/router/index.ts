@@ -95,15 +95,22 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'function',
         children: [
-          // C0: 领域项目管理
+          // C0: 领域项目管理 - V3.0重新设计
           {
             path: 'c0-project',
             children: [
+              // ========== 项目管理 ==========
               {
                 path: 'list',
                 name: 'ProjectList',
                 component: () => import('@/views/C0-Project/ProjectList.vue'),
                 meta: { title: '项目列表', breadcrumb: ['固有功能', 'C0: 领域项目管理', '项目列表'] }
+              },
+              {
+                path: 'create',
+                name: 'ProjectCreate',
+                component: () => import('@/views/C0-Project/ProjectCreate.vue'),
+                meta: { title: '创建项目', breadcrumb: ['固有功能', 'C0: 领域项目管理', '创建项目'] }
               },
               {
                 path: 'detail/:id',
@@ -117,66 +124,53 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('@/views/C0-Project/ProjectMonitor.vue'),
                 meta: { title: '项目监控', breadcrumb: ['固有功能', 'C0: 领域项目管理', '项目监控'] }
               },
+              
+              // ========== 1级视图层 ==========
+              // 项目Timeline（整体多集计划主页）⭐⭐⭐⭐
               {
-                path: 'create',
-                name: 'ProjectCreate',
-                component: () => import('@/views/C0-Project/ProjectCreate.vue'),
-                meta: { title: '创建项目', breadcrumb: ['固有功能', 'C0: 领域项目管理', '创建项目'] }
+                path: 'timeline/:projectId',
+                name: 'ProjectTimeline',
+                component: () => import('@/views/C0-Project/ProjectTimeline.vue'),
+                meta: { title: '项目Timeline', breadcrumb: ['固有功能', 'C0: 领域项目管理', '项目Timeline'] }
               },
+              // PI集合视图
+              {
+                path: 'pi-collection/:projectId',
+                name: 'PICollectionView',
+                component: () => import('@/views/C0-Project/PICollectionView.vue'),
+                meta: { title: 'PI集合视图', breadcrumb: ['固有功能', 'C0: 领域项目管理', 'PI集合视图'] }
+              },
+              
+              // ========== 2级规划层（核心工作台）⭐⭐⭐⭐⭐ ==========
+              // 多产品版本规划工作台
+              {
+                path: 'version-planning-workspace/:projectId',
+                name: 'VersionPlanningWorkspace',
+                component: () => import('@/views/C0-Project/VersionPlanningWorkspace.vue'),
+                meta: { title: '多产品版本规划工作台', breadcrumb: ['固有功能', 'C0: 领域项目管理', '版本规划工作台'] }
+              },
+              
+              // ========== 管理层 ==========
+              // 版本管理
               {
                 path: 'version/list',
                 name: 'VersionManagement',
                 component: () => import('@/views/C0-Project/VersionManagement.vue'),
-                meta: { title: '版本管理', breadcrumb: ['固有功能', 'C0: 领域项目管理', '版本管理'] }
+                meta: { title: '版本列表', breadcrumb: ['固有功能', 'C0: 领域项目管理', '版本列表'] }
               },
+              // 产品管理（Phase1已实现）
               {
-                path: 'pi/create',
-                name: 'PICreate',
-                component: () => import('@/views/C0-Project/PICreate.vue'),
-                meta: { title: '创建PI', breadcrumb: ['固有功能', 'C0: 领域项目管理', '创建PI'] }
-              },
-              {
-                path: 'version/feature-allocation',
-                name: 'FeatureAllocation',
-                component: () => import('@/views/C0-Project/FeatureAllocation.vue'),
-                meta: { title: 'Feature分配', breadcrumb: ['固有功能', 'C0: 领域项目管理', 'Feature分配'] }
-              },
-              {
-                path: 'version/epic-allocation',
-                name: 'EpicAllocation',
-                component: () => import('@/views/C0-Project/EpicAllocation.vue'),
-                meta: { title: 'Epic分配', breadcrumb: ['固有功能', 'C0: 领域项目管理', 'Epic分配'] }
-              },
-              {
-                path: 'version/planning-v2',
-                name: 'VersionPlanningV2',
-                component: () => import('@/views/C0-Project/VersionPlanningV2.vue'),
-                meta: { title: '版本规划V2（完成度管理）', breadcrumb: ['固有功能', 'C0: 领域项目管理', '版本规划V2'] }
-              },
-              {
-                path: 'version/planning-v2/:id',
-                name: 'VersionPlanningV2Detail',
-                component: () => import('@/views/C0-Project/VersionPlanningV2.vue'),
-                meta: { title: '版本规划V2', breadcrumb: ['固有功能', 'C0: 领域项目管理', '版本规划V2'] }
-              },
-              {
-                path: 'version/plan-board',
-                name: 'VersionPlanBoard',
-                component: () => import('@/views/C0-Project/VersionPlanBoard.vue'),
-                meta: { title: 'PI版本规划工作台', breadcrumb: ['固有功能', 'C0: 领域项目管理', 'PI版本规划工作台'] }
-              },
-              {
-                path: 'monitor/:id',
-                name: 'ProjectMonitor',
-                component: () => import('@/views/C0-Project/ProjectMonitor.vue'),
-                meta: { title: '项目监控', breadcrumb: ['固有功能', 'C0: 领域项目管理', '项目监控'] }
-              },
-              // 产品管理 ⭐新增
-              {
-                path: 'project/:projectId/products',
+                path: 'products',
                 name: 'ProductManagement',
                 component: () => import('@/views/C0-Project/ProductManagement.vue'),
                 meta: { title: '产品管理', breadcrumb: ['固有功能', 'C0: 领域项目管理', '产品管理'] }
+              },
+              // 团队管理 ⚠️新增（紧急修复）
+              {
+                path: 'team/management',
+                name: 'TeamManagement',
+                component: () => import('@/views/C0-Project/TeamManagement.vue'),
+                meta: { title: '团队管理', breadcrumb: ['固有功能', 'C0: 领域项目管理', '团队管理'] }
               }
             ]
           },

@@ -44,7 +44,7 @@
 
       <el-divider v-if="!appStore.sidebarCollapsed" />
 
-      <!-- C0: 领域项目管理 -->
+      <!-- C0: 领域项目管理 - V3.0重新设计 -->
       <el-sub-menu index="c0">
         <template #title>
           <el-icon><FolderOpened /></el-icon>
@@ -54,31 +54,36 @@
         <!-- 项目管理 -->
         <el-sub-menu index="c0-project">
           <template #title>项目管理</template>
-          <el-menu-item index="/function/c0-project/list">项目列表</el-menu-item>
-          <el-menu-item index="/function/c0-project/create">创建项目</el-menu-item>
+          <el-menu-item index="/function/c0-project/list">
+            <span>项目列表 ⭐</span>
+          </el-menu-item>
+          <el-menu-item index="/function/c0-project/create">
+            <span>创建项目</span>
+          </el-menu-item>
         </el-sub-menu>
         
         <!-- 版本管理 -->
         <el-sub-menu index="c0-version">
           <template #title>版本管理</template>
-          <el-menu-item index="/function/c0-project/version/list">版本列表</el-menu-item>
-          <el-menu-item index="/function/c0-project/version/planning-v2">
-            <span>版本规划V2 ⭐</span>
+          <el-menu-item index="/function/c0-project/version/list">
+            <span>版本列表</span>
           </el-menu-item>
-          <el-menu-item index="/function/c0-project/version/plan-board">PI版本规划工作台</el-menu-item>
         </el-sub-menu>
         
-        <!-- PI管理 -->
-        <el-sub-menu index="c0-pi">
-          <template #title>PI管理</template>
-          <el-menu-item index="/function/c0-project/pi/create">创建PI</el-menu-item>
+        <!-- 产品管理 -->
+        <el-sub-menu index="c0-product">
+          <template #title>产品管理</template>
+          <el-menu-item index="/function/c0-project/products">
+            <span>产品列表</span>
+          </el-menu-item>
         </el-sub-menu>
         
-        <!-- 分配管理 -->
-        <el-sub-menu index="c0-allocation">
-          <template #title>分配管理</template>
-          <el-menu-item index="/function/c0-project/version/epic-allocation">Epic分配</el-menu-item>
-          <el-menu-item index="/function/c0-project/version/feature-allocation">Feature分配</el-menu-item>
+        <!-- 团队管理 ⭐新增 -->
+        <el-sub-menu index="c0-team">
+          <template #title>团队管理</template>
+          <el-menu-item index="/function/c0-project/team/management">
+            <span>团队列表 ⭐</span>
+          </el-menu-item>
         </el-sub-menu>
       </el-sub-menu>
 

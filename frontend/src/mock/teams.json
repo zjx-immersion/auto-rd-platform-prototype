@@ -1,0 +1,322 @@
+{
+  "teams": [
+    {
+      "teamId": "TEAM-001",
+      "teamName": "ADAS团队",
+      "teamCode": "TEAM-ADAS",
+      "domain": "智能驾驶",
+      "description": "负责L2+自动驾驶功能开发",
+      "teamLeadId": "USER-001",
+      "teamLeadName": "李娜",
+      "capacityPerIteration": 100,
+      "teamSize": 8,
+      "members": [
+        {
+          "userId": "USER-001",
+          "userName": "李娜",
+          "email": "lina@voyah.com",
+          "role": "Team Lead",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-002",
+          "userName": "王强",
+          "email": "wangqiang@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-003",
+          "userName": "张敏",
+          "email": "zhangmin@voyah.com",
+          "role": "QA",
+          "joinedAt": "2025-01-05"
+        },
+        {
+          "userId": "USER-004",
+          "userName": "赵勇",
+          "email": "zhaoyong@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-10"
+        },
+        {
+          "userId": "USER-005",
+          "userName": "陈静",
+          "email": "chenjing@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-10"
+        },
+        {
+          "userId": "USER-006",
+          "userName": "吴磊",
+          "email": "wulei@voyah.com",
+          "role": "Architect",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-007",
+          "userName": "周杰",
+          "email": "zhoujie@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-15"
+        },
+        {
+          "userId": "USER-008",
+          "userName": "刘涛",
+          "email": "liutao@voyah.com",
+          "role": "QA",
+          "joinedAt": "2025-01-15"
+        }
+      ],
+      "status": "active",
+      "statistics": {
+        "totalMembers": 8,
+        "activeProjects": 3,
+        "currentLoad": 75,
+        "averageCapacityPerPerson": 12.5
+      },
+      "createdBy": "ADMIN",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-15T10:00:00Z"
+    },
+    {
+      "teamId": "TEAM-002",
+      "teamName": "座舱团队",
+      "teamCode": "TEAM-CABIN",
+      "domain": "智能座舱",
+      "description": "负责智能座舱HMI和交互功能开发",
+      "teamLeadId": "USER-011",
+      "teamLeadName": "刘涛",
+      "capacityPerIteration": 80,
+      "teamSize": 6,
+      "members": [
+        {
+          "userId": "USER-011",
+          "userName": "刘涛",
+          "email": "liutao2@voyah.com",
+          "role": "Team Lead",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-012",
+          "userName": "陈静",
+          "email": "chenjing2@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-013",
+          "userName": "赵勇",
+          "email": "zhaoyong2@voyah.com",
+          "role": "QA",
+          "joinedAt": "2025-01-05"
+        },
+        {
+          "userId": "USER-014",
+          "userName": "孙丽",
+          "email": "sunli@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-10"
+        },
+        {
+          "userId": "USER-015",
+          "userName": "马强",
+          "email": "maqiang@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-10"
+        },
+        {
+          "userId": "USER-016",
+          "userName": "林雪",
+          "email": "linxue@voyah.com",
+          "role": "UI/UX",
+          "joinedAt": "2025-01-01"
+        }
+      ],
+      "status": "active",
+      "statistics": {
+        "totalMembers": 6,
+        "activeProjects": 2,
+        "currentLoad": 60,
+        "averageCapacityPerPerson": 13.3
+      },
+      "createdBy": "ADMIN",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-15T10:00:00Z"
+    },
+    {
+      "teamId": "TEAM-003",
+      "teamName": "网关团队",
+      "teamCode": "TEAM-GATEWAY",
+      "domain": "电子电器架构",
+      "description": "负责中央网关和域控制器开发",
+      "teamLeadId": "USER-021",
+      "teamLeadName": "周杰",
+      "capacityPerIteration": 60,
+      "teamSize": 5,
+      "members": [
+        {
+          "userId": "USER-021",
+          "userName": "周杰",
+          "email": "zhoujie2@voyah.com",
+          "role": "Team Lead",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-022",
+          "userName": "吴磊",
+          "email": "wulei2@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-023",
+          "userName": "郑华",
+          "email": "zhenghua@voyah.com",
+          "role": "Architect",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-024",
+          "userName": "王芳",
+          "email": "wangfang@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-10"
+        },
+        {
+          "userId": "USER-025",
+          "userName": "李明",
+          "email": "liming@voyah.com",
+          "role": "QA",
+          "joinedAt": "2025-01-10"
+        }
+      ],
+      "status": "active",
+      "statistics": {
+        "totalMembers": 5,
+        "activeProjects": 2,
+        "currentLoad": 50,
+        "averageCapacityPerPerson": 12
+      },
+      "createdBy": "ADMIN",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-15T10:00:00Z"
+    },
+    {
+      "teamId": "TEAM-004",
+      "teamName": "OTA团队",
+      "teamCode": "TEAM-OTA",
+      "domain": "云服务",
+      "description": "负责OTA升级和车云互联功能",
+      "teamLeadId": "USER-031",
+      "teamLeadName": "张伟",
+      "capacityPerIteration": 70,
+      "teamSize": 6,
+      "members": [
+        {
+          "userId": "USER-031",
+          "userName": "张伟",
+          "email": "zhangwei@voyah.com",
+          "role": "Team Lead",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-032",
+          "userName": "黄丽",
+          "email": "huangli@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-033",
+          "userName": "许峰",
+          "email": "xufeng@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-05"
+        },
+        {
+          "userId": "USER-034",
+          "userName": "杨静",
+          "email": "yangjing@voyah.com",
+          "role": "QA",
+          "joinedAt": "2025-01-05"
+        },
+        {
+          "userId": "USER-035",
+          "userName": "罗强",
+          "email": "luoqiang@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-10"
+        },
+        {
+          "userId": "USER-036",
+          "userName": "钱敏",
+          "email": "qianmin@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-10"
+        }
+      ],
+      "status": "active",
+      "statistics": {
+        "totalMembers": 6,
+        "activeProjects": 1,
+        "currentLoad": 40,
+        "averageCapacityPerPerson": 11.7
+      },
+      "createdBy": "ADMIN",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-15T10:00:00Z"
+    },
+    {
+      "teamId": "TEAM-005",
+      "teamName": "平台架构团队",
+      "teamCode": "TEAM-PLATFORM",
+      "domain": "平台架构",
+      "description": "负责整体架构设计和平台能力建设",
+      "teamLeadId": "USER-041",
+      "teamLeadName": "刘强",
+      "capacityPerIteration": 50,
+      "teamSize": 4,
+      "members": [
+        {
+          "userId": "USER-041",
+          "userName": "刘强",
+          "email": "liuqiang@voyah.com",
+          "role": "Team Lead",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-042",
+          "userName": "陈伟",
+          "email": "chenwei@voyah.com",
+          "role": "Architect",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-043",
+          "userName": "王静",
+          "email": "wangjing@voyah.com",
+          "role": "Architect",
+          "joinedAt": "2025-01-01"
+        },
+        {
+          "userId": "USER-044",
+          "userName": "张明",
+          "email": "zhangming@voyah.com",
+          "role": "Developer",
+          "joinedAt": "2025-01-10"
+        }
+      ],
+      "status": "active",
+      "statistics": {
+        "totalMembers": 4,
+        "activeProjects": 3,
+        "currentLoad": 80,
+        "averageCapacityPerPerson": 12.5
+      },
+      "createdBy": "ADMIN",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-15T10:00:00Z"
+    }
+  ]
+}
