@@ -9,7 +9,7 @@
         </el-button>
         <span class="page-title">PI Planning - 全局视角: Feature/SSTS排布</span>
         <el-text size="small" type="info" style="margin-left: 16px;">
-          将Feature和SSTS分配到不同团队和迭代
+          将Feature和SSTS分配到不同产品和迭代
         </el-text>
         <el-tag v-if="currentPI" :type="getPIStatusType(currentPI.status)" size="large" style="margin-left: 12px;">
           {{ currentPI.name }}
@@ -157,12 +157,12 @@
         </el-card>
       </el-col>
 
-      <!-- 右侧：团队×Sprint排布看板 -->
+      <!-- 右侧：产品×Sprint排布看板 -->
       <el-col :span="18">
         <el-card shadow="hover" style="height: calc(100vh - 300px); overflow: auto;">
           <template #header>
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span>团队×Sprint排布看板</span>
+              <span>产品×Sprint排布看板</span>
               <el-button size="small" @click="handleDetectConflicts">检测冲突</el-button>
             </div>
           </template>
@@ -203,7 +203,7 @@
           <div class="planning-board">
             <!-- 表头：Sprint列表 -->
             <div class="board-header">
-              <div class="team-header-cell">团队</div>
+              <div class="team-header-cell">产品</div>
               <div 
                 v-for="sprint in sprints" 
                 :key="sprint.id"
@@ -222,104 +222,136 @@
               </div>
             </div>
 
-            <!-- 团队行 -->
-            <div 
-              v-for="team in teams" 
-              :key="team.id"
-              class="team-row"
-            >
-              <div class="team-cell">
-                <el-text tag="b">{{ team.name }}</el-text>
-                <el-text size="small" type="info">{{ team.capacity }} SP</el-text>
+            <!-- 产品行（按产品线分组） -->
+            <template v-for="[productLine, lineProducts] in productsByLine" :key="productLine">
+              <!-- 产品线分隔 -->
+              <div class="product-line-divider">
+                <el-text tag="b" type="primary">{{ productLine }}</el-text>
               </div>
               
-              <!-- Sprint列 -->
+              <!-- 该产品线下的产品行 -->
               <div 
-                v-for="sprint in sprints" 
-                :key="sprint.id"
-                class="sprint-cell"
-                :class="{ 
-                  'drop-target': dragTarget?.sprintId === sprint.id && dragTarget?.teamId === team.id,
-                  'overload': getSprintTeamLoad(team.id, sprint.id) > team.capacity
-                }"
-                @dragover.prevent="handleDragOver($event, team.id, sprint.id)"
-                @drop="handleDrop($event, team.id, sprint.id)"
-                @dragleave="handleDragLeave"
+                v-for="product in lineProducts" 
+                :key="product.id"
+                class="team-row"
               >
-                <!-- 容量显示 -->
-                <div class="capacity-info">
-                  <el-text size="small" type="info">
-                    {{ getSprintTeamLoad(team.id, sprint.id) }}/{{ team.capacity }} SP
-                  </el-text>
-                  <el-progress 
-                    :percentage="Math.min(getLoadRate(team.id, sprint.id), 100)" 
-                    :status="getLoadRate(team.id, sprint.id) > 100 ? 'exception' : undefined"
-                    :stroke-width="4"
-                  />
-                  <el-text 
-                    v-if="getLoadRate(team.id, sprint.id) > 100" 
-                    size="small" 
-                    type="danger"
-                  >
-                    超{{ getLoadRate(team.id, sprint.id) - 100 }}%
-                  </el-text>
+                <div class="team-cell">
+                  <el-text tag="b">{{ product.name }}</el-text>
+                  <el-text size="small" type="info">{{ product.code }}</el-text>
                 </div>
+              
+                
+                <!-- Sprint列 -->
+                <div 
+                  v-for="sprint in sprints" 
+                  :key="sprint.id"
+                  class="sprint-cell"
+                  :class="{ 
+                    'drop-target': dragTarget?.sprintId === sprint.id && dragTarget?.productId === product.id
+                  }"
+                  @dragover.prevent="handleDragOver($event, product.id, sprint.id)"
+                  @drop="handleDrop($event, product.id, sprint.id)"
+                  @dragleave="handleDragLeave"
+                >
+                  <!-- 容量显示 -->
+                  <div class="capacity-info">
+                    <el-text size="small" type="info">
+                      {{ getSprintProductLoad(product.id, sprint.id) }} SP
+                    </el-text>
+                  </div>
 
-                <!-- 已分配的Feature/SSTS卡片 -->
-                <div class="allocated-items">
-                  <div 
-                    v-for="item in getAllocatedItems(team.id, sprint.id)"
-                    :key="`${item.type}-${item.id}`"
-                    class="allocated-card"
-                    :class="{
-                      'highlight-dependency': highlightedSSTS.includes(item.id),
-                      'feature-card': item.type === 'feature',
-                      'ssts-card': item.type === 'ssts',
-                      'multi-sprint': item.duration && item.duration > 1
-                    }"
-                    @click.stop="handleSelectItem(item, item.type)"
-                  >
-                    <div class="card-header">
-                      <el-text tag="b" size="small">{{ item.code }}</el-text>
-                      <div style="display: flex; gap: 4px;">
-                        <el-button 
-                          v-if="item.type === 'feature'"
-                          size="small" 
-                          text 
-                          @click.stop="handleSetDuration(item, team.id, sprint.id)"
-                          :title="item.duration ? `横跨${item.duration}个Sprint` : '设置持续时间'"
-                        >
-                          <el-icon>
-                            <el-icon-more-filled v-if="item.duration && item.duration > 1" />
-                            <el-icon-more v-else />
-                          </el-icon>
-                        </el-button>
-                        <el-button 
-                          size="small" 
-                          text 
-                          type="danger"
-                          @click.stop="handleRemoveAllocation(item, team.id, sprint.id)"
-                        >
-                          <el-icon><Close /></el-icon>
-                        </el-button>
+                  <!-- 已分配的Feature/SSTS（Feature可展开/收缩） -->
+                  <div class="allocated-items">
+                    <template v-for="item in getAllocatedItems(product.id, sprint.id)" :key="`${item.type}-${item.id}`">
+                      <!-- Feature卡片（可展开显示SSTS） -->
+                      <div 
+                        v-if="item.type === 'feature'"
+                        class="allocated-card feature-card"
+                        :class="{
+                          'highlight-dependency': highlightedSSTS.includes(item.id),
+                          'multi-sprint': item.duration && item.duration > 1,
+                          'expanded': expandedFeatures.has(item.id)
+                        }"
+                      >
+                        <div class="card-header" @click="toggleFeatureExpand(item.id)" style="cursor: pointer;">
+                          <div style="display: flex; align-items: center; gap: 8px;">
+                            <el-icon style="transition: transform 0.3s;" :style="{ transform: expandedFeatures.has(item.id) ? 'rotate(90deg)' : 'rotate(0deg)' }">
+                              <ArrowRight />
+                            </el-icon>
+                            <el-tag size="small" type="primary">
+                              {{ item.code }}
+                            </el-tag>
+                          </div>
+                          <el-button 
+                            size="small" 
+                            text 
+                            type="danger"
+                            @click.stop="handleRemoveAllocation(item, product.id, sprint.id)"
+                          >
+                            <el-icon><Close /></el-icon>
+                          </el-button>
+                        </div>
+                        <el-text size="small" class="card-title" @click="toggleFeatureExpand(item.id)" style="cursor: pointer;">
+                          {{ item.name }}
+                        </el-text>
+                        <div class="card-footer">
+                          <el-text size="small" type="info">{{ item.storyPoints }} SP</el-text>
+                          <el-text size="small" type="info">{{ getFeatureSSTSCount(item.id) }} 个SSTS</el-text>
+                        </div>
+                        
+                        <!-- 展开显示SSTS -->
+                        <div v-if="expandedFeatures.has(item.id)" class="feature-ssts-list">
+                          <div 
+                            v-for="ssts in getFeatureSSTSs(item.id, product.id, sprint.id)"
+                            :key="ssts.id"
+                            class="ssts-sub-card"
+                          >
+                            <div class="ssts-sub-header">
+                              <el-tag size="small" type="success">{{ ssts.code }}</el-tag>
+                              <el-text size="small" type="info">{{ ssts.storyPoints }} SP</el-text>
+                            </div>
+                            <el-text size="small">{{ ssts.title }}</el-text>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <el-text size="small" class="card-title">{{ item.name || item.title }}</el-text>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                      <el-tag size="small">{{ item.storyPoints || getSSTSStoryPoints(item) }} SP</el-tag>
-                      <el-tag v-if="item.duration && item.duration > 1" size="small" type="warning">
-                        {{ item.duration }}个Sprint
-                      </el-tag>
-                    </div>
+                      
+                      <!-- SSTS卡片（独立分配的，不属于Feature） -->
+                      <div 
+                        v-else
+                        class="allocated-card ssts-card"
+                        :class="{
+                          'highlight-dependency': highlightedSSTS.includes(item.id)
+                        }"
+                        @click.stop="handleSelectItem(item, item.type)"
+                      >
+                        <div class="card-header">
+                          <el-tag size="small" type="success">
+                            {{ item.code }}
+                          </el-tag>
+                          <el-button 
+                            size="small" 
+                            text 
+                            type="danger"
+                            @click.stop="handleRemoveAllocation(item, product.id, sprint.id)"
+                          >
+                            <el-icon><Close /></el-icon>
+                          </el-button>
+                        </div>
+                        <el-text size="small" class="card-title">{{ item.name || item.title }}</el-text>
+                        <div class="card-footer">
+                          <el-text size="small" type="info">{{ item.storyPoints }} SP</el-text>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+
+                  <!-- 放置提示 -->
+                  <div v-if="getAllocatedItems(product.id, sprint.id).length === 0" class="drop-hint">
+                    [+ 拖拽Feature/SSTS到此处]
                   </div>
                 </div>
-
-                <!-- 放置提示 -->
-                <div v-if="getAllocatedItems(team.id, sprint.id).length === 0" class="drop-hint">
-                  [+ 放置Feature/SSTS到此处]
-                </div>
               </div>
-            </div>
+            </template>
           </div>
         </el-card>
       </el-col>
@@ -575,7 +607,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import {
-  ArrowLeft, Search, Connection, Close, Check, Trophy, Plus, Minus, MoreFilled, More, UserFilled, Warning
+  ArrowLeft, ArrowRight, Search, Connection, Close, Check, Trophy, Plus, Minus, MoreFilled, More, UserFilled, Warning
 } from '@element-plus/icons-vue'
 import PageContainer from '@/components/Common/PageContainer.vue'
 import DependencyConflictDialog from '@/components/Planning/DependencyConflictDialog.vue'
@@ -584,6 +616,7 @@ import { useSprintStore } from '@/stores/modules/sprint'
 import { useFeatureStore } from '@/stores/modules/feature'
 import { useSSTSStore } from '@/stores/modules/ssts'
 import { useTeamStore } from '@/stores/modules/team'
+import { useProductStore } from '@/stores/modules/product'
 import { useVersionStore } from '@/stores/modules/version'
 import { useVehicleNodeStore } from '@/stores/modules/vehicle-node'
 import { createDependencyChecker, type DependencyCheckResult } from '@/utils/dependency-checker'
@@ -600,6 +633,7 @@ const sprintStore = useSprintStore()
 const featureStore = useFeatureStore()
 const sstsStore = useSSTSStore()
 const teamStore = useTeamStore()
+const productStore = useProductStore()
 const versionStore = useVersionStore()
 const vehicleNodeStore = useVehicleNodeStore()
 
@@ -614,7 +648,7 @@ const searchKeyword = ref('')
 const filterType = ref<'feature' | 'ssts' | ''>('')
 const selectedItem = ref<any>(null)
 const highlightedSSTS = ref<string[]>([])
-const dragTarget = ref<{ teamId: string; sprintId: string } | null>(null)
+const dragTarget = ref<{ productId: string; sprintId: string } | null>(null)
 const draggedItem = ref<any>(null)
 
 // 依赖关系管理
@@ -646,10 +680,10 @@ const currentDurationTeamId = ref<string>('')
 const currentDurationSprintId = ref<string>('')
 const durationValue = ref(1)
 
-// 阶段1分配数据
+// 阶段1分配数据（改为产品×Sprint）
 const stage1Allocations = ref<{
-  features: Array<{ featureId: string; teamId: string; sprintId: string; duration?: number }>
-  sstss: Array<{ sstsId: string; teamId: string; sprintId: string; duration?: number }>
+  features: Array<{ featureId: string; productId: string; sprintId: string; duration?: number }>
+  sstss: Array<{ sstsId: string; productId: string; sprintId: string; duration?: number }>
 }>({
   features: [],
   sstss: []
@@ -687,6 +721,25 @@ const sprints = computed(() => {
 })
 
 const teams = computed(() => teamStore.teams)
+
+// 产品列表（按产品线分组）
+const products = computed(() => productStore.products)
+
+// 按产品线分组的产品
+const productsByLine = computed(() => {
+  const grouped = new Map<string, typeof products.value>()
+  products.value.forEach(product => {
+    const line = product.productLine || '其他'
+    if (!grouped.has(line)) {
+      grouped.set(line, [])
+    }
+    grouped.get(line)!.push(product)
+  })
+  return grouped
+})
+
+// Feature展开/收缩状态
+const expandedFeatures = ref<Set<string>>(new Set())
 
 const features = computed(() => {
   // 兼容ID大小写不匹配（targetPI可能是小写pi-001，而piId是大写PI-001）
@@ -874,12 +927,13 @@ function getSSTSStoryPoints(ssts: any) {
   return ssts.storyPoints || ssts.estimate || 0
 }
 
-function getAllocatedItems(teamId: string, sprintId: string) {
+// 获取分配到指定产品和Sprint的Feature/SSTS
+function getAllocatedItems(productId: string, sprintId: string) {
   const items: any[] = []
   
   // Feature (包含duration信息)
   stage1Allocations.value.features.forEach(alloc => {
-    if (alloc.teamId === teamId && alloc.sprintId === sprintId) {
+    if (alloc.productId === productId && alloc.sprintId === sprintId) {
       const feature = features.value.find(f => f.id === alloc.featureId)
       if (feature) {
         items.push({ ...feature, type: 'feature', duration: alloc.duration })
@@ -887,9 +941,9 @@ function getAllocatedItems(teamId: string, sprintId: string) {
     }
   })
 
-  // SSTS (包含duration信息)
+  // SSTS (独立分配的，不通过Feature)
   stage1Allocations.value.sstss.forEach(alloc => {
-    if (alloc.teamId === teamId && alloc.sprintId === sprintId) {
+    if (alloc.productId === productId && alloc.sprintId === sprintId) {
       const ssts = sstss.value.find(s => s.id === alloc.sstsId)
       if (ssts) {
         items.push({ ...ssts, type: 'ssts', duration: alloc.duration })
@@ -900,8 +954,35 @@ function getAllocatedItems(teamId: string, sprintId: string) {
   return items
 }
 
-function getSprintTeamLoad(teamId: string, sprintId: string) {
-  const items = getAllocatedItems(teamId, sprintId)
+// Feature展开/收缩切换
+function toggleFeatureExpand(featureId: string) {
+  if (expandedFeatures.value.has(featureId)) {
+    expandedFeatures.value.delete(featureId)
+  } else {
+    expandedFeatures.value.add(featureId)
+  }
+}
+
+// 获取Feature下的SSTS数量
+function getFeatureSSTSCount(featureId: string) {
+  return sstss.value.filter(s => s.featureId === featureId).length
+}
+
+// 获取Feature下已分配到当前产品和Sprint的SSTS
+function getFeatureSSTSs(featureId: string, productId: string, sprintId: string) {
+  return sstss.value.filter(s => {
+    return s.featureId === featureId &&
+           stage1Allocations.value.sstss.some(alloc => 
+             alloc.sstsId === s.id && 
+             alloc.productId === productId && 
+             alloc.sprintId === sprintId
+           )
+  })
+}
+
+// 获取产品在指定Sprint的负载
+function getSprintProductLoad(productId: string, sprintId: string) {
+  const items = getAllocatedItems(productId, sprintId)
   return items.reduce((sum, item) => {
     if (item.type === 'feature') {
       return sum + (item.storyPoints || 0)
@@ -913,20 +994,16 @@ function getSprintTeamLoad(teamId: string, sprintId: string) {
 
 function getSprintTotalLoad(sprint: any) {
   let total = 0
-  teams.value.forEach(team => {
-    total += getSprintTeamLoad(team.id, sprint.id)
+  products.value.forEach(product => {
+    total += getSprintProductLoad(product.id, sprint.id)
   })
   return total
 }
 
-function getLoadRate(teamId: string, sprintId: string) {
-  const team = teams.value.find(t => t.id === teamId)
-  if (!team) return 0
-  const capacity = team.capacity || 100 // 默认容量100
-  const load = getSprintTeamLoad(teamId, sprintId)
-  const rate = capacity > 0 ? Math.round((load / capacity) * 100) : 0
-  // 确保返回有效数字（ElProgress要求0-100之间的数字）
-  return isNaN(rate) ? 0 : Math.max(0, rate)
+// 产品×Sprint模式不需要getLoadRate（产品没有capacity概念）
+// 保留函数以防其他地方使用，但返回0
+function getLoadRate(productId: string, sprintId: string) {
+  return 0
 }
 
 function handleSelectItem(item: any, type: 'feature' | 'ssts') {
@@ -947,9 +1024,9 @@ function handleDragStart(event: DragEvent, item: any, type: 'feature' | 'ssts') 
   }
 }
 
-function handleDragOver(event: DragEvent, teamId: string, sprintId: string) {
+function handleDragOver(event: DragEvent, productId: string, sprintId: string) {
   event.preventDefault()
-  dragTarget.value = { teamId, sprintId }
+  dragTarget.value = { productId, sprintId }
   if (event.dataTransfer) {
     event.dataTransfer.dropEffect = 'move'
   }
@@ -959,27 +1036,17 @@ function handleDragLeave() {
   dragTarget.value = null
 }
 
-function handleDrop(event: DragEvent, teamId: string, sprintId: string) {
+function handleDrop(event: DragEvent, productId: string, sprintId: string) {
   event.preventDefault()
   dragTarget.value = null
 
   if (!draggedItem.value) return
 
   const item = draggedItem.value
-  const team = teams.value.find(t => t.id === teamId)
+  const product = products.value.find(p => p.id === productId)
   const sprint = sprints.value.find(s => s.id === sprintId)
 
-  if (!team || !sprint) return
-
-  // 容量检查
-  const currentLoad = getSprintTeamLoad(teamId, sprintId)
-  const itemSP = item.type === 'feature' ? (item.storyPoints || 0) : getSSTSStoryPoints(item)
-  
-  if (currentLoad + itemSP > team.capacity) {
-    ElMessage.warning(`容量不足！当前负载: ${currentLoad} SP，添加后: ${currentLoad + itemSP} SP，容量: ${team.capacity} SP`)
-    draggedItem.value = null
-    return
-  }
+  if (!product || !sprint) return
 
   // 依赖检查（如果是SSTS）
   if (item.type === 'ssts' && item.dependencies?.length > 0) {
@@ -1009,12 +1076,30 @@ function handleDrop(event: DragEvent, teamId: string, sprintId: string) {
     if (index !== -1) {
       stage1Allocations.value.features.splice(index, 1)
     }
-    // 添加新分配
+    // 添加Feature分配
     stage1Allocations.value.features.push({
       featureId: item.id,
-      teamId,
+      productId,
       sprintId
     })
+    
+    // 🎯 新增：当分配Feature时，将其所有SSTS也一起分配到同一产品和Sprint
+    const featureSSTSs = sstss.value.filter(s => s.featureId === item.id)
+    featureSSTSs.forEach(ssts => {
+      // 移除该SSTS的旧分配
+      const sstsIndex = stage1Allocations.value.sstss.findIndex(a => a.sstsId === ssts.id)
+      if (sstsIndex !== -1) {
+        stage1Allocations.value.sstss.splice(sstsIndex, 1)
+      }
+      // 添加SSTS分配
+      stage1Allocations.value.sstss.push({
+        sstsId: ssts.id,
+        productId,
+        sprintId
+      })
+    })
+    
+    ElMessage.success(`Feature及其${featureSSTSs.length}个SSTS已分配到${product.name} - ${sprint.name}`)
   } else {
     // 移除旧分配
     const index = stage1Allocations.value.sstss.findIndex(a => a.sstsId === item.id)
@@ -1024,31 +1109,60 @@ function handleDrop(event: DragEvent, teamId: string, sprintId: string) {
     // 添加新分配
     stage1Allocations.value.sstss.push({
       sstsId: item.id,
-      teamId,
+      productId,
       sprintId
     })
+    
+    // 🎯 新增：当分配SSTS后，如果该SSTS所属的Feature也要显示
+    // 自动分配Feature到同一产品和Sprint
+    const ssts = sstss.value.find(s => s.id === item.id)
+    if (ssts && ssts.featureId) {
+      const featureAllocExists = stage1Allocations.value.features.some(a => 
+        a.featureId === ssts.featureId && a.productId === productId && a.sprintId === sprintId
+      )
+      if (!featureAllocExists) {
+        stage1Allocations.value.features.push({
+          featureId: ssts.featureId,
+          productId,
+          sprintId
+        })
+      }
+    }
+    
+    ElMessage.success('SSTS已分配')
   }
 
-  ElMessage.success('分配成功')
   draggedItem.value = null
 }
 
-function handleRemoveAllocation(item: any, teamId: string, sprintId: string) {
+function handleRemoveAllocation(item: any, productId: string, sprintId: string) {
   if (item.type === 'feature') {
     const index = stage1Allocations.value.features.findIndex(
-      a => a.featureId === item.id && a.teamId === teamId && a.sprintId === sprintId
+      a => a.featureId === item.id && a.productId === productId && a.sprintId === sprintId
     )
     if (index !== -1) {
       stage1Allocations.value.features.splice(index, 1)
-      ElMessage.success('已移除')
+      
+      // 🎯 移除Feature时，也移除其所有SSTS的分配
+      const featureSSTSs = sstss.value.filter(s => s.featureId === item.id)
+      featureSSTSs.forEach(ssts => {
+        const sstsIndex = stage1Allocations.value.sstss.findIndex(
+          a => a.sstsId === ssts.id && a.productId === productId && a.sprintId === sprintId
+        )
+        if (sstsIndex !== -1) {
+          stage1Allocations.value.sstss.splice(sstsIndex, 1)
+        }
+      })
+      
+      ElMessage.success(`Feature及其${featureSSTSs.length}个SSTS已移除`)
     }
   } else {
     const index = stage1Allocations.value.sstss.findIndex(
-      a => a.sstsId === item.id && a.teamId === teamId && a.sprintId === sprintId
+      a => a.sstsId === item.id && a.productId === productId && a.sprintId === sprintId
     )
     if (index !== -1) {
       stage1Allocations.value.sstss.splice(index, 1)
-      ElMessage.success('已移除')
+      ElMessage.success('SSTS已移除')
     }
   }
 }
@@ -1252,14 +1366,14 @@ function getCoveredSprints() {
   return sprints.value.slice(startIndex, startIndex + durationValue.value)
 }
 
-function handleSetDuration(item: any, teamId: string, sprintId: string) {
+function handleSetDuration(item: any, productId: string, sprintId: string) {
   selectedFeatureForDuration.value = item
-  currentDurationTeamId.value = teamId
+  currentDurationTeamId.value = productId  // 重用变量名，但实际存储productId
   currentDurationSprintId.value = sprintId
   
   // 获取当前的duration值
   const allocation = stage1Allocations.value.features.find(
-    a => a.featureId === item.id && a.teamId === teamId && a.sprintId === sprintId
+    a => a.featureId === item.id && a.productId === productId && a.sprintId === sprintId
   )
   durationValue.value = allocation?.duration || 1
   
@@ -1272,7 +1386,7 @@ function handleSaveDuration() {
   // 更新allocation中的duration
   const allocation = stage1Allocations.value.features.find(
     a => a.featureId === selectedFeatureForDuration.value.id && 
-         a.teamId === currentDurationTeamId.value && 
+         a.productId === currentDurationTeamId.value && 
          a.sprintId === currentDurationSprintId.value
   )
   
@@ -1542,7 +1656,10 @@ function handleExportConflictReport() {
 onMounted(async () => {
   loading.value = true
   try {
-    await piStore.fetchPIById(piId)
+    await Promise.all([
+      piStore.fetchPIById(piId),
+      productStore.fetchProducts()
+    ])
     // 加载草稿
     const draft = localStorage.getItem(`pi-planning-stage1-draft-${piId}`)
     if (draft) {
@@ -1764,6 +1881,46 @@ onMounted(async () => {
   border-left: 3px solid #67c23a;
 }
 
+/* Feature展开/收缩样式 */
+.allocated-card.feature-card.expanded {
+  background: #f0f9ff;
+  border-left: 4px solid #409eff;
+}
+
+.feature-ssts-list {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #dcdfe6;
+}
+
+.ssts-sub-card {
+  padding: 8px;
+  margin-bottom: 6px;
+  background: white;
+  border: 1px solid #e4e7ed;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.ssts-sub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+/* 产品线分隔 */
+.product-line-divider {
+  padding: 8px 12px;
+  background: #e8f4fd;
+  border-bottom: 2px solid #409eff;
+  font-weight: 600;
+  color: #409eff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -1779,6 +1936,14 @@ onMounted(async () => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
 }
 
 .drop-hint {
