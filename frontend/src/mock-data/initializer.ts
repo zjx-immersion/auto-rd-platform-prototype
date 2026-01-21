@@ -119,7 +119,8 @@ async function loadVersionsToStore() {
 async function loadPIsToStore() {
   const piStore = usePIStore()
   const pis = dataLoader.getDataset('pis')
-  piStore.piVersions = pis
+  // 注意：直接设置state而不是computed getter
+  piStore.pis = pis
   console.log(`✓ 加载了 ${pis.length} 个PI`)
 }
 
