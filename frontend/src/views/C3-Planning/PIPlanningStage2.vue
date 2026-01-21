@@ -372,7 +372,17 @@ const sprints = computed(() => {
 })
 
 const features = computed(() => {
-  return (featureStore.features || []).filter(f => f.targetPI === piId.value)
+  const piIdLower = piId.value.toLowerCase()
+  const filtered = (featureStore.features || []).filter(f => {
+    const targetPILower = (f.targetPI || '').toLowerCase()
+    return targetPILower === piIdLower
+  })
+  console.log('🔍 Stage2 Features过滤:', {
+    piId: piId.value,
+    totalFeatures: featureStore.features?.length || 0,
+    matchedCount: filtered.length
+  })
+  return filtered
 })
 
 const allSsts = computed(() => sstsStore.sstsList || [])

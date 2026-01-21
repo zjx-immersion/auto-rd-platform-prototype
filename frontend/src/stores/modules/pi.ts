@@ -128,10 +128,12 @@ export const usePIStore = defineStore('pi', {
       this.error = null
       
       try {
-        // 兼容新旧ID字段：piId || id
-        const pi: any = this.pis.find((p: any) => 
-          (p.piId === piId) || (p.id === piId)
-        )
+        // 兼容新旧ID字段：piId || id，同时兼容大小写
+        const piIdLower = piId.toLowerCase()
+        const pi: any = this.pis.find((p: any) => {
+          const pIdLower = (p.piId || p.id || '').toLowerCase()
+          return pIdLower === piIdLower
+        })
         if (pi) {
           // 字段映射：兼容旧页面期望的字段名
           this.currentPI = {
