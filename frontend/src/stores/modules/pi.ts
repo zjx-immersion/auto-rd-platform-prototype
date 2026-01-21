@@ -59,6 +59,24 @@ export const usePIStore = defineStore('pi', {
         totalStoryPoints: state.pis.reduce((sum, p) => sum + p.totalStoryPoints, 0),
         totalVersions: state.pis.reduce((sum, p) => sum + p.includedVersions.length, 0)
       }
+    },
+
+    /**
+     * 兼容旧API：piVersions（映射到pis）
+     */
+    piVersions: (state) => {
+      // 将新的PI格式转换为旧的piVersion格式
+      return state.pis.map(pi => ({
+        id: pi.piId,
+        name: pi.piName,
+        number: pi.piNumber,
+        startDate: pi.startDate,
+        endDate: pi.endDate,
+        startIteration: pi.startIterationNumber,
+        endIteration: pi.endIterationNumber,
+        status: pi.status.planningStatus,
+        milestone: pi.alignedMilestone.milestoneName
+      }))
     }
   },
 
@@ -296,6 +314,18 @@ export const usePIStore = defineStore('pi', {
       this.loading = false
       this.error = null
       this.filters = {}
+    },
+
+    /**
+     * 兼容旧API：fetchPIVersions（映射到fetchPIs）
+     */
+    async fetchPIVersions(projectId?: string) {
+      console.log('⚠️ fetchPIVersions is deprecated, use fetchPIs instead')
+      // 如果没有传projectId，尝试从pis.json中加载
+      if (!projectId && this.pis.length === 0) {
+        return await this.fetchPIs()
+      }
+      return await this.fetchPIs(projectId)
     }
   }
 })
