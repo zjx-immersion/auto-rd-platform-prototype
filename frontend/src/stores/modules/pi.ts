@@ -142,14 +142,16 @@ export const usePIStore = defineStore('pi', {
             number: pi.piNumber || pi.code,
             sprintCount: pi.iterationCount || pi.sprintCount || pi.endIterationNumber || 1,
             status: pi.status?.planningStatus || pi.status || 'draft',
-            // 确保risks字段存在（避免页面访问undefined）
-            risks: pi.risks || []
+            // 确保risks和objectives字段存在（避免页面访问undefined）
+            risks: pi.risks || [],
+            objectives: pi.objectives || []
           } as PI
           console.log('✅ PI Store: 已设置currentPI', this.currentPI.id, '字段:', {
             name: this.currentPI.name,
             sprintCount: (this.currentPI as any).sprintCount,
             status: (this.currentPI as any).status,
-            risks: (this.currentPI as any).risks.length
+            risks: (this.currentPI as any).risks.length,
+            objectives: (this.currentPI as any).objectives.length
           })
         } else {
           this.error = 'PI不存在'

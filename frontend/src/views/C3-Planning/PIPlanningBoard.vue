@@ -283,7 +283,19 @@ const availableProducts = computed(() => assetStore.products)
 
 const sprintList = computed(() => {
   if (!currentPI.value) return []
-  return sprintStore.sprints.filter(s => s.piId === currentPI.value.id)
+  // 兼容ID大小写不匹配（sprint数据中piId可能是小写pi-001，而currentPI.id是大写PI-001）
+  const currentPIIdLower = currentPI.value.id.toLowerCase()
+  const matchedSprints = sprintStore.sprints.filter(s => {
+    const sprintPIIdLower = (s.piId || '').toLowerCase()
+    return sprintPIIdLower === currentPIIdLower
+  })
+  console.log('🔍 Sprint匹配:', {
+    currentPIId: currentPI.value.id,
+    totalSprints: sprintStore.sprints.length,
+    matchedCount: matchedSprints.length,
+    matchedIds: matchedSprints.map(s => s.id)
+  })
+  return matchedSprints
 })
 
 const filteredFeatures = computed(() => {
