@@ -434,11 +434,18 @@ const featureTreeData = computed(() => {
   if (!selectedTeamId.value) return []
   
   const treeData: any[] = []
+  let featureFoundCount = 0
+  let sstsFoundCount = 0
+  let mrFoundCount = 0
   
   // 遍历该团队相关的Feature
   teamFeatureIds.value.forEach(featureId => {
     const feature = features.value.find(f => f.id === featureId)
-    if (!feature) return
+    if (!feature) {
+      console.warn('⚠️ Feature未找到:', featureId)
+      return
+    }
+    featureFoundCount++
     
     const featureNode: any = {
       id: `feature-${feature.id}`,
@@ -455,6 +462,7 @@ const featureTreeData = computed(() => {
     )
     
     featureSSTSs.forEach(ssts => {
+      sstsFoundCount++
       const sstsNode: any = {
         id: `ssts-${ssts.id}`,
         code: ssts.code,
@@ -468,6 +476,7 @@ const featureTreeData = computed(() => {
       const sstsMRs = teamMRs.value.filter(mr => mr.sstsId === ssts.id)
       
       sstsMRs.forEach(mr => {
+        mrFoundCount++
         const mrNode: any = {
           id: `mr-${mr.id}`,
           code: mr.code,
@@ -488,6 +497,15 @@ const featureTreeData = computed(() => {
     if (featureNode.children.length > 0) {
       treeData.push(featureNode)
     }
+  })
+  
+  console.log('🔍 Stage2 FeatureTreeData:', {
+    selectedTeamId: selectedTeamId.value,
+    teamFeatureIdsCount: teamFeatureIds.value.length,
+    featureFoundCount,
+    sstsFoundCount,
+    mrFoundCount,
+    treeNodesCount: treeData.length
   })
   
   return treeData
