@@ -74,6 +74,7 @@ declare module 'vue' {
     EpicCompletionSetter: typeof import('./../components/DomainProject/EpicCompletionSetter.vue')['default']
     FeatureCompletionDialog: typeof import('./../components/DomainProject/FeatureCompletionDialog.vue')['default']
     FunctionNav: typeof import('./../components/Layout/nav-modes/FunctionNav.vue')['default']
+    IterationAxis: typeof import('./../components/IterationAxis.vue')['default']
     MilestoneAlignmentChecker: typeof import('./../components/DomainProject/MilestoneAlignmentChecker.vue')['default']
     MilestoneProgress: typeof import('./../components/DomainProject/MilestoneProgress.vue')['default']
     PageContainer: typeof import('./../components/Common/PageContainer.vue')['default']
@@ -88,6 +89,8 @@ declare module 'vue' {
     SideNavigation: typeof import('./../components/Layout/SideNavigation.vue')['default']
     TeamLoadCalculator: typeof import('./../components/DomainProject/TeamLoadCalculator.vue')['default']
     TopNavigation: typeof import('./../components/Layout/TopNavigation.vue')['default']
+    VersionCreateWizard: typeof import('./../components/VersionCreateWizard.vue')['default']
+    VersionGantt: typeof import('./../components/VersionGantt.vue')['default']
     WorkspaceNav: typeof import('./../components/Layout/nav-modes/WorkspaceNav.vue')['default']
   }
   export interface ComponentCustomProperties {
