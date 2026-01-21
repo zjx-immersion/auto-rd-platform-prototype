@@ -129,12 +129,25 @@ export const usePIStore = defineStore('pi', {
       
       try {
         // 兼容新旧ID字段：piId || id
-        const pi = this.pis.find((p: any) => 
+        const pi: any = this.pis.find((p: any) => 
           (p.piId === piId) || (p.id === piId)
         )
         if (pi) {
-          this.currentPI = pi
-          console.log('✅ PI Store: 已设置currentPI', pi.piId || (pi as any).id)
+          // 字段映射：兼容旧页面期望的字段名
+          this.currentPI = {
+            ...pi,
+            // 旧页面需要的字段名映射
+            id: pi.piId || pi.id,
+            name: pi.piName || pi.name,
+            number: pi.piNumber || pi.code,
+            sprintCount: pi.iterationCount || pi.sprintCount || pi.endIterationNumber || 1,
+            status: pi.status?.planningStatus || pi.status || 'draft'
+          } as PI
+          console.log('✅ PI Store: 已设置currentPI', this.currentPI.id, '字段:', {
+            name: this.currentPI.name,
+            sprintCount: (this.currentPI as any).sprintCount,
+            status: (this.currentPI as any).status
+          })
         } else {
           this.error = 'PI不存在'
           console.error('❌ PI Store: 未找到PI', piId, '可用ID:', this.pis.map((p: any) => p.piId || p.id))
