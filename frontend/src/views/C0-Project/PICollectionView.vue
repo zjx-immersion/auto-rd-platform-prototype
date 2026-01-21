@@ -52,7 +52,7 @@
           <div class="pi-header">
             <span class="pi-title">{{ pi.piName }}</span>
             <el-tag :type="getAlignmentTagType(pi.alignmentStatus)">
-              {{ pi.alignmentStatus }}
+              {{ getAlignmentText(pi.alignmentStatus) }}
             </el-tag>
           </div>
         </template>
@@ -60,24 +60,29 @@
         <div class="pi-content">
           <div class="pi-section">
             <h4>⏱️ 时间范围</h4>
-            <p>{{ pi.timeRange }}</p>
+            <p>{{ pi.startDate }} ~ {{ pi.endDate }} (迭代{{ pi.startIterationNumber }}-{{ pi.endIterationNumber }}, {{ pi.durationWeeks }}周)</p>
           </div>
 
           <div class="pi-section">
             <h4>🏁 里程碑对齐</h4>
-            <p>{{ pi.milestone }} - Buffer: {{ pi.buffer }}天</p>
+            <p>{{ pi.alignedMilestone.milestoneName }} ({{ pi.alignedMilestone.targetDate }}) - Buffer: {{ pi.milestoneGap }}天</p>
           </div>
 
           <div class="pi-section">
             <h4>📦 包含版本</h4>
-            <el-tag v-for="version in pi.versions" :key="version" size="small" class="version-tag">
-              {{ version }}
+            <el-tag 
+              v-for="version in pi.includedVersions" 
+              :key="version.versionId" 
+              size="small" 
+              class="version-tag"
+            >
+              {{ version.productName }} {{ version.versionNumber }}
             </el-tag>
           </div>
 
           <div class="pi-section">
             <h4>🎯 范围统计</h4>
-            <p>Epic: {{ pi.epicCount }}个 | SP: {{ pi.totalSP }}</p>
+            <p>Epic: {{ pi.epicCount }}个 | Feature: {{ pi.estimatedFeatures }}个 | SP: {{ pi.totalStoryPoints }}</p>
           </div>
 
           <div class="pi-actions">
@@ -94,16 +99,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { usePIStore } from '@/stores/modules/pi'
 
 const route = useRoute()
 const router = useRouter()
+const piStore = usePIStore()
 
 const projectId = ref(route.params.projectId as string)
+const loading = ref(false)
 
-const mockPIs = ref([
+const pis = computed(() => piStore.pis || [])
+const statistics = computed(() => piStore.piStatistics)
+
+const mockPIs_OLD = ref([
   {
     piId: 'PI-001',
     piNumber: 'PI-1',
@@ -143,13 +154,33 @@ const mockPIs = ref([
 ])
 
 const getAlignmentTagType = (status: string) => {
-  if (status.includes('良好')) return 'success'
-  if (status.includes('紧张')) return 'warning'
-  return 'danger'
+  const map: Record<string, any> = {
+    good: 'success',
+    tight: 'warning',
+    risk: 'danger'
+  }
+  return map[status] || 'info'
 }
 
-const refreshPICollection = () => {
-  ElMessage.success('PI集合已刷新')
+const getAlignmentText = (status: string) => {
+  const map: Record<string, string> = {
+    good: '🟢 良好',
+    tight: '🟡 紧张',
+    risk: '🔴 风险'
+  }
+  return map[status] || status
+}
+
+const refreshPICollection = async () => {
+  loading.value = true
+  try {
+    await piStore.fetchPIs(projectId.value)
+    ElMessage.success('PI集合已刷新')
+  } catch (error) {
+    ElMessage.error('刷新失败')
+  } finally {
+    loading.value = false
+  }
 }
 
 const enterPIPlanning = (piId: string) => {
@@ -160,8 +191,19 @@ const goBack = () => {
   router.push(`/function/c0-project/timeline/${projectId.value}`)
 }
 
-onMounted(() => {
+onMounted(async () => {
   console.log('PICollectionView mounted, projectId:', projectId.value)
+  
+  loading.value = true
+  try {
+    await piStore.fetchPIs(projectId.value)
+    console.log('✅ PICollectionView: 已加载PI数据', pis.value.length)
+  } catch (error) {
+    console.error('❌ PICollectionView: 加载失败', error)
+    ElMessage.error('数据加载失败')
+  } finally {
+    loading.value = false
+  }
 })
 </script>
 

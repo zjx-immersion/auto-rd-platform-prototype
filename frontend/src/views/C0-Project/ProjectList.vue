@@ -226,7 +226,7 @@ const projectStore = useProjectStore()
 const userStore = useUserStore()
 
 // 数据
-const loading = ref(false)
+const loading = computed(() => projectStore.loading)
 const dialogVisible = ref(false)
 const dialogTitle = ref('新建项目')
 const formRef = ref<FormInstance>()
@@ -269,7 +269,7 @@ const formRules: FormRules = {
 }
 
 // 计算属性
-const allProjects = computed(() => projectStore.projects)
+const allProjects = computed(() => projectStore.projects || [])
 const allUsers = computed(() => userStore.users || [])
 
 const filteredProjects = computed(() => {

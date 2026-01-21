@@ -61,37 +61,65 @@
         </div>
 
         <div class="version-gantt-area">
+          <VersionGantt
+            v-if="versions.length > 0 && iterations.length > 0"
+            :versions="versions"
+            :milestones="milestones"
+            :total-iterations="iterations.length"
+            @version-select="handleVersionSelect"
+          />
           <el-empty 
-            description="版本甘特图展示区域（待实现）"
+            v-else
+            description="暂无版本数据，请先创建产品版本"
             :image-size="120"
           >
-            <template #image>
-              <el-icon :size="100"><DataLine /></el-icon>
-            </template>
-            <p>将展示：</p>
-            <ul>
-              <li>产品分组折叠</li>
-              <li>版本条状图（可拖拽调整）</li>
-              <li>版本与里程碑对齐关系</li>
-              <li>Epic分配和完成度</li>
-            </ul>
+            <el-button type="primary" @click="createVersion">创建版本</el-button>
           </el-empty>
         </div>
+        
+        <!-- 版本创建向导 -->
+        <VersionCreateWizard
+          v-model:visible="showVersionWizard"
+          :products="[]"
+          :milestones="milestones"
+          :iterations="iterations"
+          :epics="[]"
+          @submit="handleVersionCreate"
+        />
       </div>
     </el-card>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { DataLine } from '@element-plus/icons-vue'
+import { useProjectStore } from '@/stores/modules/project'
+import { useVersionStore } from '@/stores/modules/version'
+import { useIterationStore } from '@/stores/modules/iteration'
+import { usePIStore } from '@/stores/modules/pi'
+import VersionGantt from '@/components/VersionGantt.vue'
+import VersionCreateWizard from '@/components/VersionCreateWizard.vue'
+import type { ProductVersion } from '@/types/version'
+import type { DomainProject } from '@/types/project'
 
 const route = useRoute()
 const router = useRouter()
+const projectStore = useProjectStore()
+const versionStore = useVersionStore()
+const iterationStore = useIterationStore()
+const piStore = usePIStore()
 
 const projectId = ref(route.params.projectId as string)
+const showVersionWizard = ref(false)
+const loading = ref(false)
+
+const project = computed<DomainProject | undefined>(() => projectStore.getProjectById(projectId.value))
+const versions = computed(() => versionStore.versions || [])
+const iterations = computed(() => iterationStore.iterations || [])
+const milestones = computed(() => projectStore.getMilestonesByProjectId(projectId.value) || [])
 
 const milestones = [
   { iteration: 12, name: 'EP' },
@@ -109,24 +137,74 @@ const getMilestone = (iteration: number) => {
 }
 
 const createVersion = () => {
-  ElMessage.info('版本创建向导（3步向导）- 待实现')
+  showVersionWizard.value = true
 }
 
-const generatePICollection = () => {
-  ElMessageBox.confirm(
-    'PI集合将基于当前版本规划自动生成，是否继续？',
-    '生成PI集合',
-    {
-      confirmButtonText: '确认生成',
-      cancelButtonText: '取消',
-      type: 'warning'
+const handleVersionCreate = async (versionData: any) => {
+  try {
+    await versionStore.createVersion(versionData)
+    ElMessage.success('版本创建成功')
+    showVersionWizard.value = false
+    // 重新加载版本数据
+    await versionStore.fetchVersions(projectId.value)
+  } catch (error) {
+    ElMessage.error('版本创建失败')
+  }
+}
+
+const handleVersionSelect = (version: ProductVersion) => {
+  ElMessage.info(`选中版本: ${version.versionNumber}`)
+  // TODO: 显示版本详情面板
+}
+
+const generatePICollection = async () => {
+  try {
+    await ElMessageBox.confirm(
+      'PI集合将基于当前版本规划自动生成，是否继续？',
+      '生成PI集合',
+      {
+        confirmButtonText: '确认生成',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }
+    )
+    
+    loading.value = true
+    
+    // 调用PI Store的生成算法
+    const result = await piStore.generatePIs({
+      projectId: projectId.value,
+      milestones: milestones.value.map(m => ({
+        milestoneId: m.milestoneId,
+        milestoneName: m.milestoneName,
+        targetDate: m.targetDate,
+        iterationNumber: m.iterationNumber || 0
+      })),
+      versions: versions.value.map(v => ({
+        versionId: v.versionId,
+        productName: v.productName,
+        versionNumber: v.versionNumber,
+        startIterationNumber: v.startIterationNumber,
+        endIterationNumber: v.endIterationNumber,
+        alignedMilestoneId: v.alignedMilestoneId,
+        totalStoryPoints: v.totalStoryPoints
+      }))
+    })
+    
+    loading.value = false
+    
+    if (result.success) {
+      ElMessage.success(`PI集合生成成功！共生成${result.generatedPIs.length}个PI`)
+      router.push(`/function/c0-project/pi-collection/${projectId.value}`)
+    } else {
+      ElMessage.error(result.message)
     }
-  ).then(() => {
-    ElMessage.success('PI集合生成成功！')
-    router.push(`/function/c0-project/pi-collection/${projectId.value}`)
-  }).catch(() => {
-    ElMessage.info('已取消')
-  })
+  } catch (error: any) {
+    loading.value = false
+    if (error !== 'cancel') {
+      ElMessage.error('PI生成失败')
+    }
+  }
 }
 
 const saveWorkspace = () => {
@@ -141,8 +219,28 @@ const goBack = () => {
   router.push(`/function/c0-project/timeline/${projectId.value}`)
 }
 
-onMounted(() => {
+onMounted(async () => {
   console.log('VersionPlanningWorkspace mounted, projectId:', projectId.value)
+  
+  loading.value = true
+  try {
+    // 并行加载所有需要的数据
+    await Promise.all([
+      projectStore.fetchProjectById(projectId.value),
+      versionStore.fetchVersions(projectId.value),
+      iterationStore.fetchIterations(projectId.value)
+    ])
+    console.log('✅ VersionPlanningWorkspace: 数据加载完成')
+    console.log('  - 项目:', project.value?.name)
+    console.log('  - 版本数:', versions.value.length)
+    console.log('  - 迭代数:', iterations.value.length)
+    console.log('  - 里程碑数:', milestones.value.length)
+  } catch (error) {
+    console.error('❌ VersionPlanningWorkspace: 数据加载失败', error)
+    ElMessage.error('数据加载失败')
+  } finally {
+    loading.value = false
+  }
 })
 </script>
 

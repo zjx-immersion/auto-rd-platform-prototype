@@ -15,13 +15,14 @@
       </div>
     </div>
 
-    <el-card class="project-info-card">
+    <el-card class="project-info-card" v-loading="loading">
       <h2>{{ projectName }}</h2>
       <div class="project-stats">
         <el-statistic title="项目周期" :value="projectDuration" />
         <el-statistic title="迭代配置" :value="iterationConfig" />
         <el-statistic title="里程碑数" :value="milestoneCount" />
         <el-statistic title="产品版本" :value="versionCount" />
+        <el-statistic title="PI数" :value="piCount" />
       </div>
     </el-card>
 
@@ -49,22 +50,58 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Calendar } from '@element-plus/icons-vue'
+import { useProjectStore } from '@/stores/modules/project'
+import { useVersionStore } from '@/stores/modules/version'
+import { usePIStore } from '@/stores/modules/pi'
+import { ElMessage } from 'element-plus'
 
 const route = useRoute()
 const router = useRouter()
+const projectStore = useProjectStore()
+const versionStore = useVersionStore()
+const piStore = usePIStore()
 
 const projectId = ref(route.params.projectId as string)
-const projectName = ref('岚图H56整车软件研发项目')
-const projectDuration = ref('52周')
-const iterationConfig = ref('2周/迭代，共26个迭代')
-const milestoneCount = ref(3)
-const versionCount = ref(8)
+const loading = ref(false)
 
-onMounted(() => {
+const project = computed(() => projectStore.getProjectById(projectId.value))
+const projectName = computed(() => project.value?.name || '')
+const projectDuration = computed(() => {
+  if (!project.value) return ''
+  const weeks = Math.ceil(
+    (new Date(project.value.endDate).getTime() - new Date(project.value.startDate).getTime()) /
+    (7 * 24 * 60 * 60 * 1000)
+  )
+  return `${weeks}周`
+})
+const iterationConfig = computed(() => 
+  project.value ? `${project.value.iterationWeeks}周/迭代，共${project.value.totalIterations}个迭代` : ''
+)
+const milestoneCount = computed(() => project.value?.milestones?.length || 0)
+const versionCount = computed(() => project.value?.statistics?.totalVersions || 0)
+const piCount = computed(() => project.value?.statistics?.totalPIs || 0)
+
+onMounted(async () => {
   console.log('ProjectTimeline mounted, projectId:', projectId.value)
+  
+  loading.value = true
+  try {
+    // 并行加载项目、版本、PI数据
+    await Promise.all([
+      projectStore.fetchProjectById(projectId.value),
+      versionStore.fetchVersions(projectId.value),
+      piStore.fetchPIs(projectId.value)
+    ])
+    console.log('✅ ProjectTimeline: 数据加载完成')
+  } catch (error) {
+    console.error('❌ ProjectTimeline: 加载失败', error)
+    ElMessage.error('数据加载失败')
+  } finally {
+    loading.value = false
+  }
 })
 
 const goToVersionPlanning = () => {
