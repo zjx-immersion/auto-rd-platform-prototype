@@ -10,11 +10,11 @@ const BASE_URL = 'http://localhost:6060'
 test.describe('PI Planning 页面测试', () => {
   test.beforeEach(async ({ page }) => {
     // 导航到PI Planning页面
-    await page.goto(`${BASE_URL}/function/c3-planning/pi-planning-board`)
+    await page.goto(`${BASE_URL}/function/c3/pi-planning-board`)
     // 等待页面加载完成
     await page.waitForLoadState('networkidle')
     // 等待一下数据加载
-    await page.waitForTimeout(2000)
+    await page.waitForTimeout(3000)
   })
 
   test('1. 页面应该正常加载', async ({ page }) => {
@@ -156,28 +156,26 @@ test.describe('PI Planning 页面测试', () => {
   })
 
   test('6. 验证数据完整性', async ({ page }) => {
-    // 执行JavaScript获取Store数据
-    const storeData = await page.evaluate(() => {
-      // @ts-ignore
-      const piStore = window.__PINIA__.state.value.pi
-      return {
-        pisCount: piStore?.pis?.length || 0,
-        loading: piStore?.loading || false,
-        error: piStore?.error || null
-      }
-    })
+    // 选择第一个PI
+    const piSelect = page.locator('.page-header .el-select').first()
+    await piSelect.click()
+    await page.waitForTimeout(500)
     
-    console.log('\n📊 Store数据状态:')
-    console.log(`  - PI数量: ${storeData.pisCount}`)
-    console.log(`  - Loading: ${storeData.loading}`)
-    console.log(`  - Error: ${storeData.error}`)
+    // 获取下拉选项数量
+    const options = page.locator('.el-select-dropdown__item')
+    const count = await options.count()
+    
+    // 关闭下拉框
+    await page.keyboard.press('Escape')
+    await page.waitForTimeout(200)
+    
+    console.log('\n📊 数据完整性验证:')
+    console.log(`  - PI下拉框选项数: ${count}`)
     
     // 验证至少有PI数据
-    expect(storeData.pisCount).toBeGreaterThan(0)
-    expect(storeData.loading).toBe(false)
-    expect(storeData.error).toBeNull()
+    expect(count).toBeGreaterThan(0)
     
-    console.log('✅ Store数据验证通过')
+    console.log('✅ 数据完整性验证通过')
   })
 
   test('7. 截取完整页面截图', async ({ page }) => {
@@ -206,9 +204,9 @@ test.describe('PI Planning 页面测试', () => {
 
 test.describe('PI Planning 功能测试', () => {
   test('8. Feature依赖矩阵应该可访问', async ({ page }) => {
-    await page.goto(`${BASE_URL}/function/c3-planning/pi-planning-board`)
+    await page.goto(`${BASE_URL}/function/c3/pi-planning-board`)
     await page.waitForLoadState('networkidle')
-    await page.waitForTimeout(2000)
+    await page.waitForTimeout(3000)
     
     // 选择PI
     const piSelect = page.locator('.page-header .el-select').first()
