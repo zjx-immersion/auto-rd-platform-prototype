@@ -28,23 +28,30 @@ export const usePIStore = defineStore('pi', {
      * 根据ID获取PI
      */
     getPIById: (state) => (piId: string): PI | undefined => {
-      return state.pis.find(p => p.piId === piId)
+      // 兼容新旧ID字段：piId || id
+      return state.pis.find((p: any) => 
+        (p.piId === piId) || (p.id === piId)
+      )
     },
 
     /**
      * 根据里程碑ID获取PI列表
      */
     getPIsByMilestoneId: (state) => (milestoneId: string): PI[] => {
-      return state.pis.filter(p => p.alignedMilestone.milestoneId === milestoneId)
+      return state.pis.filter((p: any) => 
+        p.alignedMilestone?.milestoneId === milestoneId
+      )
     },
 
     /**
      * 根据迭代范围获取PI列表
      */
     getPIsByIterationRange: (state) => (startIter: number, endIter: number): PI[] => {
-      return state.pis.filter(p => 
-        p.startIterationNumber <= endIter && p.endIterationNumber >= startIter
-      )
+      return state.pis.filter((p: any) => {
+        const start = p.startIterationNumber || 1
+        const end = p.endIterationNumber || p.sprintCount || 1
+        return start <= endIter && end >= startIter
+      })
     },
 
     /**
@@ -53,11 +60,11 @@ export const usePIStore = defineStore('pi', {
     piStatistics: (state) => {
       return {
         total: state.pis.length,
-        draft: state.pis.filter(p => p.status.planningStatus === 'draft').length,
-        confirmed: state.pis.filter(p => p.status.planningStatus === 'confirmed').length,
-        finalized: state.pis.filter(p => p.status.planningStatus === 'finalized').length,
-        totalStoryPoints: state.pis.reduce((sum, p) => sum + p.totalStoryPoints, 0),
-        totalVersions: state.pis.reduce((sum, p) => sum + p.includedVersions.length, 0)
+        draft: state.pis.filter((p: any) => (p.status?.planningStatus || p.status) === 'draft').length,
+        confirmed: state.pis.filter((p: any) => (p.status?.planningStatus || p.status) === 'confirmed').length,
+        finalized: state.pis.filter((p: any) => (p.status?.planningStatus || p.status) === 'finalized').length,
+        totalStoryPoints: state.pis.reduce((sum, p: any) => sum + (p.totalStoryPoints || p.committedStoryPoints || 0), 0),
+        totalVersions: state.pis.reduce((sum, p: any) => sum + (p.includedVersions?.length || 0), 0)
       }
     },
 
@@ -118,11 +125,16 @@ export const usePIStore = defineStore('pi', {
       this.error = null
       
       try {
-        const pi = this.pis.find(p => p.piId === piId)
+        // 兼容新旧ID字段：piId || id
+        const pi = this.pis.find((p: any) => 
+          (p.piId === piId) || (p.id === piId)
+        )
         if (pi) {
           this.currentPI = pi
+          console.log('✅ PI Store: 已设置currentPI', pi.piId || (pi as any).id)
         } else {
           this.error = 'PI不存在'
+          console.error('❌ PI Store: 未找到PI', piId, '可用ID:', this.pis.map((p: any) => p.piId || p.id))
         }
         this.loading = false
       } catch (error) {
